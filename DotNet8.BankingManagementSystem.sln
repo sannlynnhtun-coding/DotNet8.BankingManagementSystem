@@ -12,6 +12,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.Database", "DotNet8.BankingManagementSystem.Database\DotNet8.BankingManagementSystem.Database.csproj", "{4FC53410-BF0F-4906-A421-FF6DEA3DD3A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.Models", "DotNet8.BankingManagementSystem.Models\DotNet8.BankingManagementSystem.Models.csproj", "{CEDE17F0-65F2-4512-B718-4714D4BFB482}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.Mapper", "DotNet8.BankingManagementSystem.Mapper\DotNet8.BankingManagementSystem.Mapper.csproj", "{467D3E18-F512-453B-BF68-BB50C0432BC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.Shared", "DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj", "{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{64772246-4639-4D7D-A439-0560ED085B15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,11 +36,33 @@ Global
 		{5C788DD0-CBD7-4475-9517-D766C7031BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C788DD0-CBD7-4475-9517-D766C7031BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C788DD0-CBD7-4475-9517-D766C7031BBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC53410-BF0F-4906-A421-FF6DEA3DD3A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FC53410-BF0F-4906-A421-FF6DEA3DD3A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC53410-BF0F-4906-A421-FF6DEA3DD3A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FC53410-BF0F-4906-A421-FF6DEA3DD3A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEDE17F0-65F2-4512-B718-4714D4BFB482}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEDE17F0-65F2-4512-B718-4714D4BFB482}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEDE17F0-65F2-4512-B718-4714D4BFB482}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEDE17F0-65F2-4512-B718-4714D4BFB482}.Release|Any CPU.Build.0 = Release|Any CPU
+		{467D3E18-F512-453B-BF68-BB50C0432BC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{467D3E18-F512-453B-BF68-BB50C0432BC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{467D3E18-F512-453B-BF68-BB50C0432BC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{467D3E18-F512-453B-BF68-BB50C0432BC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EA411AB8-CEBE-47FF-8A88-DC7C24F987D2}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4FC53410-BF0F-4906-A421-FF6DEA3DD3A1} = {64772246-4639-4D7D-A439-0560ED085B15}
+		{467D3E18-F512-453B-BF68-BB50C0432BC5} = {64772246-4639-4D7D-A439-0560ED085B15}
+		{CEDE17F0-65F2-4512-B718-4714D4BFB482} = {64772246-4639-4D7D-A439-0560ED085B15}
+		{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819} = {64772246-4639-4D7D-A439-0560ED085B15}
 	EndGlobalSection
 EndGlobal
