@@ -9,11 +9,6 @@ CREATE TABLE Accounts (
 );
 
 ```
-Deposit
-
-```sql
-
-```
 
 ManageCustomerForm
 ```sql
@@ -44,10 +39,5 @@ CREATE TABLE Transfers (
     Date NVARCHAR(15),
     Amount DECIMAL(18, 2)
 );
-
-```
-
-Withdraw
-```sql
 
 ```
