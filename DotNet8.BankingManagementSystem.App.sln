@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34607.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.App", "DotNet8.BankingManagementSystem.App\DotNet8.BankingManagementSystem.App.csproj", "{5AD51DC6-4283-4118-BC72-0A1075E8F7AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.BackendApi", "DotNet8.BankingManagementSystem.BackendApi\DotNet8.BankingManagementSystem.BackendApi.csproj", "{5C788DD0-CBD7-4475-9517-D766C7031BBE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5AD51DC6-4283-4118-BC72-0A1075E8F7AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD51DC6-4283-4118-BC72-0A1075E8F7AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD51DC6-4283-4118-BC72-0A1075E8F7AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD51DC6-4283-4118-BC72-0A1075E8F7AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C788DD0-CBD7-4475-9517-D766C7031BBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C788DD0-CBD7-4475-9517-D766C7031BBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C788DD0-CBD7-4475-9517-D766C7031BBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C788DD0-CBD7-4475-9517-D766C7031BBE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA411AB8-CEBE-47FF-8A88-DC7C24F987D2}
+	EndGlobalSection
+EndGlobal
