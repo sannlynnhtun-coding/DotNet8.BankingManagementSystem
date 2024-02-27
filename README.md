@@ -1,3 +1,8 @@
+```bash
+dotnet ef dbcontext scaffold "server=.;database=BankingManagementSystem;user id=sa;password=sasa@123;Trust Server Certificate=true;MultipleActiveResultSets=True;", Microsoft.EntityFrameworkCore.SqlServer -o EfAppDbContextModels -c AppDbContext -f
+```
+
+
 https://themimu.info/place-codes
 
 ```sql
