@@ -17,4 +17,9 @@
     <ProjectReference Include="..\DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Township\" />
+    <Folder Include="Features\State\" />
+  </ItemGroup>
+
 </Project>
