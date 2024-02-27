@@ -1,3 +1,4 @@
+https://themimu.info/place-codes
 
 ```sql
 select * from [dbo].[Tbl_PlaceTownship] t
