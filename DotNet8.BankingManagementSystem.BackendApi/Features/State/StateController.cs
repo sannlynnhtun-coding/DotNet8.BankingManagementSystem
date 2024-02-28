@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class StateController : BaseController
     {
         private readonly StateService _stateService;
