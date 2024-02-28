@@ -5,153 +5,123 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
 {
-    public class StateController : Controller
+    public class StateController : BaseController
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly StateService _stateService;
 
-        public StateController(AppDbContext appDbContext)
+        public StateController(StateService stateService)
         {
-            _appDbContext = appDbContext;
-        }
-
-        [HttpGet("stateList")]
-        public IActionResult GetStateList()
-        {
-            try
-            {
-                var stateList = _appDbContext.TblPlaceStates.OrderByDescending(x => x.StateId).AsNoTracking().ToList();
-                return Ok(new MessageResponseListModel()
-                {
-                    IsSuccess = true,
-                    Message = "Success",
-                    StateList = stateList
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _stateService = stateService;
         }
 
         [HttpGet("{pageNo}/{pageSize}")]
-        public IActionResult GetStateByPagination(int pageNo, int pageSize)
+        public async Task<IActionResult> GetStateByPagination(int pageNo, int pageSize)
         {
             try
             {
-                List<TblPlaceState> stateList = _appDbContext
-                    .TblPlaceStates
-                    .OrderByDescending(a => a.StateId)
-                    .Skip((pageNo - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-                return Ok(new MessageResponseListModel
-                {
-                    IsSuccess = true,
-                    Message = "Success",
-                    PageNo = pageNo,
-                    PageSize = pageSize,
-                    StateList = stateList
-                });
+                var model = await _stateService.GetStateList(pageNo, pageSize);
+                return Ok(model);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return InternalServerError(ex);
             }
         }
 
-        [HttpGet("{stateCode}")]
-        public async Task<IActionResult> GetStateByCode(string stateCode)
-        {
-            try
-            {
-                var stateData = await _appDbContext.TblPlaceStates.FirstOrDefaultAsync(x => x.StateCode == stateCode);
-                return Ok(new MessageResponseModel()
-                {
-                    IsSuccess = true,
-                    Message = "Success",
-                    State = stateData!
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //[HttpGet("{stateCode}")]
+        //public async Task<IActionResult> GetStateByCode(string stateCode)
+        //{
+        //    try
+        //    {
+        //        var stateData = await _appDbContext.TblPlaceStates
+        //            .FirstOrDefaultAsync(x => x.StateCode == stateCode);
+        //        return Ok(new MessageResponseModel()
+        //        {
+        //            IsSuccess = true,
+        //            Message = "Success",
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //}
 
-        [HttpPost("createState")]
-        public async Task<IActionResult> CreateState([FromBody] StateRequestModel requestModel)
-        {
-            try
-            {
-                var state = new TblPlaceState
-                {
-                    StateCode = requestModel.StateCode,
-                    StateName = requestModel.StateName
-                };
-                await _appDbContext.TblPlaceStates.AddAsync(state);
-                var result = await _appDbContext.SaveChangesAsync();
-                return Ok(new MessageResponseModel()
-                {
-                    IsSuccess = result > 0,
-                    Message = result > 0 ? "State created successfully" : "State creating failed.",
-                    State = state
-                });
+        //[HttpPost("createState")]
+        //public async Task<IActionResult> CreateState([FromBody] StateRequestModel requestModel)
+        //{
+        //    try
+        //    {
+        //        var state = new TblPlaceState
+        //        {
+        //            StateCode = requestModel.StateCode,
+        //            StateName = requestModel.StateName
+        //        };
+        //        await _appDbContext.TblPlaceStates.AddAsync(state);
+        //        var result = await _appDbContext.SaveChangesAsync();
+        //        return Ok(new MessageResponseModel()
+        //        {
+        //            IsSuccess = result > 0,
+        //            Message = result > 0 ? "State created successfully" : "State creating failed.",
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //}
 
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //[HttpPut("{stateCode}")]
+        //public async Task<IActionResult> UpdateState(string stateCode, [FromBody] StateRequestModel requestModel)
+        //{
+        //    try
+        //    {
+        //        var item = await _appDbContext.TblPlaceStates
+        //            .AsNoTracking()
+        //            .FirstOrDefaultAsync(s => s.StateCode == stateCode);
+        //        if (item == null) return NotFound();
 
-        [HttpPut("{stateCode}")]
-        public async Task<IActionResult> UpdateState(string stateCode, [FromBody] StateRequestModel requestModel)
-        {
-            try
-            {
-                var existingState = await _appDbContext.TblPlaceStates.FirstOrDefaultAsync(s => s.StateCode == stateCode);
-                if (existingState == null) return NotFound();
+        //        item.StateCode = requestModel.StateCode;
+        //        item.StateName = requestModel.StateName;
 
-                existingState.StateCode = requestModel.StateCode;
-                existingState.StateName = requestModel.StateName;
+        //        _appDbContext.Entry(item).State = EntityState.Modified;
+        //        _appDbContext.TblPlaceStates.Update(item);
+        //        var result = await _appDbContext.SaveChangesAsync();
+        //        return Ok(new MessageResponseModel()
+        //        {
+        //            IsSuccess = result > 0,
+        //            Message = result > 0 ? "State created successfully" : "State creating failed.",
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //}
 
-                _appDbContext.TblPlaceStates.Update(existingState);
-                var result = await _appDbContext.SaveChangesAsync();
-                return Ok(new MessageResponseModel()
-                {
-                    IsSuccess = result > 0,
-                    Message = result > 0 ? "State created successfully" : "State creating failed.",
-                    State = existingState
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"An error occurred while updating the state: {ex.Message}");
-            }
-        }
+        //[HttpDelete("{stateCode}")]
+        //public async Task<IActionResult> DeleteState(string stateCode)
+        //{
+        //    try
+        //    {
+        //        var item = await _appDbContext.TblPlaceStates
+        //            .AsNoTracking()
+        //            .FirstOrDefaultAsync(s => s.StateCode == stateCode);
+        //        if (item == null) return NotFound();
 
-        [HttpDelete("{stateCode}")]
-        public async Task<IActionResult> DeleteState(string stateCode)
-        {
-            try
-            {
-                var existingState = await _appDbContext.TblPlaceStates.FirstOrDefaultAsync(s => s.StateCode == stateCode);
-                if (existingState == null) return NotFound();
-
-                _appDbContext.TblPlaceStates.Remove(existingState);
-                var result = await _appDbContext.SaveChangesAsync();
-                return Ok(new MessageResponseModel()
-                {
-                    IsSuccess = result > 0,
-                    Message = result > 0 ? "State deleted successfully" : "State deleting failed.",
-                    State = existingState
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest($"An error occurred while deleting the state: {ex.Message}");
-            }
-        }
-
+        //        _appDbContext.Entry(item).State = EntityState.Deleted;
+        //        _appDbContext.TblPlaceStates.Remove(item);
+        //        var result = await _appDbContext.SaveChangesAsync();
+        //        return Ok(new MessageResponseModel()
+        //        {
+        //            IsSuccess = result > 0,
+        //            Message = result > 0 ? "State deleted successfully" : "State deleting failed.",
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return InternalServerError(ex);
+        //    }
+        //}
     }
 }

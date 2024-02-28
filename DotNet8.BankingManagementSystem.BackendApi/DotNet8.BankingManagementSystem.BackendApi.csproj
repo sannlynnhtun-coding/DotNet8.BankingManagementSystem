@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Township\" />
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+using DotNet8.BankingManagementSystem.BackendApi.Features.State;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,13 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 {
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
 }, ServiceLifetime.Transient, ServiceLifetime.Transient);
+
+
+#region Register Services
+
+builder.Services.AddScoped<StateService>();
+
+#endregion
 
 var app = builder.Build();
 
