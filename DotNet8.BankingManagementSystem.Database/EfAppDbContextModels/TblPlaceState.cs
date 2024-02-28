@@ -11,3 +11,4 @@ public partial class TblPlaceState
 
     public string StateName { get; set; } = null!;
 }
+
