@@ -16,6 +16,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             _stateService = stateService;
         }
 
+        #region GetStateByPagination
         [HttpGet("{pageNo}/{pageSize}")]
         public async Task<IActionResult> GetStateByPagination(int pageNo, int pageSize)
         {
@@ -29,7 +30,9 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 return InternalServerError(ex);
             }
         }
+        #endregion
 
+        #region GetStateByCode
         [HttpGet("{stateCode}")]
         public async Task<IActionResult> GetStateByCode(string stateCode)
         {
@@ -43,7 +46,9 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 return InternalServerError(ex);
             }
         }
+        #endregion
 
+        #region CreateState
         [HttpPost("createState")]
         public async Task<IActionResult> CreateState([FromBody] StateRequestModel requestModel)
         {
@@ -57,7 +62,9 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 return InternalServerError(ex);
             }
         }
+        #endregion
 
+        #region UpdateState
         [HttpPut("{stateCode}")]
         public async Task<IActionResult> UpdateState(string stateCode, [FromBody] StateRequestModel requestModel)
         {
@@ -71,7 +78,9 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 return InternalServerError(ex);
             }
         }
+        #endregion
 
+        #region DeleteState
         [HttpDelete("{stateCode}")]
         public async Task<IActionResult> DeleteState(string stateCode)
         {
@@ -85,5 +94,6 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 return InternalServerError(ex);
             }
         }
+        #endregion
     }
 }
