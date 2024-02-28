@@ -64,7 +64,7 @@ CREATE TABLE [dbo].[Tbl_PlaceState](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Tbl_PlaceTownship]    Script Date: 2024-02-28 2:25:41 AM ******/
+/****** Object:  Table [dbo].[Tbl_PlaceTownship]    Script Date: 2/28/2024 10:03:27 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -73,10 +73,11 @@ CREATE TABLE [dbo].[Tbl_PlaceTownship](
 	[TownshipId] [int] IDENTITY(1,1) NOT NULL,
 	[TownshipCode] [nvarchar](50) NOT NULL,
 	[TownshipName] [nvarchar](50) NOT NULL,
+	[StateCode] [nvarchar](50) NOT NULL,
  CONSTRAINT [PK_Tbl_Township] PRIMARY KEY CLUSTERED 
 (
 	[TownshipId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 /****** Object:  Table [dbo].[Tbl_TransactionHistory]    Script Date: 2024-02-28 2:25:41 AM ******/
