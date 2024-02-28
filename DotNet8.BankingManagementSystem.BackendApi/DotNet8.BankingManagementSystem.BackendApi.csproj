@@ -1,24 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Models\**" />
+		<Content Remove="Models\**" />
+		<EmbeddedResource Remove="Models\**" />
+		<None Remove="Models\**" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DotNet8.BankingManagementSystem.Database\DotNet8.BankingManagementSystem.Database.csproj" />
-    <ProjectReference Include="..\DotNet8.BankingManagementSystem.Mapper\DotNet8.BankingManagementSystem.Mapper.csproj" />
-    <ProjectReference Include="..\DotNet8.BankingManagementSystem.Models\DotNet8.BankingManagementSystem.Models.csproj" />
-    <ProjectReference Include="..\DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Database\DotNet8.BankingManagementSystem.Database.csproj" />
+		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Mapper\DotNet8.BankingManagementSystem.Mapper.csproj" />
+		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Models\DotNet8.BankingManagementSystem.Models.csproj" />
+		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Features\Township\" />
+		<Folder Include="Models\" />
+	</ItemGroup>
 
 </Project>
