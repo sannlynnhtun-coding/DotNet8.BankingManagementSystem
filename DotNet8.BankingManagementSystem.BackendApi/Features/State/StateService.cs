@@ -1,7 +1,9 @@
-﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+﻿using DotNet8.BankingManagementSystem.BackendApi.Models;
+using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.State;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
@@ -35,6 +37,75 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 Data = lst,
                 PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
                 Response = new MessageResponseModel(true, "Success")
+            };
+            return model;
+        }
+
+        public async Task<StateResponseModel> GetStateByCode(string stateCode)
+        {
+            var query = _appDbContext.TblPlaceStates.AsNoTracking();
+            var result = await query
+                .FirstOrDefaultAsync(x => x.StateCode == stateCode);
+            var item = result!.Change();
+
+            StateResponseModel model = new StateResponseModel()
+            {
+                Data = item,
+                Response = new MessageResponseModel(true, "Success")
+            };
+            return model;
+        }
+
+        public async Task<StateResponseModel> CreateState([FromBody] StateRequestModel requestModel)
+        {
+            var item = new TblPlaceState()
+            {
+                StateCode = requestModel.StateCode,
+                StateName = requestModel.StateName,
+            };
+
+            await _appDbContext.TblPlaceStates.AddAsync(item);
+            var result = await _appDbContext.SaveChangesAsync();
+            StateResponseModel model = new StateResponseModel()
+            {
+                Data = item.Change(),
+                Response = new MessageResponseModel(true, "State has created successfully.")
+            };
+            return model;
+        }
+
+        public async Task<StateResponseModel> UpdateState(string stateCode, [FromBody] StateRequestModel requestModel)
+        {
+            var query = _appDbContext.TblPlaceStates.AsNoTracking();
+            var item = await query
+                .FirstOrDefaultAsync(x => x.StateCode == stateCode);
+
+            item!.StateCode = requestModel.StateCode;
+            item.StateName = requestModel.StateName;
+
+            _appDbContext.Entry(item).State = EntityState.Modified;
+            _appDbContext.TblPlaceStates.Update(item);
+            var result = await _appDbContext.SaveChangesAsync();
+            StateResponseModel model = new StateResponseModel()
+            {
+                Data = item.Change(),
+                Response = new MessageResponseModel(true, "State has updated successfully.")
+            };
+            return model;
+        }
+
+        public async Task<StateResponseModel> DeleteState(string stateCode)
+        {
+            var query = _appDbContext.TblPlaceStates.AsNoTracking();
+            var item = await query
+                .FirstOrDefaultAsync(x => x.StateCode == stateCode);
+
+            _appDbContext.Entry(item!).State = EntityState.Deleted;
+            _appDbContext.TblPlaceStates.Remove(item!);
+            var result = await _appDbContext.SaveChangesAsync();
+            StateResponseModel model = new StateResponseModel()
+            {
+                Response = new MessageResponseModel(true, "State has deleted successfully.")
             };
             return model;
         }
