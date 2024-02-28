@@ -44,13 +44,12 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
         public async Task<StateResponseModel> GetStateByCode(string stateCode)
         {
             var query = _appDbContext.TblPlaceStates.AsNoTracking();
-            var result = await query
+            var item = await query
                 .FirstOrDefaultAsync(x => x.StateCode == stateCode);
-            var item = result!.Change();
 
             StateResponseModel model = new StateResponseModel()
             {
-                Data = item,
+                Data = item!.Change(),
                 Response = new MessageResponseModel(true, "Success")
             };
             return model;
