@@ -1,4 +1,5 @@
 ﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.State;
 using Microsoft.EntityFrameworkCore;
@@ -27,12 +28,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             int pageCount = count / pageSize;
             if (count % pageSize > 0) pageCount++;
 
-            var lst = result.Select(x => new StateModel()
-            {
-                StateCode = x.StateCode,
-                StateName = x.StateName,
-                StateId = x.StateId,
-            }).ToList();
+            var lst = result.Select(x => x.Change()).ToList();
 
             StateListResponseModel model = new StateListResponseModel()
             {

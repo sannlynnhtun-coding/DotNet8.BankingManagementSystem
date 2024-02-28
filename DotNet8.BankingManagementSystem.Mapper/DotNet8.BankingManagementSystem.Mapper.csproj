@@ -6,4 +6,9 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DotNet8.BankingManagementSystem.Database\DotNet8.BankingManagementSystem.Database.csproj" />
+      <ProjectReference Include="..\DotNet8.BankingManagementSystem.Models\DotNet8.BankingManagementSystem.Models.csproj" />
+    </ItemGroup>
+
 </Project>
