@@ -1,4 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.BackendApi.Models;
+﻿using DotNet8.BankingManagementSystem.Models.State;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
