@@ -18,7 +18,9 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
         {
             _appDbContext = appDbContext;
         }
-        #region GetTownShipList
+
+        #region Get TownShips
+
         public async Task<TownshipListResponceModel> GetTownShipList(int pageNo, int pageSize)
         {
             var query = _appDbContext.TblPlaceTownships
@@ -43,9 +45,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
             };
             return model;
         }
+
         #endregion
 
-        #region GetTownShipByCode
+        #region Get Township 
+
         public async Task<TownshipResponseModel> GetTownShipByCode(string townshipCode)
         {
             var query = _appDbContext.TblPlaceTownships.AsNoTracking();
@@ -58,9 +62,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
             };
             return model;
         }
+
         #endregion
 
-        #region CreateTownShip
+        #region Create Township
+
         public async Task<TownshipResponseModel> CreateTownShip(TownshipRequestModel requestModel)
         {
             var item = new TblPlaceTownship
@@ -78,9 +84,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
             };
             return model;
         }
+
         #endregion
 
-        #region UpdateTownShip
+        #region Update Township
+
         public async Task<TownshipResponseModel> UpdateTownship(string townshipCode, [FromBody] TownshipRequestModel requestModel)
         {
             var query = _appDbContext.TblPlaceTownships.AsNoTracking();
@@ -100,16 +108,18 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
             };
             return model;
         }
+
         #endregion
 
-        #region DeleteTownShip
-        public async Task<TownshipResponseModel> DeleteTownShip(string TownShipCode)
+        #region Delete Township
+
+        public async Task<TownshipResponseModel> DeleteTownShip(string townShipCode)
         {
             var query = _appDbContext.TblPlaceTownships.AsNoTracking();
-            var item = await query.FirstOrDefaultAsync(x => x.TownshipCode == TownShipCode);
-            //_appDbContext.Entry(item!).State = EntityState.Deleted;
+            var item = await query.FirstOrDefaultAsync(x => x.TownshipCode == townShipCode);
+            _appDbContext.Entry(item!).State = EntityState.Deleted;
             _appDbContext.TblPlaceTownships.Remove(item!);
-            var result = _appDbContext.SaveChangesAsync();
+            var result = await _appDbContext.SaveChangesAsync();
 
             TownshipResponseModel model = new TownshipResponseModel
             {
@@ -117,6 +127,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
             };
             return model;
         }
+
         #endregion
     }
 }
