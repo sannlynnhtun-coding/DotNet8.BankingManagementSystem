@@ -1,0 +1,44 @@
+﻿@page "/general-setup/user"
+@inject IUserApi UserApi
+<h3>P_User</h3>
+
+@{
+    int count = 0;
+}
+@if (_model is not null && _model.Data is not null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">UserId</th>
+                <th scope="col">UserCode</th>
+                <th scope="col">UserName</th>
+                <th scope="col">FullName</th>
+                <th scope="col">MobileNo</th>
+                <th scope="col">Email</th>
+                <th scope="col">Address</th>
+                <th scope="col">StateCode</th>
+                <th scope="col">TownshipCode</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in _model.Data)
+            {
+                <tr>
+                    <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
+                    <td>@item.UserId</td>
+                    <td>@item.UserCode</td>
+                    <td>@item.UserName</td>
+                    <td>@item.FullName</td>
+                    <td>@item.MobileNo</td>
+                    <td>@item.Email</td>
+                    <td>@item.Address</td>
+                    <td>@item.StateCode</td>
+                    <td>@item.TownshipCode</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
+}
