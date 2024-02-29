@@ -1,5 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.BackendApi.Models;
-using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.State;
@@ -26,6 +25,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 .Skip((pageNo - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
+
             var count = await query.CountAsync();
             int pageCount = count / pageSize;
             if (count % pageSize > 0) pageCount++;
