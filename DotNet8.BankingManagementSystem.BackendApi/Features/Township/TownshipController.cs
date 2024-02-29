@@ -15,7 +15,9 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
         {
             _townshipService = townshipService;
         }
-        #region GetTownShipByPagination
+
+        #region Get Townships
+
         [HttpGet("{pageNo}/{pageSize}")]
         public async Task<IActionResult> GetTownShipByPagination(int pageNo, int pageSize)
         {
@@ -29,9 +31,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
                 return InternalServerError(ex);
             }
         }
+
         #endregion]
 
-        #region GetTownshipByCode
+        #region Get Township
+
         [HttpGet("{townshipCode}")]
         public async Task<IActionResult> GetTownShipByCode(string townshipCode)
         {
@@ -45,9 +49,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
                 return InternalServerError(ex);
             }
         }
+
         #endregion
 
-        #region CreateTownShip
+        #region Create Township
+
         [HttpPost("createTownShip")]
         public async Task<IActionResult> CreateTownShip([FromBody] TownshipRequestModel requestModel)
         {
@@ -61,9 +67,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
                 return InternalServerError(ex);
             }
         }
+
         #endregion
 
-        #region UpdateTownship
+        #region Update Township
+
         [HttpPut("{townshipCode}")]
         public async Task<IActionResult> UpdateTownship(string townshipCode, [FromBody] TownshipRequestModel requestModel)
         {
@@ -77,9 +85,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
                 return InternalServerError(ex);
             }
         }
+
         #endregion
 
-        #region DeleteTownShip
+        #region Delete TownShip
+
         [HttpDelete("{townShipCode}")]
         public async Task<IActionResult> DeleteTownShip(string townShipCode)
         {
@@ -93,6 +103,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
                 return InternalServerError(ex);
             }
         }
+
         #endregion
     }
 }
