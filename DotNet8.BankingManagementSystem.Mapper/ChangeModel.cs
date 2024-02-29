@@ -1,6 +1,7 @@
 ﻿using DotNet8.BankingManagementSystem.BackendApi.Models;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Models.State;
+using DotNet8.BankingManagementSystem.Models.Township;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 
 namespace DotNet8.BankingManagementSystem.Mapper;
@@ -28,12 +29,13 @@ public static class ChangeModel
         };
         return model;
     }
+    public static TownshipModel Change(this TblPlaceTownship item)
 
     #endregion
 
     public static TownShipModel Change(this TblPlaceTownship item)
     {
-        return new TownShipModel()
+        return new TownshipModel()
         {
             TownshipId = item.TownshipId,
             TownshipCode = item.TownshipCode,
