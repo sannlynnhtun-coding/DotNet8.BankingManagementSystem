@@ -1,7 +1,5 @@
 ﻿using DotNet8.BankingManagementSystem.BackendApi.Models;
-using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
 {
@@ -16,7 +14,8 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             _stateService = stateService;
         }
 
-        #region GetStateByPagination
+        #region Get States
+
         [HttpGet("{pageNo}/{pageSize}")]
         public async Task<IActionResult> GetStateByPagination(int pageNo, int pageSize)
         {
@@ -30,9 +29,10 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 return InternalServerError(ex);
             }
         }
+
         #endregion
 
-        #region GetStateByCode
+        #region Get State
         [HttpGet("{stateCode}")]
         public async Task<IActionResult> GetStateByCode(string stateCode)
         {
@@ -48,7 +48,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
         }
         #endregion
 
-        #region CreateState
+        #region Create State
         [HttpPost("createState")]
         public async Task<IActionResult> CreateState([FromBody] StateRequestModel requestModel)
         {
