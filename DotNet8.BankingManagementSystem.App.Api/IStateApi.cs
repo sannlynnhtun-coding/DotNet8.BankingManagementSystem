@@ -1,5 +1,4 @@
 ﻿using Refit;
-using DotNet8.BankingManagementSystem.BackendApi.Models;
 using DotNet8.BankingManagementSystem.Models.State;
 
 namespace DotNet8.BankingManagementSystem.App.Api
