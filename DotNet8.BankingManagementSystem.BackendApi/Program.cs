@@ -1,13 +1,25 @@
-using DotNet8.BankingManagementSystem.App.Api;
+using DotNet8.BankingManagementSystem.BackendApi;
 using DotNet8.BankingManagementSystem.BackendApi.Features.State;
 using DotNet8.BankingManagementSystem.BackendApi.Features.Township;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using Microsoft.EntityFrameworkCore;
-using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            //.AllowCredentials();
+        });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -28,9 +40,12 @@ builder.Services.AddScoped<TownshipService>();
 
 #endregion
 
-builder.Services
-    .AddRefitClient<IStateApi>()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration.GetSection("ApiUrl").Value!));
+//builder.Services
+//    .AddRefitClient<IStateApi>()
+//    .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration.GetSection("ApiUrl").Value!));
+
+//builder.Services.AddRefitService<IStateApi>(builder.Configuration);
+//builder.Services.AddRefitService<ITownshipApi>(builder.Configuration);
 
 var app = builder.Build();
 
@@ -44,6 +59,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("AllowAll");
 
 app.MapControllers();
 

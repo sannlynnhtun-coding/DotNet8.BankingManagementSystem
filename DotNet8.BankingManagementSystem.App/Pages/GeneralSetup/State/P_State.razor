@@ -1,5 +1,30 @@
-﻿<h3>P_State</h3>
+﻿@page "/general-setup/state"
+@inject IStateApi StateApi
 
-@code {
-
+<h3>P_State</h3>
+@{
+    int count = 0;
+}
+@if (_model is not null && _model.Data is not null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">State Code</th>
+                <th scope="col">State Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in _model.Data)
+            {
+                <tr>
+                    <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
+                    <td>@item.StateCode</td>
+                    <td>@item.StateName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
 }

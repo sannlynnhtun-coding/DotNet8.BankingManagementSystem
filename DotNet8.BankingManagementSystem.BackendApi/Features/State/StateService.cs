@@ -23,6 +23,8 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 .AsNoTracking();
             var result = await query
                 .OrderByDescending(x => x.StateId)
+                .Skip((pageNo - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
             var count = await query.CountAsync();
             int pageCount = count / pageSize;

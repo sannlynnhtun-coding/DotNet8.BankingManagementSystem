@@ -2,6 +2,8 @@
 
 public class MessageResponseModel
 {
+    public MessageResponseModel(){}
+
     public MessageResponseModel(bool isSuccess, string message)
     {
         IsSuccess = isSuccess;
@@ -15,5 +17,6 @@ public class MessageResponseModel
     }
 
     public bool IsSuccess { get; set; }
+    public bool IsError => !IsSuccess;
     public string Message { get; set; }
 }
