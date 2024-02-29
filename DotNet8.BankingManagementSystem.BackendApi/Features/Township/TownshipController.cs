@@ -1,5 +1,4 @@
 ﻿using DotNet8.BankingManagementSystem.BackendApi.Features.State;
-using DotNet8.BankingManagementSystem.BackendApi.Models;
 using DotNet8.BankingManagementSystem.Models.Township;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 using Microsoft.AspNetCore.Mvc;
