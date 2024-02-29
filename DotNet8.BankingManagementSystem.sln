@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSy
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{64772246-4639-4D7D-A439-0560ED085B15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.App.Api", "DotNet8.BankingManagementSystem.App.Api\DotNet8.BankingManagementSystem.App.Api.csproj", "{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.App.Api", "DotNet8.BankingManagementSystem.App.Api\DotNet8.BankingManagementSystem.App.Api.csproj", "{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
