@@ -4,7 +4,6 @@ using DotNet8.BankingManagementSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 using DotNet8.BankingManagementSystem.Models.State;
-using DotNet8.BankingManagementSystem.BackendApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using DotNet8.BankingManagementSystem.Models.Township;
