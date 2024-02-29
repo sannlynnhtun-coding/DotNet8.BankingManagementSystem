@@ -1,4 +1,5 @@
-﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+﻿using DotNet8.BankingManagementSystem.BackendApi.Models;
+using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Models.State;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 
@@ -15,6 +16,21 @@ public static class ChangeModel
             StateId = item.StateId,
         };
     }
+
+    #region State
+
+    public static TblPlaceState Change(this StateRequestModel item)
+    {
+        var model = new TblPlaceState()
+        {
+            StateCode = item.StateCode,
+            StateName = item.StateName,
+        };
+        return model;
+    }
+
+    #endregion
+
     public static TownShipModel Change(this TblPlaceTownship item)
     {
         return new TownShipModel()

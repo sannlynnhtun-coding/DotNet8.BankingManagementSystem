@@ -3,7 +3,6 @@ using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.State;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
@@ -57,13 +56,9 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
         #endregion
 
         #region CreateState
-        public async Task<StateResponseModel> CreateState([FromBody] StateRequestModel requestModel)
+        public async Task<StateResponseModel> CreateState(StateRequestModel requestModel)
         {
-            var item = new TblPlaceState()
-            {
-                StateCode = requestModel.StateCode,
-                StateName = requestModel.StateName,
-            };
+            var item = requestModel.Change();
             await _appDbContext.TblPlaceStates.AddAsync(item);
             var result = await _appDbContext.SaveChangesAsync();
 
@@ -77,12 +72,16 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
         #endregion
 
         #region UpdateState
-        public async Task<StateResponseModel> UpdateState(string stateCode, [FromBody] StateRequestModel requestModel)
+        public async Task<StateResponseModel> UpdateState(string stateCode, StateRequestModel requestModel)
         {
             var query = _appDbContext.TblPlaceStates.AsNoTracking();
             var item = await query
                 .FirstOrDefaultAsync(x => x.StateCode == stateCode);
-            item!.StateCode = requestModel.StateCode;
+            if (item is null)
+            {
+                throw new Exception("State is null.");
+            }
+            item.StateCode = requestModel.StateCode;
             item.StateName = requestModel.StateName;
             _appDbContext.Entry(item).State = EntityState.Modified;
             _appDbContext.TblPlaceStates.Update(item);
@@ -104,7 +103,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             var item = await query
                 .FirstOrDefaultAsync(x => x.StateCode == stateCode);
             _appDbContext.Entry(item!).State = EntityState.Deleted;
-            _appDbContext.TblPlaceStates.Remove(item!);
+            //_appDbContext.TblPlaceStates.Remove(item!);
             var result = await _appDbContext.SaveChangesAsync();
 
             StateResponseModel model = new StateResponseModel()
