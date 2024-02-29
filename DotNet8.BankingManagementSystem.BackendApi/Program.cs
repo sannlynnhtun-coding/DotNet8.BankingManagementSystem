@@ -1,7 +1,9 @@
+using DotNet8.BankingManagementSystem.App.Api;
 using DotNet8.BankingManagementSystem.BackendApi.Features.State;
 using DotNet8.BankingManagementSystem.BackendApi.Features.Township;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using Microsoft.EntityFrameworkCore;
+using Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,10 @@ builder.Services.AddScoped<TownshipService>();
 
 
 #endregion
+
+builder.Services
+    .AddRefitClient<IStateApi>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(builder.Configuration.GetSection("ApiUrl").Value!));
 
 var app = builder.Build();
 
