@@ -33,6 +33,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
         #endregion
 
         #region Get State
+
         [HttpGet("{stateCode}")]
         public async Task<IActionResult> GetStateByCode(string stateCode)
         {
@@ -46,9 +47,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 return InternalServerError(ex);
             }
         }
+
         #endregion
 
         #region Create State
+
         [HttpPost("createState")]
         public async Task<IActionResult> CreateState([FromBody] StateRequestModel requestModel)
         {
@@ -62,9 +65,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 return InternalServerError(ex);
             }
         }
+
         #endregion
 
         #region UpdateState
+
         [HttpPut("{stateCode}")]
         public async Task<IActionResult> UpdateState(string stateCode, [FromBody] StateRequestModel requestModel)
         {
@@ -78,9 +83,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 return InternalServerError(ex);
             }
         }
+
         #endregion
 
         #region DeleteState
+
         [HttpDelete("{stateCode}")]
         public async Task<IActionResult> DeleteState(string stateCode)
         {
@@ -94,6 +101,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
                 return InternalServerError(ex);
             }
         }
+
         #endregion
     }
 }
