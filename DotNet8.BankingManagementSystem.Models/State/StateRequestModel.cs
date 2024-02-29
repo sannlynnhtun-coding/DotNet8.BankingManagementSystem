@@ -1,4 +1,4 @@
-﻿namespace DotNet8.BankingManagementSystem.BackendApi.Models
+﻿namespace DotNet8.BankingManagementSystem.Models.State
 {
     public class StateRequestModel
     {
