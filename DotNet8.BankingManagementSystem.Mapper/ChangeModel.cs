@@ -1,8 +1,7 @@
-﻿using DotNet8.BankingManagementSystem.BackendApi.Models;
-using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Models.State;
 using DotNet8.BankingManagementSystem.Models.Township;
-using DotNet8.BankingManagementSystem.Models.TownShip;
+using DotNet8.BankingManagementSystem.Models.Users;
 
 namespace DotNet8.BankingManagementSystem.Mapper;
 
@@ -30,6 +29,7 @@ public static class ChangeModel
     }
     #endregion
 
+    #region Township
     public static TownshipModel Change(this TblPlaceTownship item)
     {
         return new TownshipModel()
@@ -40,4 +40,24 @@ public static class ChangeModel
             StateCode = item.StateCode,
         };
     }
+
+    #endregion
+
+    #region Users
+    public static UserModel Change(this TblUser item)
+    {
+        var model = new UserModel()
+        {
+            UserName = item.UserName,
+            FullName = item.FullName,
+            Email = item.Email,
+            Address = item.Address,
+            MobileNo = item.MobileNo,
+            Nrc = item.Nrc,
+        };
+        return model;
+    }
+
+    #endregion
+
 }
