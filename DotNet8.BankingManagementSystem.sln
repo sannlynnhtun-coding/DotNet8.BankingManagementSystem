@@ -3,24 +3,26 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34607.79
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.App", "DotNet8.BankingManagementSystem.App\DotNet8.BankingManagementSystem.App.csproj", "{5AD51DC6-4283-4118-BC72-0A1075E8F7AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.App", "DotNet8.BankingManagementSystem.App\DotNet8.BankingManagementSystem.App.csproj", "{5AD51DC6-4283-4118-BC72-0A1075E8F7AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.BackendApi", "DotNet8.BankingManagementSystem.BackendApi\DotNet8.BankingManagementSystem.BackendApi.csproj", "{5C788DD0-CBD7-4475-9517-D766C7031BBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.BackendApi", "DotNet8.BankingManagementSystem.BackendApi\DotNet8.BankingManagementSystem.BackendApi.csproj", "{5C788DD0-CBD7-4475-9517-D766C7031BBE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{5B3424F8-FDA6-4FC0-A9A2-589D25ACBB81}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.Database", "DotNet8.BankingManagementSystem.Database\DotNet8.BankingManagementSystem.Database.csproj", "{4FC53410-BF0F-4906-A421-FF6DEA3DD3A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.Database", "DotNet8.BankingManagementSystem.Database\DotNet8.BankingManagementSystem.Database.csproj", "{4FC53410-BF0F-4906-A421-FF6DEA3DD3A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.Models", "DotNet8.BankingManagementSystem.Models\DotNet8.BankingManagementSystem.Models.csproj", "{CEDE17F0-65F2-4512-B718-4714D4BFB482}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.Models", "DotNet8.BankingManagementSystem.Models\DotNet8.BankingManagementSystem.Models.csproj", "{CEDE17F0-65F2-4512-B718-4714D4BFB482}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.Mapper", "DotNet8.BankingManagementSystem.Mapper\DotNet8.BankingManagementSystem.Mapper.csproj", "{467D3E18-F512-453B-BF68-BB50C0432BC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.Mapper", "DotNet8.BankingManagementSystem.Mapper\DotNet8.BankingManagementSystem.Mapper.csproj", "{467D3E18-F512-453B-BF68-BB50C0432BC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.Shared", "DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj", "{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.Shared", "DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj", "{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{64772246-4639-4D7D-A439-0560ED085B15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.App.Api", "DotNet8.BankingManagementSystem.App.Api\DotNet8.BankingManagementSystem.App.Api.csproj", "{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,17 +54,22 @@ Global
 		{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {EA411AB8-CEBE-47FF-8A88-DC7C24F987D2}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4FC53410-BF0F-4906-A421-FF6DEA3DD3A1} = {64772246-4639-4D7D-A439-0560ED085B15}
-		{467D3E18-F512-453B-BF68-BB50C0432BC5} = {64772246-4639-4D7D-A439-0560ED085B15}
 		{CEDE17F0-65F2-4512-B718-4714D4BFB482} = {64772246-4639-4D7D-A439-0560ED085B15}
+		{467D3E18-F512-453B-BF68-BB50C0432BC5} = {64772246-4639-4D7D-A439-0560ED085B15}
 		{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819} = {64772246-4639-4D7D-A439-0560ED085B15}
+		{3A4E058B-9D9F-42B6-874D-9A0AA941A03F} = {64772246-4639-4D7D-A439-0560ED085B15}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA411AB8-CEBE-47FF-8A88-DC7C24F987D2}
 	EndGlobalSection
 EndGlobal
