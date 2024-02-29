@@ -19,7 +19,6 @@ public static class ChangeModel
     }
 
     #region State
-
     public static TblPlaceState Change(this StateRequestModel item)
     {
         var model = new TblPlaceState()
@@ -29,11 +28,9 @@ public static class ChangeModel
         };
         return model;
     }
-    public static TownshipModel Change(this TblPlaceTownship item)
-
     #endregion
 
-    public static TownShipModel Change(this TblPlaceTownship item)
+    public static TownshipModel Change(this TblPlaceTownship item)
     {
         return new TownshipModel()
         {
