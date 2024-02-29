@@ -1,5 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.BackendApi.Models;
-using DotNet8.BankingManagementSystem.Models;
+﻿using DotNet8.BankingManagementSystem.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
