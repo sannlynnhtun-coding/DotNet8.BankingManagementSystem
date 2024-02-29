@@ -1,3 +1,35 @@
+```
+BackendApi
+- Controller
+	- Request Model
+		- Ok
+		- Internal Server Error
+- Service
+	- Logic
+		- CRUD
+		- Request Model => AppDbContext (DTO) Data Tranfer Object [StateRequestModel - TblState]
+		- Return
+			- IsSuccess (true, false ?? message)
+			- Message
+			- Read (List)
+			- Edit (Item)
+			- Create, Update, Delete
+
+
+Models
+	- StateModel (item)
+	- StateRequestModel (StateId, StateCode, StateName)
+	- StateResponseModel : IsSuccess, Message
+		- Item
+	- StateListResponseModel : IsSuccess, Message
+		- List
+
+Mapper
+	- StateRequestModel - TblState
+	- TblState - StateModel
+	- StateModel - TblState
+```
+
 ```bash
 dotnet ef dbcontext scaffold "server=.;database=BankingManagementSystem;user id=sa;password=sasa@123;Trust Server Certificate=true;MultipleActiveResultSets=True;", Microsoft.EntityFrameworkCore.SqlServer -o EfAppDbContextModels -c AppDbContext -f
 ```
