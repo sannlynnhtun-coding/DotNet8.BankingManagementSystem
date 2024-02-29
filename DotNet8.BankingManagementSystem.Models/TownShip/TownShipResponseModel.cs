@@ -1,15 +1,10 @@
-﻿using DotNet8.BankingManagementSystem.Models.State;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DotNet8.BankingManagementSystem.Models.TownShip
+﻿namespace DotNet8.BankingManagementSystem.Models.Township
 {
-    public class TownShipResponseModel
+    public class TownshipResponseModel
     {
         public MessageResponseModel Response { get; set; }
-        public TownShipModel Data { get; set; }
+
+        public TownshipModel Data { get; set; }
+
     }
 }

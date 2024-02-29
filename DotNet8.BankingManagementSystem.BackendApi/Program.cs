@@ -1,4 +1,5 @@
 using DotNet8.BankingManagementSystem.BackendApi.Features.State;
+using DotNet8.BankingManagementSystem.BackendApi.Features.Township;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,8 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 #region Register Services
 
 builder.Services.AddScoped<StateService>();
+builder.Services.AddScoped<TownshipService>();
+
 
 #endregion
 
