@@ -12,7 +12,7 @@ namespace DotNet8.BankingManagementSystem.App.Api
         [Get("/api/state/{stateCode}")]
         Task<StateResponseModel> GetStateByCode(string stateCode);
 
-        [Post("/api/state/createState")]
+        [Post("/api/state")]
         Task<StateResponseModel> CreateState(StateRequestModel requestModel);
 
         [Put("/api/state/{stateCode}")]

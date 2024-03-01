@@ -52,7 +52,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
 
         #region Create State
 
-        [HttpPost("createState")]
+        [HttpPost]
         public async Task<IActionResult> CreateState([FromBody] StateRequestModel requestModel)
         {
             try

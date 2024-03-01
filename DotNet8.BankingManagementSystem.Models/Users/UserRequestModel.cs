@@ -2,6 +2,7 @@
 
 public class UserRequestModel
 {
+    public string UserCode { get; set; } = null!;
     public string UserName { get; set; } = null!;
     public string FullName { get; set; } = null!;
     public string MobileNo { get; set; } = null!;

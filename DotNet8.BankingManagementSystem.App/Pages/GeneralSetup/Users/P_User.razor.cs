@@ -21,6 +21,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Users
                 await List(_setting.PageNo, _setting.PageSize);
             }
         }
+
         private async Task List(int pageNo, int pageSize)
         {
             _model = await UserApi.GetStates(pageNo, pageSize);
@@ -36,6 +37,5 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Users
             _setting.PageNo = i;
             await List(_setting.PageNo, _setting.PageSize);
         }
-
     }
 }

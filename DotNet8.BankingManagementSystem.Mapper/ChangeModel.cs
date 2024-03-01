@@ -57,7 +57,18 @@ public static class ChangeModel
         };
         return model;
     }
-
+    public static TblUser Change(this UserRequestModel item)
+    {
+        return new TblUser()
+        {
+            UserName = item.UserName,
+            FullName = item.FullName,
+            Email = item.Email,
+            Address = item.Address,
+            MobileNo = item.MobileNo,
+            Nrc = item.Nrc,
+        };
+    }
     #endregion
 
 }
