@@ -1,11 +1,10 @@
-﻿using DotNet8.BankingManagementSystem.App.Api;
-using DotNet8.BankingManagementSystem.Models.State;
-using DotNet8.BankingManagementSystem.Models;
+﻿using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.Users;
+using Microsoft.AspNetCore.Components;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Users
 {
-    public partial class P_User
+    public partial class P_User : ComponentBase
     {
         private PageSettingModel _setting = new PageSettingModel()
         {
@@ -14,7 +13,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Users
         };
 
         private UserListResponseModel? _model;
-        protected async override Task OnAfterRenderAsync(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {

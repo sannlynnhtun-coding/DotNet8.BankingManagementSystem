@@ -53,7 +53,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
 
         #region Create Township
 
-        [HttpPost("createTownShip")]
+        [HttpPost]
         public async Task<IActionResult> CreateTownShip([FromBody] TownshipRequestModel requestModel)
         {
             try

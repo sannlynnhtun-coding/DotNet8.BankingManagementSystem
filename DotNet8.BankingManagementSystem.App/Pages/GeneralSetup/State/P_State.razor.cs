@@ -1,12 +1,12 @@
 ﻿using DotNet8.BankingManagementSystem.App.Api;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.State;
+using Microsoft.AspNetCore.Components;
 using System.Reflection;
-using static MudBlazor.CategoryTypes;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
 {
-    public partial class P_State
+    public partial class P_State : ComponentBase
     {
         //protected override Task OnInitializedAsync()
         //{
