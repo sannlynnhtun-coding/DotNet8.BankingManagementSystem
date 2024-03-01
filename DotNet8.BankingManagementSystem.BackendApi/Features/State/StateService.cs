@@ -42,6 +42,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
         #endregion
 
         #region GetStateByCode
+
         public async Task<StateResponseModel> GetStateByCode(string stateCode)
         {
             var query = _appDbContext.TblPlaceStates.AsNoTracking();
@@ -55,9 +56,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             };
             return model;
         }
+
         #endregion
 
-        #region CreateState
+        #region Create State
+
         public async Task<StateResponseModel> CreateState(StateRequestModel requestModel)
         {
             var item = requestModel.Change();
@@ -71,14 +74,16 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             };
             return model;
         }
+
         #endregion
 
-        #region UpdateState
+        #region Update State
         public async Task<StateResponseModel> UpdateState(string stateCode, StateRequestModel requestModel)
         {
             var query = _appDbContext.TblPlaceStates.AsNoTracking();
             var item = await query
                 .FirstOrDefaultAsync(x => x.StateCode == stateCode);
+
             if (item is null)
             {
                 throw new Exception("State is null.");
@@ -96,16 +101,18 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             };
             return model;
         }
+
         #endregion
 
-        #region DeleteState
+        #region Delete State
+
         public async Task<StateResponseModel> DeleteState(string stateCode)
         {
             var query = _appDbContext.TblPlaceStates.AsNoTracking();
             var item = await query
                 .FirstOrDefaultAsync(x => x.StateCode == stateCode);
             _appDbContext.Entry(item!).State = EntityState.Deleted;
-            //_appDbContext.TblPlaceStates.Remove(item!);
+            _appDbContext.TblPlaceStates.Remove(item!);
             var result = await _appDbContext.SaveChangesAsync();
 
             StateResponseModel model = new StateResponseModel()
@@ -114,6 +121,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             };
             return model;
         }
+
         #endregion
     }
 }

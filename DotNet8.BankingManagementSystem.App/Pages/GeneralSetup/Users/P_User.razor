@@ -1,44 +1,79 @@
 ﻿@page "/general-setup/user"
 @inject IUserApi UserApi
-<h3>P_User</h3>
-
 @{
     int count = 0;
 }
 @if (_model is not null && _model.Data is not null)
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">UserId</th>
-                <th scope="col">UserCode</th>
-                <th scope="col">UserName</th>
-                <th scope="col">FullName</th>
-                <th scope="col">MobileNo</th>
-                <th scope="col">Email</th>
-                <th scope="col">Address</th>
-                <th scope="col">StateCode</th>
-                <th scope="col">TownshipCode</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in _model.Data)
-            {
-                <tr>
-                    <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
-                    <td>@item.UserId</td>
-                    <td>@item.UserCode</td>
-                    <td>@item.UserName</td>
-                    <td>@item.FullName</td>
-                    <td>@item.MobileNo</td>
-                    <td>@item.Email</td>
-                    <td>@item.Address</td>
-                    <td>@item.StateCode</td>
-                    <td>@item.TownshipCode</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-    <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 mb-4">
+            <span class="text-muted fw-light"> All Customers</span>
+        </h4>
+        <div class="card">
+            <div class="card-datatable table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                    <div class="card-header d-flex rounded-0 flex-wrap py-md-0 ">
+                        <div class="me-5 pe-5 p-3 d-flex gap-10">
+
+                            <div class="dt-buttons">
+                                <button class="dt-button add-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEcommerceCustomerAdd">
+                                    <span>
+                                        <i class="mdi mdi-plus me-0 me-sm-1"></i>
+                                        <span class="d-none d-sm-inline-block">Add Customer</span>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter ">
+                                <label><input type="search" class="form-control ms-0" placeholder="Search Order" aria-controls="DataTables_Table_0"></label>
+                            </div>
+                        </div>
+
+                    </div><table class="datatables-customers table dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+                        <thead class="table-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">UserCode</th>
+                                <th scope="col">UserName</th>
+                                <th scope="col">FullName</th>
+                                <th scope="col">MobileNo</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">StateCode</th>
+                                <th scope="col">TownshipCode</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd">
+                                @foreach (var item in _model.Data)
+                                {
+                                <tr>
+                                    <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
+                                    <td>@item.UserCode</td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.FullName</td>
+                                    <td>@item.MobileNo</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Address</td>
+                                    <td>@item.StateCode</td>
+                                    <td>@item.TownshipCode</td>
+                                </tr>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
+                        <div class="col-sm-12 col-md-6 ">
+                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasEcommerceCustomerAdd" aria-labelledby="offcanvasEcommerceCustomerAddLabel">
+                <div class="offcanvas-header border-bottom">
+                    <h5 id="offcanvasEcommerceCustomerAddLabel" class="offcanvas-title">Add Customer</h5>
+                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
