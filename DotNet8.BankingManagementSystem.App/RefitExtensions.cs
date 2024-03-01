@@ -8,7 +8,7 @@ public static class RefitExtensions
     {
         var httpClientBuilder = services.AddRefitClient<T>()
             //.ConfigureHttpClient(c => c.BaseAddress = new Uri(configuration.GetSection("ApiUrl").Value!));
-            .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:7162"));
+            .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://localhost:44304"));
         return httpClientBuilder;
     }
 }
