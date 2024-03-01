@@ -26,6 +26,8 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
                 .AsNoTracking();
             var result = await query
                 .OrderByDescending(x => x.TownshipId)
+                .Skip((pageNo - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
             var count = await query.CountAsync();
