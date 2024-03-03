@@ -1,7 +1,6 @@
-using DotNet8.BankingManagementSystem.BackendApi;
 using DotNet8.BankingManagementSystem.BackendApi.Features.State;
 using DotNet8.BankingManagementSystem.BackendApi.Features.Township;
-using DotNet8.BankingManagementSystem.BackendApi.Features.Users;
+using DotNet8.BankingManagementSystem.BackendApi.Features.User;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using Microsoft.EntityFrameworkCore;
 
