@@ -20,6 +20,5 @@ namespace DotNet8.BankingManagementSystem.App.Api
 
         [Delete("/api/user/{userCode}")]
         Task<UserResponseModel> DeleteUser(string userCode);
-
     }
 }
