@@ -28,10 +28,14 @@
                     <MudTextField Label="NRC No" Class="mt-3"
                                   @bind-Value="_model.Nrc" For="@(() => _model.Nrc)" />
 
-                    <div class="rz-p-12 rz-text-align-end">
-                        <RadzenLabel Text="Select Value" Component="DropDownDataGridBindValue" Style="margin-right: 8px; vertical-align: middle;" />
-                        <RadzenDropDownDataGrid  Data=@stateName Name="DropDownDataGridBindValue" />
-                    </div>
+                    <MudSelect T="State" @bind-Value="@pizza" ToStringFunc="@converter" Class="pt-3" Label="Select your state" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined" Clearable>
+                        <MudSelectItem Value="@(new State() { Name="Yangon"})" />
+                        <MudSelectItem Value="@(new State() { Name="Mandalay"})" />
+                        <MudSelectItem Value="@(new State() { Name="Pegu"})" />
+                        <MudSelectItem Value="@(new State() { Name="Shan"})" />
+                        <MudSelectItem Value="@(new State() { Name="Sagaing"})" />
+                        <MudSelectItem Value="@(new State() { Name="Rakhine"})" />
+                    </MudSelect>
                 </MudCardContent>
                 <MudCardActions>
                     <MudButton ButtonType=" ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/user" Color="Color.Warning">
@@ -47,8 +51,8 @@
 @code {
     private UserRequestModel _model = new UserRequestModel();
     private UserResponseModel? _item;
-    private IEnumerable<StateModel> data;
-    IEnumerable<string> stateName;
+    State pizza = new State { Name = "Aya" };
+
     private PageSettingModel _setting = new PageSettingModel()
         {
             PageNo = 1,
@@ -76,16 +80,20 @@
         StateHasChanged();
     }
 
-  
-    protected override async Task OnInitializedAsync()
+    public class State
     {
-        var response = await List(_setting.PageNo, _setting.PageSize);
-        data = response?.Data ?? new List<StateModel>();
-        stateName = data.Select(x => x.StateName).ToList();
+        public string Name { get; set; }
+
+        // Note: this is important so the select can compare pizzas
+        public override bool Equals(object o)
+        {
+            var other = o as State;
+            return other?.Name == Name;
+        }
+
+        // Note: this is important so the select can compare pizzas
+        public override int GetHashCode() => Name.GetHashCode();
     }
 
-    private async Task<StateListResponseModel> List(int pageNo, int pageSize)
-    {
-        return await StateApi.GetStates(pageNo, pageSize);
-    }
+    Func<State, string> converter = p => p?.Name;
 }
