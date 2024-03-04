@@ -28,7 +28,6 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
                 await List(_setting.PageNo, _setting.PageSize);
             }
         }
-
         [JSInvokable]
         public void CallbackMethodNo()
         {
