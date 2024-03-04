@@ -47,6 +47,8 @@
 @code {
     private UserRequestModel _model = new UserRequestModel();
     private UserResponseModel? _item;
+    private IEnumerable<StateModel> data;
+    IEnumerable<string> stateName;
     private PageSettingModel _setting = new PageSettingModel()
         {
             PageNo = 1,
@@ -74,9 +76,7 @@
         StateHasChanged();
     }
 
-    private IEnumerable<StateModel> data;
-    IEnumerable<string> stateName;
-   
+  
     protected override async Task OnInitializedAsync()
     {
         var response = await List(_setting.PageNo, _setting.PageSize);
