@@ -1,0 +1,28 @@
+﻿@page "/general-setup/township/create"
+@inject ITownshipApi TownshipApi
+@inject NavigationManager NavigationManager
+
+<EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+
+    <MudGrid Class="justify-content-center">
+        <MudItem xs="12" sm="7">
+            <MudText Typo="Typo.h6" Class="mud-width-full">Township Create Form</MudText>
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="TownshipCode"
+                                  @bind-Value="_model.TownshipCode" For="@(() => _model.TownshipCode)" />
+                    <MudTextField Label="TownshipName" Class="mt-3"
+                                  @bind-Value="_model.TownshipName" For="@(() => _model.TownshipName)" />            
+                    <MudTextField Label="StateCode" Class="mt-3"
+                                  @bind-Value="_model.StateCode" For="@(() => _model.StateCode)" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType=" ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/township" Color="Color.Warning">
+                        Cancel
+                    </MudButton>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-2">Create Township</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
