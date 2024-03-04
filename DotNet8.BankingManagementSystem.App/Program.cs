@@ -16,5 +16,6 @@ builder.Services.AddScoped<NotiflixService>();
 builder.Services.AddRefitService<IStateApi>(builder.Configuration);
 builder.Services.AddRefitService<IUserApi>(builder.Configuration);
 builder.Services.AddRefitService<ITownshipApi>(builder.Configuration);
+//builder.Services.AddScoped<IInjectionService, InjectionService>();
 
 await builder.Build().RunAsync();
