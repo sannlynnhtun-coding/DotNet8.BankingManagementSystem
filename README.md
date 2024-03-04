@@ -1,3 +1,21 @@
+CRUD
+List (Pagination)
+	- EFCore
+	- Dapper
+Create
+	- Validation (Check Required Fields)
+	- Create
+	- Success / Fail
+	- List
+Update
+	- Validation (Check Required Fields)
+	- Update
+	- Success / Fail
+	- List
+Delete
+	- Yes/No
+	- Delete
+
 ```
 BackendApi
 - Controller

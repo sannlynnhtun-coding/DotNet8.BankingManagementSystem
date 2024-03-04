@@ -35,6 +35,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
         {
             _setting.PageNo = i;
             await List(_setting.PageNo, _setting.PageSize);
+            //Nav.NavigateTo("/general-setup/user");
         }
     }
 }
