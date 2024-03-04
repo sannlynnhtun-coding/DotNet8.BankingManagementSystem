@@ -1,0 +1,91 @@
+﻿@page "/general-setup/userRegister"
+@using DotNet8.BankingManagementSystem.Models.State
+@using DotNet8.BankingManagementSystem.Models
+@inject IUserApi UserApi
+@inject IStateApi StateApi
+
+<EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+
+    <MudGrid Class="justify-content-center">
+        <MudItem xs="12" sm="7">
+            <MudText Typo="Typo.h6" Class="mud-width-full">Registration Form</MudText>
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="Fullname"
+                                  @bind-Value="_model.FullName" For="@(() => _model.FullName)" />
+                    <MudTextField Label="Username" Class="mt-3"
+                                  @bind-Value="_model.UserName" For="@(() => _model.UserName)" />
+                    <MudTextField Label="Email" Class="mt-3"
+                                  @bind-Value="_model.Email" For="@(() => _model.Email)" InputType="InputType.Email" />
+                    <MudTextField Label="Password" Class="mt-3"
+                                  @bind-Value="_model.Password" For="@(() => _model.Password)" InputType="InputType.Password" />
+
+                    <MudTextField Label="Mobile No" Class="mt-3"
+                                  @bind-Value="_model.MobileNo" For="@(() => _model.MobileNo)" />
+
+                    <MudTextField Label="Address" Class="mt-3"
+                                  @bind-Value="_model.Address" For="@(() => _model.Address)" />
+                    <MudTextField Label="NRC No" Class="mt-3"
+                                  @bind-Value="_model.Nrc" For="@(() => _model.Nrc)" />
+
+                    <div class="rz-p-12 rz-text-align-end">
+                        <RadzenLabel Text="Select Value" Component="DropDownDataGridBindValue" Style="margin-right: 8px; vertical-align: middle;" />
+                        <RadzenDropDownDataGrid  Data=@stateName Name="DropDownDataGridBindValue" />
+                    </div>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType=" ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/user" Color="Color.Warning">
+                        Cancel
+                    </MudButton>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-2">Register</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
+
+@code {
+    private UserRequestModel _model = new UserRequestModel();
+    private UserResponseModel? _item;
+    private PageSettingModel _setting = new PageSettingModel()
+        {
+            PageNo = 1,
+            PageSize = 10
+        };
+
+    private StateListResponseModel? _stateModel;
+
+    private async Task OnValidSubmit(EditContext context)
+    {
+        try
+        {
+            await Add(_model);
+        }
+        catch (Exception ex)
+        {
+            //Error
+            return;
+        }
+    }
+    public async Task Add(UserRequestModel requestModel)
+    {
+        _item = await UserApi.CreateUser(requestModel);
+
+        StateHasChanged();
+    }
+
+    private IEnumerable<StateModel> data;
+    IEnumerable<string> stateName;
+   
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await List(_setting.PageNo, _setting.PageSize);
+        data = response?.Data ?? new List<StateModel>();
+        stateName = data.Select(x => x.StateName).ToList();
+    }
+
+    private async Task<StateListResponseModel> List(int pageNo, int pageSize)
+    {
+        return await StateApi.GetStates(pageNo, pageSize);
+    }
+}
