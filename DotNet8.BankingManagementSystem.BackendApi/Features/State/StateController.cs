@@ -14,10 +14,24 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             _stateService = stateService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetStates()
+        {
+            try
+            {
+                var model = await _stateService.GetStates();
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         #region Get States
 
         [HttpGet("{pageNo}/{pageSize}")]
-        public async Task<IActionResult> GetStateByPagination(int pageNo, int pageSize)
+        public async Task<IActionResult> GetStateList(int pageNo, int pageSize)
         {
             try
             {

@@ -1,4 +1,4 @@
-﻿namespace DotNet8.BankingManagementSystem.Models.Township
+﻿namespace DotNet8.BankingManagementSystem.Models.TownShip
 {
     public class TownshipResponseModel
     {

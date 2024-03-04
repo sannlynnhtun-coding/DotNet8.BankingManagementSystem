@@ -2,7 +2,7 @@
 using DotNet8.BankingManagementSystem.Models.Users;
 using Microsoft.AspNetCore.Components;
 
-namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Users
+namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
 {
     public partial class P_User : ComponentBase
     {

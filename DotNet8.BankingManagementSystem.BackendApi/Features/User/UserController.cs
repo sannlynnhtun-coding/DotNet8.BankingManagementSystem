@@ -1,5 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.BackendApi.Features.User;
-using DotNet8.BankingManagementSystem.Models.Users;
+﻿using DotNet8.BankingManagementSystem.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.User

@@ -1,7 +1,6 @@
 ﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
-using DotNet8.BankingManagementSystem.Models.State;
 using DotNet8.BankingManagementSystem.Models.Users;
 using Microsoft.EntityFrameworkCore;
 

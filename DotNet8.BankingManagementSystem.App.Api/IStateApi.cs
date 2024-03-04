@@ -5,6 +5,9 @@ namespace DotNet8.BankingManagementSystem.App.Api
 {
     public interface IStateApi
     {
+        [Get("/api/state")]
+        Task<StateListResponseModel> GetStates();
+
         [Get("/api/state/{pageNo}/{pageSize}")]
         Task<StateListResponseModel> GetStates(int pageNo, int pageSize);
 

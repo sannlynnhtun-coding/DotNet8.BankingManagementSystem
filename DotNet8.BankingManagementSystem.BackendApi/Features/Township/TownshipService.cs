@@ -3,10 +3,7 @@ using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
 using Microsoft.EntityFrameworkCore;
 using DotNet8.BankingManagementSystem.Models.TownShip;
-using DotNet8.BankingManagementSystem.Models.State;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
-using DotNet8.BankingManagementSystem.Models.Township;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
 {
@@ -130,5 +127,19 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
         }
 
         #endregion
+
+        public async Task<TownshipListResponceModel> GetTownShipByStateCode(string stateCode)
+        {
+            var query = _appDbContext.TblPlaceTownships.AsNoTracking()
+                .Where(x=> x.StateCode == stateCode);
+            var lst = await query
+                .ToListAsync();
+            TownshipListResponceModel model = new TownshipListResponceModel()
+            {
+                Data = lst.Select(x=> x.Change()).ToList(),
+                Response = new MessageResponseModel(true, "Success")
+            };
+            return model;
+        }
     }
 }

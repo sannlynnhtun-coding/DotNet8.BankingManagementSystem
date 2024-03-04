@@ -15,6 +15,24 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             _appDbContext = appDbContext;
         }
 
+        public async Task<StateListResponseModel> GetStates()
+        {
+            var query = _appDbContext.TblPlaceStates
+                .AsNoTracking();
+            var result = await query
+                .OrderBy(x => x.StateName)
+                .ToListAsync();
+
+            var lst = result.Select(x => x.Change()).ToList();
+
+            StateListResponseModel model = new StateListResponseModel()
+            {
+                Data = lst,
+                Response = new MessageResponseModel(true, "Success")
+            };
+            return model;
+        }
+
         #region GetStateList
         public async Task<StateListResponseModel> GetStateList(int pageNo, int pageSize)
         {

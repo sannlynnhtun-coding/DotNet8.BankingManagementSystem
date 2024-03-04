@@ -1,6 +1,6 @@
 ﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Models.State;
-using DotNet8.BankingManagementSystem.Models.Township;
+using DotNet8.BankingManagementSystem.Models.TownShip;
 using DotNet8.BankingManagementSystem.Models.Users;
 
 namespace DotNet8.BankingManagementSystem.Mapper;

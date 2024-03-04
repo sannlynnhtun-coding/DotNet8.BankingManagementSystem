@@ -1,5 +1,4 @@
 ﻿using Refit;
-using DotNet8.BankingManagementSystem.Models.Township;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 
 namespace DotNet8.BankingManagementSystem.App.Api
@@ -20,5 +19,8 @@ namespace DotNet8.BankingManagementSystem.App.Api
 
         [Delete("/api/Township/{townshipCode}")]
         Task<TownshipResponseModel> DeleteTownship(string townshipCode);
+
+        [Get("/api/Township/StateCode/{stateCode}")]
+        Task<TownshipListResponceModel> GetTownShipByStateCode(string stateCode);
     }
 }

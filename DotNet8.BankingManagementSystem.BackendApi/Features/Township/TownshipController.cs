@@ -1,6 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.BackendApi.Features.State;
-using DotNet8.BankingManagementSystem.Models.Township;
-using DotNet8.BankingManagementSystem.Models.TownShip;
+﻿using DotNet8.BankingManagementSystem.Models.TownShip;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
@@ -104,5 +102,19 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
         }
 
         #endregion
+
+        [HttpGet("StateCode/{stateCode}")]
+        public async Task<IActionResult> GetTownShipByTownshipCode(string stateCode)
+        {
+            try
+            {
+                var model = await _townshipService.GetTownShipByStateCode(stateCode);
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
     }
 }

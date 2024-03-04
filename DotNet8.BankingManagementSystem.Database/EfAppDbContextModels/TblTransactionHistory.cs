@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+﻿namespace DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 
 public partial class TblTransactionHistory
 {

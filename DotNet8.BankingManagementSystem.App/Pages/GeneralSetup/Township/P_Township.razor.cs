@@ -1,5 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.App.Api;
-using DotNet8.BankingManagementSystem.Models;
+﻿using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
