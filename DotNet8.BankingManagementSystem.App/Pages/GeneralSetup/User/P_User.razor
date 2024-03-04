@@ -1,5 +1,7 @@
 ﻿@page "/general-setup/user"
 @inject IUserApi UserApi
+@inject NotiflixService NotificationService
+
 @{
     int count = 0;
 }
@@ -22,12 +24,6 @@
                                         <span class="d-none d-sm-inline-block">Add Customer</span>
                                     </span>
                                 </NavLink>
-                                @* <button class="dt-button add-new btn btn-primary" type="button">
-                                    <span>
-                                        <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                        <span class="d-none d-sm-inline-block">Add Customer</span>
-                                    </span>
-                                </button> *@
                             </div>
                             <div id="DataTables_Table_0_filter" class="dataTables_filter ">
                                 <label><input type="search" class="form-control ms-0" placeholder="Search Order" aria-controls="DataTables_Table_0"></label>

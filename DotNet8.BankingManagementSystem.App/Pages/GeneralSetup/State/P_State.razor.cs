@@ -1,6 +1,7 @@
 ﻿using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.State;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
 {
@@ -23,10 +24,22 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
         {
             if (firstRender)
             {
+                CallbackMethodNo();
                 await List(_setting.PageNo, _setting.PageSize);
             }
         }
+        [JSInvokable]
+        public void CallbackMethodNo()
+        {
+            NotificationService.ShowLoadingAsync("Please wait a moment!");
+            Task.Run(async () =>
+            {
+                await Task.Delay(3000);
+                await NotificationService.HideLoadingAsync();
+                StateHasChanged();
+            });
 
+        }
         private async Task List(int pageNo, int pageSize)
         {
             _model = await StateApi.GetStates(pageNo, pageSize);

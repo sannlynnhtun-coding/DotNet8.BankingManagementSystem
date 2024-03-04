@@ -2,7 +2,7 @@
 @inject IUserApi UserApi
 @inject IStateApi StateApi
 @inject ITownshipApi TownshipApi
-
+@inject NotiflixService NotificationService
 <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
 
     <MudGrid Class="justify-content-center">
@@ -47,7 +47,7 @@
                     </MudSelect>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton ButtonType=" ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/user" Color="Color.Warning">
+                    <MudButton ButtonType="ButtonType.Button" @onclick="@( () => CallbackMethodNo())" Variant="Variant.Filled" Href="/general-setup/user" Color="Color.Warning">
                         Cancel
                     </MudButton>
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-2">Register</MudButton>
@@ -56,3 +56,5 @@
         </MudItem>
     </MudGrid>
 </EditForm>
+
+

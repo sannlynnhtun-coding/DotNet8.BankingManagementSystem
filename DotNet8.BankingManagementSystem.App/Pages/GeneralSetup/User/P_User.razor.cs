@@ -1,6 +1,7 @@
 ﻿using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.Users;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
 {
@@ -17,6 +18,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
         {
             if (firstRender)
             {
+                CallbackMethodNo();
                 await List(_setting.PageNo, _setting.PageSize);
             }
         }
@@ -36,6 +38,19 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
             _setting.PageNo = i;
             await List(_setting.PageNo, _setting.PageSize);
             //Nav.NavigateTo("/general-setup/user");
+        }
+
+        [JSInvokable]
+        public void CallbackMethodNo()
+        {
+            NotificationService.ShowLoadingAsync("Please wait a moment!");
+            Task.Run(async () =>
+            {
+                await Task.Delay(3000);
+                await NotificationService.HideLoadingAsync();
+                StateHasChanged();
+            });
+
         }
     }
 }

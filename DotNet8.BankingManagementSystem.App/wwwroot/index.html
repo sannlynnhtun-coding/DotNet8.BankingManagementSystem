@@ -38,7 +38,8 @@
     <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
     <link rel="stylesheet" href="assets/vendor/libs/typeahead-js/typeahead.css" />
     <link rel="stylesheet" href="assets/vendor/libs/apex-charts/apex-charts.css" />
-
+    <link href="_content/BlazorNotiflix/notiflix.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="path-to-notiflix/notiflix-2.7.0.min.css" />
     <!-- Page CSS -->
     <!-- Helpers -->
     <script src="assets/vendor/js/helpers.js"></script>
@@ -75,7 +76,7 @@
                 </svg>
             </div>
         </div>
-       
+
     </div>
     <div id="blazor-error-ui">
         An unhandled error has occurred.
@@ -102,7 +103,11 @@
 
     <!-- Page JS -->
     <script src="assets/js/dashboards-analytics.js"></script>
-    <!-- Page JS -->
+<!-- Page JS -->
+    <script src="dist/notiflix-loading-aio-X.X.X.min.js"></script>
+    <script src="_content/BlazorNotiflix/notiflix.min.js"></script>
+    <script src="notiflix.js"></script>
+    <script src="path-to-notiflix/notiflix-2.7.0.min.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
     <script src="_content/MudBlazor/MudBlazor.min.js"></script>
