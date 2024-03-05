@@ -27,7 +27,7 @@ namespace DotNet8.BankingManagementSystem.App
             await _jSRuntime.InvokeVoidAsync("enableLoading", false);
         }
 
-        public async Task EndInterval()
+        public async Task IntervalLoading()
         {
             await _jSRuntime.InvokeVoidAsync("intervalLoading", true);
         }
