@@ -3,8 +3,6 @@ using DotNet8.BankingManagementSystem.Models.Users;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.JSInterop;
-using Microsoft.AspNetCore.Components;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
 {

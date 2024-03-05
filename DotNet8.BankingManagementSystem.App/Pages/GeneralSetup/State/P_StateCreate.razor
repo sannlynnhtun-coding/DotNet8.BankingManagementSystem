@@ -1,0 +1,25 @@
+﻿@page "/general-setup/state/create"
+@inject IStateApi StateApi
+@inject InjectService InjectService
+
+<EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+    <MudGrid Class="justify-content-center">
+        <MudItem xs="12" sm="7">
+            <MudText Typo="Typo.h6" Class="mud-width-full">Township Create Form</MudText>
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="StateCode"
+                                  @bind-Value="_model.StateCode" For="@(() => _model.StateCode)" />
+                    <MudTextField Label="StateName" Class="mt-3"
+                                  @bind-Value="_model.StateName" For="@(() => _model.StateName)" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType=" ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/state" Color="Color.Warning">
+                        Cancel
+                    </MudButton>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" @onclick="() => OnValidSubmit(context)" Class="ml-2">Create State</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>

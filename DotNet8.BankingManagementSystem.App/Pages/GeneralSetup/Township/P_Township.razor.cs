@@ -10,6 +10,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
             PageNo = 1,
             PageSize = 10
         };
+
         private TownshipListResponceModel? _model;
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
@@ -19,6 +20,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
                 StateHasChanged();
             }
         }
+
         private async Task List(int pageNo, int pageSize)
         {
             await InjectService.EnableLoading();
@@ -31,6 +33,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
             StateHasChanged();
             await InjectService.DisableLoading();
         }
+
         private async Task PageChanged(int i)
         {
             _setting.PageNo = i;
