@@ -68,17 +68,17 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
         //    NotificationService.ToastWarningAsync("[message]", this, nameof(CallbackMethodSuccess), "param 1 value", 2222);
 
         //}
-        [JSInvokable]
-        public void CallbackMethodNo()
-        {
-            NotificationService.ShowLoadingAsync("Please wait a moment!");
-            Task.Run(async () =>
-            {
-                await Task.Delay(3000);
-                await NotificationService.HideLoadingAsync();
-                StateHasChanged();
-            });
+        //[JSInvokable]
+        //public void CallbackMethodNo()
+        //{
+        //    NotificationService.ShowLoadingAsync("Please wait a moment!");
+        //    Task.Run(async () =>
+        //    {
+        //        await Task.Delay(3000);
+        //        await NotificationService.HideLoadingAsync();
+        //        StateHasChanged();
+        //    });
 
-        }
+        //}
     }
 }
