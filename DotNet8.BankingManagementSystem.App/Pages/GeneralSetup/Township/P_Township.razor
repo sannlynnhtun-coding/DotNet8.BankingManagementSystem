@@ -1,5 +1,6 @@
 ﻿@page "/general-setup/township"
 @inject ITownshipApi TownshipApi
+@inject NotiflixService NotiflixService
 
 @{
     int count = 0;
@@ -17,12 +18,6 @@
                         <div class="me-5 pe-5 p-3 d-flex gap-10">
 
                             <div class="dt-buttons">
-                    @*             <button class="dt-button add-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEcommerceCustomerAdd">
-                                    <span>
-                                        <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                        <span class="d-none d-sm-inline-block">Add Township</span>
-                                    </span>
-                                </button> *@
                                 <NavLink Class="dt-button add-new btn btn-primary" href="general-setup/township/create">
                                     <span>
                                         <i class="mdi mdi-plus me-0 me-sm-1"></i>

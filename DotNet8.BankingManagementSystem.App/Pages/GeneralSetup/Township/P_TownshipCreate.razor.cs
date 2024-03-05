@@ -11,7 +11,6 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
     public partial class P_TownshipCreate
     {
         private TownshipRequestModel _model = new TownshipRequestModel();
-
         private async Task OnValidSubmit(EditContext context)
         {
             try

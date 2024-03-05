@@ -21,6 +21,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
         }
         private async Task List(int pageNo, int pageSize)
         {
+            await InjectService.EnableLoading();
             _model = await TownshipApi.GetTownships(pageNo, pageSize);
             if (_model.Response.IsError)
             {
@@ -28,6 +29,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
                 return;
             }
             StateHasChanged();
+            await InjectService.DisableLoading();
         }
         private async Task PageChanged(int i)
         {
