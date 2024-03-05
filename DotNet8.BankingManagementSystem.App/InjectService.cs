@@ -15,18 +15,20 @@ namespace DotNet8.BankingManagementSystem.App
         {
             await _jSRuntime.InvokeVoidAsync(identifier, args);
         }
+
         public async Task EnableLoading()
         {
-            await _jSRuntime.InvokeVoidAsync("jsFunctions.enableLoading", true);
+            await _jSRuntime.InvokeVoidAsync("enableLoading", true);
         }
+
         public async Task DisableLoading()
         {
-            await _jSRuntime.InvokeVoidAsync("", false);
+            await _jSRuntime.InvokeVoidAsync("enableLoading", false);
         }
+
         public async Task EndInterval()
         {
             await _jSRuntime.InvokeVoidAsync("");
         }
-
     }
 }

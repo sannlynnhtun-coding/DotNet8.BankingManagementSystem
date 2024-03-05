@@ -7,17 +7,6 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
 {
     public partial class P_State : ComponentBase
     {
-        //protected override Task OnInitializedAsync()
-        //{
-        //    return base.OnInitializedAsync();
-        //}
-        private readonly InjectService _injector;
-        public P_State(InjectService injector)
-        {
-            _injector = injector;
-        }
-
-
         private PageSettingModel _setting = new PageSettingModel()
         {
             PageNo = 1,
@@ -26,32 +15,20 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
 
         private StateListResponseModel? _model;
 
-       
+        //[Inject]
+        //public InjectService InjectService { get; set; }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                //CallbackMethodNo();
-                await _injector.EnableLoading();
                 await List(_setting.PageNo, _setting.PageSize);
             }
         }
-        //[JSInvokable]
-        //public void CallbackMethodNo()
-        //{
-        //    NotificationService.ShowLoadingAsync("Please wait a moment!");
-        //    Task.Run(async () =>
-        //    {
-        //        await Task.Delay(3000);
-        //        await NotificationService.HideLoadingAsync();
-        //        StateHasChanged();
-        //    });
-
-        //}
 
         private async Task List(int pageNo, int pageSize)
         {
+            await InjectService.EnableLoading();
             _model = await StateApi.GetStates(pageNo, pageSize);
             if (_model.Response.IsError)
             {
@@ -59,6 +36,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
                 return;
             }
             StateHasChanged();
+            await InjectService.DisableLoading();
         }
 
         private async Task PageChanged(int i)
