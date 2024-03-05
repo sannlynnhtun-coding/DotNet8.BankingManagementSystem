@@ -1,7 +1,6 @@
 ﻿using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.State;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
 {
