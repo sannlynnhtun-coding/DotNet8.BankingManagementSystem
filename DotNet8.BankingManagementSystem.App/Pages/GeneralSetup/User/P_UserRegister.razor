@@ -11,10 +11,13 @@
                 <MudCardContent>
                     <MudTextField Label="Fullname"
                                   @bind-Value="_model.FullName" For="@(() => _model.FullName)" />
+                    
                     <MudTextField Label="Username" Class="mt-3"
                                   @bind-Value="_model.UserName" For="@(() => _model.UserName)" />
+                    
                     <MudTextField Label="Email" Class="mt-3"
                                   @bind-Value="_model.Email" For="@(() => _model.Email)" InputType="InputType.Email" />
+                    
                     <MudTextField Label="Password" Class="mt-3"
                                   @bind-Value="_model.Password" For="@(() => _model.Password)" InputType="InputType.Password" />
 
@@ -23,6 +26,7 @@
 
                     <MudTextField Label="Address" Class="mt-3"
                                   @bind-Value="_model.Address" For="@(() => _model.Address)" />
+                    
                     <MudTextField Label="NRC No" Class="mt-3"
                                   @bind-Value="_model.Nrc" For="@(() => _model.Nrc)" />
 
