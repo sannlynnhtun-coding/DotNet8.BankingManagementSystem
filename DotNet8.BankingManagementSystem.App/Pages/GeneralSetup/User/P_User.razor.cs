@@ -18,21 +18,25 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
         {
             if (firstRender)
             {
-                CallbackMethodNo();
+                //CallbackMethodNo();
                 await List(_setting.PageNo, _setting.PageSize);
             }
         }
 
         private async Task List(int pageNo, int pageSize)
         {
+            await InjectService.EnableLoading();
             _model = await UserApi.GetStates(pageNo, pageSize);
             if (_model.Response.IsError)
             {
                 //
                 return;
             }
+
             StateHasChanged();
+            await InjectService.DisableLoading();
         }
+
         private async Task PageChanged(int i)
         {
             _setting.PageNo = i;
@@ -40,17 +44,16 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
             //Nav.NavigateTo("/general-setup/user");
         }
 
-        [JSInvokable]
-        public void CallbackMethodNo()
-        {
-            NotificationService.ShowLoadingAsync("Please wait a moment!");
-            Task.Run(async () =>
-            {
-                await Task.Delay(3000);
-                await NotificationService.HideLoadingAsync();
-                StateHasChanged();
-            });
-
-        }
+        //[JSInvokable]
+        //public void CallbackMethodNo()
+        //{
+        //    NotificationService.ShowLoadingAsync("Please wait a moment!");
+        //    Task.Run(async () =>
+        //    {
+        //        await Task.Delay(3000);
+        //        await NotificationService.HideLoadingAsync();
+        //        StateHasChanged();
+        //    });
+        //}
     }
 }
