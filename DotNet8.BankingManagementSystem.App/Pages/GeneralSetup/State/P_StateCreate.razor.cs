@@ -6,19 +6,20 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
     public partial class P_StateCreate
     {
         private StateRequestModel _model = new StateRequestModel();
-        private async Task OnValidSubmit(EditContext context)
+
+        private async Task OnValidSubmit()
         {
             try
             {
                 var response = await StateApi.CreateState(_model);
-                StateHasChanged();
+                await InjectService.Go("/general-setup/state");
+                await InjectService.SuccessMessage("Creating Successful.");
             }
             catch (Exception ex)
             {
-                //Error
+                Console.WriteLine(ex.ToString());
                 return;
             }
-            await InjectService.Go("/general-setup/state");
         }
     }
 }

@@ -7,9 +7,10 @@ namespace DotNet8.BankingManagementSystem.App
     {
         private readonly IJSRuntime _jSRuntime;
         private readonly NavigationManager _navigationManager;
-        public InjectService(IJSRuntime jSRuntime)
+        public InjectService(IJSRuntime jSRuntime, NavigationManager navigationManager)
         {
             _jSRuntime = jSRuntime;
+            _navigationManager = navigationManager;
         }
 
         public async Task InvokeVoidAsync(string identifier, params object[] args)
@@ -32,6 +33,16 @@ namespace DotNet8.BankingManagementSystem.App
             await _jSRuntime.InvokeVoidAsync("intervalLoading", true);
         }
 
+        public async Task SuccessMessage(string message)
+        {
+            await _jSRuntime.InvokeVoidAsync("successMessage",message);
+        } 
+        
+        public async Task ErrorMessage(string message)
+        {
+            await _jSRuntime.InvokeVoidAsync("errorMessage", message);
+        }
+        
         public async Task Go(string url)
         {
             _navigationManager.NavigateTo(url);

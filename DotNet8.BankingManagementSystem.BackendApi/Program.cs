@@ -31,7 +31,6 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
 }, ServiceLifetime.Transient, ServiceLifetime.Transient);
 
-
 #region Register Services
 
 builder.Services.AddScoped<StateService>();
