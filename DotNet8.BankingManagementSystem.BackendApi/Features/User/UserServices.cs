@@ -2,6 +2,7 @@
 using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.Users;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.User
@@ -62,10 +63,12 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.User
 
         public async Task<UserResponseModel> CreateUser(UserRequestModel requestModel)
         {
-            var item = requestModel.Change();//need extra changes here
+            var item = requestModel.Change(); //need extra changes here
+            var userCode = GenerateUniqueUserCode();
+            item.UserCode = userCode;
             await _appDbContext.TblUsers.AddAsync(item);
             var result = await _appDbContext.SaveChangesAsync();
-
+        
             UserResponseModel model = new UserResponseModel()
             {
                 Data = item.Change(),
@@ -106,7 +109,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.User
             return model;
         }
 
-        #endregion 
+        #endregion
 
         #region Delete User
 
@@ -118,11 +121,40 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.User
             {
                 throw new Exception("User is null.");
             }
+
             UserResponseModel model = new UserResponseModel
             {
                 Response = new MessageResponseModel(true, "User has deleted successfully.")
             };
             return model;
+        }
+
+        #endregion
+
+        #region Generate user codes
+
+        private string GenerateUniqueUserCode()
+        {
+            string latestUserCode = "AB000";
+
+            if (int.TryParse(latestUserCode.Substring(2), out int numericPart))
+            {
+                numericPart++;
+
+                while (IsUserCodeAlreadyUsed("AB" + numericPart.ToString("D3")))
+                {
+                    numericPart++;
+                }
+
+                return "AB" + numericPart.ToString("D3");
+            }
+
+            return "AB000";
+        }
+        
+        private bool IsUserCodeAlreadyUsed(string userCode)
+        {
+            return _appDbContext.TblUsers.Any(x => x.UserCode == userCode);
         }
 
         #endregion
