@@ -7,7 +7,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
 {
     public partial class P_User : ComponentBase
     {
-        private PageSettingModel _setting = new PageSettingModel()
+        private PageSettingModel _setting = new()
         {
             PageNo = 1,
             PageSize = 10
