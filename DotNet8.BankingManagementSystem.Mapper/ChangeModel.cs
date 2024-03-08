@@ -1,4 +1,5 @@
-﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+﻿using System.Data;
+using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Models.State;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 using DotNet8.BankingManagementSystem.Models.Users;
@@ -48,6 +49,8 @@ public static class ChangeModel
     {
         var model = new UserModel()
         {
+            UserId = item.UserId,
+            UserCode = item.UserCode,
             UserName = item.UserName,
             FullName = item.FullName,
             Email = item.Email,
@@ -55,6 +58,8 @@ public static class ChangeModel
             Address = item.Address,
             MobileNo = item.MobileNo,
             Nrc = item.Nrc,
+            StateCode = item.StateCode,
+            TownshipCode = item.TownshipCode
         };
         return model;
     }
@@ -69,8 +74,11 @@ public static class ChangeModel
             Address = item.Address,
             MobileNo = item.MobileNo,
             Nrc = item.Nrc,
+            StateCode = item.StateCode,
+            TownshipCode = item.TownshipCode
         };
     }
     #endregion
-
+    
+   
 }
