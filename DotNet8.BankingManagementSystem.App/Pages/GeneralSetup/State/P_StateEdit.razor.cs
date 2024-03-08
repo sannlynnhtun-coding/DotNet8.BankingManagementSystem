@@ -1,27 +1,34 @@
 ﻿using DotNet8.BankingManagementSystem.Models.State;
+using Microsoft.AspNetCore.Components;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
 {
     public partial class P_StateEdit
     {
-        private StateResponseModel _model;
+        [Parameter]
+        public string stateCode { get; set; }
+        // private StateResponseModel _model = new StateResponseModel();
+        private StateModel _model = new();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
             {
-                await GetStateByCode(_model.Data.StateCode);
+                await GetStateByCode(stateCode);
             }
         }
+        
         private async Task GetStateByCode(string stateCode)
         {
             await InjectService.EnableLoading();
-            _model = await StateApi.GetStateByCode(stateCode);
-            if (_model.Response.IsError)
+            var result = await StateApi.GetStateByCode(stateCode);
+            if (result.Response.IsError)
             {
                 //
                 return;
             }
+
+            _model = result.Data;
 
             StateHasChanged();
             await InjectService.DisableLoading();
