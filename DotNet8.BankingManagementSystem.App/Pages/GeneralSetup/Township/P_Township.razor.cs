@@ -5,7 +5,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
 {
     public partial class P_Township
     {
-        private PageSettingModel _setting = new PageSettingModel()
+        private PageSettingModel _setting = new()
         {
             PageNo = 1,
             PageSize = 10
