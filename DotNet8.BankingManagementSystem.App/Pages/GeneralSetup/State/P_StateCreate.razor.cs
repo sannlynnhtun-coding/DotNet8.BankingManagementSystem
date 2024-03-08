@@ -5,7 +5,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
 {
     public partial class P_StateCreate
     {
-        private StateRequestModel _model = new StateRequestModel();
+        private StateRequestModel _model = new();
 
         private async Task OnValidSubmit()
         {
@@ -18,7 +18,6 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                return;
             }
         }
     }
