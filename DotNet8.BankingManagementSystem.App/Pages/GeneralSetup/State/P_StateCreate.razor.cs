@@ -1,8 +1,7 @@
 ﻿using DotNet8.BankingManagementSystem.Models.State;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
-{
+namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State;
     public partial class P_StateCreate
     {
         private StateRequestModel _model = new();
@@ -21,4 +20,3 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
             }
         }
     }
-}
