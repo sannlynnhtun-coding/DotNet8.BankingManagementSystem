@@ -5,9 +5,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
 {
     public partial class P_StateEdit
     {
-        [Parameter]
-        public string stateCode { get; set; }
-        // private StateResponseModel _model = new StateResponseModel();
+        [Parameter] public string stateCode { get; set; }
         private StateModel _model = new();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -15,9 +13,10 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
             if (firstRender)
             {
                 await GetStateByCode(stateCode);
+                StateHasChanged();
             }
         }
-        
+
         private async Task GetStateByCode(string stateCode)
         {
             await InjectService.EnableLoading();
@@ -27,26 +26,23 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State
                 //
                 return;
             }
-
             _model = result.Data;
-
             StateHasChanged();
             await InjectService.DisableLoading();
         }
 
         private async Task OnValidSubmit()
         {
-            try
+            var reqModel = new StateRequestModel
             {
-                // var response = await StateApi.CreateState(_model);
-                // await InjectService.Go("/general-setup/state");
-                // await InjectService.SuccessMessage("Creating Successful.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return;
-            }
+                StateCode = _model.StateCode,
+                StateName = _model.StateName
+            };
+
+            var response = await StateApi.UpdateState(stateCode, reqModel);
+            await InjectService.Go("/general-setup/state");
+            await InjectService.SuccessMessage("Updating Successful.");
+            StateHasChanged();
         }
     }
 }
