@@ -42,7 +42,11 @@ namespace DotNet8.BankingManagementSystem.App
         {
             await _jSRuntime.InvokeVoidAsync("errorMessage", message);
         }
-        
+
+        public async Task IsConfirmed()
+        {
+            await _jSRuntime.InvokeVoidAsync("isConfirmed");
+        }
         public async Task Go(string url)
         {
             _navigationManager.NavigateTo(url);
