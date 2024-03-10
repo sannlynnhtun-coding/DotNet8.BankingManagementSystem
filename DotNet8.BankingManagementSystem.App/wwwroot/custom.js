@@ -26,3 +26,34 @@ window.errorMessage = function (message) {
 window.successMessage = function (message) {
     Notiflix.Notify.success(message);
 }
+
+// function confirmMessage(message) {
+//     return new Promise((resolve, reject) => {
+//         Swal.fire({
+//             title: "Confirm",
+//             text: message,
+//             icon: "warning",
+//             showCancelButton: true,
+//         }).then((result) => {
+//             // return result.isConfirmed;
+//             resolve(result.isConfirmed)
+//         });
+//     });
+// }
+
+window.isConfirmed = function () {
+    Notiflix.Confirm.show(
+        'Do you want to delete?',
+        'Are you sure?',
+        'Yes',
+        'No',
+        function okCb() {
+            // alert('Thank you.');
+            successMessage("Deleting Successful.");
+        },
+        function cancelCb() {
+            return;
+        },
+        {},
+    );
+}
