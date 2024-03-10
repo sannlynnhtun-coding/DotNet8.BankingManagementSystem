@@ -1,4 +1,5 @@
 ﻿@page "/general-setup/state" 
+@using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor
 @inject IStateApi StateApi
 @{
     int count = 0;
@@ -51,9 +52,9 @@
                                   <a class="btn btn-warning" href=@($"/general-setup/state/edit/{item.StateCode}")>
                                       <i class="fa-solid fa-pen-to-square"></i>
                                   </a>
-                                    @* <a class="btn btn-danger btnDelete" href="#" data-blog-id="@item.StateId"> *@
-                                    @*     <i class="fa-solid fa-trash"></i> *@
-                                    @* </a> *@
+                                    <a class="btn btn-danger btnDelete" @onclick="() => IsConfirmed()">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         }
