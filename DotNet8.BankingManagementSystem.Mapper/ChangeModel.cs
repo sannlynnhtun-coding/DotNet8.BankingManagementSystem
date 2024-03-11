@@ -52,13 +52,14 @@ public static class ChangeModel
             UserId = item.UserId,
             UserCode = item.UserCode,
             UserName = item.UserName,
+            CustomerId = item.CustomerId,
             FullName = item.FullName,
             Email = item.Email,
             Address = item.Address,
             MobileNo = item.MobileNo,
             Nrc = item.Nrc,
             StateCode = item.StateCode,
-            TownshipCode = item.TownshipCode
+            TownshipCode = item.TownshipCode,
         };
         return model;
     }
