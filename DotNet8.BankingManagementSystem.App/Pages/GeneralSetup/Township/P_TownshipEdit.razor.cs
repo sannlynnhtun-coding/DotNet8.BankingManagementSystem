@@ -17,6 +17,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
                 StateHasChanged();
             }
         }
+
         public async Task GetTownship(string townshipCode)
         {
             await InjectService.EnableLoading();
@@ -29,6 +30,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
             StateHasChanged();
             await InjectService.DisableLoading();
         }
+
         private async Task OnValidSubmit()
         {
             var reqModel = new TownshipRequestModel

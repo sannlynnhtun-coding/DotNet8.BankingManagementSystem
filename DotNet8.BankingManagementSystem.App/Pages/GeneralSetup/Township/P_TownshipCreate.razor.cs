@@ -23,6 +23,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
                 //Error
                 return;
             }
+            await InjectService.SuccessMessage("Create Township Success");
             NavigationManager.NavigateTo("/general-setup/township");
         }
     }

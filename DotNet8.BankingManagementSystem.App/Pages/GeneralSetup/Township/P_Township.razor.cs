@@ -12,6 +12,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
         };
 
         private TownshipListResponceModel? _model;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -39,12 +40,18 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
             _setting.PageNo = i;
             await List(_setting.PageNo, _setting.PageSize);
         }
+
         private async Task Delete(string TownshipCode)
         {
-            await InjectService.EnableLoading();
-            await TownshipApi.DeleteTownship(TownshipCode);
+            var result = await TownshipApi.DeleteTownship(TownshipCode);
+            if (result is not null)
+            {
+                await InjectService.EnableLoading();
+                await List(_setting.PageNo, _setting.PageSize);
+                await InjectService.DisableLoading();
+                await InjectService.SuccessMessage("Deleting Successful.");
+            }
             StateHasChanged();
-            await InjectService.DisableLoading();
         }
     }
 }
