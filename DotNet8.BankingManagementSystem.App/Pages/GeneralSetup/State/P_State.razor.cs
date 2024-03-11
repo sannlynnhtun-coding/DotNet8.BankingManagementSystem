@@ -1,7 +1,7 @@
-﻿using DotNet8.BankingManagementSystem.Models;
+﻿using System.Security.Principal;
+using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.State;
 using Microsoft.AspNetCore.Components;
-using Refit;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.State;
 
@@ -46,13 +46,22 @@ public partial class P_State : ComponentBase
         await List(_setting.PageNo, _setting.PageSize);
     }
 
-    private async Task IsConfirmed()
+    private async Task IsConfirmed(string stateCode)
     {
-        await InjectService.IsConfirmed();
+        // await InjectService.IsConfirmed(stateCode);
+         await Delete(stateCode);
     }
-
-    private async Task<StateResponseModel> Delete(string stateCode)
+    
+    private async Task Delete(string stateCode)
     {
-        return await StateApi.DeleteState(stateCode);
+        var result = await StateApi.DeleteState(stateCode);
+        if (result is not null)
+        {
+            await InjectService.EnableLoading();
+            await List(_setting.PageNo, _setting.PageSize);
+            await InjectService.DisableLoading();
+            await InjectService.SuccessMessage("Deleting Successful.");
+        }
+        StateHasChanged();
     }
 }
