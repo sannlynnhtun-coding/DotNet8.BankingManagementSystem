@@ -40,16 +40,14 @@ window.successMessage = function (message) {
 //         });
 //     });
 // }
-
-window.isConfirmed = function () {
+window.isConfirmed = function (stateCode, dotNetReference) {
     Notiflix.Confirm.show(
         'Do you want to delete?',
         'Are you sure?',
         'Yes',
         'No',
-        function okCb() {
-            // alert('Thank you.');
-            successMessage("Deleting Successful.");
+        async function okCb() {
+            // await dotNetReference.invokeMethodAsync('Delete', stateCode);
         },
         function cancelCb() {
             return;
@@ -57,3 +55,19 @@ window.isConfirmed = function () {
         {},
     );
 }
+
+// window.isConfirmed = function (stateCode,dotNetReference) {
+//     Notiflix.Confirm.show(
+//         'Do you want to delete?',
+//         'Are you sure?',
+//         'Yes',
+//         'No',
+//         function okCb() {
+//             await dotNetReference.invokeMethodAsync('DeleteState', stateCode);
+//         },
+//         function cancelCb() {
+//             return;
+//         },
+//         {},
+//     );
+// }
