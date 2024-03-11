@@ -5,6 +5,5 @@
         public MessageResponseModel Response { get; set; }
 
         public TownshipModel Data { get; set; }
-
     }
 }

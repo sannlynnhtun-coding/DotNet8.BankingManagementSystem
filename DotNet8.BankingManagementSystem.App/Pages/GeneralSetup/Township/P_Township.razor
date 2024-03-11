@@ -41,11 +41,29 @@
                         <tbody>
                             @foreach (var item in _model.Data)
                             {
+                                @*                                 <tr>
+                        <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
+                        <td>@item.TownshipCode</td>
+                        <td>@item.TownshipName</td>
+                        <td>@item.StateCode</td>
+                        <a class="btn btn-warning" href=@($"/general-setup/township/edit/{item.TownshipId}")>
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        </tr> *@
+
                                 <tr>
                                     <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
                                     <td>@item.TownshipCode</td>
                                     <td>@item.TownshipName</td>
                                     <td>@item.StateCode</td>
+                                    <td>
+                                        <a class="btn btn-warning" href=@($"/general-setup/township/edit/{item.TownshipCode}")>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btnDelete" @onclick="() => Delete(@item.TownshipCode)">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
                                 </tr>
                             }
                         </tbody>

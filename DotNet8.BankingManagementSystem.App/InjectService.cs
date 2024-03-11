@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 namespace DotNet8.BankingManagementSystem.App
 {
-    public class InjectService 
+    public class InjectService
     {
         private readonly IJSRuntime _jSRuntime;
         private readonly NavigationManager _navigationManager;
@@ -35,9 +35,9 @@ namespace DotNet8.BankingManagementSystem.App
 
         public async Task SuccessMessage(string message)
         {
-            await _jSRuntime.InvokeVoidAsync("successMessage",message);
-        } 
-        
+            await _jSRuntime.InvokeVoidAsync("successMessage", message);
+        }
+
         public async Task ErrorMessage(string message)
         {
             await _jSRuntime.InvokeVoidAsync("errorMessage", message);
