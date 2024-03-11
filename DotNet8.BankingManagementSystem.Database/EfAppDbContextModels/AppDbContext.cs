@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 
@@ -25,6 +27,7 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
 
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<TblAccount>(entity =>
@@ -33,11 +36,12 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("Tbl_Account");
 
-            entity.Property(e => e.AccountNo).HasMaxLength(50);
-            entity.Property(e => e.AccountType).HasMaxLength(50);
+            entity.Property(e => e.AccountNo)
+                .HasMaxLength(6)
+                .IsUnicode(false)
+                .HasComputedColumnSql("(right('000000'+CONVERT([varchar](6),[AccountId]),(6)))", false);
             entity.Property(e => e.Balance).HasColumnType("decimal(20, 2)");
             entity.Property(e => e.CustomerCode).HasMaxLength(50);
-            entity.Property(e => e.Description).HasMaxLength(255);
         });
 
         modelBuilder.Entity<TblAdminUser>(entity =>
@@ -93,11 +97,14 @@ public partial class AppDbContext : DbContext
             entity.ToTable("Tbl_User");
 
             entity.Property(e => e.Address).HasMaxLength(200);
+            entity.Property(e => e.CustomerId)
+                .HasMaxLength(7)
+                .IsUnicode(false)
+                .HasComputedColumnSql("('C'+right('000000'+CONVERT([varchar](6),[UserId]),(6)))", true);
             entity.Property(e => e.Email).HasMaxLength(50);
             entity.Property(e => e.FullName).HasMaxLength(50);
             entity.Property(e => e.MobileNo).HasMaxLength(15);
             entity.Property(e => e.Nrc).HasMaxLength(50);
-            entity.Property(e => e.Password).HasMaxLength(250);
             entity.Property(e => e.StateCode).HasMaxLength(50);
             entity.Property(e => e.TownshipCode).HasMaxLength(50);
             entity.Property(e => e.UserCode).HasMaxLength(50);

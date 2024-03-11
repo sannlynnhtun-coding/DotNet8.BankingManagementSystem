@@ -1,4 +1,7 @@
-﻿namespace DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+﻿using System;
+using System.Collections.Generic;
+
+namespace DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 
 public partial class TblUser
 {
@@ -7,8 +10,6 @@ public partial class TblUser
     public string UserCode { get; set; } = null!;
 
     public string UserName { get; set; } = null!;
-
-    public string? Password { get; set; }
 
     public string FullName { get; set; } = null!;
 
@@ -23,4 +24,6 @@ public partial class TblUser
     public string StateCode { get; set; } = null!;
 
     public string TownshipCode { get; set; } = null!;
+
+    public string? CustomerId { get; set; }
 }
