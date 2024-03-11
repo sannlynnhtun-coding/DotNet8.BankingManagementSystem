@@ -2,7 +2,6 @@
 using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.Users;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.User
