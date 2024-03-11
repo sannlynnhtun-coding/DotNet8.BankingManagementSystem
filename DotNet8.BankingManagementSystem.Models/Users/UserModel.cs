@@ -5,7 +5,7 @@
         public int UserId { get; set; }
         public string UserCode { get; set; } = null!;
         public string UserName { get; set; } = null!;
-        public string? Password { get; set; }
+        public string? CustomerId { get; set; }
         public string FullName { get; set; } = null!;
         public string MobileNo { get; set; } = null!;
         public string Email { get; set; } = null!;
