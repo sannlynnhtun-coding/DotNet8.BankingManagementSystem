@@ -39,13 +39,12 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
             _setting.PageNo = i;
             await List(_setting.PageNo, _setting.PageSize);
         }
-        private async Task IsComfirmed()
+        private async Task Delete(string TownshipCode)
         {
-            await InjectService.IsConfirmed();
-        }
-        private async Task Delete(int TownshipCode)
-        {
+            await InjectService.EnableLoading();
             await TownshipApi.DeleteTownship(TownshipCode);
+            StateHasChanged();
+            await InjectService.DisableLoading();
         }
     }
 }

@@ -60,7 +60,7 @@
                                         <a class="btn btn-warning" href=@($"/general-setup/township/edit/{item.TownshipCode}")>
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <button type="button" class="btn btn-danger btnDelete" @onclick="() => Delete(@item.TownshipCode)">
+                                        <button type="button" class="btn btn-danger btnDelete" @onclick="() => Delete(item.TownshipCode)">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </td>
