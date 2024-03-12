@@ -1,5 +1,6 @@
 ﻿using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.TownShip;
+using MudBlazor;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
 {
@@ -43,7 +44,17 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
 
         private async Task Delete(string TownshipCode)
         {
-            var result = await TownshipApi.DeleteTownship(TownshipCode);
+            var parameters = new DialogParameters<Dialog>();
+            parameters.Add(x => x.ContentText,
+                "Are you sure want to delete?");
+
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+            var dialog = await DialogService.ShowAsync<Dialog>("Confirm", parameters, options);
+            var result = await dialog.Result;
+            if (result.Canceled) return;
+
+            var townShipresult = await TownshipApi.DeleteTownship(TownshipCode);
             if (result is not null)
             {
                 await InjectService.EnableLoading();
