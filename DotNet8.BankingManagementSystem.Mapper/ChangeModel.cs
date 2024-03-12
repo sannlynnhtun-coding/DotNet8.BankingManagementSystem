@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+using DotNet8.BankingManagementSystem.Models.Account;
 using DotNet8.BankingManagementSystem.Models.State;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 using DotNet8.BankingManagementSystem.Models.Users;
@@ -78,6 +79,29 @@ public static class ChangeModel
         };
     }
     #endregion
-    
-   
+
+    #region Account
+
+    public static TblAccount Change(this AccountRequestModel item)
+    {
+        return new TblAccount()
+        {
+            CustomerCode = item.CustomerCode,
+            // AccountNo = item.AccountNo,
+            Balance = item.Balance
+        };
+    }
+
+    public static AccountModel Change(this TblAccount item)
+    {
+        return new AccountModel()
+        {
+            CustomerCode = item.CustomerCode,
+            AccountNo = item.AccountNo,
+            Balance = item.Balance,
+            AccountId = item.AccountId
+        };
+    } 
+
+    #endregion
 }
