@@ -18,7 +18,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
             }
         }
 
-        public async Task GetTownship(string townshipCode)
+        private async Task GetTownship(string townshipCode)
         {
             await InjectService.EnableLoading();
             var result = await TownshipApi.GetTownship(townShipCode);
