@@ -1,3 +1,4 @@
+using DotNet8.BankingManagementSystem.BackendApi.Features.Account;
 using DotNet8.BankingManagementSystem.BackendApi.Features.State;
 using DotNet8.BankingManagementSystem.BackendApi.Features.Township;
 using DotNet8.BankingManagementSystem.BackendApi.Features.User;
@@ -36,6 +37,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 builder.Services.AddScoped<StateService>();
 builder.Services.AddScoped<TownshipService>();
 builder.Services.AddScoped<UserServices>();
+builder.Services.AddScoped<AccountService>();
 
 #endregion
 
