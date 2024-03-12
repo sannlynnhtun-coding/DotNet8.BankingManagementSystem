@@ -39,7 +39,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
                 TownshipName = _model.TownshipName,
                 StateCode = _model.StateCode,
             };
-            var responce = await TownshipApi.UpdateTownship(townShipCode, reqModel);
+            var response = await TownshipApi.UpdateTownship(townShipCode, reqModel);
             await InjectService.SuccessMessage("Updating Successful.");
             Nav.NavigateTo("/general-setup/township");
             StateHasChanged();
