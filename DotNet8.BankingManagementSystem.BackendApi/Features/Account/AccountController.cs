@@ -1,4 +1,5 @@
 ﻿using DotNet8.BankingManagementSystem.Models.Account;
+using DotNet8.BankingManagementSystem.Models.Transfer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.Account;
@@ -112,6 +113,60 @@ public class AccountController : BaseController
         try
         {
             var model = await _accountService.DeleteAccount(accountNo);
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
+        }
+    }
+
+    #endregion
+
+    #region Deposit
+
+    [HttpPost("Deposit")]
+    public async Task<IActionResult> Deposit(string accountNo, decimal amount)
+    {
+        try
+        {
+            var model = await _accountService.Deposit(accountNo, amount);
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
+        }
+    }
+
+    #endregion
+
+    #region Withdrawl
+
+    [HttpPost("Withdraw")]
+    public async Task<IActionResult> Withdraw(string accountNo, decimal amount)
+    {
+        try
+        {
+            var model = await _accountService.Withdraw(accountNo, amount);
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
+        }
+    }
+
+    #endregion
+
+    #region Transfer
+
+    [HttpPost("Transfer")]
+    public async Task<IActionResult> TransferBalance(TransferModel requestModel)
+    {
+        try
+        {
+            var model = await _accountService.TransferBalance(requestModel);
             return Ok(model);
         }
         catch (Exception ex)
