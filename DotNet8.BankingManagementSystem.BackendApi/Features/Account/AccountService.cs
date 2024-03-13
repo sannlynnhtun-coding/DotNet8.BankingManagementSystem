@@ -66,7 +66,7 @@ public class AccountService
         var item = await query.FirstOrDefaultAsync(x => x.AccountNo == accountNo);
         if (item is null)
         {
-            throw new Exception("Account is not found.");
+            throw new Exception("Invalid Account");
         }
 
         AccountResponseModel model = new AccountResponseModel
@@ -109,7 +109,7 @@ public class AccountService
         var item = await query.FirstOrDefaultAsync(x => x.AccountNo == accountNo);
         if (item is null)
         {
-            throw new Exception("Account is not found.");
+            throw new Exception("Invalid Account");
         }
 
         item.CustomerCode = requestModel.CustomerCode;
@@ -135,7 +135,7 @@ public class AccountService
         var item = await query.FirstOrDefaultAsync(x => x.AccountNo == accountNo);
         if (item is null)
         {
-            throw new Exception("Account is not found");
+            throw new Exception("Invalid Account");
         }
 
         _dbContext.Entry(item).State = EntityState.Deleted;
@@ -158,14 +158,15 @@ public class AccountService
         var item = await query.FirstOrDefaultAsync(x => x.AccountNo == accountNo);
         if (item is null)
         {
-            throw new Exception("Account is not found.");
+            throw new Exception("Invalid Account");
         }
 
         var transaction = await _dbContext.Database.BeginTransactionAsync();
         try
         {
-            decimal newBalance = item.Balance + amount;
-            item.Balance = newBalance;
+            //decimal newBalance = item.Balance + amount;
+            //item.Balance = newBalance;
+            item.Balance += amount;
             _dbContext.TblAccounts.Update(item);
             int result = await _dbContext.SaveChangesAsync();
             await transaction.CommitAsync();
@@ -200,8 +201,9 @@ public class AccountService
         var transaction = await _dbContext.Database.BeginTransactionAsync();
         try
         {
-            decimal newBalance = item.Balance - amount;
-            item.Balance = newBalance;
+            //decimal newBalance = item.Balance - amount;
+            //item.Balance = newBalance;
+            item.Balance -= amount;
             _dbContext.TblAccounts.Update(item);
             int result = await _dbContext.SaveChangesAsync();
             await transaction.CommitAsync();
@@ -275,7 +277,7 @@ public class AccountService
             Response = new MessageResponseModel(true, "Balance transfer successful.")
         };
 
-        result:
+    result:
         return model;
     }
 
