@@ -3,6 +3,7 @@ using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.AdminUser;
 using DotNet8.BankingManagementSystem.Models.State;
+using DotNet8.BankingManagementSystem.Models.TownShip;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
@@ -17,6 +18,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
         }
 
         #region GetAdminUsers
+
         public async Task<AdminUserListResponseModel> GetAdminUsers(int pageNo, int pageSize)
         {
             var query = _appDbContext.TblAdminUsers
@@ -42,9 +44,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
             };
             return model;
         }
+
         #endregion
 
         #region GetAdminUserByAdminUserCode
+
         public async Task<AdminUserResponseModel> GetAdminUser(string AdminUserCode)
         {
             var query = _appDbContext.TblAdminUsers
@@ -60,9 +64,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
             };
             return model;
         }
+
         #endregion
 
         #region CreateAdminUser
+
         public async Task<AdminUserResponseModel> CreateAdminUser(AdminUserRequestModel requestModel)
         {
             var item = requestModel.Change();
@@ -76,6 +82,26 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
             };
             return model;
         }
+
+        #endregion
+
+        #region DeleteAdminUser
+
+        public async Task<TownshipResponseModel> DeleteAdminUser(string AdminUserCode)
+        {
+            var query = _appDbContext.TblAdminUsers.AsNoTracking();
+            var item = await query.FirstOrDefaultAsync(x => x.AdminUserCode == AdminUserCode);
+            _appDbContext.Entry(item!).State = EntityState.Deleted;
+            _appDbContext.TblAdminUsers.Remove(item!);
+            var result = _appDbContext.SaveChangesAsync();
+
+            TownshipResponseModel model = new TownshipResponseModel()
+            {
+                Response = new MessageResponseModel(true, "Deleted AdminUser Successfully")
+            };
+            return model;
+        }
+
         #endregion
     }
 }
