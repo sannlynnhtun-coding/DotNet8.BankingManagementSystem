@@ -64,6 +64,24 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
                 return InternalServerError(ex);
             }
         }
+
+        #endregion
+
+        #region DeleteAdminUser
+
+        [HttpDelete("{AdminUserCode}")]
+        public async Task<IActionResult> DeleteAdminUser(string AdminUserCode)
+        {
+            try
+            {
+                var model = await _adminUserService.DeleteAdminUser(AdminUserCode);
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
         #endregion
     }
 }

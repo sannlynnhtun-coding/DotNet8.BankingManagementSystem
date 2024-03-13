@@ -68,12 +68,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
 
         public async Task<TownshipResponseModel> CreateTownShip(TownshipRequestModel requestModel)
         {
-            var item = new TblPlaceTownship
-            {
-                TownshipCode = requestModel.TownshipCode,
-                TownshipName = requestModel.TownshipName,
-                StateCode = requestModel.StateCode,
-            };
+            var item = requestModel.Change();
 
             await _appDbContext.TblPlaceTownships.AddAsync(item);
             var result = await _appDbContext.SaveChangesAsync();

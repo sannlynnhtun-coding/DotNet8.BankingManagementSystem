@@ -254,27 +254,36 @@ public class AccountService
         var transaction = await _dbContext.Database.BeginTransactionAsync();
         try
         {
-            // decimal newBalance = fromAccount.Balance - requestModel.Amount;
-            // fromAccount.Balance = newBalance;
             fromAccount.Balance -= requestModel.Amount;
             _dbContext.TblAccounts.Update(fromAccount);
 
-            // decimal balance = toAccount.Balance + requestModel.Amount;
-            // toAccount.Balance = balance;
             toAccount.Balance += requestModel.Amount;
             _dbContext.TblAccounts.Update(toAccount);
 
-            int result = await _dbContext.SaveChangesAsync();
-            TblTransactionHistory transactionHistory = new TblTransactionHistory()
+            //int result = await _dbContext.SaveChangesAsync();
+
+            TblTransactionHistory creditTransactionHistory = new TblTransactionHistory()
             {
                 Amount = requestModel.Amount,
                 TransactionDate = DateTime.Now,
-                FromAccountNo = fromAccount.AccountNo,
-                ToAccountNo = toAccount.AccountNo,
+                FromAccountNo = fromAccount.AccountNo!,
+                ToAccountNo = toAccount.AccountNo!,
                 AdminUserCode = "Admin",
+                TransactionType = "Credit"
             };
-            await _dbContext.AddAsync(transactionHistory);
+
+            TblTransactionHistory dedbitTransactionHistory = new TblTransactionHistory()
+            {
+                Amount = requestModel.Amount,
+                TransactionDate = DateTime.Now,
+                ToAccountNo = toAccount.AccountNo!,
+                FromAccountNo = fromAccount.AccountNo!,
+                AdminUserCode = "Admin",
+                TransactionType = "Debit"
+            };
+            await _dbContext.AddRangeAsync(dedbitTransactionHistory, creditTransactionHistory);
             await _dbContext.SaveChangesAsync();
+
             await transaction.CommitAsync();
         }
         catch (Exception)
