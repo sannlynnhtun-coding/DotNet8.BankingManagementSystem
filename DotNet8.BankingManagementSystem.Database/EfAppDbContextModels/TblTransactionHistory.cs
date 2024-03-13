@@ -16,4 +16,6 @@ public partial class TblTransactionHistory
     public decimal Amount { get; set; }
 
     public string AdminUserCode { get; set; } = null!;
+
+    public string TransactionType { get; set; } = null!;
 }

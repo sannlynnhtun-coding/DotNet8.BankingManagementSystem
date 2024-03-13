@@ -53,6 +53,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
             var query = _appDbContext.TblPlaceTownships.AsNoTracking();
             var item = await query
                 .FirstOrDefaultAsync(x => x.TownshipCode == townshipCode);
+
             TownshipResponseModel model = new TownshipResponseModel()
             {
                 Data = item!.Change(),
@@ -73,8 +74,10 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
                 TownshipName = requestModel.TownshipName,
                 StateCode = requestModel.StateCode,
             };
+
             await _appDbContext.TblPlaceTownships.AddAsync(item);
             var result = await _appDbContext.SaveChangesAsync();
+
             TownshipResponseModel model = new TownshipResponseModel
             {
                 Data = item.Change(),
@@ -131,12 +134,12 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.Township
         public async Task<TownshipListResponceModel> GetTownShipByStateCode(string stateCode)
         {
             var query = _appDbContext.TblPlaceTownships.AsNoTracking()
-                .Where(x=> x.StateCode == stateCode);
+                .Where(x => x.StateCode == stateCode);
             var lst = await query
                 .ToListAsync();
             TownshipListResponceModel model = new TownshipListResponceModel()
             {
-                Data = lst.Select(x=> x.Change()).ToList(),
+                Data = lst.Select(x => x.Change()).ToList(),
                 Response = new MessageResponseModel(true, "Success")
             };
             return model;

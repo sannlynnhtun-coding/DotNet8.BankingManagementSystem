@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Models.Account;
+using DotNet8.BankingManagementSystem.Models.AdminUser;
 using DotNet8.BankingManagementSystem.Models.State;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 using DotNet8.BankingManagementSystem.Models.Users;
@@ -101,7 +102,28 @@ public static class ChangeModel
             Balance = item.Balance,
             AccountId = item.AccountId
         };
-    } 
+    }
 
+    #endregion
+
+    #region AdminUser
+    public static AdminUserModel Change(this TblAdminUser item)
+    {
+        return new AdminUserModel()
+        {
+            AdminUserCode = item.AdminUserCode,
+            AdminUserName = item.AdminUserName,
+            MobileNo = item.MobileNo,
+            UserRoleCode = item.UserRoleCode
+        };
+    }
+
+    public static AdminUserResponseModel Change(this AdminUserRequestModel item)
+    {
+        return new AdminUserResponseModel()
+        {
+
+        };
+    }
     #endregion
 }
