@@ -4,6 +4,7 @@ using DotNet8.BankingManagementSystem.Models.Account;
 using DotNet8.BankingManagementSystem.Models.AdminUser;
 using DotNet8.BankingManagementSystem.Models.State;
 using DotNet8.BankingManagementSystem.Models.TownShip;
+using DotNet8.BankingManagementSystem.Models.TransactionHistory;
 using DotNet8.BankingManagementSystem.Models.Users;
 
 namespace DotNet8.BankingManagementSystem.Mapper;
