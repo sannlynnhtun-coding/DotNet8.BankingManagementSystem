@@ -63,7 +63,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
         #endregion
 
         #region CreateAdminUser
-        public async Task<AdminUserRequestModel> CreateAdminUser(AdminUserRequestModel requestModel)
+        public async Task<AdminUserResponseModel> CreateAdminUser(AdminUserRequestModel requestModel)
         {
             var item = new TblAdminUser
             {
