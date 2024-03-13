@@ -226,7 +226,7 @@ public class AccountService
 
     #region Transfer
 
-    public async Task<TransferResponseModel> TransferBalance(TransferModel requestModel)
+    public async Task<TransferResponseModel> Transfer(TransferModel requestModel)
     {
         TransferResponseModel model = new TransferResponseModel();
         var query = _dbContext.TblAccounts.AsNoTracking();
@@ -265,6 +265,17 @@ public class AccountService
             _dbContext.TblAccounts.Update(toAccount);
 
             int result = await _dbContext.SaveChangesAsync();
+            TblTransactionHistory transactionHistory = new TblTransactionHistory()
+            {
+                Amount = requestModel.Amount,
+                TransactionDate = DateTime.Now,
+                FromAccountNo = fromAccount.AccountNo,
+                ToAccountNo = toAccount.AccountNo,
+                AdminUserCode = "Admin",
+              
+            };
+            await _dbContext.AddAsync(transactionHistory);
+            await _dbContext.SaveChangesAsync();
             await transaction.CommitAsync();
         }
         catch (Exception)

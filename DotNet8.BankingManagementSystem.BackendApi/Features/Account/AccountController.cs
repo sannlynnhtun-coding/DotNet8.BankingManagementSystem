@@ -162,11 +162,11 @@ public class AccountController : BaseController
     #region Transfer
 
     [HttpPost("Transfer")]
-    public async Task<IActionResult> TransferBalance(TransferModel requestModel)
+    public async Task<IActionResult> Transfer(TransferModel requestModel)
     {
         try
         {
-            var model = await _accountService.TransferBalance(requestModel);
+            var model = await _accountService.Transfer(requestModel);
             return Ok(model);
         }
         catch (Exception ex)

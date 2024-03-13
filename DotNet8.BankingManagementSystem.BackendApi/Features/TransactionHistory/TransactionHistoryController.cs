@@ -2,7 +2,7 @@
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.Transaction;
 
-public class UserDepositController : BaseController
+public class TransactionHistoryController : BaseController
 {
   
 }

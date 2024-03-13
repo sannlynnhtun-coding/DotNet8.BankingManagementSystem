@@ -15,4 +15,16 @@
       </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="EfAppDbContextModels\AppDbContext.cs" />
+      <Compile Remove="EfAppDbContextModels\TblPlaceState.cs" />
+      <Compile Remove="EfAppDbContextModels\TblAdminUser.cs" />
+      <Compile Remove="EfAppDbContextModels\TblPlaceTownship.cs" />
+      <Compile Remove="EfAppDbContextModels\TblUser.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="EfAppDbContextModels\" />
+    </ItemGroup>
+
 </Project>

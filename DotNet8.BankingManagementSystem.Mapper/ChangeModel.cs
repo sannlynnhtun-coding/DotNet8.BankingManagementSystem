@@ -126,4 +126,21 @@ public static class ChangeModel
         };
     }
     #endregion
+
+    #region TransactionHistory
+
+    public static TransactionHistoryModel Change(this TblTransactionHistory item)
+    {
+        return new TransactionHistoryModel()
+        {
+            Amount = item.Amount,
+            TransactionDate = item.TransactionDate,
+            TransactionType = item.TransactionType,
+            AdminUserCode = item.AdminUserCode,
+            FromAccountNo = item.FromAccountNo,
+            ToAccountNo = item.FromAccountNo,
+        };
+    }
+
+    #endregion
 }
