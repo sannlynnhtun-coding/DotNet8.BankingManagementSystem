@@ -176,4 +176,15 @@ public class AccountController : BaseController
     }
 
     #endregion
+
+    #region Generate accounts
+
+    [HttpPost("Generate")]
+    public async Task<IActionResult> GenerateAccounts(int count)
+    {
+        var model =await _accountService.GenerateAccounts(count);
+        return Ok(model);
+    }
+
+    #endregion
 }

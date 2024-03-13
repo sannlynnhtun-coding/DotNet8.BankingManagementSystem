@@ -272,7 +272,6 @@ public class AccountService
                 FromAccountNo = fromAccount.AccountNo,
                 ToAccountNo = toAccount.AccountNo,
                 AdminUserCode = "Admin",
-              
             };
             await _dbContext.AddAsync(transactionHistory);
             await _dbContext.SaveChangesAsync();
@@ -288,9 +287,86 @@ public class AccountService
             Response = new MessageResponseModel(true, "Balance transfer successful.")
         };
 
-    result:
+        result:
         return model;
     }
 
     #endregion
+
+    #region auto generate account
+
+    public async Task<List<TblAccount>> GenerateAccounts(int count)
+    {
+        Random random = new Random();
+        List<TblAccount> model = new List<TblAccount>();
+
+        for (int i = 0; i < count; i++)
+        {
+            string customerCode = GenerateCustomerCode();
+            decimal balance = (decimal)(random.Next(10000000, 100000000) * 1000);
+            if (balance < 0)
+            {
+                balance *= -1;
+            }
+
+            TblAccount item = new TblAccount
+            {
+                CustomerCode = customerCode,
+                Balance = balance
+            };
+
+            model.Add(item);
+        }
+
+        await _dbContext.TblAccounts.AddRangeAsync(model);
+        await _dbContext.SaveChangesAsync();
+
+        List<TblTransactionHistory> transactions = new List<TblTransactionHistory>();
+        foreach (var item in model)
+        {
+            for (DateTime date = new DateTime(2022, 1, 1); date < new DateTime(2024, 12, 31); date = date.AddDays(1))
+            {
+                string GetDifferentAccountNo(string currentAccountNo)
+                {
+                    Random random = new Random();
+                    int randomNumber = random.Next(1, 10);
+                    int result = Convert.ToInt32(currentAccountNo) + randomNumber;
+                    return result.ToString("D6");
+                }
+
+                TblTransactionHistory creditTransaction = new TblTransactionHistory
+                {
+                    FromAccountNo = GetDifferentAccountNo(item.AccountNo),
+                    ToAccountNo = GetDifferentAccountNo(item.AccountNo),
+                    TransactionDate = date,
+                    Amount = (decimal)random.NextDouble() * 10000,
+                    AdminUserCode = "Admin",
+                    TransactionType = "Credit"
+                };
+                transactions.Add(creditTransaction);
+                TblTransactionHistory debitTransaction = new TblTransactionHistory
+                {
+                    FromAccountNo = GetDifferentAccountNo(item.AccountNo),
+                    ToAccountNo = GetDifferentAccountNo(item.AccountNo),
+                    TransactionDate = date,
+                    Amount = (decimal)random.NextDouble() * 10000,
+                    AdminUserCode = "Admin",
+                    TransactionType = "Debit"
+                };
+                transactions.Add(debitTransaction);
+            }
+        }
+
+        await _dbContext.TblTransactionHistories.AddRangeAsync(transactions);
+        await _dbContext.SaveChangesAsync();
+        return model;
+    }
+
+    private string GenerateCustomerCode()
+    {
+        string randomNumber = new Random().Next(1000000, 9999999).ToString();
+        return "C" + randomNumber;
+    }
 }
+
+#endregion
