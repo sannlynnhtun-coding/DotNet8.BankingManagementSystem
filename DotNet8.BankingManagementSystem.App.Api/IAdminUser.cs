@@ -10,10 +10,22 @@ namespace DotNet8.BankingManagementSystem.App.Api
 {
     public interface IAdminUser
     {
+        [Get("/api/AdminUser")]
+        Task<AdminUserListResponseModel> GetAdminUser();
+
         [Get("/api/AdminUser/{AdminUserCode}")]
         Task<AdminUserResponseModel> GetAdminUser(string AdminUserCode);
 
         [Get("/api/AdminUser/{pageNo}/{pageSize}")]
-        Task<AdminUserListResponseModel> GetAdminUsers();
+        Task<AdminUserListResponseModel> GetAdminUserList();
+
+        [Post("/api/AdminUser")]
+        Task<AdminUserResponseModel> CreateAdminUser(AdminUserRequestModel requestModel);
+
+        [Delete("/api/AdminUser/{AdminUserCode}")]
+        Task<AdminUserResponseModel> DeleteAdminUser(string AdminUserCode);
+
+        [Put("/api/AdminUser/{AdminUserCode}")]
+        Task<AdminUserResponseModel> UpdateAdminUser(string AdminUserCode, AdminUserRequestModel requestModel);
     }
 }
