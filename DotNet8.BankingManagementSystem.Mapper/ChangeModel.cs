@@ -3,6 +3,7 @@ using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Models.Account;
 using DotNet8.BankingManagementSystem.Models.State;
 using DotNet8.BankingManagementSystem.Models.TownShip;
+using DotNet8.BankingManagementSystem.Models.TransactionHistory;
 using DotNet8.BankingManagementSystem.Models.Users;
 
 namespace DotNet8.BankingManagementSystem.Mapper;
@@ -102,6 +103,23 @@ public static class ChangeModel
             AccountId = item.AccountId
         };
     } 
+
+    #endregion
+
+    #region TransactionHistory
+
+    public static TransactionHistoryModel Change(this TblTransactionHistory item)
+    {
+        return new TransactionHistoryModel()
+        {
+            Amount = item.Amount,
+            TransactionDate = item.TransactionDate,
+            TransactionType = item.TransactionType,
+            AdminUserCode = item.AdminUserCode,
+            FromAccountNo = item.FromAccountNo,
+            ToAccountNo = item.FromAccountNo,
+        };
+    }
 
     #endregion
 }
