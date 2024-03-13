@@ -161,19 +161,19 @@ public class AccountService
             throw new Exception("Account is not found.");
         }
 
-        var transaction = _dbContext.Database.BeginTransaction();
+        var transaction = await _dbContext.Database.BeginTransactionAsync();
         try
         {
             decimal newBalance = item.Balance + amount;
             item.Balance = newBalance;
             _dbContext.TblAccounts.Update(item);
             int result = await _dbContext.SaveChangesAsync();
-            transaction.Commit();
+            await transaction.CommitAsync();
         }
         catch (Exception ex)
         {
-            transaction.Rollback();
-            Console.WriteLine(ex.Message);
+            await transaction.RollbackAsync();
+            // Console.WriteLine(ex.Message);
         }
 
         AccountResponseModel model = new AccountResponseModel()
@@ -197,19 +197,19 @@ public class AccountService
             throw new Exception("Account is not found.");
         }
 
-        var transaction = _dbContext.Database.BeginTransaction();
+        var transaction = await _dbContext.Database.BeginTransactionAsync();
         try
         {
             decimal newBalance = item.Balance - amount;
             item.Balance = newBalance;
             _dbContext.TblAccounts.Update(item);
             int result = await _dbContext.SaveChangesAsync();
-            transaction.Commit();
+            await transaction.CommitAsync();
         }
         catch (Exception ex)
         {
-            transaction.Rollback();
-            Console.WriteLine(ex.Message);
+            await transaction.RollbackAsync();
+            // Console.WriteLine(ex.Message);
         }
 
         AccountResponseModel model = new AccountResponseModel()
@@ -226,47 +226,58 @@ public class AccountService
 
     public async Task<TransferResponseModel> TransferBalance(TransferModel requestModel)
     {
+        TransferResponseModel model = new TransferResponseModel();
         var query = _dbContext.TblAccounts.AsNoTracking();
         var fromAccount = await query.FirstOrDefaultAsync(x => x.AccountNo == requestModel.FromAccountNo);
         if (fromAccount is null)
         {
-            throw new Exception("Account is not found");
+            throw new Exception("Invalid From Account.");
         }
 
         var toAccount = await query.FirstOrDefaultAsync(x => x.AccountNo == requestModel.ToAccountNo);
         if (toAccount is null)
         {
-            throw new Exception("Account is not found");
+            throw new Exception("Invalid To Account.");
         }
 
-        if (fromAccount.Balance > requestModel.Amount)
+        if (fromAccount.Balance < requestModel.Amount)
         {
-            var transaction = _dbContext.Database.BeginTransaction();
-            try
+            model = new TransferResponseModel()
             {
-                decimal newBalance = fromAccount.Balance - requestModel.Amount;
-                fromAccount.Balance = newBalance;
-                _dbContext.TblAccounts.Update(fromAccount);
-
-                decimal balance = toAccount.Balance + requestModel.Amount;
-                toAccount.Balance = balance;
-                _dbContext.TblAccounts.Update(toAccount);
-
-                int result = await _dbContext.SaveChangesAsync();
-                transaction.Commit();
-            }
-            catch (Exception)
-            {
-                transaction.Rollback();
-            }
+                Response = new MessageResponseModel(false, "Insufficient Balance.")
+            };
+            goto result;
         }
-        
-        TransferResponseModel model = new TransferResponseModel
+
+        var transaction = await _dbContext.Database.BeginTransactionAsync();
+        try
+        {
+            // decimal newBalance = fromAccount.Balance - requestModel.Amount;
+            // fromAccount.Balance = newBalance;
+            fromAccount.Balance -= requestModel.Amount;
+            _dbContext.TblAccounts.Update(fromAccount);
+
+            // decimal balance = toAccount.Balance + requestModel.Amount;
+            // toAccount.Balance = balance;
+            toAccount.Balance += requestModel.Amount;
+            _dbContext.TblAccounts.Update(toAccount);
+
+            int result = await _dbContext.SaveChangesAsync();
+            await transaction.CommitAsync();
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+        }
+
+        model = new TransferResponseModel
         {
             Response = new MessageResponseModel(true, "Balance transfer successful.")
         };
+
+        result:
         return model;
     }
-    
+
     #endregion
 }
