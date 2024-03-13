@@ -302,7 +302,7 @@ public class AccountService
 
     #endregion
 
-    #region auto generate account
+    #region Auto generate account
 
     public async Task<List<TblAccount>> GenerateAccounts(int count)
     {
@@ -376,6 +376,6 @@ public class AccountService
         string randomNumber = new Random().Next(1000000, 9999999).ToString();
         return "C" + randomNumber;
     }
-}
 
-#endregion
+    #endregion
+}
