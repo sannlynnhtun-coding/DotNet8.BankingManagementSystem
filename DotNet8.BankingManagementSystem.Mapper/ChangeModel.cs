@@ -126,7 +126,6 @@ public static class ChangeModel
     {
         return new AdminUserModel()
         {
-            AdminUserId = item.AdminUserId,
             AdminUserCode = item.AdminUserCode,
             AdminUserName = item.AdminUserName,
             MobileNo = item.MobileNo,

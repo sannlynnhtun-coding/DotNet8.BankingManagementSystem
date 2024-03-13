@@ -80,6 +80,11 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
             var item = await query
                 .FirstOrDefaultAsync(x => x.AdminUserCode == AdminUserCode);
 
+            if (item == null)
+            {
+                throw new Exception("Invalid AdminUser");
+            }
+
             AdminUserResponseModel model = new AdminUserResponseModel()
             {
                 Data = item!.Change(),
@@ -114,6 +119,12 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
         {
             var query = _appDbContext.TblAdminUsers.AsNoTracking();
             var item = await query.FirstOrDefaultAsync(x => x.AdminUserCode == AdminUserCode);
+
+            if (item == null)
+            {
+                throw new Exception("Invalid AdminUser");
+            }
+
             _appDbContext.Entry(item!).State = EntityState.Deleted;
             _appDbContext.TblAdminUsers.Remove(item!);
             var result = _appDbContext.SaveChangesAsync();

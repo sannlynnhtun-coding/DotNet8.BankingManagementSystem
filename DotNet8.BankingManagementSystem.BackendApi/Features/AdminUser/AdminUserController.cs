@@ -45,7 +45,6 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(ex);
             }
         }
