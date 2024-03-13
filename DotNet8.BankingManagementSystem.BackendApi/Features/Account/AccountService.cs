@@ -2,6 +2,7 @@
 using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.Account;
+using DotNet8.BankingManagementSystem.Models.Transfer;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.Account;
@@ -67,7 +68,8 @@ public class AccountService
         {
             throw new Exception("Account is not found.");
         }
-        AccountResponseModel model=new AccountResponseModel
+
+        AccountResponseModel model = new AccountResponseModel
         {
             Data = item!.Change(),
             Response = new MessageResponseModel(true, "Success")
@@ -146,5 +148,125 @@ public class AccountService
         return model;
     }
 
+    #endregion
+
+    #region Deposit
+
+    public async Task<AccountResponseModel> Deposit(string accountNo, decimal amount)
+    {
+        var query = _dbContext.TblAccounts.AsNoTracking();
+        var item = await query.FirstOrDefaultAsync(x => x.AccountNo == accountNo);
+        if (item is null)
+        {
+            throw new Exception("Account is not found.");
+        }
+
+        var transaction = _dbContext.Database.BeginTransaction();
+        try
+        {
+            decimal newBalance = item.Balance + amount;
+            item.Balance = newBalance;
+            _dbContext.TblAccounts.Update(item);
+            int result = await _dbContext.SaveChangesAsync();
+            transaction.Commit();
+        }
+        catch (Exception ex)
+        {
+            transaction.Rollback();
+            Console.WriteLine(ex.Message);
+        }
+
+        AccountResponseModel model = new AccountResponseModel()
+        {
+            Data = item.Change(),
+            Response = new MessageResponseModel(true, "Deposit Successfully.")
+        };
+        return model;
+    }
+
+    #endregion
+
+    #region Withdrawl
+
+    public async Task<AccountResponseModel> Withdraw(string accountNo, decimal amount)
+    {
+        var query = _dbContext.TblAccounts.AsNoTracking();
+        var item = await query.FirstOrDefaultAsync(x => x.AccountNo == accountNo);
+        if (item is null)
+        {
+            throw new Exception("Account is not found.");
+        }
+
+        var transaction = _dbContext.Database.BeginTransaction();
+        try
+        {
+            decimal newBalance = item.Balance - amount;
+            item.Balance = newBalance;
+            _dbContext.TblAccounts.Update(item);
+            int result = await _dbContext.SaveChangesAsync();
+            transaction.Commit();
+        }
+        catch (Exception ex)
+        {
+            transaction.Rollback();
+            Console.WriteLine(ex.Message);
+        }
+
+        AccountResponseModel model = new AccountResponseModel()
+        {
+            Data = item.Change(),
+            Response = new MessageResponseModel(true, "Deposit Successfully.")
+        };
+        return model;
+    }
+
+    #endregion
+
+    #region Transfer
+
+    public async Task<TransferResponseModel> TransferBalance(TransferModel requestModel)
+    {
+        var query = _dbContext.TblAccounts.AsNoTracking();
+        var fromAccount = await query.FirstOrDefaultAsync(x => x.AccountNo == requestModel.FromAccountNo);
+        if (fromAccount is null)
+        {
+            throw new Exception("Account is not found");
+        }
+
+        var toAccount = await query.FirstOrDefaultAsync(x => x.AccountNo == requestModel.ToAccountNo);
+        if (toAccount is null)
+        {
+            throw new Exception("Account is not found");
+        }
+
+        if (fromAccount.Balance > requestModel.Amount)
+        {
+            var transaction = _dbContext.Database.BeginTransaction();
+            try
+            {
+                decimal newBalance = fromAccount.Balance - requestModel.Amount;
+                fromAccount.Balance = newBalance;
+                _dbContext.TblAccounts.Update(fromAccount);
+
+                decimal balance = toAccount.Balance + requestModel.Amount;
+                toAccount.Balance = balance;
+                _dbContext.TblAccounts.Update(toAccount);
+
+                int result = await _dbContext.SaveChangesAsync();
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+            }
+        }
+        
+        TransferResponseModel model = new TransferResponseModel
+        {
+            Response = new MessageResponseModel(true, "Balance transfer successful.")
+        };
+        return model;
+    }
+    
     #endregion
 }
