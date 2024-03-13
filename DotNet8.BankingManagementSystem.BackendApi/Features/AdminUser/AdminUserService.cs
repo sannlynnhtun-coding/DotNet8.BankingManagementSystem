@@ -65,14 +65,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
         #region CreateAdminUser
         public async Task<AdminUserResponseModel> CreateAdminUser(AdminUserRequestModel requestModel)
         {
-            var item = new TblAdminUser
-            {
-                AdminUserCode = requestModel.AdminUserCode,
-                AdminUserName = requestModel.AdminUserName,
-                MobileNo = requestModel.MobileNo,
-                UserRoleCode = requestModel.UserRoleCode
-            };
-
+            var item = requestModel.Change();
             await _appDbContext.AddAsync(item);
             var result = await _appDbContext.SaveChangesAsync();
 

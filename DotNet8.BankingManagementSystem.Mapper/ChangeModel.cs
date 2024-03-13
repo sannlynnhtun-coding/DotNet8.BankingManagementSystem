@@ -45,9 +45,21 @@ public static class ChangeModel
         };
     }
 
+    public static TblPlaceTownship Change(this TownshipRequestModel item)
+    {
+        var model = new TblPlaceTownship()
+        {
+            TownshipCode = item.TownshipCode,
+            TownshipName = item.TownshipName,
+            StateCode = item.StateCode
+        };
+        return model;
+    }
+
     #endregion
 
     #region Users
+
     public static UserModel Change(this TblUser item)
     {
         var model = new UserModel()
@@ -80,6 +92,7 @@ public static class ChangeModel
             TownshipCode = item.TownshipCode
         };
     }
+
     #endregion
 
     #region Account
@@ -108,6 +121,7 @@ public static class ChangeModel
     #endregion
 
     #region AdminUser
+
     public static AdminUserModel Change(this TblAdminUser item)
     {
         return new AdminUserModel()
@@ -119,13 +133,18 @@ public static class ChangeModel
         };
     }
 
-    public static AdminUserResponseModel Change(this AdminUserRequestModel item)
+    public static TblAdminUser Change(this AdminUserRequestModel item)
     {
-        return new AdminUserResponseModel()
+        var model = new TblAdminUser
         {
-
+            AdminUserCode = item.AdminUserCode,
+            AdminUserName = item.AdminUserName,
+            MobileNo = item.MobileNo,
+            UserRoleCode = item.UserRoleCode
         };
+        return model;
     }
+
     #endregion
 
     #region TransactionHistory
