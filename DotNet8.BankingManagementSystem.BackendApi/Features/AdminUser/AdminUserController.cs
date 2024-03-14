@@ -16,23 +16,43 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
         }
 
         #region GetAdminUsers
-        [HttpGet("{pageNo}/{pageSize}")]
-        public async Task<IActionResult> GetAdminUsers(int pageNo, int pageSize)
+
+        [HttpGet]
+        public async Task<IActionResult> GetAdminUser()
         {
             try
             {
-                var model = await _adminUserService.GetAdminUsers(pageNo, pageSize);
+                var model = await _adminUserService.GetAdminUsers();
                 return Ok(model);
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(ex);
             }
         }
+
+        #endregion
+
+        #region GetAdminUserszByPagination
+
+        [HttpGet("{pageNo}/{pageSize}")]
+        public async Task<IActionResult> GetAdminUserList(int pageNo, int pageSize)
+        {
+            try
+            {
+                var model = await _adminUserService.GetAdminUsersList(pageNo, pageSize);
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         #endregion
 
         #region GetAdminUserByAdminUserCode
+
         [HttpGet("{AdminUserCode}")]
         public async Task<IActionResult> GetAdminUser(string AdminUserCode)
         {
@@ -47,6 +67,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
                 return InternalServerError(ex);
             }
         }
+
         #endregion
 
         #region CreateAdminUser
@@ -82,6 +103,25 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
                 return InternalServerError(ex);
             }
         }
+
+        #endregion
+
+        #region UpdateAdminUser
+
+        [HttpPut("{AdminUserCode}")]
+        public async Task<IActionResult> UpdateAdminUser(string AdminUserCode, AdminUserRequestModel reqModel)
+        {
+            try
+            {
+                var model = await _adminUserService.UpdateAdminUser(AdminUserCode, reqModel);
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         #endregion
     }
 }
