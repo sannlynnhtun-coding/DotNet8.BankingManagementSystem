@@ -5,7 +5,6 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
 {
     [ApiController]
     [Route("api/[controller]")]
-
     public class AdminUserController : BaseController
     {
         private readonly AdminUserService _adminUserService;
@@ -63,7 +62,6 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(ex);
             }
         }
