@@ -67,7 +67,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.User
             item.UserCode = userCode;
             await _appDbContext.TblUsers.AddAsync(item);
             var result = await _appDbContext.SaveChangesAsync();
-        
+
             UserResponseModel model = new UserResponseModel()
             {
                 Data = item.Change(),
@@ -121,6 +121,10 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.User
                 throw new Exception("User is null.");
             }
 
+            _appDbContext.Entry(item!).State = EntityState.Deleted;
+            _appDbContext.TblUsers.Remove(item!);
+            var result = await _appDbContext.SaveChangesAsync();
+
             UserResponseModel model = new UserResponseModel
             {
                 Response = new MessageResponseModel(true, "User has deleted successfully.")
@@ -150,7 +154,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.User
 
             return "AB000";
         }
-        
+
         private bool IsUserCodeAlreadyUsed(string userCode)
         {
             return _appDbContext.TblUsers.Any(x => x.UserCode == userCode);

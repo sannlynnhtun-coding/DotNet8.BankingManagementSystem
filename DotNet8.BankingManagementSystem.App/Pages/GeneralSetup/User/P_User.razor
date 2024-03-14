@@ -32,49 +32,49 @@
                     </div>
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">UserCode</th>
-                            <th scope="col">UserName</th>
-                            <th scope="col">CustomerId</th>
-                            <th scope="col">FullName</th>
-                            <th scope="col">MobileNo</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">StateCode</th>
-                            <th scope="col">TownshipCode</th>
-                            <th scope="col">Actions</th>
-                        </tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">UserCode</th>
+                                <th scope="col">UserName</th>
+                                <th scope="col">CustomerId</th>
+                                <th scope="col">FullName</th>
+                                <th scope="col">MobileNo</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">StateCode</th>
+                                <th scope="col">TownshipCode</th>
+                                <th scope="col">Actions</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach (var item in _model.Data)
-                        {
-                            <tr>
-                                <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
-                                <td>@item.UserCode</td>
-                                <td>@item.UserName</td>
-                                <td>@item.CustomerId</td>
-                                <td>@item.FullName</td>
-                                <td>@item.MobileNo</td>
-                                <td>@item.Email</td>
-                                <td>@item.Address</td>
-                                <td>@item.StateCode</td>
-                                <td>@item.TownshipCode</td>
-                                <td>
-                                    <a class="btn btn-warning" href=@($"/general-setup/user/edit/{item.UserCode}")>
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    @* <a class="btn btn-danger btnDelete" href="#" data-blog-id="@item.StateId"> *@
-                                    @*     <i class="fa-solid fa-trash"></i> *@
-                                    @* </a> *@
-                                </td>
-                            </tr>
-                        }
+                            @foreach (var item in _model.Data)
+                            {
+                                <tr>
+                                    <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
+                                    <td>@item.UserCode</td>
+                                    <td>@item.UserName</td>
+                                    <td>@item.CustomerId</td>
+                                    <td>@item.FullName</td>
+                                    <td>@item.MobileNo</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Address</td>
+                                    <td>@item.StateCode</td>
+                                    <td>@item.TownshipCode</td>
+                                    <td>
+                                        <a class="btn btn-warning" href=@($"/general-setup/user/edit/{item.UserCode}")>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btnDelete" @onclick="() => Delete(item.UserCode)">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                     <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
                         <div class="col-sm-12 col-md-6 ">
-                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4"/>
+                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
                         </div>
                     </div>
                 </div>
