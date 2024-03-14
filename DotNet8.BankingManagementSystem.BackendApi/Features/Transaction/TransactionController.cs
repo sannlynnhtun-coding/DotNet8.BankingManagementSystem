@@ -1,4 +1,5 @@
-﻿using DotNet8.BankingManagementSystem.Models.Transfer;
+﻿using DotNet8.BankingManagementSystem.Models.Account;
+using DotNet8.BankingManagementSystem.Models.Transfer;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.Transaction;
@@ -35,11 +36,11 @@ public class TransactionController : BaseController
     #region Deposit
 
     [HttpPost("Deposit")]
-    public async Task<IActionResult> Deposit(string accountNo, decimal amount)
+    public async Task<IActionResult> Deposit(TransactionRequestModel requestModel)
     {
         try
         {
-            var model = await _transactionService.Deposit(accountNo, amount);
+            var model = await _transactionService.Deposit(requestModel);
             return Ok(model);
         }
         catch (Exception ex)
@@ -53,11 +54,11 @@ public class TransactionController : BaseController
     #region Withdrawl
 
     [HttpPost("Withdraw")]
-    public async Task<IActionResult> Withdraw(string accountNo, decimal amount)
+    public async Task<IActionResult> Withdraw(TransactionRequestModel requestModel)
     {
         try
         {
-            var model = await _transactionService.Withdraw(accountNo, amount);
+            var model = await _transactionService.Withdraw(requestModel);
             return Ok(model);
         }
         catch (Exception ex)

@@ -12,10 +12,10 @@ public interface ITransactionApi
     Task<TransactionHistoryListResponseModel> TransactionHistory(int pageNo, int pageSize);
 
     [Post("/api/Transaction/Deposit")]
-    Task<AccountResponseModel> Deposit(string accountNo, decimal amount);
+    Task<AccountResponseModel> Deposit(TransactionRequestModel requestModel);
 
     [Post("/api/Transaction/Withdraw")]
-    Task<AccountResponseModel> Withdraw(string accountNo, decimal amount);
+    Task<AccountResponseModel> Withdraw(TransactionRequestModel requestModel);
 
     [Post("/api/Transaction/Transfer")]
     Task<TransferResponseModel> Transfer(TransferModel requestModel);

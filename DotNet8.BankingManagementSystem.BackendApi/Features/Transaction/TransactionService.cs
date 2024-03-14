@@ -44,10 +44,10 @@ public class TransactionService
 
     #region Deposit
 
-    public async Task<AccountResponseModel> Deposit(string accountNo, decimal amount)
+    public async Task<AccountResponseModel> Deposit(TransactionRequestModel requestModel)
     {
         var query = _dbContext.TblAccounts.AsNoTracking();
-        var item = await query.FirstOrDefaultAsync(x => x.AccountNo == accountNo);
+        var item = await query.FirstOrDefaultAsync(x => x.AccountNo == requestModel.AccountNo);
         if (item is null)
         {
             throw new Exception("Invalid Account");
@@ -58,7 +58,7 @@ public class TransactionService
         {
             //decimal newBalance = item.Balance + amount;
             //item.Balance = newBalance;
-            item.Balance += amount;
+            item.Balance += requestModel.Amount;
             _dbContext.TblAccounts.Update(item);
             int result = await _dbContext.SaveChangesAsync();
             await transaction.CommitAsync();
@@ -81,10 +81,10 @@ public class TransactionService
 
     #region Withdrawl
 
-    public async Task<AccountResponseModel> Withdraw(string accountNo, decimal amount)
+    public async Task<AccountResponseModel> Withdraw(TransactionRequestModel requestModel)
     {
         var query = _dbContext.TblAccounts.AsNoTracking();
-        var item = await query.FirstOrDefaultAsync(x => x.AccountNo == accountNo);
+        var item = await query.FirstOrDefaultAsync(x => x.AccountNo == requestModel.AccountNo);
         if (item is null)
         {
             throw new Exception("Account is not found.");
@@ -95,7 +95,7 @@ public class TransactionService
         {
             //decimal newBalance = item.Balance - amount;
             //item.Balance = newBalance;
-            item.Balance -= amount;
+            item.Balance -= requestModel.Amount;
             _dbContext.TblAccounts.Update(item);
             int result = await _dbContext.SaveChangesAsync();
             await transaction.CommitAsync();

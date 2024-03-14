@@ -1,5 +1,25 @@
-﻿<h3>P_Withdraw</h3>
+﻿@page "/general-setup/Transaction/Withdraw"
+@inject ITransactionApi TransactionApi
+@inject NavigationManager NavigationManager
 
-@code {
-
-}
+<EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+    <MudGrid Class="justify-content-center">
+        <MudItem xs="12" sm="7">
+            <MudText Typo="Typo.h6" Class="mud-width-full">AdminUser Create Form</MudText>
+            <MudCard>
+                <MudCardContent>
+                    <MudTextField Label="AccountNo"
+                                  @bind-Value="_model.AccountNo" For="@(() => _model.AccountNo)"/>
+                    <MudTextField Label="Amount" Class="mt-3"
+                                  @bind-Value="_model.Amount" For="@(() => _model.Amount)"/>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/transaction" Color="Color.Warning">
+                        Cancel
+                    </MudButton>
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-2">Withdraw</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
+</EditForm>
