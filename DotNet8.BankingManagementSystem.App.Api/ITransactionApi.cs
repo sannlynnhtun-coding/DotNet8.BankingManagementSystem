@@ -8,7 +8,7 @@ namespace DotNet8.BankingManagementSystem.App.Api;
 public interface ITransactionApi
 
 {
-    [Get("/api/Transaction/TransactionHistory")]
+    [Get("/api/Transaction/TransactionHistory/{pageNo}/{pageSize}")]
     Task<TransactionHistoryListResponseModel> TransactionHistory(int pageNo, int pageSize);
 
     [Post("/api/Transaction/Deposit")]
