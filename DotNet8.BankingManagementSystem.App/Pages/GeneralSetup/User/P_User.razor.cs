@@ -1,7 +1,9 @@
-﻿using DotNet8.BankingManagementSystem.Models;
+﻿using DotNet8.BankingManagementSystem.App.Api;
+using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.Users;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using MudBlazor;
 
 namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
 {
@@ -44,16 +46,27 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
             //Nav.NavigateTo("/general-setup/user");
         }
 
-        //[JSInvokable]
-        //public void CallbackMethodNo()
-        //{
-        //    NotificationService.ShowLoadingAsync("Please wait a moment!");
-        //    Task.Run(async () =>
-        //    {
-        //        await Task.Delay(3000);
-        //        await NotificationService.HideLoadingAsync();
-        //        StateHasChanged();
-        //    });
-        //}
+        private async Task Delete(string UserCode)
+        {
+            var parameters = new DialogParameters<Dialog>();
+            parameters.Add(x => x.ContentText,
+                "Are you sure want to delete?");
+
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+
+            var dialog = await DialogService.ShowAsync<Dialog>("Confirm", parameters, options);
+            var result = await dialog.Result;
+            if (result.Canceled) return;
+
+            var townShipresult = await UserApi.DeleteUser(UserCode);
+            if (result is not null)
+            {
+                await InjectService.EnableLoading();
+                await List(_setting.PageNo, _setting.PageSize);
+                await InjectService.DisableLoading();
+                await InjectService.SuccessMessage("Deleting Successful.");
+            }
+            StateHasChanged();
+        }
     }
 }
