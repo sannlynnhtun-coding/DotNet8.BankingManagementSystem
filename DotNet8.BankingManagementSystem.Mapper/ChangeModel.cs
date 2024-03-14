@@ -158,7 +158,7 @@ public static class ChangeModel
             TransactionType = item.TransactionType,
             AdminUserCode = item.AdminUserCode,
             FromAccountNo = item.FromAccountNo,
-            ToAccountNo = item.FromAccountNo,
+            ToAccountNo = item.ToAccountNo,
         };
     }
 

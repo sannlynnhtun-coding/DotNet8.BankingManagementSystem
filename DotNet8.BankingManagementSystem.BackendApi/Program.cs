@@ -2,6 +2,7 @@ using DotNet8.BankingManagementSystem.BackendApi.Features.Account;
 using DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser;
 using DotNet8.BankingManagementSystem.BackendApi.Features.State;
 using DotNet8.BankingManagementSystem.BackendApi.Features.Township;
+using DotNet8.BankingManagementSystem.BackendApi.Features.Transaction;
 using DotNet8.BankingManagementSystem.BackendApi.Features.User;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using Microsoft.EntityFrameworkCore;
@@ -40,6 +41,8 @@ builder.Services.AddScoped<TownshipService>();
 builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<AdminUserService>();
+builder.Services.AddScoped<TransactionService>();
+
 
 #endregion
 
