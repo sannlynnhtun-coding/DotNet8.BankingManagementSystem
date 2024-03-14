@@ -242,13 +242,13 @@ public class TransactionService
 
                 var fromAccountNo = GetDifferentAccountNo(item.AccountId);
                 var toAccountNo = (Convert.ToInt32(fromAccountNo) + 1).ToString("D6");
-
+                var amount = (decimal)random.NextDouble() * 1000000;
                 TblTransactionHistory creditTransaction = new TblTransactionHistory
                 {
                     FromAccountNo = fromAccountNo,
                     ToAccountNo = toAccountNo,
                     TransactionDate = date,
-                    Amount = (decimal)random.NextDouble() * 1000000,
+                    Amount = amount,
                     AdminUserCode = "Admin",
                     TransactionType = "Credit"
                 };
@@ -258,7 +258,7 @@ public class TransactionService
                     FromAccountNo = fromAccountNo,
                     ToAccountNo = toAccountNo,
                     TransactionDate = date,
-                    Amount = (decimal)random.NextDouble() * 10000,
+                    Amount = amount,
                     AdminUserCode = "Admin",
                     TransactionType = "Debit"
                 };
