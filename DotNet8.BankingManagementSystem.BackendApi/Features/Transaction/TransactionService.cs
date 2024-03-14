@@ -5,7 +5,6 @@ using DotNet8.BankingManagementSystem.Models.Account;
 using DotNet8.BankingManagementSystem.Models.TransactionHistory;
 using DotNet8.BankingManagementSystem.Models.Transfer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace DotNet8.BankingManagementSystem.BackendApi.Features.Transaction;
 
@@ -20,29 +19,29 @@ public class TransactionService
 
     #region TransactionHistory
 
-     public async Task<TransactionHistoryListResponseModel> TransactionHistory(int pageNo, int pageSize)
-     {
-         TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
-         var query = _dbContext.TblTransactionHistories.AsNoTracking();
-         var result = await query.OrderByDescending(x => x.TransactionDate)
-             .Skip((pageNo - 1) * pageSize)
-             .Take(pageSize).ToListAsync();
+    public async Task<TransactionHistoryListResponseModel> TransactionHistory(int pageNo, int pageSize)
+    {
+        TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
+        var query = _dbContext.TblTransactionHistories.AsNoTracking();
+        var result = await query.OrderByDescending(x => x.TransactionDate)
+            .Skip((pageNo - 1) * pageSize)
+            .Take(pageSize).ToListAsync();
 
-         var count = await query.CountAsync();
-         int pageCount = count / pageSize;
-         if (count % pageSize > 0) pageCount++;
-         var lst = result.Select(x => x.Change()).ToList();
-         model = new TransactionHistoryListResponseModel()
-         {
-             Data = lst,
-             PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
-             Response = new MessageResponseModel(true, "Success")
-         };
-         return model;
-     }
+        var count = await query.CountAsync();
+        int pageCount = count / pageSize;
+        if (count % pageSize > 0) pageCount++;
+        var lst = result.Select(x => x.Change()).ToList();
+        model = new TransactionHistoryListResponseModel()
+        {
+            Data = lst,
+            PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
+            Response = new MessageResponseModel(true, "Success")
+        };
+        return model;
+    }
 
-     #endregion
-    
+    #endregion
+
     #region Deposit
 
     public async Task<AccountResponseModel> Deposit(string accountNo, decimal amount)
@@ -197,7 +196,7 @@ public class TransactionService
 
     #region Auto generate account
 
-    public async Task<List<TblAccount>> GenerateAccounts(int count)
+    public async Task<List<TblAccount>> GenerateAccounts(int count, int year)
     {
         Random random = new Random();
         List<TblAccount> model = new List<TblAccount>();
@@ -205,11 +204,10 @@ public class TransactionService
         for (int i = 0; i < count; i++)
         {
             string customerCode = GenerateCustomerCode();
-            decimal balance = (decimal)(random.Next(10000000, 100000000) * 1000);
-            if (balance < 0)
-            {
-                balance *= -1;
-            }
+            decimal balance = (decimal)(random.Next(10000000, 100000000));
+            if (balance < 0) balance *= -1;
+            int num = balance.ToString().Length == 8 ? 2 : 3;
+            balance = Convert.ToDecimal(balance.ToString().Substring(0, num)) * 100000;
 
             TblAccount item = new TblAccount
             {
@@ -226,30 +224,39 @@ public class TransactionService
         List<TblTransactionHistory> transactions = new List<TblTransactionHistory>();
         foreach (var item in model)
         {
-            for (DateTime date = new DateTime(2022, 1, 1); date < new DateTime(2024, 12, 31); date = date.AddDays(1))
+            for (DateTime date = new DateTime(DateTime.Now.Year - year, 1, 1);
+                 date < DateTime.Now;
+                 date = date.AddDays(1))
             {
-                string GetDifferentAccountNo(string currentAccountNo)
+                string GetDifferentAccountNo(int currentAccountId)
                 {
                     Random random = new Random();
-                    int randomNumber = random.Next(1, 10);
-                    int result = Convert.ToInt32(currentAccountNo) + randomNumber;
-                    return result.ToString("D6");
+                    int randomNumber;
+                    do
+                    {
+                        randomNumber = random.Next(1, 100);
+                    } while (randomNumber == currentAccountId);
+
+                    return randomNumber.ToString("D6");
                 }
+
+                var fromAccountNo = GetDifferentAccountNo(item.AccountId);
+                var toAccountNo = (Convert.ToInt32(fromAccountNo) + 1).ToString("D6");
 
                 TblTransactionHistory creditTransaction = new TblTransactionHistory
                 {
-                    FromAccountNo = GetDifferentAccountNo(item.AccountNo),
-                    ToAccountNo = GetDifferentAccountNo(item.AccountNo),
+                    FromAccountNo = fromAccountNo,
+                    ToAccountNo = toAccountNo,
                     TransactionDate = date,
-                    Amount = (decimal)random.NextDouble() * 10000,
+                    Amount = (decimal)random.NextDouble() * 1000000,
                     AdminUserCode = "Admin",
                     TransactionType = "Credit"
                 };
                 transactions.Add(creditTransaction);
                 TblTransactionHistory debitTransaction = new TblTransactionHistory
                 {
-                    FromAccountNo = GetDifferentAccountNo(item.AccountNo),
-                    ToAccountNo = GetDifferentAccountNo(item.AccountNo),
+                    FromAccountNo = fromAccountNo,
+                    ToAccountNo = toAccountNo,
                     TransactionDate = date,
                     Amount = (decimal)random.NextDouble() * 10000,
                     AdminUserCode = "Admin",

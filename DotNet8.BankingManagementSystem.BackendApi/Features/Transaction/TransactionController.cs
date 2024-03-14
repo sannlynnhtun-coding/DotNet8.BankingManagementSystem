@@ -89,9 +89,9 @@ public class TransactionController : BaseController
     #region Generate accounts
 
     [HttpPost("Generate")]
-    public async Task<IActionResult> GenerateAccounts(int count)
+    public async Task<IActionResult> GenerateAccounts(int count, int year)
     {
-        var model = await _transactionService.GenerateAccounts(count);
+        var model = await _transactionService.GenerateAccounts(count, year);
         return Ok(model);
     }
 
