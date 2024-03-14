@@ -26,6 +26,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
             {
                 return;
             }
+
             _model = result.Data;
             StateHasChanged();
             await InjectService.DisableLoading();

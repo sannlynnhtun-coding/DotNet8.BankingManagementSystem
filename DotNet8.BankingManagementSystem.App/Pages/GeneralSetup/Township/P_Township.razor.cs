@@ -32,6 +32,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
                 //
                 return;
             }
+
             StateHasChanged();
             await InjectService.DisableLoading();
         }
@@ -62,6 +63,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
                 await InjectService.DisableLoading();
                 await InjectService.SuccessMessage("Deleting Successful.");
             }
+
             StateHasChanged();
         }
     }

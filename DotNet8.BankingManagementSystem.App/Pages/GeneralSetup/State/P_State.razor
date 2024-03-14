@@ -38,7 +38,7 @@
                             <th scope="col">State Code</th>
                             <th scope="col">State Name</th>
                             <th scope="col">Actions</th>
-                            
+
                         </tr>
                         </thead>
                         <tbody>
@@ -49,9 +49,9 @@
                                 <td>@item.StateCode</td>
                                 <td>@item.StateName</td>
                                 <td>
-                                  <a class="btn btn-warning" href=@($"/general-setup/state/edit/{item.StateCode}")>
-                                      <i class="fa-solid fa-pen-to-square"></i>
-                                  </a>
+                                    <a class="btn btn-warning" href=@($"/general-setup/state/edit/{item.StateCode}")>
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
                                     <a class="btn btn-danger btnDelete" @onclick="() => IsConfirmed(item.StateCode)">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>

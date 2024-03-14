@@ -10,25 +10,25 @@
             <MudCard>
                 <MudCardContent>
                     <MudTextField Label="Fullname"
-                                  @bind-Value="_model.FullName" For="@(() => _model.FullName)" />
-                    
+                                  @bind-Value="_model.FullName" For="@(() => _model.FullName)"/>
+
                     <MudTextField Label="Username" Class="mt-3"
-                                  @bind-Value="_model.UserName" For="@(() => _model.UserName)" />
-                    
+                                  @bind-Value="_model.UserName" For="@(() => _model.UserName)"/>
+
                     <MudTextField Label="Email" Class="mt-3"
-                                  @bind-Value="_model.Email" For="@(() => _model.Email)" InputType="InputType.Email" />
-                    
+                                  @bind-Value="_model.Email" For="@(() => _model.Email)" InputType="InputType.Email"/>
+
                     @* <MudTextField Label="Password" Class="mt-3" *@
                     @*               @bind-Value="_model.Password" For="@(() => _model.Password)" InputType="InputType.Password" /> *@
 
                     <MudTextField Label="Mobile No" Class="mt-3"
-                                  @bind-Value="_model.MobileNo" For="@(() => _model.MobileNo)" />
+                                  @bind-Value="_model.MobileNo" For="@(() => _model.MobileNo)"/>
 
                     <MudTextField Label="Address" Class="mt-3"
-                                  @bind-Value="_model.Address" For="@(() => _model.Address)" />
-                    
+                                  @bind-Value="_model.Address" For="@(() => _model.Address)"/>
+
                     <MudTextField Label="NRC No" Class="mt-3"
-                                  @bind-Value="_model.Nrc" For="@(() => _model.Nrc)" />
+                                  @bind-Value="_model.Nrc" For="@(() => _model.Nrc)"/>
 
                     <MudSelect T="string" ValueChanged="(stateCode) => ChangeState(stateCode)" Class="pt-3" Label="Select your state" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined" Clearable>
                         @if (_stateListResponseModel is not null && _stateListResponseModel.Data is not null)
@@ -50,7 +50,7 @@
                     </MudSelect>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Button" @onclick="@( () => InjectService.EnableLoading())" Variant="Variant.Filled" Href="/general-setup/user" Color="Color.Warning">
+                    <MudButton ButtonType="ButtonType.Button" @onclick="@(() => InjectService.EnableLoading())" Variant="Variant.Filled" Href="/general-setup/user" Color="Color.Warning">
                         Cancel
                     </MudButton>
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-2">Register</MudButton>
@@ -59,5 +59,3 @@
         </MudItem>
     </MudGrid>
 </EditForm>
-
-

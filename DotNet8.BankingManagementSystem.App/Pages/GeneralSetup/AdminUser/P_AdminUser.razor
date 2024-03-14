@@ -32,40 +32,40 @@
                     </div>
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">AdminUserCode</th>
-                                <th scope="col">AdminUserName</th>
-                                <th scope="col">MobileNo</th>
-                                <th scope="col">UserRoleCode</th>
-                                <th scope="col">Action</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">AdminUserCode</th>
+                            <th scope="col">AdminUserName</th>
+                            <th scope="col">MobileNo</th>
+                            <th scope="col">UserRoleCode</th>
+                            <th scope="col">Action</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in _model.Data)
-                            {
-                                <tr>
-                                    <td>@(++count + ((_model.pageSetting?.PageNo - 1) * _model.pageSetting?.PageSize))</td>
-                                    <td>@item.AdminUserCode</td>
-                                    <td>@item.AdminUserName</td>
-                                    <td>@item.MobileNo</td>
-                                    <td>@item.UserRoleCode</td>
-                                    <td>
-                                        <a class="btn btn-warning" href=@($"/general-setup/adminUser/edit/{item.AdminUserCode}")>
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <a class="btn btn-danger btnDelete" @onclick="() => Delete(item.AdminUserCode)">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
+                        @foreach (var item in _model.Data)
+                        {
+                            <tr>
+                                <td>@(++count + ((_model.pageSetting?.PageNo - 1) * _model.pageSetting?.PageSize))</td>
+                                <td>@item.AdminUserCode</td>
+                                <td>@item.AdminUserName</td>
+                                <td>@item.MobileNo</td>
+                                <td>@item.UserRoleCode</td>
+                                <td>
+                                    <a class="btn btn-warning" href=@($"/general-setup/adminUser/edit/{item.AdminUserCode}")>
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a class="btn btn-danger btnDelete" @onclick="() => Delete(item.AdminUserCode)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
                         </tbody>
                     </table>
 
                     <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
                         <div class="col-sm-12 col-md-6 ">
-                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.pageSetting.PageCount" Class="mt-4" />
+                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.pageSetting.PageCount" Class="mt-4"/>
                         </div>
                     </div>
                 </div>

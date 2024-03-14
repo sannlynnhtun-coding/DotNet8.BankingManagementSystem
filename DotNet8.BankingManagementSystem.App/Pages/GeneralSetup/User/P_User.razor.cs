@@ -16,6 +16,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
         };
 
         private UserListResponseModel? _model;
+
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
             if (firstRender)
@@ -58,7 +59,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
             var result = await dialog.Result;
             if (result.Canceled) return;
 
-            var townShipresult = await UserApi.DeleteUser(UserCode);
+            var response = await UserApi.DeleteUser(UserCode);
             if (result is not null)
             {
                 await InjectService.EnableLoading();
@@ -66,6 +67,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.User
                 await InjectService.DisableLoading();
                 await InjectService.SuccessMessage("Deleting Successful.");
             }
+
             StateHasChanged();
         }
     }

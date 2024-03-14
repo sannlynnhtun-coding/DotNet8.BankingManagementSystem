@@ -33,6 +33,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Transaction
                 //
                 return;
             }
+
             StateHasChanged();
             await InjectService.DisableLoading();
         }

@@ -9,14 +9,14 @@
             <MudCard>
                 <MudCardContent>
                     <MudTextField Label="TownshipCode"
-                                  @bind-Value="_model.TownshipCode" For="@(() => _model.TownshipCode)" />
+                                  @bind-Value="_model.TownshipCode" For="@(() => _model.TownshipCode)"/>
                     <MudTextField Label="TownshipName" Class="mt-3"
-                                  @bind-Value="_model.TownshipName" For="@(() => _model.TownshipName)" />            
+                                  @bind-Value="_model.TownshipName" For="@(() => _model.TownshipName)"/>
                     <MudTextField Label="StateCode" Class="mt-3"
-                                  @bind-Value="_model.StateCode" For="@(() => _model.StateCode)" />
+                                  @bind-Value="_model.StateCode" For="@(() => _model.StateCode)"/>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton ButtonType=" ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/township" Color="Color.Warning">
+                    <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/township" Color="Color.Warning">
                         Cancel
                     </MudButton>
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-2">Create Township</MudButton>

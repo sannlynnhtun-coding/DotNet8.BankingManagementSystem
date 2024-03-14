@@ -7,7 +7,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features
     public class BaseController : ControllerBase
     {
         [NonAction]
-        public IActionResult InternalServerError(Exception exception)
+        protected IActionResult InternalServerError(Exception exception)
         {
             return Ok(new
             {

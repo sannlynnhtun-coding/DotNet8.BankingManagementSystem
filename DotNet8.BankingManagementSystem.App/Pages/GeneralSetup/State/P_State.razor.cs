@@ -48,9 +48,9 @@ public partial class P_State : ComponentBase
     private async Task IsConfirmed(string stateCode)
     {
         // await InjectService.IsConfirmed(stateCode);
-         await Delete(stateCode);
+        await Delete(stateCode);
     }
-    
+
     private async Task Delete(string stateCode)
     {
         var result = await StateApi.DeleteState(stateCode);
@@ -61,6 +61,7 @@ public partial class P_State : ComponentBase
             await InjectService.DisableLoading();
             await InjectService.SuccessMessage("Deleting Successful.");
         }
+
         StateHasChanged();
     }
 }

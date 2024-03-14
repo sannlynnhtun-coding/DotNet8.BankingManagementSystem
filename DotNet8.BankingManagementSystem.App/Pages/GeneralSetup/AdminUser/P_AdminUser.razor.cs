@@ -12,6 +12,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.AdminUser
             PageNo = 1,
             PageSize = 10
         };
+
         private AdminUserListResponseModel _model = new AdminUserListResponseModel();
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -21,7 +22,6 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.AdminUser
                 await List(_setting.PageNo, _setting.PageSize);
                 StateHasChanged();
             }
-
         }
 
         private async Task List(int pageNo, int pageSize)
@@ -32,6 +32,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.AdminUser
             {
                 return;
             }
+
             StateHasChanged();
             await InjectService.DisableLoading();
         }
@@ -57,6 +58,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.AdminUser
                 await InjectService.DisableLoading();
                 await InjectService.SuccessMessage("Deleting Successful.");
             }
+
             StateHasChanged();
         }
 
