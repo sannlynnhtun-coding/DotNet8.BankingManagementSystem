@@ -1,0 +1,75 @@
+﻿@page "/general-setup/adminUser"
+@inject IAdminUser AdminUserAPI
+@{
+    int count = 0;
+}
+@if (_model is not null && _model.Data is not null)
+{
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 mb-4">
+            <span class="text-muted fw-light"> All States</span>
+        </h4>
+        <div class="card">
+            <div class="card-datatable table-responsive">
+                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                    <div class="card-header d-flex rounded-0 flex-wrap py-md-0 ">
+                        <div class="me-5 pe-5 p-3 d-flex gap-10">
+
+                            <div class="dt-buttons">
+                                <NavLink Class="dt-button add-new btn btn-primary" @onclick="() => InjectService.IntervalLoading()" href="general-setup/adminuser/create">
+                                    <span>
+                                        <i class="mdi mdi-plus me-0 me-sm-1"></i>
+                                        <span class="d-none d-sm-inline-block">Add AdminUser</span>
+                                    </span>
+                                </NavLink>
+                            </div>
+                            <div id="DataTables_Table_0_filter" class="dataTables_filter ">
+                                <label>
+                                    <input type="search" class="form-control ms-0" placeholder="Search State" aria-controls="DataTables_Table_0">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">AdminUserCode</th>
+                                <th scope="col">AdminUserName</th>
+                                <th scope="col">MobileNo</th>
+                                <th scope="col">UserRoleCode</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in _model.Data)
+                            {
+                                <tr>
+                                    <td>@(++count + ((_model.pageSetting?.PageNo - 1) * _model.pageSetting?.PageSize))</td>
+                                    <td>@item.AdminUserCode</td>
+                                    <td>@item.AdminUserName</td>
+                                    <td>@item.MobileNo</td>
+                                    <td>@item.UserRoleCode</td>
+                                    <td>
+                                        <a class="btn btn-warning" href=@($"/general-setup/adminUser/edit/{item.AdminUserCode}")>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <a class="btn btn-danger btnDelete" @onclick="() => Delete(item.AdminUserCode)">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
+                        <div class="col-sm-12 col-md-6 ">
+                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.pageSetting.PageCount" Class="mt-4" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

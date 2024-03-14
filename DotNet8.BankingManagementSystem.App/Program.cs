@@ -16,6 +16,7 @@ builder.Services.AddRefitService<IStateApi>(builder.Configuration);
 builder.Services.AddRefitService<IUserApi>(builder.Configuration);
 builder.Services.AddRefitService<ITownshipApi>(builder.Configuration);
 builder.Services.AddRefitService<IAccountApi>(builder.Configuration);
+builder.Services.AddRefitService<IAdminUser>(builder.Configuration);
 builder.Services.AddScoped<InjectService>();
 
 await builder.Build().RunAsync();

@@ -17,7 +17,7 @@ namespace DotNet8.BankingManagementSystem.App.Api
         Task<AdminUserResponseModel> GetAdminUser(string AdminUserCode);
 
         [Get("/api/AdminUser/{pageNo}/{pageSize}")]
-        Task<AdminUserListResponseModel> GetAdminUserList();
+        Task<AdminUserListResponseModel> GetAdminUserList(int pageNo, int pageSize);
 
         [Post("/api/AdminUser")]
         Task<AdminUserResponseModel> CreateAdminUser(AdminUserRequestModel requestModel);

@@ -1,4 +1,5 @@
-﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+﻿using Azure;
+using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using DotNet8.BankingManagementSystem.Mapper;
 using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.AdminUser;
@@ -40,6 +41,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
             AdminUserListResponseModel model = new AdminUserListResponseModel()
             {
                 Data = lst,
+                pageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
                 Response = new MessageResponseModel(true, "success")
             };
             return model;
@@ -63,6 +65,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
             AdminUserListResponseModel model = new AdminUserListResponseModel()
             {
                 Data = lst,
+                //pageSetting
                 Response = new MessageResponseModel(true, "success")
             };
             return model;
@@ -127,7 +130,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.AdminUser
 
             _appDbContext.Entry(item!).State = EntityState.Deleted;
             _appDbContext.TblAdminUsers.Remove(item!);
-            var result = _appDbContext.SaveChangesAsync();
+            var result = await _appDbContext.SaveChangesAsync();
 
             AdminUserResponseModel model = new AdminUserResponseModel()
             {
