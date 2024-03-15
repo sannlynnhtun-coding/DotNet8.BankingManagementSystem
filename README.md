@@ -20,6 +20,10 @@ Summary
   - [Deposit](#deposit)
   
 
+### State and Township List
+State And Township Data များကို ဤ [Link](https://themimu.info/place-codes) မှ ထုတ်ယူထားပါသည်။ 
+ဤData များကို Account ဖွင့်ရာတွင်အသုံးပြုပါသည်။ အဘယ်ကြောင့်ဆိုသော် ဤအ‌ကောင့်ကိုဘယ်နေရာဒေသမှ ဖွင့်ထားသလဲဆို သိဖို့အတွက်ဖြစ်ပါသည်။
+
 ### Create Account
 ဘဏ်တွင်ငွေသွင်းငွေထုတ် service များကိုအသုံးပြုလိုပါက ဘဏ်တွင် account ဖွင့်ရပါမည်။
 
@@ -48,9 +52,6 @@ Customer Account ထဲမှ ငွေAmount ကိုထုတ်ယူလိ�
 Customer Account ထဲသို့ ငွေAmount ထည့်သွင်းလို့ရနိုင်ပါသည်။
 
 
-### State and Township List
-State And Township Data များကို ဤ [Link](https://themimu.info/place-codes) မှ ထုတ်ယူထားပါသည်။ 
-ဤData များကို Account ဖွင့်ရာတွင်အသုံးပြုပါသည်။ အဘယ်ကြောင့်ဆိုသော် ဤအ‌ကောင့်ကိုဘယ်နေရာဒေသမှ ဖွင့်ထားသလဲဆို သိဖို့အတွက်ဖြစ်ပါသည်။
 
 
 
