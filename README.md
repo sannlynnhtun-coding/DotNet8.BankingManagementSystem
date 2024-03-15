@@ -12,12 +12,12 @@ Summary
 - Account
   - [Create Account](#create-account)
   - [Account List](#account-list)
-- Report
-  - [Transaction History](#transaction-history)
 - Transaction
   - [Transfer](#transfer)
   - [Withdraw](#withdraw)
   - [Deposit](#deposit)
+- Report
+  - [Transaction History](#transaction-history)
   
 
 ### State and Township List
