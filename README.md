@@ -22,21 +22,25 @@ Summary
 
 ### State and Township List
 State And Township Data တွေကို ဤ [Link](https://themimu.info/place-codes) ကနေ ထုတ်ယူထားတယ်။ Account ဖွင့်ရာတွင်အသုံးပြုတယ်။ ဘယ်နေရာ ဒေသမှာ ဖွင့်ထားသလဲဆိုတာ သိဖို့အတွက် ဖြစ်တယ်။
+
 -----
 
 ### Create Account
 ဘဏ်တွင် ငွေသွင်း ငွေလွှဲ service များကိုအသုံးပြုလိုပါက ဘဏ်တွင် account ဖွင့်ရပါမည်။
+
 -----
 
 ### Account List
 
 ဘဏ်တွင် customer များဖွင့်ခဲ့သော account များကိုကြည့်ရှုလို့ရမယ်။
+
 -----
 
 
 ### Transfer
 
 Customer ငွေလွှဲချင်သည့် အကောင့်ထဲသို့ ဘဏ် Staff မှ တစ်ဆင့် လွှဲပြောင်းပေးနိုင်ပါသည်။
+
 -----
 
 ### Deposit
@@ -51,6 +55,7 @@ Logic
 ### Withdraw
 
 Customer Account ထဲမှ ငွေ Amount တွေကိုထုတ်ယူလို့ရပါမည်။
+
 -----
 
 ### Transaction History
