@@ -21,35 +21,34 @@ Summary
   
 
 ### State and Township List
-State And Township Data များကို ဤ [Link](https://themimu.info/place-codes) မှ ထုတ်ယူထားပါသည်။ 
-ဤData များကို Account ဖွင့်ရာတွင်အသုံးပြုပါသည်။ အဘယ်ကြောင့်ဆိုသော် ဤအ‌ကောင့်ကိုဘယ်နေရာဒေသမှ ဖွင့်ထားသလဲဆို သိဖို့အတွက်ဖြစ်ပါသည်။
+State And Township Data တွေကို ဤ [Link](https://themimu.info/place-codes) ကနေ ထုတ်ယူထားတယ်။ Account ဖွင့်ရာတွင်အသုံးပြုတယ်။ ဘယ်နေရာ ဒေသမှာ ဖွင့်ထားသလဲဆိုတာ သိဖို့အတွက် ဖြစ်တယ်။
 
 ### Create Account
-ဘဏ်တွင်ငွေသွင်းငွေထုတ် service များကိုအသုံးပြုလိုပါက ဘဏ်တွင် account ဖွင့်ရပါမည်။
+ဘဏ်တွင် ငွေသွင်း ငွေလွှဲ service များကိုအသုံးပြုလိုပါက ဘဏ်တွင် account ဖွင့်ရပါမည်။
 
 
 ### Account List
 
-ဘဏ်တွင် customer များဖွင့်ခဲ့သော အကောင့်များကိုကြည့်ရှုလို့ရပါမည်။
+ဘဏ်တွင် customer များဖွင့်ခဲ့သော account များကိုကြည့်ရှုလို့ရမယ်။
 
 
 ### Transaction History
 
-Customer ငွေလွှဲသွားသော account များကို Date လိုက်ကြည့်ရှုလို့ရသော Report ဖြစ်ပါသည်။
+Customer ငွေလွှဲသွားတဲ့ account တွေကို Date အလိုက်ကြည့်ရှုလို့ရတဲ့ Report ဖြစ်ပါတယ်။
 
 ### Transfer
 
-Customer ငွေလွှဲချင်သည့်အကောင့်ထဲသို့ ဘဏ်Staffမှလွှဲပြောင်းပေးနိုင်ပါသည်။
+Customer ငွေလွှဲချင်သည့် အကောင့်ထဲသို့ ဘဏ် Staff မှ တစ်ဆင့် လွှဲပြောင်းပေးနိုင်ပါသည်။
 
 
 ### Withdraw
 
-Customer Account ထဲမှ ငွေAmount ကိုထုတ်ယူလို့ရပါမည်။
+Customer Account ထဲမှ ငွေ Amount တွေကိုထုတ်ယူလို့ရပါမည်။
 
 
 ### Deposit
 
-Customer Account ထဲသို့ ငွေAmount ထည့်သွင်းလို့ရနိုင်ပါသည်။
+Customer Account ထဲသို့ ငွေ Amount တွေကိုထည့်သွင်းလို့ရနိုင်ပါသည်။
 
 
 
