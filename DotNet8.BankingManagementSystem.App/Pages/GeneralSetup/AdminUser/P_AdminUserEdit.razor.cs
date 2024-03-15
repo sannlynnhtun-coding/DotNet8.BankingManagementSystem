@@ -28,6 +28,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.AdminUser
             {
                 return;
             }
+
             _model = result.Data;
             StateHasChanged();
             await InjectService.DisableLoading();

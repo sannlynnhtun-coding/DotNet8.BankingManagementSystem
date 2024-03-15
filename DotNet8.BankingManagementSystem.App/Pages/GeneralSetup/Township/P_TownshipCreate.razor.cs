@@ -11,6 +11,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
     public partial class P_TownshipCreate
     {
         private TownshipRequestModel _model = new();
+
         private async Task OnValidSubmit(EditContext context)
         {
             try
@@ -23,6 +24,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Township
                 //Error
                 return;
             }
+
             await InjectService.SuccessMessage("Create Township Success");
             NavigationManager.NavigateTo("/general-setup/township");
         }

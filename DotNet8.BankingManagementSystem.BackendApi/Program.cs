@@ -29,10 +29,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppDbContext>(opt =>
-{
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection"));
-}, ServiceLifetime.Transient, ServiceLifetime.Transient);
+builder.Services.AddDbContext<AppDbContext>(
+    opt => { opt.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")); }, ServiceLifetime.Transient,
+    ServiceLifetime.Transient);
 
 #region Register Services
 
@@ -42,7 +41,6 @@ builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<AdminUserService>();
 builder.Services.AddScoped<TransactionService>();
-
 
 #endregion
 

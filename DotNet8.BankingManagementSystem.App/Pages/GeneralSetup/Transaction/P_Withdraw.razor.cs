@@ -6,6 +6,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Transaction
     public partial class P_Withdraw
     {
         private TransactionRequestModel _model = new();
+
         private async Task OnValidSubmit(EditContext context)
         {
             try

@@ -35,7 +35,7 @@
                             <th scope="col">CustomerCode</th>
                             <th scope="col">Balance</th>
                             <th scope="col">Actions</th>
-                            
+
                         </tr>
                         </thead>
                         <tbody>
@@ -47,9 +47,9 @@
                                 <td>@item.CustomerCode</td>
                                 <td>@item.Balance</td>
                                 <td>
-                                  <a class="btn btn-warning" href=@($"/general-setup/account/edit/{item.AccountNo}")>
-                                      <i class="fa-solid fa-pen-to-square"></i>
-                                  </a>
+                                    <a class="btn btn-warning" href=@($"/general-setup/account/edit/{item.AccountNo}")>
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
                                     <a class="btn btn-danger btnDelete" @onclick="() => IsConfirmed(item.AccountNo)">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>

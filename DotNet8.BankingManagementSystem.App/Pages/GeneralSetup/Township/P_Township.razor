@@ -8,7 +8,7 @@
 {
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light"> All Township</span>
+            <span class="text-muted fw-light">Township List</span>
         </h4>
         <div class="card">
             <div class="card-datatable table-responsive">
@@ -25,49 +25,50 @@
                                 </NavLink>
                             </div>
                             <div id="DataTables_Table_0_filter" class="dataTables_filter ">
-                                <label><input type="search" class="form-control ms-0" placeholder="Search State" aria-controls="DataTables_Table_0"></label>
+                                <label>
+                                    <input type="search" class="form-control ms-0" placeholder="Search State" aria-controls="DataTables_Table_0">
+                                </label>
                             </div>
                         </div>
                     </div>
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Township Code</th>
-                                <th scope="col">Township Name</th>
-                                <th scope="col">State Code</th>
-                                <th scope="col">Action</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Township Code</th>
+                            <th scope="col">Township Name</th>
+                            <th scope="col">State Code</th>
+                            <th scope="col">Action</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in _model.Data)
-                            {
-                                <tr>
-                                    <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
-                                    <td>@item.TownshipCode</td>
-                                    <td>@item.TownshipName</td>
-                                    <td>@item.StateCode</td>
-                                    <td>
-                                        <a class="btn btn-warning" href=@($"/general-setup/township/edit/{item.TownshipCode}")>
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btnDelete" @onclick="() => Delete(item.TownshipCode)">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            }
+                        @foreach (var item in _model.Data)
+                        {
+                            <tr>
+                                <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
+                                <td>@item.TownshipCode</td>
+                                <td>@item.TownshipName</td>
+                                <td>@item.StateCode</td>
+                                <td>
+                                    <a class="btn btn-warning" href=@($"/general-setup/township/edit/{item.TownshipCode}")>
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-danger btnDelete" @onclick="() => Delete(item.TownshipCode)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
                         </tbody>
                     </table>
 
                     <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
                         <div class="col-sm-12 col-md-6 ">
-                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
+                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4"/>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 }

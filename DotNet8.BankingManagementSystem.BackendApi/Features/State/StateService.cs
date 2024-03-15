@@ -34,6 +34,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
         }
 
         #region GetStateList
+
         public async Task<StateListResponseModel> GetStateList(int pageNo, int pageSize)
         {
             var query = _appDbContext.TblPlaceStates
@@ -57,6 +58,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             };
             return model;
         }
+
         #endregion
 
         #region GetStateByCode
@@ -96,6 +98,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
         #endregion
 
         #region Update State
+
         public async Task<StateResponseModel> UpdateState(string stateCode, StateRequestModel requestModel)
         {
             var query = _appDbContext.TblPlaceStates.AsNoTracking();
@@ -106,6 +109,7 @@ namespace DotNet8.BankingManagementSystem.BackendApi.Features.State
             {
                 throw new Exception("State is null.");
             }
+
             item.StateCode = requestModel.StateCode;
             item.StateName = requestModel.StateName;
             _appDbContext.Entry(item).State = EntityState.Modified;
