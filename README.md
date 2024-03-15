@@ -14,8 +14,8 @@ Summary
   - [Account List](#account-list)
 - Transaction
   - [Transfer](#transfer)
-  - [Withdraw](#withdraw)
   - [Deposit](#deposit)
+  - [Withdraw](#withdraw)
 - Report
   - [Transaction History](#transaction-history)
   
@@ -32,13 +32,14 @@ State And Township Data တွေကို ဤ [Link](https://themimu.info/place
 ဘဏ်တွင် customer များဖွင့်ခဲ့သော account များကိုကြည့်ရှုလို့ရမယ်။
 
 
-### Transaction History
-
-Customer ငွေလွှဲသွားတဲ့ account တွေကို Date အလိုက်ကြည့်ရှုလို့ရတဲ့ Report ဖြစ်ပါတယ်။
-
 ### Transfer
 
 Customer ငွေလွှဲချင်သည့် အကောင့်ထဲသို့ ဘဏ် Staff မှ တစ်ဆင့် လွှဲပြောင်းပေးနိုင်ပါသည်။
+
+
+### Deposit
+
+Customer Account ထဲသို့ ငွေ Amount တွေကိုထည့်သွင်းလို့ရနိုင်ပါသည်။
 
 
 ### Withdraw
@@ -46,9 +47,9 @@ Customer ငွေလွှဲချင်သည့် အကောင့်ထ�
 Customer Account ထဲမှ ငွေ Amount တွေကိုထုတ်ယူလို့ရပါမည်။
 
 
-### Deposit
+### Transaction History
 
-Customer Account ထဲသို့ ငွေ Amount တွေကိုထည့်သွင်းလို့ရနိုင်ပါသည်။
+Customer ငွေလွှဲသွားတဲ့ account တွေကို Date အလိုက်ကြည့်ရှုလို့ရတဲ့ Report ဖြစ်ပါတယ်။
 
 -----------
 
