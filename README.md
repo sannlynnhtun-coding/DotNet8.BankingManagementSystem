@@ -1,4 +1,4 @@
-Banking Management System
+# Banking Management System
 
 Summary 
 > ငွေသွင်း ငွေလွှဲ ပြုလုပ်သည့်အခါ ဘဏ် staff ကနေ အသုံးပြုရတဲ့ စနစ်ဖြစ်တယ်။ ကိုယ်‌‌ ငွေလွှဲချင်တဲ့ account နံပါတ်ကို ဘဏ် staff အားပြောပြပြီးတော့မှ ဘဏ် staff ကနေ တစ်ဆင့် ငွေသွင်း ငွေလွှဲ‌ ပြုလုပ်ပေးနိုင်တဲ့  Service မျိုး ဖြစ်ပါတယ်။
@@ -50,7 +50,7 @@ Customer Account ထဲမှ ငွေ Amount တွေကိုထုတ်ယ
 
 Customer Account ထဲသို့ ငွေ Amount တွေကိုထည့်သွင်းလို့ရနိုင်ပါသည်။
 
-
+-----------
 
 
 
