@@ -84,6 +84,11 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+
+    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
+
     <script src="assets/vendor/libs/jquery/jquery.js"></script>
     <script src="assets/vendor/libs/popper/popper.js"></script>
     <script src="assets/vendor/js/bootstrap.js"></script>
@@ -103,10 +108,6 @@
     <!-- Page JS -->
     <script src="assets/js/dashboards-analytics.js"></script>
     <!-- Page JS -->
-    <script src="_framework/blazor.webassembly.js"></script>
-    <script>navigator.serviceWorker.register('service-worker.js');</script>
-
-    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
     <script src="plugins/notiflix-3-2-7/notiflix-3.2.7.min.js"></script>
 
     <script src="custom.js"></script>
