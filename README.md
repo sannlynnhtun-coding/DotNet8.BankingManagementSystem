@@ -8,55 +8,53 @@ Summary
 
 ပါ၀င်မည့် Menu များကတော့
 - General Setup
-  - [State List](#state-list)
-  - Township List
+  - [State List](#state-and-township-list)
+  - [Township List](#state-and-township-list)
 - Account
-  - Create Account
-  - Account List
+  - [Create Account](#create-account)
+  - [Account List](#account-list)
 - Report
-  - Transaction History
+  - [Transaction History](#transaction-history)
 - Transaction
-  - Transfer
-  - Withdraw
-  - Deposit
+  - [Transfer](#transfer)
+  - [Withdraw](#withdraw)
+  - [Deposit](#deposit)
   
-```Create Account
 
+### Create Account
 ဘဏ်တွင်ငွေသွင်းငွေထုတ် service များကိုအသုံးပြုလိုပါက ဘဏ်တွင် account ဖွင့်ရပါမည်။
 
-```
-```Account List
+
+### Account List
 
 ဘဏ်တွင် customer များဖွင့်ခဲ့သော အကောင့်များကိုကြည့်ရှုလို့ရပါမည်။
 
-```
-```Transaction History
+
+### Transaction History
 
 Customer ငွေလွှဲသွားသော account များကို Date လိုက်ကြည့်ရှုလို့ရသော Report ဖြစ်ပါသည်။
 
-```
-```Transfer
+### Transfer
 
 Customer ငွေလွှဲချင်သည့်အကောင့်ထဲသို့ ဘဏ်Staffမှလွှဲပြောင်းပေးနိုင်ပါသည်။
 
-```
 
-```Withdraw
+### Withdraw
 
 Customer Account ထဲမှ ငွေAmount ကိုထုတ်ယူလို့ရပါမည်။
 
-```
 
-```Deposit
+### Deposit
 
 Customer Account ထဲသို့ ငွေAmount ထည့်သွင်းလို့ရနိုင်ပါသည်။
 
-```
 
-### State List
-1.
-2.
-3.
+### State and Township List
+State And Township Data များကို ဤ [Link](https://themimu.info/place-codes) မှ ထုတ်ယူထားပါသည်။ 
+ဤData များကို Account ဖွင့်ရာတွင်အသုံးပြုပါသည်။ အဘယ်ကြောင့်ဆိုသော် ဤအ‌ကောင့်ကိုဘယ်နေရာဒေသမှ ဖွင့်ထားသလဲဆို သိဖို့အတွက်ဖြစ်ပါသည်။
+
+
+
 
 CRUD
 List (Pagination)
@@ -114,7 +112,7 @@ dotnet ef dbcontext scaffold "server=.;database=BankingManagementSystem;user id=
 ```
 
 
-https://themimu.info/place-codes
+
 
 ```sql
 select * from [dbo].[Tbl_PlaceTownship] t
