@@ -57,5 +57,11 @@ namespace DotNet8.BankingManagementSystem.App
         {
             _navigationManager.NavigateTo(url);
         }
+        public async Task LoadJavaScript()
+        {
+            await Task.Delay(500);
+            await _jSRuntime.InvokeVoidAsync("loadJs", "assets/vendor/js/menu.js");
+            await _jSRuntime.InvokeVoidAsync("loadJs", "assets/js/main.js");
+        }
     }
 }

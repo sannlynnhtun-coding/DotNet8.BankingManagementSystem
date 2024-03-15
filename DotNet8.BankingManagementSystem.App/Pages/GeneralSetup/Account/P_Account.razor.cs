@@ -21,6 +21,7 @@ namespace DotNet8.BankingManagementSystem.App.Pages.GeneralSetup.Account
         {
             if (firstRender)
             {
+                await InjectService.LoadJavaScript();
                 await List(_setting.PageNo, _setting.PageSize);
             }
         }
