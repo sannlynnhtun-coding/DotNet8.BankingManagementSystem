@@ -37,22 +37,15 @@
 
 <div class="menu-inner-shadow"></div>
 
-
 <ul class="menu-inner py-1">
 <!-- Dashboards -->
-<li class="menu-item active open">
+<li class="menu-item">
     <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
-        <div data-i18n="Dashboards">Dashboards</div>
-        <div class="badge bg-danger rounded-pill ms-auto">5</div>
+        <div data-i18n="Dashboards">General Setup</div>
     </a>
     <ul class="menu-sub">
         <li class="menu-item">
-            <a href="/general-setup/user" class="menu-link">
-                <div data-i18n="CRM">User List</div>
-            </a>
-        </li>
-        <li class="menu-item ">
             <a href="/general-setup/state" class="menu-link">
                 <div data-i18n="Analytics">State list</div>
             </a>
@@ -62,6 +55,20 @@
                 <div data-i18n="Analytics">Township List</div>
             </a>
         </li>
+    </ul>
+</li>
+<li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
+        <div data-i18n="Dashboards">User &amp; Accounts</div>
+    </a>
+    <ul class="menu-sub">
+        <li class="menu-item">
+            <a href="/general-setup/user" class="menu-link">
+                <div data-i18n="CRM">User List</div>
+            </a>
+        </li>
+
         <li class="menu-item">
             <a href="/general-setup/account" class="menu-link">
                 <div data-i18n="Logistics">Account List</div>
@@ -72,11 +79,27 @@
                 <div data-i18n="Logistics">AdminUser List</div>
             </a>
         </li>
+    </ul>
+</li>
+<li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
+        <div data-i18n="Dashboards">Report</div>
+    </a>
+    <ul class="menu-sub">
         <li class="menu-item">
             <a href="/general-setup/transaction" class="menu-link">
-                <div data-i18n="Logistics">Transaction List</div>
+                <div data-i18n="Logistics">Transaction History</div>
             </a>
         </li>
+    </ul>
+</li>
+<li class="menu-item">
+    <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
+        <div data-i18n="Dashboards">Transaction</div>
+    </a>
+    <ul class="menu-sub">
         <li class="menu-item">
             <a href="/general-setup/transaction/transfer" class="menu-link">
                 <div data-i18n="Logistics">Transfer</div>
@@ -88,12 +111,13 @@
             </a>
         </li>
         <li class="menu-item">
-                    <a href="/general-setup/transaction/deposit" class="menu-link">
-                        <div data-i18n="Logistics">Deposit</div>
-                    </a>
-                </li>
+            <a href="/general-setup/transaction/deposit" class="menu-link">
+                <div data-i18n="Logistics">Deposit</div>
+            </a>
+        </li>
     </ul>
 </li>
+
 
 <!-- Layouts -->
 @* <li class="menu-item"> *@
@@ -1632,3 +1656,12 @@
 <MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await InjectService.LoadJavaScript();
+        }
+    }
+}

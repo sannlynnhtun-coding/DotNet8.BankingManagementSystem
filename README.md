@@ -1,3 +1,58 @@
+```Purpose Of Banking Management System
+
+Banking Management System ရဲ့ ရည်ရွယ်ချက်ကတော့ 
+ဘဏ်ကိုသွားပြီး ငွေလွှဲသည့်အခါ bank staff ကနေ အသုံးပြုရသည့် စနစ်ဖြစ်ပါသည်။ 
+ကိုယ်‌‌ငွေလွှဲချင်သည့် account နံပါတ် အား ဘဏ် staff အားပြောပြ၍ 
+ဘဏ် staff ကနေ တစ်ဆင့် ငွေလွှဲ‌ပေးရသည့် စနစ် ဖြစ်ပါသည်။
+
+```
+ပါ၀င်မည့် Menu များကတော့
+- General Setup
+  - State List
+  - Township List
+- Account
+  - Create Account
+  - Account List
+- Report
+  - Transaction History
+- Transaction
+  - Transfer
+  - Withdraw
+  - Deposit
+  
+```Create Account
+
+ဘဏ်တွင်ငွေသွင်းငွေထုတ် service များကိုအသုံးပြုလိုပါက ဘဏ်တွင် account ဖွင့်ရပါမည်။
+
+```
+```Account List
+
+ဘဏ်တွင် customer များဖွင့်ခဲ့သော အကောင့်များကိုကြည့်ရှုလို့ရပါမည်။
+
+```
+```Transaction History
+
+Customer ငွေလွှဲသွားသော account များကို Date လိုက်ကြည့်ရှုလို့ရသော Report ဖြစ်ပါသည်။
+
+```
+```Transfer
+
+Customer ငွေလွှဲချင်သည့်အကောင့်ထဲသို့ ဘဏ်Staffမှလွှဲပြောင်းပေးနိုင်ပါသည်။
+
+```
+
+```Withdraw
+
+Customer Account ထဲမှ ငွေAmount ကိုထုတ်ယူလို့ရပါမည်။
+
+```
+
+```Deposit
+
+Customer Account ထဲသို့ ငွေAmount ထည့်သွင်းလို့ရနိုင်ပါသည်။
+
+```
+
 CRUD
 List (Pagination)
 	- EFCore
