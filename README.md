@@ -4,10 +4,11 @@ Summary
 > ဘဏ်ကိုသွားပြီး ငွေလွှဲသည့်အခါ ဘဏ် staff ကနေ အသုံးပြုရသည့် စနစ်ဖြစ်ပါသည်။ ကိုယ်‌‌ ငွေလွှဲချင်သည့် account နံပါတ်အား ဘဏ် staff အားပြောပြ၍ 
 ဘဏ် staff ကနေ တစ်ဆင့် ငွေလွှဲ‌ပေးရသည့်စနစ် ဖြစ်ပါသည်။
 
-```
+
+
 ပါ၀င်မည့် Menu များကတော့
 - General Setup
-  - State List
+  - [State List](#state-list)
   - Township List
 - Account
   - Create Account
@@ -51,6 +52,11 @@ Customer Account ထဲမှ ငွေAmount ကိုထုတ်ယူလိ�
 Customer Account ထဲသို့ ငွေAmount ထည့်သွင်းလို့ရနိုင်ပါသည်။
 
 ```
+
+### State List
+1.
+2.
+3.
 
 CRUD
 List (Pagination)
