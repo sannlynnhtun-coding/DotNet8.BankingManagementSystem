@@ -8,7 +8,9 @@
             <MudCard>
                 <MudCardContent>
                     <MudTextField Label="CustomerCode" @bind-Value="_model.CustomerCode" For="@(() => _model.CustomerCode)"/>
+                    <MudTextField Label="CustomerName" Class="mt-3" @bind-Value="_model.CustomerName" For="@(() => _model.CustomerName)"/>
                     <MudTextField Label="Balance" Class="mt-3" @bind-Value="_model.Balance" For="@(() => _model.Balance)"/>
+                    
                 </MudCardContent>
                 <MudCardActions>
                     <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/account" Color="Color.Warning">
