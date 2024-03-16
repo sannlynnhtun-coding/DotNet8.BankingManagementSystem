@@ -22,6 +22,7 @@ public static class ChangeModel
     }
 
     #region State
+
     public static TblPlaceState Change(this StateRequestModel item)
     {
         var model = new TblPlaceState()
@@ -31,9 +32,11 @@ public static class ChangeModel
         };
         return model;
     }
+
     #endregion
 
     #region Township
+
     public static TownshipModel Change(this TblPlaceTownship item)
     {
         return new TownshipModel()
@@ -78,6 +81,7 @@ public static class ChangeModel
         };
         return model;
     }
+
     public static TblUser Change(this UserRequestModel item)
     {
         return new TblUser()
@@ -102,7 +106,7 @@ public static class ChangeModel
         return new TblAccount()
         {
             CustomerCode = item.CustomerCode,
-            // AccountNo = item.AccountNo,
+            CustomerName = item.CustomerName,
             Balance = item.Balance
         };
     }
@@ -112,6 +116,7 @@ public static class ChangeModel
         return new AccountModel()
         {
             CustomerCode = item.CustomerCode,
+            CustomerName = item.CustomerName,
             AccountNo = item.AccountNo,
             Balance = item.Balance,
             AccountId = item.AccountId
