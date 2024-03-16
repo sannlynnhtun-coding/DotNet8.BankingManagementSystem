@@ -75,8 +75,52 @@ Customer ငွေလွှဲသွားတဲ့ account တွေကို D
 
 -----
 
+- Tbl_PlaceState 
+  - StateId
+  - StateCode
+  - StateName
 
+- Tbl_PlaceTownship 
+  - TownshipId
+  - TownshipCode
+  - TownshipName
+  - StateCode
 
+- Tbl_User
+  - UserId
+  - UserCode
+  - UserName
+  - FullName
+  - MobileNo
+  - Email
+  - Nrc
+  - Address
+  - StateCode
+  - TownshipCode
+  - CustomerId
+
+- Tbl_Account
+  - AccountId
+  - AccountNo
+  - CustomerName
+  - CustomerCode
+  - Balance
+
+- Tbl_AdminUser
+  - AdminUserId
+  - AdminUserCode
+  - AdminUserName
+  - MobileNo
+  - UserRoleCode
+
+- Tbl_TransactionHistory
+  - TransactionHistoryId
+  - FromAccountNo
+  - ToAccountNo
+  - TransactionDate
+  - Amount
+  - AdminUserCode
+  - TransactionType
 
 CRUD
 List (Pagination)
