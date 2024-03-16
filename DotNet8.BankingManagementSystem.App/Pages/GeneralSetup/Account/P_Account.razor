@@ -33,6 +33,7 @@
                             <th scope="col">#</th>
                             <th scope="col">AccountNo</th>
                             <th scope="col">CustomerCode</th>
+                            <th scope="col">CustomerName</th>
                             <th scope="col">Balance</th>
                             <th scope="col">Actions</th>
 
@@ -45,6 +46,7 @@
                                 <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
                                 <td>@item.AccountNo</td>
                                 <td>@item.CustomerCode</td>
+                                <td>@item.CustomerName</td>
                                 <td>@item.Balance</td>
                                 <td>
                                     <a class="btn btn-warning" href=@($"/general-setup/account/edit/{item.AccountNo}")>
