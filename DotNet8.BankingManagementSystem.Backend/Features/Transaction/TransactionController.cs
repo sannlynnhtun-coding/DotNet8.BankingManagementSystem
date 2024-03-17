@@ -1,8 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.Account;
-using DotNet8.BankingManagementSystem.Models.Transfer;
-using Microsoft.AspNetCore.Mvc;
-
-namespace DotNet8.BankingManagementSystem.Backend.Features.Transaction;
+﻿namespace DotNet8.BankingManagementSystem.Backend.Features.Transaction;
 
 [ApiController]
 [Route("api/[controller]")]

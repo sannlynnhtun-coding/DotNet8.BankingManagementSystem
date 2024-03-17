@@ -1,24 +1,21 @@
-﻿using DotNet8.BankingManagementSystem.Models.AdminUser;
-using Microsoft.AspNetCore.Mvc;
+﻿namespace DotNet8.BankingManagementSystem.Backend.Features.AdminUser;
 
-namespace DotNet8.BankingManagementSystem.Backend.Features.AdminUser
+[ApiController]
+[Route("api/[controller]")]
+public class AdminUserController : BaseController
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class AdminUserController : BaseController
-    {
-        private readonly AdminUserService _adminUserService;
+    private readonly AdminUserService _adminUserService;
 
-        public AdminUserController(AdminUserService adminUserService)
-        {
+    public AdminUserController(AdminUserService adminUserService)
+    {
             _adminUserService = adminUserService;
         }
 
-        #region GetAdminUsers
+    #region GetAdminUsers
 
-        [HttpGet]
-        public async Task<IActionResult> GetAdminUser()
-        {
+    [HttpGet]
+    public async Task<IActionResult> GetAdminUser()
+    {
             try
             {
                 var model = await _adminUserService.GetAdminUsers();
@@ -30,13 +27,13 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.AdminUser
             }
         }
 
-        #endregion
+    #endregion
 
-        #region GetAdminUserszByPagination
+    #region GetAdminUserszByPagination
 
-        [HttpGet("{pageNo}/{pageSize}")]
-        public async Task<IActionResult> GetAdminUserList(int pageNo, int pageSize)
-        {
+    [HttpGet("{pageNo}/{pageSize}")]
+    public async Task<IActionResult> GetAdminUserList(int pageNo, int pageSize)
+    {
             try
             {
                 var model = await _adminUserService.GetAdminUsersList(pageNo, pageSize);
@@ -48,13 +45,13 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.AdminUser
             }
         }
 
-        #endregion
+    #endregion
 
-        #region GetAdminUserByAdminUserCode
+    #region GetAdminUserByAdminUserCode
 
-        [HttpGet("{AdminUserCode}")]
-        public async Task<IActionResult> GetAdminUser(string AdminUserCode)
-        {
+    [HttpGet("{AdminUserCode}")]
+    public async Task<IActionResult> GetAdminUser(string AdminUserCode)
+    {
             try
             {
                 var model = await _adminUserService.GetAdminUser(AdminUserCode);
@@ -66,13 +63,13 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.AdminUser
             }
         }
 
-        #endregion
+    #endregion
 
-        #region CreateAdminUser
+    #region CreateAdminUser
 
-        [HttpPost]
-        public async Task<IActionResult> CreateAdminUser([FromBody] AdminUserRequestModel requestModel)
-        {
+    [HttpPost]
+    public async Task<IActionResult> CreateAdminUser([FromBody] AdminUserRequestModel requestModel)
+    {
             try
             {
                 var model = await _adminUserService.CreateAdminUser(requestModel);
@@ -84,13 +81,13 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.AdminUser
             }
         }
 
-        #endregion
+    #endregion
 
-        #region DeleteAdminUser
+    #region DeleteAdminUser
 
-        [HttpDelete("{AdminUserCode}")]
-        public async Task<IActionResult> DeleteAdminUser(string AdminUserCode)
-        {
+    [HttpDelete("{AdminUserCode}")]
+    public async Task<IActionResult> DeleteAdminUser(string AdminUserCode)
+    {
             try
             {
                 var model = await _adminUserService.DeleteAdminUser(AdminUserCode);
@@ -102,13 +99,13 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.AdminUser
             }
         }
 
-        #endregion
+    #endregion
 
-        #region UpdateAdminUser
+    #region UpdateAdminUser
 
-        [HttpPut("{AdminUserCode}")]
-        public async Task<IActionResult> UpdateAdminUser(string AdminUserCode, AdminUserRequestModel reqModel)
-        {
+    [HttpPut("{AdminUserCode}")]
+    public async Task<IActionResult> UpdateAdminUser(string AdminUserCode, AdminUserRequestModel reqModel)
+    {
             try
             {
                 var model = await _adminUserService.UpdateAdminUser(AdminUserCode, reqModel);
@@ -120,6 +117,5 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.AdminUser
             }
         }
 
-        #endregion
-    }
+    #endregion
 }

@@ -1,7 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.State;
-using Microsoft.AspNetCore.Mvc;
-
-namespace DotNet8.BankingManagementSystem.Backend.Features.State;
+﻿namespace DotNet8.BankingManagementSystem.Backend.Features.State;
 
 [ApiController]
 [Route("api/[controller]")]

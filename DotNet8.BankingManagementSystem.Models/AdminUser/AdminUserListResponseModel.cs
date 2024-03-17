@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DotNet8.BankingManagementSystem.Models.AdminUser
+namespace DotNet8.BankingManagementSystem.Models.AdminUser;
+
+public class AdminUserListResponseModel
 {
-    public class AdminUserListResponseModel
-    {
-        public MessageResponseModel Response { get; set; }
+    public MessageResponseModel Response { get; set; }
 
-        public PageSettingModel pageSetting { get; set; }
+    public PageSettingModel pageSetting { get; set; }
 
-        public List<AdminUserModel> Data { get; set; }
-    }
+    public List<AdminUserModel> Data { get; set; }
 }

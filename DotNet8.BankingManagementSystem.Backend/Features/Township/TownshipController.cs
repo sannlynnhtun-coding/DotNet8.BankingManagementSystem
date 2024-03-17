@@ -1,23 +1,20 @@
-﻿using DotNet8.BankingManagementSystem.Models.TownShip;
-using Microsoft.AspNetCore.Mvc;
+﻿namespace DotNet8.BankingManagementSystem.Backend.Features.Township;
 
-namespace DotNet8.BankingManagementSystem.Backend.Features.Township
+[ApiController]
+[Route("api/[controller]")]
+public class TownshipController : BaseController
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class TownshipController : BaseController
+    private readonly TownshipService _townshipService;
+    public TownshipController(TownshipService townshipService)
     {
-        private readonly TownshipService _townshipService;
-        public TownshipController(TownshipService townshipService)
-        {
             _townshipService = townshipService;
         }
 
-        #region Get Townships
+    #region Get Townships
 
-        [HttpGet("{pageNo}/{pageSize}")]
-        public async Task<IActionResult> GetTownShipByPagination(int pageNo, int pageSize)
-        {
+    [HttpGet("{pageNo}/{pageSize}")]
+    public async Task<IActionResult> GetTownShipByPagination(int pageNo, int pageSize)
+    {
             try
             {
                 var model = await _townshipService.GetTownShipList(pageNo, pageSize);
@@ -29,13 +26,13 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.Township
             }
         }
 
-        #endregion]
+    #endregion]
 
-        #region Get Township
+    #region Get Township
 
-        [HttpGet("{townshipCode}")]
-        public async Task<IActionResult> GetTownShipByCode(string townshipCode)
-        {
+    [HttpGet("{townshipCode}")]
+    public async Task<IActionResult> GetTownShipByCode(string townshipCode)
+    {
             try
             {
                 var model = await _townshipService.GetTownShipByCode(townshipCode);
@@ -47,13 +44,13 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.Township
             }
         }
 
-        #endregion
+    #endregion
 
-        #region Create Township
+    #region Create Township
 
-        [HttpPost]
-        public async Task<IActionResult> CreateTownShip([FromBody] TownshipRequestModel requestModel)
-        {
+    [HttpPost]
+    public async Task<IActionResult> CreateTownShip([FromBody] TownshipRequestModel requestModel)
+    {
             try
             {
                 var model = await _townshipService.CreateTownShip(requestModel);
@@ -65,13 +62,13 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.Township
             }
         }
 
-        #endregion
+    #endregion
 
-        #region Update Township
+    #region Update Township
 
-        [HttpPut("{townshipCode}")]
-        public async Task<IActionResult> UpdateTownship(string townshipCode, [FromBody] TownshipRequestModel requestModel)
-        {
+    [HttpPut("{townshipCode}")]
+    public async Task<IActionResult> UpdateTownship(string townshipCode, [FromBody] TownshipRequestModel requestModel)
+    {
             try
             {
                 var model = await _townshipService.UpdateTownship(townshipCode, requestModel);
@@ -83,13 +80,13 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.Township
             }
         }
 
-        #endregion
+    #endregion
 
-        #region Delete TownShip
+    #region Delete TownShip
 
-        [HttpDelete("{townShipCode}")]
-        public async Task<IActionResult> DeleteTownShip(string townShipCode)
-        {
+    [HttpDelete("{townShipCode}")]
+    public async Task<IActionResult> DeleteTownShip(string townShipCode)
+    {
             try
             {
                 var model = await _townshipService.DeleteTownShip(townShipCode);
@@ -101,11 +98,11 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.Township
             }
         }
 
-        #endregion
+    #endregion
 
-        [HttpGet("StateCode/{stateCode}")]
-        public async Task<IActionResult> GetTownShipByTownshipCode(string stateCode)
-        {
+    [HttpGet("StateCode/{stateCode}")]
+    public async Task<IActionResult> GetTownShipByTownshipCode(string stateCode)
+    {
             try
             {
                 var model = await _townshipService.GetTownShipByStateCode(stateCode);
@@ -116,5 +113,4 @@ namespace DotNet8.BankingManagementSystem.Backend.Features.Township
                 return InternalServerError(ex);
             }
         }
-    }
 }

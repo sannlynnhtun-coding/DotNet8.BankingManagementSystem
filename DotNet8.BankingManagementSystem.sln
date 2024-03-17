@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{647722
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.Frontend.Api", "DotNet8.BankingManagementSystem.Frontend.Api\DotNet8.BankingManagementSystem.Frontend.Api.csproj", "{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.Backend.Services", "DotNet8.BankingManagementSystem.Backend.Services\DotNet8.BankingManagementSystem.Backend.Services.csproj", "{98FAC8B5-52EC-4831-9A8A-1062184ED0B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98FAC8B5-52EC-4831-9A8A-1062184ED0B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98FAC8B5-52EC-4831-9A8A-1062184ED0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98FAC8B5-52EC-4831-9A8A-1062184ED0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98FAC8B5-52EC-4831-9A8A-1062184ED0B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,6 +74,7 @@ Global
 		{467D3E18-F512-453B-BF68-BB50C0432BC5} = {64772246-4639-4D7D-A439-0560ED085B15}
 		{8F5C9BFC-2319-4E63-9CEE-BA2D7D380819} = {64772246-4639-4D7D-A439-0560ED085B15}
 		{3A4E058B-9D9F-42B6-874D-9A0AA941A03F} = {64772246-4639-4D7D-A439-0560ED085B15}
+		{98FAC8B5-52EC-4831-9A8A-1062184ED0B4} = {64772246-4639-4D7D-A439-0560ED085B15}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EA411AB8-CEBE-47FF-8A88-DC7C24F987D2}

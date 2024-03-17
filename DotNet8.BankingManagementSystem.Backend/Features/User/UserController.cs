@@ -1,7 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.Users;
-using Microsoft.AspNetCore.Mvc;
-
-namespace DotNet8.BankingManagementSystem.Backend.Features.User;
+﻿namespace DotNet8.BankingManagementSystem.Backend.Features.User;
 
 [ApiController]
 [Route("api/[controller]")]

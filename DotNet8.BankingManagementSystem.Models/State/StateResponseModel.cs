@@ -1,8 +1,7 @@
-﻿namespace DotNet8.BankingManagementSystem.Models.State
+﻿namespace DotNet8.BankingManagementSystem.Models.State;
+
+public class StateResponseModel
 {
-    public class StateResponseModel
-    {
-        public MessageResponseModel Response { get; set; }
-        public StateModel Data { get; set; }
-    }
+    public MessageResponseModel Response { get; set; }
+    public StateModel Data { get; set; }
 }

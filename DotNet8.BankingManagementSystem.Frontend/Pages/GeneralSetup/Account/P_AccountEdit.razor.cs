@@ -2,49 +2,48 @@
 using DotNet8.BankingManagementSystem.Models.State;
 using Microsoft.AspNetCore.Components;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Account
+namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Account;
+
+public partial class P_AccountEdit
 {
-    public partial class P_AccountEdit
+    [Parameter] public string accountNo { get; set; }
+    private AccountModel _model = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        [Parameter] public string accountNo { get; set; }
-        private AccountModel _model = new();
-
-        protected override async Task OnAfterRenderAsync(bool firstRender)
+        if (firstRender)
         {
-            if (firstRender)
-            {
-                await GetAccount(accountNo);
-                StateHasChanged();
-            }
-        }
-
-        private async Task GetAccount(string accountNo)
-        {
-            await InjectService.EnableLoading();
-            var result = await AccountApi.GetAccount(accountNo);
-            if (result.Response.IsError)
-            {
-                //
-                return;
-            }
-
-            _model = result.Data;
-            StateHasChanged();
-            await InjectService.DisableLoading();
-        }
-
-        private async Task OnValidSubmit()
-        {
-            var reqModel = new AccountRequestModel()
-            {
-                CustomerCode = _model.CustomerCode,
-                Balance = _model.Balance
-            };
-
-            var response = await AccountApi.UpdateAccount(accountNo, reqModel);
-            await InjectService.Go("/general-setup/account");
-            await InjectService.SuccessMessage("Updating Successful.");
+            await GetAccount(accountNo);
             StateHasChanged();
         }
+    }
+
+    private async Task GetAccount(string accountNo)
+    {
+        await InjectService.EnableLoading();
+        var result = await AccountApi.GetAccount(accountNo);
+        if (result.Response.IsError)
+        {
+            //
+            return;
+        }
+
+        _model = result.Data;
+        StateHasChanged();
+        await InjectService.DisableLoading();
+    }
+
+    private async Task OnValidSubmit()
+    {
+        var reqModel = new AccountRequestModel()
+        {
+            CustomerCode = _model.CustomerCode,
+            Balance = _model.Balance
+        };
+
+        var response = await AccountApi.UpdateAccount(accountNo, reqModel);
+        await InjectService.Go("/general-setup/account");
+        await InjectService.SuccessMessage("Updating Successful.");
+        StateHasChanged();
     }
 }

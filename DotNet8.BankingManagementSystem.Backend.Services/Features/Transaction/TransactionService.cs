@@ -1,12 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
-using DotNet8.BankingManagementSystem.Mapper;
-using DotNet8.BankingManagementSystem.Models;
-using DotNet8.BankingManagementSystem.Models.Account;
-using DotNet8.BankingManagementSystem.Models.TransactionHistory;
-using DotNet8.BankingManagementSystem.Models.Transfer;
-using Microsoft.EntityFrameworkCore;
-
-namespace DotNet8.BankingManagementSystem.Backend.Features.Transaction;
+﻿namespace DotNet8.BankingManagementSystem.Backend.Services.Features.Transaction;
 
 public class TransactionService
 {
