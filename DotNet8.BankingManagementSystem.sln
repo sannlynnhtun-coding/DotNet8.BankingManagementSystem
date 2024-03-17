@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34607.79
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.App", "DotNet8.BankingManagementSystem.App\DotNet8.BankingManagementSystem.App.csproj", "{5AD51DC6-4283-4118-BC72-0A1075E8F7AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.Frontend", "DotNet8.BankingManagementSystem.Frontend\DotNet8.BankingManagementSystem.Frontend.csproj", "{5AD51DC6-4283-4118-BC72-0A1075E8F7AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.BackendApi", "DotNet8.BankingManagementSystem.BackendApi\DotNet8.BankingManagementSystem.BackendApi.csproj", "{5C788DD0-CBD7-4475-9517-D766C7031BBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.Backend", "DotNet8.BankingManagementSystem.Backend\DotNet8.BankingManagementSystem.Backend.csproj", "{5C788DD0-CBD7-4475-9517-D766C7031BBE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{5B3424F8-FDA6-4FC0-A9A2-589D25ACBB81}"
 	ProjectSection(SolutionItems) = preProject
@@ -22,7 +22,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSy
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{64772246-4639-4D7D-A439-0560ED085B15}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.App.Api", "DotNet8.BankingManagementSystem.App.Api\DotNet8.BankingManagementSystem.App.Api.csproj", "{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.Frontend.Api", "DotNet8.BankingManagementSystem.Frontend.Api\DotNet8.BankingManagementSystem.Frontend.Api.csproj", "{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
