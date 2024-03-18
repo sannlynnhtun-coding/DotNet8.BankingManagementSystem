@@ -7,8 +7,8 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api;
 
 public interface IAccountApi
 {
-    // [Get("/api/account")]
-    // Task<AccountListResponseModel> GetAccounts();
+    [Get("/api/account")]
+    Task<AccountListResponseModel> GetAccounts();
 
     [Get("/api/account/{pageNo}/{pageSize}")]
     Task<AccountListResponseModel> GetAccountList(int pageNo, int pageSize);
@@ -24,7 +24,4 @@ public interface IAccountApi
 
     [Delete("/api/account/{accountNo}")]
     Task<AccountResponseModel> DeleteAccount(string accountNo);
-    
-    [Get("/api/account/UserCode/{userCode}")]
-    Task<UserListResponseModel> GetUserNameByUserCode(string userCode);
 }

@@ -79,8 +79,6 @@ public class TransactionService
         var transaction = await _dbContext.Database.BeginTransactionAsync();
         try
         {
-            //decimal newBalance = item.Balance + amount;
-            //item.Balance = newBalance;
             item.Balance += requestModel.Amount;
             _dbContext.TblAccounts.Update(item);
             int result = await _dbContext.SaveChangesAsync();
@@ -89,7 +87,6 @@ public class TransactionService
         catch (Exception ex)
         {
             await transaction.RollbackAsync();
-            // Console.WriteLine(ex.Message);
         }
 
         AccountResponseModel model = new AccountResponseModel()
@@ -126,7 +123,6 @@ public class TransactionService
         catch (Exception ex)
         {
             await transaction.RollbackAsync();
-            // Console.WriteLine(ex.Message);
         }
 
         AccountResponseModel model = new AccountResponseModel()
@@ -174,9 +170,6 @@ public class TransactionService
 
             toAccount.Balance += requestModel.Amount;
             _dbContext.TblAccounts.Update(toAccount);
-
-            //int result = await _dbContext.SaveChangesAsync();
-
             TblTransactionHistory creditTransactionHistory = new TblTransactionHistory()
             {
                 Amount = requestModel.Amount,
@@ -187,7 +180,7 @@ public class TransactionService
                 TransactionType = "Credit"
             };
 
-            TblTransactionHistory dedbitTransactionHistory = new TblTransactionHistory()
+            TblTransactionHistory debitTransactionHistory = new TblTransactionHistory()
             {
                 Amount = requestModel.Amount,
                 TransactionDate = DateTime.Now,
@@ -196,7 +189,7 @@ public class TransactionService
                 AdminUserCode = "Admin",
                 TransactionType = "Debit"
             };
-            await _dbContext.AddRangeAsync(dedbitTransactionHistory, creditTransactionHistory);
+            await _dbContext.AddRangeAsync(debitTransactionHistory, creditTransactionHistory);
             await _dbContext.SaveChangesAsync();
 
             await transaction.CommitAsync();
@@ -250,8 +243,8 @@ public class TransactionService
         List<TblTransactionHistory> transactions = new List<TblTransactionHistory>();
         foreach (var item in model)
         {
-            for (DateTime date = new DateTime(DateTime.Now.Year - year, 1, 1);
-                 date < DateTime.Now;
+            for (DateTime date = new DateTime(DateTime.Now.Year - year, 1, 1).Date;
+                 date < DateTime.Now.Date;
                  date = date.AddDays(1))
             {
                 string GetDifferentAccountNo(int currentAccountId)
@@ -311,5 +304,26 @@ public class TransactionService
 
         return name;
     }
+    #endregion
+
+    #region get from date to date
+    public async Task<TransactionHistoryListResponseModel> TransactionHistoryDateList(DateTime fromDate,
+        DateTime toDate)
+    {
+        TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
+        var query = _dbContext.TblTransactionHistories.AsNoTracking();
+        var result = await query
+            .Where(x => x.TransactionDate >= fromDate && x.TransactionDate <= toDate)
+            .ToListAsync();
+        var lst = result.Select(x => x.Change()).ToList();
+
+        model = new TransactionHistoryListResponseModel()
+        {
+            Data = lst,
+            Response = new MessageResponseModel(true, "Success")
+        };
+        return model;
+    }
+
     #endregion
 }

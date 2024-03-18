@@ -11,7 +11,7 @@ public partial class P_AccountCreate : ComponentBase
         try
         {
             var response = await AccountApi.CreateAccount(_model);
-            await InjectService.Go("/general-setup/account");
+            await InjectService.Go("/user-and-account/account");
             await InjectService.SuccessMessage("Creating Successful.");
         }
         catch (Exception ex)

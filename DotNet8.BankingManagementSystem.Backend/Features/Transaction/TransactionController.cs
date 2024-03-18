@@ -1,4 +1,6 @@
-﻿namespace DotNet8.BankingManagementSystem.Backend.Features.Transaction;
+﻿using DotNet8.BankingManagementSystem.Models.TransactionHistory;
+
+namespace DotNet8.BankingManagementSystem.Backend.Features.Transaction;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -27,7 +29,7 @@ public class TransactionController : BaseController
         }
     }
 
-    #endregion  
+    #endregion
 
     #region Get History With Date
 
@@ -111,4 +113,19 @@ public class TransactionController : BaseController
     }
 
     #endregion
+
+    [HttpGet("Transaction/{fromDate}/{toDate}")]
+    public async Task<IActionResult> TransactionHistoryDateList(DateTime fromDate,
+        DateTime toDate)
+    {
+        try
+        {
+            var model = await _transactionService.TransactionHistoryDateList(fromDate, toDate);
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
+        }
+    }
 }
