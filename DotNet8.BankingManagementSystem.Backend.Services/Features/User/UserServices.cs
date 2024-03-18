@@ -155,4 +155,18 @@ public class UserServices
     }
 
     #endregion
+    
+    public async Task<UserListResponseModel> GetUserNameByUserCode(string userCode)
+    {
+        var query = _appDbContext.TblUsers.AsNoTracking()
+            .Where(x => x.UserCode == userCode);
+        var lst = await query
+            .ToListAsync();
+        UserListResponseModel model = new UserListResponseModel()
+        {
+            Data = lst.Select(x => x.Change()).ToList(),
+            Response = new MessageResponseModel(true, "Success")
+        };
+        return model;
+    }
 }

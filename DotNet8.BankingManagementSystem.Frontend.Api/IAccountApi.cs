@@ -1,5 +1,6 @@
 ﻿using DotNet8.BankingManagementSystem.Models.Account;
 using DotNet8.BankingManagementSystem.Models.State;
+using DotNet8.BankingManagementSystem.Models.Users;
 using Refit;
 
 namespace DotNet8.BankingManagementSystem.Frontend.Api;
@@ -23,4 +24,7 @@ public interface IAccountApi
 
     [Delete("/api/account/{accountNo}")]
     Task<AccountResponseModel> DeleteAccount(string accountNo);
+    
+    [Get("/api/account/UserCode/{userCode}")]
+    Task<UserListResponseModel> GetUserNameByUserCode(string userCode);
 }

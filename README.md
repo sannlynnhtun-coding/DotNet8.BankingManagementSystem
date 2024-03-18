@@ -188,7 +188,7 @@ inner join [dbo].[Tbl_PlaceState] s on s.StateCode = t.StateCode
 ```sql
 USE [BankingManagementSystem]
 GO
-/****** Object:  Table [dbo].[Tbl_Account]    Script Date: 3/11/2024 11:16:44 AM ******/
+/****** Object:  Table [dbo].[Tbl_Account]    Script Date: 3/18/2024 2:15:21 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -198,13 +198,14 @@ CREATE TABLE [dbo].[Tbl_Account](
     [AccountNo]  AS (right('000000'+CONVERT([varchar](6),[AccountId]),(6))),
     [CustomerCode] [nvarchar](50) NOT NULL,
     [Balance] [decimal](20, 2) NOT NULL,
+    [CustomerName] [nvarchar](50) NULL,
     CONSTRAINT [PK_Account] PRIMARY KEY CLUSTERED
 (
 [AccountId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
     ) ON [PRIMARY]
     GO
-/****** Object:  Table [dbo].[Tbl_AdminUser]    Script Date: 3/11/2024 11:16:44 AM ******/
+/****** Object:  Table [dbo].[Tbl_AdminUser]    Script Date: 3/18/2024 2:15:21 PM ******/
     SET ANSI_NULLS ON
     GO
     SET QUOTED_IDENTIFIER ON
@@ -221,7 +222,7 @@ CREATE TABLE [dbo].[Tbl_AdminUser](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
     ) ON [PRIMARY]
     GO
-/****** Object:  Table [dbo].[Tbl_PlaceState]    Script Date: 3/11/2024 11:16:44 AM ******/
+/****** Object:  Table [dbo].[Tbl_PlaceState]    Script Date: 3/18/2024 2:15:21 PM ******/
     SET ANSI_NULLS ON
     GO
     SET QUOTED_IDENTIFIER ON
@@ -236,7 +237,7 @@ CREATE TABLE [dbo].[Tbl_PlaceState](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
     ) ON [PRIMARY]
     GO
-/****** Object:  Table [dbo].[Tbl_PlaceTownship]    Script Date: 3/11/2024 11:16:44 AM ******/
+/****** Object:  Table [dbo].[Tbl_PlaceTownship]    Script Date: 3/18/2024 2:15:21 PM ******/
     SET ANSI_NULLS ON
     GO
     SET QUOTED_IDENTIFIER ON
@@ -252,7 +253,7 @@ CREATE TABLE [dbo].[Tbl_PlaceTownship](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
     ) ON [PRIMARY]
     GO
-/****** Object:  Table [dbo].[Tbl_TransactionHistory]    Script Date: 3/11/2024 11:16:44 AM ******/
+/****** Object:  Table [dbo].[Tbl_TransactionHistory]    Script Date: 3/18/2024 2:15:21 PM ******/
     SET ANSI_NULLS ON
     GO
     SET QUOTED_IDENTIFIER ON
@@ -264,13 +265,14 @@ CREATE TABLE [dbo].[Tbl_TransactionHistory](
     [TransactionDate] [datetime] NOT NULL,
     [Amount] [decimal](20, 2) NOT NULL,
     [AdminUserCode] [nvarchar](50) NOT NULL,
+    [TransactionType] [nvarchar](50) NOT NULL,
     CONSTRAINT [PK_Tbl_Transfer] PRIMARY KEY CLUSTERED
 (
 [TransactionHistoryId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
     ) ON [PRIMARY]
     GO
-/****** Object:  Table [dbo].[Tbl_User]    Script Date: 3/11/2024 11:16:44 AM ******/
+/****** Object:  Table [dbo].[Tbl_User]    Script Date: 3/18/2024 2:15:21 PM ******/
     SET ANSI_NULLS ON
     GO
     SET QUOTED_IDENTIFIER ON
@@ -295,7 +297,9 @@ CREATE TABLE [dbo].[Tbl_User](
     GO
     SET IDENTITY_INSERT [dbo].[Tbl_Account] ON
 
-    INSERT [dbo].[Tbl_Account] ([AccountId], [CustomerCode], [Balance]) VALUES (1, N'C0000001', CAST(1.00 AS Decimal(20, 2)))
+    INSERT [dbo].[Tbl_Account] ([AccountId], [CustomerCode], [Balance], [CustomerName]) VALUES (2, N'C000005', CAST(10099.00 AS Decimal(20, 2)), N'MinThukha')
+    INSERT [dbo].[Tbl_Account] ([AccountId], [CustomerCode], [Balance], [CustomerName]) VALUES (3, N'C000002', CAST(10010.00 AS Decimal(20, 2)), N'SanLynnHtun')
+    INSERT [dbo].[Tbl_Account] ([AccountId], [CustomerCode], [Balance], [CustomerName]) VALUES (4, N'C000001', CAST(9809.00 AS Decimal(20, 2)), N'ZinLinnhtet')
     SET IDENTITY_INSERT [dbo].[Tbl_Account] OFF
     GO
     SET IDENTITY_INSERT [dbo].[Tbl_PlaceState] ON
@@ -684,14 +688,25 @@ CREATE TABLE [dbo].[Tbl_User](
     INSERT [dbo].[Tbl_PlaceTownship] ([TownshipId], [TownshipCode], [TownshipName], [StateCode]) VALUES (356, N'MMR013010', N'Yankin', N'MMR013')
     INSERT [dbo].[Tbl_PlaceTownship] ([TownshipId], [TownshipCode], [TownshipName], [StateCode]) VALUES (357, N'MMR013046', N'Hlaingtharya (East)', N'MMR013')
     INSERT [dbo].[Tbl_PlaceTownship] ([TownshipId], [TownshipCode], [TownshipName], [StateCode]) VALUES (358, N'MMR013047', N'Hlaingtharya (West)', N'MMR013')
-    INSERT [dbo].[Tbl_PlaceTownship] ([TownshipId], [TownshipCode], [TownshipName], [StateCode]) VALUES (377, N'oho', N'jhi', N'ohjo')
-    INSERT [dbo].[Tbl_PlaceTownship] ([TownshipId], [TownshipCode], [TownshipName], [StateCode]) VALUES (379, N'Hello Brho', N'Hello Brho', N'Hello Brho')
     SET IDENTITY_INSERT [dbo].[Tbl_PlaceTownship] OFF
+    GO
+    SET IDENTITY_INSERT [dbo].[Tbl_TransactionHistory] ON
+
+    INSERT [dbo].[Tbl_TransactionHistory] ([TransactionHistoryId], [FromAccountNo], [ToAccountNo], [TransactionDate], [Amount], [AdminUserCode], [TransactionType]) VALUES (1, N'000004', N'000003', CAST(N'2024-03-16T22:30:14.937' AS DateTime), CAST(100.00 AS Decimal(20, 2)), N'Admin', N'Debit')
+    INSERT [dbo].[Tbl_TransactionHistory] ([TransactionHistoryId], [FromAccountNo], [ToAccountNo], [TransactionDate], [Amount], [AdminUserCode], [TransactionType]) VALUES (2, N'000004', N'000003', CAST(N'2024-03-16T22:30:14.937' AS DateTime), CAST(100.00 AS Decimal(20, 2)), N'Admin', N'Credit')
+    SET IDENTITY_INSERT [dbo].[Tbl_TransactionHistory] OFF
+    GO
+    SET IDENTITY_INSERT [dbo].[Tbl_User] ON
+
+    INSERT [dbo].[Tbl_User] ([UserId], [UserCode], [UserName], [FullName], [MobileNo], [Email], [Nrc], [Address], [StateCode], [TownshipCode]) VALUES (1, N'AB001', N'@zinlinnhtet', N'ZinLinnhtet', N'0912345678', N'mackk5504@gmail.com', N'11/12345', N'Yangon', N'MMR013', N'MMR013040')
+    INSERT [dbo].[Tbl_User] ([UserId], [UserCode], [UserName], [FullName], [MobileNo], [Email], [Nrc], [Address], [StateCode], [TownshipCode]) VALUES (2, N'AB002', N'@sanlynnhtun', N'SanLynnHtun', N'0987363535', N'sanlynnhtundev@gmail.com', N'11/1223444', N'Yangon', N'MMR004', N'MMR004006')
+    SET IDENTITY_INSERT [dbo].[Tbl_User] OFF
     GO
 ALTER TABLE [dbo].[Tbl_User]  WITH CHECK ADD  CONSTRAINT [FK_Tbl_User_Tbl_User] FOREIGN KEY([UserId])
     REFERENCES [dbo].[Tbl_User] ([UserId])
     GO
 ALTER TABLE [dbo].[Tbl_User] CHECK CONSTRAINT [FK_Tbl_User_Tbl_User]
     GO
+
 
 ```
