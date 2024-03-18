@@ -1,9 +1,10 @@
 ﻿using DotNet8.BankingManagementSystem.Models.Account;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Transaction;
+namespace DotNet8.BankingManagementSystem.Frontend.Pages.Transaction.Withdraw;
 
-public partial class P_Withdraw
+public partial class P_Withdraw : ComponentBase
 {
     private TransactionRequestModel _model = new();
 
@@ -12,6 +13,7 @@ public partial class P_Withdraw
         try
         {
             var response = await TransactionApi.Withdraw(_model);
+            await InjectService.Go("/user-and-account/account");
             await InjectService.SuccessMessage("Withdraw Successful.");
         }
         catch (Exception ex)

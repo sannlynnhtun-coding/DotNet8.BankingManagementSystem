@@ -9,6 +9,7 @@
 
 	<ItemGroup>
 	  <None Include="wwwroot\custom.js" />
+	  <None Remove="Pages\Transcation\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -31,8 +32,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Pages\Transcation\" />
-	  <Folder Include="Pages\UserAndAccount\Account\" />
+	  <Compile Remove="Pages\Transcation\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Remove="Pages\Transcation\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Remove="Pages\Transcation\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Account\P_Account.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Account\P_AccountCreate.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Account\P_AccountEdit.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\AdminUser\P_AdminUser.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\AdminUser\P_AdminUserCreate.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\AdminUser\P_AdminUserEdit.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Transaction\P_Deposit.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Transaction\P_Transaction.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Transaction\P_Transfer.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Transaction\P_Withdraw.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\User\P_User.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\User\P_UserEdit.razor" />
+	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\User\P_UserRegister.razor" />
 	</ItemGroup>
 
 </Project>

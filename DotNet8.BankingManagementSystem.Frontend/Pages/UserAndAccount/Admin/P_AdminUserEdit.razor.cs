@@ -1,10 +1,9 @@
 ﻿using DotNet8.BankingManagementSystem.Models.AdminUser;
-using DotNet8.BankingManagementSystem.Models.TownShip;
 using Microsoft.AspNetCore.Components;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.AdminUser;
+namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Admin;
 
-public partial class P_AdminUserEdit
+public partial class P_AdminUserEdit : ComponentBase
 {
     [Parameter] public string AdminUserCode { get; set; }
 

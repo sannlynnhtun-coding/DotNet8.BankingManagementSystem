@@ -1,13 +1,11 @@
 ﻿using DotNet8.BankingManagementSystem.Models.Account;
-using DotNet8.BankingManagementSystem.Models.State;
 using Microsoft.AspNetCore.Components;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Account;
+namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Account;
 
 public partial class P_AccountCreate : ComponentBase
 {
     private AccountRequestModel _model = new();
-
     private async Task OnValidSubmit()
     {
         try

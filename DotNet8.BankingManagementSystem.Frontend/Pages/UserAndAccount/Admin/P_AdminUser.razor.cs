@@ -1,10 +1,11 @@
 ﻿using DotNet8.BankingManagementSystem.Models;
 using DotNet8.BankingManagementSystem.Models.AdminUser;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.AdminUser;
+namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Admin;
 
-public partial class P_AdminUser
+public partial class P_AdminUser : ComponentBase
 {
     private PageSettingModel _setting = new PageSettingModel
     {

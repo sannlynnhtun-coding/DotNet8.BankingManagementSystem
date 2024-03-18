@@ -1,10 +1,10 @@
 ﻿using DotNet8.BankingManagementSystem.Models.AdminUser;
-using DotNet8.BankingManagementSystem.Models.TownShip;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.AdminUser;
+namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Admin;
 
-public partial class P_AdminUserCreate
+public partial class P_AdminUserCreate : ComponentBase
 {
     private AdminUserRequestModel _model = new();
 

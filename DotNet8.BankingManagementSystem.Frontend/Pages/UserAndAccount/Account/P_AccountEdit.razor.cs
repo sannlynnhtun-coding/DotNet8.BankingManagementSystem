@@ -1,10 +1,9 @@
 ﻿using DotNet8.BankingManagementSystem.Models.Account;
-using DotNet8.BankingManagementSystem.Models.State;
 using Microsoft.AspNetCore.Components;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Account;
+namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Account;
 
-public partial class P_AccountEdit
+public partial class P_AccountEdit : ComponentBase
 {
     [Parameter] public string accountNo { get; set; }
     private AccountModel _model = new();
