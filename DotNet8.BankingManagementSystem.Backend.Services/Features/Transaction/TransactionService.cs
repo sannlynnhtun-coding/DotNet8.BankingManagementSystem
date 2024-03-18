@@ -32,6 +32,37 @@ public class TransactionService
         return model;
     }
 
+    #endregion  
+
+    #region TransactionHistoryWithDate
+
+    public async Task<TransactionHistoryListResponseModel> TransactionHistoryWithDate(DateTime? date, int pageNo, int pageSize)
+    {
+        TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
+        var query = _dbContext.TblTransactionHistories.AsNoTracking();
+
+        if (date.HasValue)
+        {
+            query = query.Where(x => x.TransactionDate.Date == date.Value.Date);
+        }
+
+        var result = await query.OrderByDescending(x => x.TransactionDate)
+            .Skip((pageNo - 1) * pageSize)
+            .Take(pageSize).ToListAsync();
+
+        var count = await query.CountAsync();
+        int pageCount = count / pageSize;
+        if (count % pageSize > 0) pageCount++;
+        var lst = result.Select(x => x.Change()).ToList();
+        model = new TransactionHistoryListResponseModel()
+        {
+            Data = lst,
+            PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
+            Response = new MessageResponseModel(true, "Success")
+        };
+        return model;
+    }
+
     #endregion
 
     #region Deposit
@@ -180,7 +211,7 @@ public class TransactionService
             Response = new MessageResponseModel(true, "Balance transfer successful.")
         };
 
-        result:
+    result:
         return model;
     }
 

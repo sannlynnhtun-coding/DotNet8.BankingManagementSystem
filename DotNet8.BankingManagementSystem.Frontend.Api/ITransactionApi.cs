@@ -11,6 +11,9 @@ public interface ITransactionApi
     [Get("/api/Transaction/TransactionHistory/{pageNo}/{pageSize}")]
     Task<TransactionHistoryListResponseModel> TransactionHistory(int pageNo, int pageSize);
 
+    [Get("/api/Transaction/TransactionHistory/{date}/{pageNo}/{pageSize}")]
+    Task<TransactionHistoryListResponseModel> TransactionHistoryWithDate(DateTime? date, int pageNo, int pageSize);
+
     [Post("/api/Transaction/Deposit")]
     Task<AccountResponseModel> Deposit(TransactionRequestModel requestModel);
 
