@@ -1,4 +1,5 @@
 ﻿using DotNet8.BankingManagementSystem.Models.TransactionHistory;
+using DotNet8.BankingManagementSystem.Shared;
 
 namespace DotNet8.BankingManagementSystem.Backend.Features.Transaction;
 
@@ -33,12 +34,15 @@ public class TransactionController : BaseController
 
     #region Get History With Date
 
-    [HttpGet("TransactionHistory/{date}/{pageNo}/{pageSize}")]
-    public async Task<IActionResult> TransactionHistory(DateTime? date, int pageNo, int pageSize)
+    [HttpPost("TransactionHistory")]
+    public async Task<IActionResult> TransactionHistory(TransactionHistorySearchModel requestModel)
     {
         try
         {
-            var model = await _transactionService.TransactionHistoryWithDate(date, pageNo, pageSize);
+            var model = await _transactionService.TransactionHistoryWithDate(
+                requestModel.FromDate, 
+                requestModel.PageNo,
+                requestModel.PageSize);
             return Ok(model);
         }
         catch (Exception ex)
@@ -114,13 +118,14 @@ public class TransactionController : BaseController
 
     #endregion
 
-    [HttpGet("Transaction/{fromDate}/{toDate}")]
-    public async Task<IActionResult> TransactionHistoryDateList(DateTime fromDate,
-        DateTime toDate)
+    [HttpPost("TransactionHistory/DateRange")]
+    public async Task<IActionResult> TransactionHistoryDateList(TransactionHistorySearchModel requestModel)
     {
         try
         {
-            var model = await _transactionService.TransactionHistoryDateList(fromDate, toDate);
+            var model = await _transactionService.TransactionHistoryDateList(
+                requestModel.FromDate.ToDateTime(), 
+                requestModel.ToDate.ToDateTime());
             return Ok(model);
         }
         catch (Exception ex)

@@ -10,10 +10,24 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
             <span class="text-muted fw-light"> All Transaction</span>
-            <MudDatePicker Label="Transaction Date" @bind-Date="date"/>
         </h4>
         <div class="card">
             <div class="card-datatable table-responsive">
+                <div class="row">
+                    <div class="col-md-4">
+                        <MudDatePicker Label="Transaction Date" @bind-Date="date" />
+                    </div>
+                    <div class="col-md-8">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="dt-button add-new btn btn-primary" @onclick="Search">
+                            <span>
+                                <i class="mdi mdi-plus me-0 me-sm-1"></i>
+                                <span class="d-none d-sm-inline-block">Search</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
                 <table class="table">
                     <thead>
                         <tr>
@@ -30,8 +44,13 @@
                     <tbody>
                         @foreach (var item in _model.Data)
                         {
+                            count++;
+                            if (_model.PageSetting is not null)
+                            {
+                                count += ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize);
+                            }
                             <tr>
-                                <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
+                                <td>@(count)</td>
                                 <td>@item.ToAccountNo</td>
                                 <td>@item.FromAccountNo</td>
                                 <td>@item.TransactionType</td>
@@ -43,12 +62,14 @@
                         }
                     </tbody>
                 </table>
-
-                <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
-                    <div class="col-sm-12 col-md-12 float-right">
-                        <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
+                @if (_model.PageSetting is not null)
+                {
+                    <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
+                        <div class="col-sm-12 col-md-12 float-right">
+                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     </div>

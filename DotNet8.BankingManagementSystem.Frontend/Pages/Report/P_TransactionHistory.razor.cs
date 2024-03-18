@@ -11,6 +11,7 @@ public partial class P_TransactionHistory : ComponentBase
         PageNo = 1,
         PageSize = 10
     };
+    private DateTime? date = DateTime.Now;
 
     private TransactionHistoryListResponseModel? _model;
 
@@ -37,25 +38,35 @@ public partial class P_TransactionHistory : ComponentBase
         await InjectService.DisableLoading();
     }
 
-    //private async Task List(DateTime? date, int pageNo, int pageSize)
-    //{
-    //    await InjectService.EnableLoading();
-    //    _model = await TransactionAPI.TransactionHistoryWithDate(date, pageNo, pageSize);
-    //    if (_model.Response.IsError)
-    //    {
-    //        //
-    //        return;
-    //    }
+    private async Task Search()
+    {
+        await InjectService.EnableLoading();
+        //_model = await TransactionAPI.TransactionHistoryWithDate(new TransactionHistorySearchModel
+        //{
+        //    FromDate = date,
+        //    PageNo = 1,
+        //    PageSize = 10
+        //});
+        _model = await TransactionAPI.TransactionHistoryWithDateRange(new TransactionHistorySearchModel
+        {
+            FromDate = date,
+            ToDate = date,
+            PageNo = 1,
+            PageSize = 10
+        });
+        if (_model.Response.IsError)
+        {
+            //
+            return;
+        }
 
-    //    StateHasChanged();
-    //    await InjectService.DisableLoading();
-    //}
+        StateHasChanged();
+        await InjectService.DisableLoading();
+    }
 
     private async Task PageChanged(int i)
     {
         _setting.PageNo = i;
         await List(_setting.PageNo, _setting.PageSize);
     }
-
-    DateTime? date = DateTime.Now;
 }
