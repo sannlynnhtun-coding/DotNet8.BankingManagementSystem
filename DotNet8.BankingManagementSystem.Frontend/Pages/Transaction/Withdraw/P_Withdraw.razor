@@ -5,7 +5,7 @@
 <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
     <MudGrid Class="justify-content-center">
         <MudItem xs="12" sm="7">
-            <MudText Typo="Typo.h6" Class="mud-width-full">Withdraw</MudText>
+            <MudText Typo="Typo.h5" Class="mud-width-full py-4">Withdraw</MudText>
             <MudCard>
                 <MudCardContent>
                     <MudTextField Label="AccountNo"
@@ -14,7 +14,7 @@
                                   @bind-Value="_model.Amount" For="@(() => _model.Amount)"/>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/transaction" Color="Color.Warning">
+                    <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Href="/report/transaction-history" Color="Color.Warning">
                         Cancel
                     </MudButton>
                     <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-2">Withdraw</MudButton>

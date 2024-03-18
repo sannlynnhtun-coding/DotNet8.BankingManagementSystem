@@ -190,12 +190,14 @@ public class TransactionService
 
     public async Task<List<TblAccount>> GenerateAccounts(int count, int year)
     {
+        
         Random random = new Random();
         List<TblAccount> model = new List<TblAccount>();
 
         for (int i = 0; i < count; i++)
         {
             string customerCode = GenerateCustomerCode();
+            string customerName =GenerateCustomerName() ;
             decimal balance = (decimal)(random.Next(10000000, 100000000));
             if (balance < 0) balance *= -1;
             int num = balance.ToString().Length == 8 ? 2 : 3;
@@ -203,6 +205,7 @@ public class TransactionService
 
             TblAccount item = new TblAccount
             {
+                CustomerName = customerName,
                 CustomerCode = customerCode,
                 Balance = balance
             };
@@ -268,6 +271,14 @@ public class TransactionService
         string randomNumber = new Random().Next(1000000, 9999999).ToString();
         return "C" + randomNumber;
     }
+    private static string GenerateCustomerName()
+    {
+        string[] firstNames = { "John", "Alice", "Michael", "Emily", "David", "Sarah" };
 
+        Random rand = new Random();
+        string name = firstNames[rand.Next(firstNames.Length)];
+
+        return name;
+    }
     #endregion
 }
