@@ -10,42 +10,43 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
             <span class="text-muted fw-light"> All Transaction</span>
+            <MudDatePicker Label="Transaction Date" @bind-Date="date"/>
         </h4>
         <div class="card">
             <div class="card-datatable table-responsive">
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">ToAccountNo</th>
-                        <th scope="col">FromAccountNo</th>
-                        <th scope="col">TransactionType</th>
-                        <th scope="col">TransactionDate</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">AdminUserCode</th>
-                        <th scope="col">TransactionType</th>
-                    </tr>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">ToAccountNo</th>
+                            <th scope="col">FromAccountNo</th>
+                            <th scope="col">TransactionType</th>
+                            <th scope="col">TransactionDate</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">AdminUserCode</th>
+                            <th scope="col">TransactionType</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach (var item in _model.Data)
-                    {
-                        <tr>
-                            <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
-                            <td>@item.ToAccountNo</td>
-                            <td>@item.FromAccountNo</td>
-                            <td>@item.TransactionType</td>
-                            <td>@item.TransactionDate</td>
-                            <td>@item.Amount</td>
-                            <td>@item.AdminUserCode</td>
-                            <td>@item.TransactionType</td>
-                        </tr>
-                    }
+                        @foreach (var item in _model.Data)
+                        {
+                            <tr>
+                                <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
+                                <td>@item.ToAccountNo</td>
+                                <td>@item.FromAccountNo</td>
+                                <td>@item.TransactionType</td>
+                                <td>@item.TransactionDate</td>
+                                <td>@item.Amount</td>
+                                <td>@item.AdminUserCode</td>
+                                <td>@item.TransactionType</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
 
                 <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
                     <div class="col-sm-12 col-md-12 float-right">
-                        <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4"/>
+                        <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
                     </div>
                 </div>
             </div>

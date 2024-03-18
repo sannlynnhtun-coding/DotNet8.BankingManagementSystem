@@ -27,6 +27,24 @@ public class TransactionController : BaseController
         }
     }
 
+    #endregion  
+
+    #region Get History With Date
+
+    [HttpGet("TransactionHistory/{date}/{pageNo}/{pageSize}")]
+    public async Task<IActionResult> TransactionHistory(DateTime? date, int pageNo, int pageSize)
+    {
+        try
+        {
+            var model = await _transactionService.TransactionHistoryWithDate(date, pageNo, pageSize);
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
+        }
+    }
+
     #endregion
 
     #region Deposit
