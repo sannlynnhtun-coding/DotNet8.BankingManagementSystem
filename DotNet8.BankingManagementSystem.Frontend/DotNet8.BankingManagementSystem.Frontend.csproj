@@ -30,4 +30,9 @@
 		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Pages\Transcation\" />
+	  <Folder Include="Pages\UserAndAccount\Account\" />
+	</ItemGroup>
+
 </Project>
