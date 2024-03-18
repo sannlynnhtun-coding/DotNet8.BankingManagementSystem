@@ -13,12 +13,14 @@
         </h4>
         <div class="card">
             <div class="card-datatable table-responsive">
-                <div class="row">
+                <div class="row pt-3 px-3 mb-4">
                     <div class="col-md-4">
-                        <MudDatePicker Label="Transaction Date" @bind-Date="date" />
+                        <MudDatePicker Label="Transaction Date" Mask="@(new DateMask("dd-MM-yyyy"))" DateFormat="dd-MM-yyyy" @bind-Date="date" />
                     </div>
                     <div class="col-md-8">
                     </div>
+                </div>
+                <div class="row px-3 mb-4">
                     <div class="col-md-2">
                         <button class="dt-button add-new btn btn-primary" @onclick="Search">
                             <span>
@@ -32,32 +34,38 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">ToAccountNo</th>
-                            <th scope="col">FromAccountNo</th>
-                            <th scope="col">TransactionType</th>
-                            <th scope="col">TransactionDate</th>
+                            <th scope="col">From Account No</th>
+                            <th scope="col">To Account No</th>
+                            <th scope="col">Transaction Date</th>
                             <th scope="col">Amount</th>
-                            <th scope="col">AdminUserCode</th>
-                            <th scope="col">TransactionType</th>
+                            <th scope="col">Transaction Type</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in _model.Data)
                         {
                             count++;
+                            int rowNo = count;
                             if (_model.PageSetting is not null)
                             {
-                                count += ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize);
+                                rowNo += ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize);
                             }
                             <tr>
-                                <td>@(count)</td>
-                                <td>@item.ToAccountNo</td>
+                                <td>@(rowNo)</td>
                                 <td>@item.FromAccountNo</td>
-                                <td>@item.TransactionType</td>
-                                <td>@item.TransactionDate</td>
-                                <td>@item.Amount</td>
-                                <td>@item.AdminUserCode</td>
-                                <td>@item.TransactionType</td>
+                                <td>@item.ToAccountNo</td>
+                                <td>@item.TransactionDate.ToString("dd-MMM-yyyy hh:mm tt")</td>
+                                <td class="text-right">@item.Amount.ToString("n0")</td>
+                                <td>
+                                    @if (@item.TransactionType == "Credit")
+                                    {
+                                        <span class="badge text-bg-success">Credit</span>
+                                    }
+                                    else if (@item.TransactionType == "Debit")
+                                    {
+                                        <span class="badge text-bg-danger">Debit</span>
+                                    }
+                                </td>
                             </tr>
                         }
                     </tbody>
