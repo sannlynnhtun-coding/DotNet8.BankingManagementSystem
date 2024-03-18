@@ -6,12 +6,14 @@
 @if (_model is not null && _model.Data is not null)
 {
     <div class="container-xxl flex-grow-1 container-p-y">
+      <h4 class="py-3 mb-4">
+                <span class="text-muted fw-light"> All Accounts</span>
+            </h4>
         <div class="card">
             <div class="card-datatable table-responsive">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
                     <div class="card-header d-flex rounded-0 flex-wrap py-md-0 ">
                         <div class="me-5 pe-5 p-3 d-flex gap-10">
-
                             <div class="dt-buttons">
                                 <NavLink Class="dt-button add-new btn btn-primary" @onclick="() => InjectService.IntervalLoading()" href="general-setup/account/create">
                                     <span>
