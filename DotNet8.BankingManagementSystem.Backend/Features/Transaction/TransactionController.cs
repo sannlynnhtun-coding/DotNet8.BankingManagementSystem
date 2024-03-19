@@ -125,7 +125,7 @@ public class TransactionController : BaseController
         {
             var model = await _transactionService.TransactionHistoryDateList(
                 requestModel.FromDate.ToDateTime(), 
-                requestModel.ToDate.ToDateTime());
+                requestModel.ToDate.ToDateTime(),requestModel.PageNo,requestModel.PageSize);
             return Ok(model);
         }
         catch (Exception ex)
