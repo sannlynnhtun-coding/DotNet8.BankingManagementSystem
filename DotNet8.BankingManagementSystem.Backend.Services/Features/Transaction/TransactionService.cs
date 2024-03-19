@@ -308,12 +308,13 @@ public class TransactionService
 
     #region get from date to date
     public async Task<TransactionHistoryListResponseModel> TransactionHistoryDateList(DateTime fromDate,
-        DateTime toDate)
+        DateTime toDate,int pageNo, int pageSize)
     {
         TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
         var query = _dbContext.TblTransactionHistories.AsNoTracking();
         var result = await query
             .Where(x => x.TransactionDate >= fromDate && x.TransactionDate <= toDate)
+            .Skip((pageNo-1)*pageSize).Take(pageSize)
             .ToListAsync();
         var lst = result.Select(x => x.Change()).ToList();
 
