@@ -1,0 +1,85 @@
+﻿@page "/report/transaction-historyV1"
+@inject ITransactionApi TransactionAPI
+
+@{
+    int count = 0;
+}
+
+@if (_model is not null && _model.Data is not null)
+{
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <h4 class="py-3 mb-4">
+            <span class="text-muted fw-light"> All Transaction</span>
+        </h4>
+        <div class="card">
+            <div class="card-datatable table-responsive">
+                <div class="row pt-3 px-3 mb-4">
+                    <div class="col-md-4">
+                        <MudDatePicker Label="From Date" Mask="@(new DateMask("dd-MM-yyyy"))" DateFormat="dd-MM-yyyy" @bind-Date="fromDate" />
+                        <MudDatePicker Label="To Date" Mask="@(new DateMask("dd-MM-yyyy"))" DateFormat="dd-MM-yyyy" @bind-Date="toDate" />
+                    </div>
+                    <div class="col-md-8">
+                    </div>
+                </div>
+                <div class="row px-3 mb-4">
+                    <div class="col-md-2">
+                        <button class="dt-button add-new btn btn-primary" @onclick="Search">
+                            <span>
+                                <i class="mdi mdi-plus me-0 me-sm-1"></i>
+                                <span class="d-none d-sm-inline-block">Search</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">From Account No</th>
+                            <th scope="col">To Account No</th>
+                            <th scope="col">Transaction Date</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Transaction Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in _model.Data)
+                        {
+                            count++;
+                            int rowNo = count;
+                            if (_model.PageSetting is not null)
+                            {
+                                rowNo += ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize);
+                            }
+                            <tr>
+                                <td>@(rowNo)</td>
+                                <td>@item.FromAccountNo</td>
+                                <td>@item.ToAccountNo</td>
+                                <td>@item.TransactionDate.ToString("dd-MMM-yyyy hh:mm tt")</td>
+                                <td class="text-right">@item.Amount.ToString("n0")</td>
+                                <td>
+                                    @if (@item.TransactionType == "Credit")
+                                    {
+                                        <span class="badge text-bg-success">Credit</span>
+                                    }
+                                    else if (@item.TransactionType == "Debit")
+                                    {
+                                        <span class="badge text-bg-danger">Debit</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                @if (_model.PageSetting is not null)
+                {
+                    <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
+                        <div class="col-sm-12 col-md-12 float-right">
+                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

@@ -32,11 +32,12 @@ public class TransactionService
         return model;
     }
 
-    #endregion  
+    #endregion
 
     #region TransactionHistoryWithDate
 
-    public async Task<TransactionHistoryListResponseModel> TransactionHistoryWithDate(DateTime? date, int pageNo, int pageSize)
+    public async Task<TransactionHistoryListResponseModel> TransactionHistoryWithDate(DateTime? date, int pageNo,
+        int pageSize)
     {
         TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
         var query = _dbContext.TblTransactionHistories.AsNoTracking();
@@ -204,7 +205,7 @@ public class TransactionService
             Response = new MessageResponseModel(true, "Balance transfer successful.")
         };
 
-    result:
+        result:
         return model;
     }
 
@@ -214,14 +215,13 @@ public class TransactionService
 
     public async Task<List<TblAccount>> GenerateAccounts(int count, int year)
     {
-        
         Random random = new Random();
         List<TblAccount> model = new List<TblAccount>();
 
         for (int i = 0; i < count; i++)
         {
             string customerCode = GenerateCustomerCode();
-            string customerName =GenerateCustomerName() ;
+            string customerName = GenerateCustomerName();
             decimal balance = (decimal)(random.Next(10000000, 100000000));
             if (balance < 0) balance *= -1;
             int num = balance.ToString().Length == 8 ? 2 : 3;
@@ -295,6 +295,7 @@ public class TransactionService
         string randomNumber = new Random().Next(1000000, 9999999).ToString();
         return "C" + randomNumber;
     }
+
     private static string GenerateCustomerName()
     {
         string[] firstNames = { "John", "Alice", "Michael", "Emily", "David", "Sarah" };
@@ -304,16 +305,19 @@ public class TransactionService
 
         return name;
     }
+
     #endregion
 
     #region get from date to date
+
     public async Task<TransactionHistoryListResponseModel> TransactionHistoryDateList(DateTime fromDate,
-        DateTime toDate)
+        DateTime toDate, int pageNo, int pageSize)
     {
         TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
         var query = _dbContext.TblTransactionHistories.AsNoTracking();
         var result = await query
             .Where(x => x.TransactionDate >= fromDate && x.TransactionDate <= toDate)
+            .Skip((pageNo - 1) * pageSize).Take(pageSize)
             .ToListAsync();
         var lst = result.Select(x => x.Change()).ToList();
 
