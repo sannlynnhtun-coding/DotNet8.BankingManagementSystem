@@ -24,7 +24,7 @@
                             </div>
                             <div id="DataTables_Table_0_filter" class="dataTables_filter ">
                                 <label>
-                                    <input type="search" class="form-control ms-0" placeholder="Search State" aria-controls="DataTables_Table_0">
+                                    <input type="search" class="form-control ms-0" placeholder="Search Account" aria-controls="DataTables_Table_0">
                                 </label>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                                 <td>@item.CustomerName</td>
                                 <td>@item.Balance</td>
                                 <td>
-                                    <a class="btn btn-warning" href=@($"/general-setup/account/edit/{item.AccountNo}")>
+                                        <a class="btn btn-warning" href=@($"/user-and-account/account{item.AccountNo}")>
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
                                     <a class="btn btn-danger btnDelete" @onclick="() => IsConfirmed(item.AccountNo)">

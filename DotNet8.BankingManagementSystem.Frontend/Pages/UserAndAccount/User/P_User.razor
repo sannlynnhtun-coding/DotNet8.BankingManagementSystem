@@ -60,8 +60,8 @@
                                 <td>@item.Address</td>
                                 <td>@item.StateCode</td>
                                 <td>@item.TownshipCode</td>
-                                <td>
-                                    <a class="btn btn-warning" href=@($"/general-setup/user/edit/{item.UserCode}")>
+                                    <td>
+                                        <a class="btn btn-warning" href=@($"/user-and-account/user/edit/{item.UserCode}")>
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
                                     <button type="button" class="btn btn-danger btnDelete" @onclick="() => Delete(item.UserCode)">

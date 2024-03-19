@@ -25,7 +25,7 @@ public partial class P_UserRegister : ComponentBase
         try
         {
             var response = await UserApi.CreateUser(_model);
-            await InjectService.Go("/general-setup/user");
+            await InjectService.Go("/user-and-account/user");
             await InjectService.SuccessMessage("Registration Successful.");
         }
         catch (Exception ex)
