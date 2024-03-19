@@ -40,7 +40,7 @@ public class TransactionController : BaseController
         try
         {
             var model = await _transactionService.TransactionHistoryWithDate(
-                requestModel.FromDate, 
+                requestModel.FromDate,
                 requestModel.PageNo,
                 requestModel.PageSize);
             return Ok(model);
@@ -118,14 +118,18 @@ public class TransactionController : BaseController
 
     #endregion
 
+    #region Date Range
+
     [HttpPost("TransactionHistory/DateRange")]
     public async Task<IActionResult> TransactionHistoryDateList(TransactionHistorySearchModel requestModel)
     {
         try
         {
             var model = await _transactionService.TransactionHistoryDateList(
-                requestModel.FromDate.ToDateTime(), 
-                requestModel.ToDate.ToDateTime(),requestModel.PageNo,requestModel.PageSize);
+                requestModel.FromDate.ToDateTime(),
+                requestModel.ToDate.ToDateTime(), 
+                requestModel.PageNo, 
+                requestModel.PageSize);
             return Ok(model);
         }
         catch (Exception ex)
@@ -133,4 +137,6 @@ public class TransactionController : BaseController
             return InternalServerError(ex);
         }
     }
+
+    #endregion
 }
