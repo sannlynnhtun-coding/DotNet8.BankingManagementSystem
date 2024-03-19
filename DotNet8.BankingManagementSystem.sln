@@ -24,7 +24,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{647722
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.Frontend.Api", "DotNet8.BankingManagementSystem.Frontend.Api\DotNet8.BankingManagementSystem.Frontend.Api.csproj", "{3A4E058B-9D9F-42B6-874D-9A0AA941A03F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8.BankingManagementSystem.Backend.Services", "DotNet8.BankingManagementSystem.Backend.Services\DotNet8.BankingManagementSystem.Backend.Services.csproj", "{98FAC8B5-52EC-4831-9A8A-1062184ED0B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSystem.Backend.Services", "DotNet8.BankingManagementSystem.Backend.Services\DotNet8.BankingManagementSystem.Backend.Services.csproj", "{98FAC8B5-52EC-4831-9A8A-1062184ED0B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

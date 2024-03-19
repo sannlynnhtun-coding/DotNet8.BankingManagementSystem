@@ -3,7 +3,7 @@ using DotNet8.BankingManagementSystem.Models.TransactionHistory;
 
 namespace DotNet8.BankingManagementSystem.Frontend.Pages.Report;
 
-public partial class P_TransactionHistoryV1
+public partial class TransactionHistoryDateRange
 {
     private PageSettingModel _setting = new()
     {

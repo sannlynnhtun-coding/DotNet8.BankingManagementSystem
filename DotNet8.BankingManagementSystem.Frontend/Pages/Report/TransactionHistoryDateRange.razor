@@ -1,4 +1,4 @@
-﻿@page "/report/transaction-historyV1"
+﻿@page "/report/transaction-history-date-range"
 @inject ITransactionApi TransactionAPI
 
 @{
@@ -8,9 +8,6 @@
 @if (_model is not null && _model.Data is not null)
 {
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light"> All Transaction</span>
-        </h4>
         <div class="card">
             <div class="card-datatable table-responsive">
                 <div class="row pt-3 px-3 mb-4">
