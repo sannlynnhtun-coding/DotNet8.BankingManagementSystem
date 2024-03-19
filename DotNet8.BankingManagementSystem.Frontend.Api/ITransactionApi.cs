@@ -25,5 +25,4 @@ public interface ITransactionApi
 
     [Post("/api/Transaction/TransactionHistory/DateRange")]
     Task<TransactionHistoryListResponseModel> TransactionHistoryWithDateRange(TransactionHistorySearchModel requestModel);
-
 }
