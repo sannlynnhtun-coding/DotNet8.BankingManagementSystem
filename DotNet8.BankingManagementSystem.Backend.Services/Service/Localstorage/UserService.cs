@@ -69,7 +69,9 @@ public class UserService
             : new List<UserModel>();
     }
 
-    private string[] GetUser()
+    #region Usernames
+
+       private string[] GetUser()
     {
         return new[]
         {
@@ -115,4 +117,9 @@ public class UserService
             "Maddison", "Derrick", "Alivia", "Quinn", "Jayleen", "Gage", "Harper", "Russell",
         };
     }
+
+    #endregion
+    
+    
+ 
 }
