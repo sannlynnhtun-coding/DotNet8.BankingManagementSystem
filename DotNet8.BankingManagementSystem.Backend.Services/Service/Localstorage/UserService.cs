@@ -23,7 +23,7 @@ public class UserService
     {
         var lst = await _localStorageService.GetItemAsync<List<UserModel>>("Tbl_User");
         lst ??= new();
-        var item = lst.FirstOrDefault(x => x.UserId == requestModel.UserId);
+        var item = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
         if (item is null)
         {
             throw new InvalidOperationException();
@@ -34,14 +34,12 @@ public class UserService
 
     public async Task<List<UserModel>> GetUserList()
     {
-        //bool localStorageName = await JsRuntime.InvokeAsync<bool>("Tbl_Product");
         var lst = await _localStorageService.GetItemAsync<List<UserModel>>("Tbl_Product");
         lst ??= new();
         if (lst.Count != 0)
             return lst.Any()
                 ? lst.OrderByDescending(x => x.UserId).ToList()
                 : new List<UserModel>();
-        var r = new Random();
         var count = 0;
         foreach (var item in GetUser().Distinct())
         {
@@ -69,9 +67,40 @@ public class UserService
             : new List<UserModel>();
     }
 
+    public async Task UpdateUser(UserModel requestModel)
+    {
+        var lst = await GetUserList();
+        var result = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
+        var index = lst.FindIndex(x => result != null && x.UserCode == result.UserCode);
+        if (result is not null)
+        {
+            result.UserCode = requestModel.UserCode;
+            result.UserName = requestModel.UserName;
+            result.FullName = requestModel.FullName;
+            result.Email = requestModel.Email;
+            result.Nrc = requestModel.Nrc;
+            result.MobileNo = requestModel.MobileNo;
+            result.Address = requestModel.Address;
+            result.StateCode = requestModel.StateCode;
+            result.TownshipCode = requestModel.TownshipCode;
+            lst[index] = result;
+        }
+
+        await _localStorageService.SetItemAsync("Tbl_User", lst);
+    }
+
+    public async Task DeleteUser(UserModel requestModel)
+    {
+        var lst = await GetUserList();
+        var item = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
+        if (item == null) return;
+        lst.Remove(item);
+        await _localStorageService.SetItemAsync("Tbl_Product", lst);
+    }
+
     #region Usernames
 
-       private string[] GetUser()
+    private string[] GetUser()
     {
         return new[]
         {
@@ -119,7 +148,4 @@ public class UserService
     }
 
     #endregion
-    
-    
- 
 }
