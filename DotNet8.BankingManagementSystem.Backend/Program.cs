@@ -1,9 +1,11 @@
+using Blazored.LocalStorage;
 using DotNet8.BankingManagementSystem.Backend.Features.Account;
 using DotNet8.BankingManagementSystem.Backend.Features.AdminUser;
 using DotNet8.BankingManagementSystem.Backend.Features.State;
 using DotNet8.BankingManagementSystem.Backend.Features.Township;
 using DotNet8.BankingManagementSystem.Backend.Features.Transaction;
 using DotNet8.BankingManagementSystem.Backend.Features.User;
+using DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,7 +43,7 @@ builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<AdminUserService>();
 builder.Services.AddScoped<TransactionService>();
-
+builder.Services.AddScoped<ILocalStorageService>();
 #endregion
 
 //builder.Services
