@@ -26,12 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Frontend.Api\DotNet8.BankingManagementSystem.Frontend.Api.csproj" />
-		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Models\DotNet8.BankingManagementSystem.Models.csproj" />
-		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Remove="Pages\Transcation\**" />
 	</ItemGroup>
 
@@ -57,6 +51,10 @@
 	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\User\P_User.razor" />
 	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\User\P_UserEdit.razor" />
 	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\User\P_UserRegister.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Common\DotNet8.BankingManagementSystem.Frontend.Api\DotNet8.BankingManagementSystem.Frontend.Api.csproj" />
 	</ItemGroup>
 
 </Project>
