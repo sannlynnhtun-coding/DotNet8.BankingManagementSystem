@@ -85,6 +85,4 @@ public class AccountService
         };
         return model;
     }
-
-  
 }
