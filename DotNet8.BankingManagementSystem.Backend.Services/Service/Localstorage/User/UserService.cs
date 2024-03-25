@@ -11,91 +11,110 @@ public class UserService
         _localStorageService = localStorageService;
     }
 
-    public async Task CreateUser(UserModel requestModel)
+    public async Task<UserResponseModel> CreateUser(UserModel requestModel)
     {
+        UserResponseModel model = new UserResponseModel();
         var lst = await _localStorageService.GetItemAsync<List<UserModel>>("Tbl_User");
         lst ??= new();
         lst.Add(requestModel);
         await _localStorageService.SetItemAsync("Tbl_User", lst);
+
+        model.Response = new MessageResponseModel(true, "User has been registered successfully.");
+        return model;
     }
 
-    public async Task<UserModel> GetUser(UserModel requestModel)
+    public async Task<UserResponseModel> GetUser(UserModel requestModel)
     {
+        UserResponseModel model = new UserResponseModel();
         var lst = await _localStorageService.GetItemAsync<List<UserModel>>("Tbl_User");
         lst ??= new();
         var item = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
         if (item is null)
         {
-            throw new InvalidOperationException();
+            model.Response = new MessageResponseModel(false, "No Data Found.");
+            return model;
         }
 
-        return item;
+
+        model.Data = item;
+        model.Response = new MessageResponseModel(true, "Success.");
+        return model;
     }
 
-    public async Task<List<UserModel>> GetUserList()
+    // public async Task<List<UserModel>> GetUserList()
+    // {
+    //     var lst = await _localStorageService.GetItemAsync<List<UserModel>>("Tbl_User");
+    //     lst ??= new();
+    //     if (lst.Count != 0)
+    //         return lst.Any()
+    //             ? lst.OrderByDescending(x => x.UserId).ToList()
+    //             : new List<UserModel>();
+    //     var count = 0;
+    //     foreach (var item in GetUser().Distinct())
+    //     {
+    //         count++;
+    //         var user = new UserModel()
+    //         {
+    //             UserId = count,
+    //         };
+    //
+    //         lst.Add(user);
+    //     }
+    //
+    //     await _localStorageService.SetItemAsync("Tbl_Product", lst);
+    //
+    //     return lst.Any()
+    //         ? lst.OrderByDescending(x => x.UserId).ToList()
+    //         : new List<UserModel>();
+    // }
+
+    public async Task<UserResponseModel> UpdateUser(UserModel requestModel)
     {
-        var lst = await _localStorageService.GetItemAsync<List<UserModel>>("Tbl_Product");
-        lst ??= new();
-        if (lst.Count != 0)
-            return lst.Any()
-                ? lst.OrderByDescending(x => x.UserId).ToList()
-                : new List<UserModel>();
-        var count = 0;
-        foreach (var item in GetUser().Distinct())
-        {
-            count++;
-            var user = new UserModel()
-            {
-                UserId = count,
-                // UserName 
-                //product_buying_price = r.Next(1000, 100000),
-                // product_buying_price = r.Next(10, 100),
-                // product_category_code = "PC0001",
-                // product_code = "P" + count.ToString().PadLeft(4, '0'),
-                // product_creation_date = DateTime.Now,
-                // product_id = Guid.NewGuid(),
-                // product_name = item,
-            };
-
-            lst.Add(user);
-        }
-
-        await _localStorageService.SetItemAsync("Tbl_Product", lst);
-
-        return lst.Any()
-            ? lst.OrderByDescending(x => x.UserId).ToList()
-            : new List<UserModel>();
-    }
-
-    public async Task UpdateUser(UserModel requestModel)
-    {
-        var lst = await GetUserList();
+        UserResponseModel model = new UserResponseModel();
+        var lst = await _localStorageService.GetItemAsync<List<UserModel>>("Tbl_User");
         var result = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
         var index = lst.FindIndex(x => result != null && x.UserCode == result.UserCode);
-        if (result is not null)
+        if (result is null)
         {
-            result.UserCode = requestModel.UserCode;
-            result.UserName = requestModel.UserName;
-            result.FullName = requestModel.FullName;
-            result.Email = requestModel.Email;
-            result.Nrc = requestModel.Nrc;
-            result.MobileNo = requestModel.MobileNo;
-            result.Address = requestModel.Address;
-            result.StateCode = requestModel.StateCode;
-            result.TownshipCode = requestModel.TownshipCode;
-            lst[index] = result;
+            model.Response = new MessageResponseModel(false, "No Data Found.");
+            return model;
         }
 
+        result.UserCode = requestModel.UserCode;
+        result.UserName = requestModel.UserName;
+        result.FullName = requestModel.FullName;
+        result.Email = requestModel.Email;
+        result.Nrc = requestModel.Nrc;
+        result.MobileNo = requestModel.MobileNo;
+        result.Address = requestModel.Address;
+        result.StateCode = requestModel.StateCode;
+        result.TownshipCode = requestModel.TownshipCode;
+        lst[index] = result;
+
         await _localStorageService.SetItemAsync("Tbl_User", lst);
+
+        model.Data = result;
+        model.Response = new MessageResponseModel(true, "User has been removed.");
+        return model;
     }
 
-    public async Task DeleteUser(UserModel requestModel)
+    public async Task<UserResponseModel> DeleteUser(UserModel requestModel)
     {
-        var lst = await GetUserList();
+        UserResponseModel model = new UserResponseModel();
+        var lst = await _localStorageService.GetItemAsync<List<UserModel>>("Tbl_User");
+        lst ??= new();
         var item = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
-        if (item == null) return;
+        if (item == null)
+        {
+            model.Response = new MessageResponseModel(false, "No Data Found.");
+            return model;
+        }
+
         lst.Remove(item);
-        await _localStorageService.SetItemAsync("Tbl_Product", lst);
+        await _localStorageService.SetItemAsync("Tbl_User", lst);
+
+        model.Response = new MessageResponseModel(true, "Account has been removed.");
+        return model;
     }
 
     #region Usernames
