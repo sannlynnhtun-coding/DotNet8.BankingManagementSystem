@@ -7,6 +7,7 @@ public class InjectService
 {
     private readonly IJSRuntime _jSRuntime;
     private readonly NavigationManager _navigationManager;
+
     public InjectService(IJSRuntime jSRuntime, NavigationManager navigationManager)
     {
             _jSRuntime = jSRuntime;
