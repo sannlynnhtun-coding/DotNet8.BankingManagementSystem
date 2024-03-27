@@ -16,10 +16,10 @@ public class AccountService
     public async Task<AccountResponseModel> CreateAccount(AccountModel requestModel)
     {
         AccountResponseModel model = new AccountResponseModel();
-        var lst = await _localStorageService.GetAccountList(EnumService.Tbl_Account.GetKeyName());
+        var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
         lst ??= new();
         lst.Add(requestModel);
-        await _localStorageService.SetAccount(lst);
+        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(),lst);
 
         model.Response = new MessageResponseModel(true, "Account has been registered.");
         return model;
@@ -28,7 +28,7 @@ public class AccountService
     public async Task<AccountResponseModel> GetAccount(AccountModel requestModel)
     {
         AccountResponseModel model = new AccountResponseModel();
-        var lst = await _localStorageService.GetAccountList(EnumService.Tbl_Account.GetKeyName());
+        var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
         lst ??= new();
         var item = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
         if (item is null)
@@ -45,7 +45,7 @@ public class AccountService
     public async Task<AccountResponseModel> DeleteAccount(AccountModel requestModel)
     {
         AccountResponseModel model = new AccountResponseModel();
-        var lst = await _localStorageService.GetAccountList(EnumService.Tbl_Account.GetKeyName());
+        var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
         lst ??= new();
         var item = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
         if (item is null)
@@ -55,7 +55,7 @@ public class AccountService
         }
 
         lst.Remove(item);
-        await _localStorageService.SetAccount(lst);
+        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(),lst);
 
         model.Response = new MessageResponseModel(true, "Account has been removed.");
         return model;
@@ -64,7 +64,7 @@ public class AccountService
     public async Task<AccountResponseModel> UpdateAccount(AccountModel requestModel)
     {
         AccountResponseModel model = new AccountResponseModel();
-        var lst = await _localStorageService.GetAccountList(EnumService.Tbl_Account.GetKeyName());
+        var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
         var result = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
         var index = lst.FindIndex(x => result != null && x.AccountNo == result.AccountNo);
         if (result is null)
@@ -79,7 +79,7 @@ public class AccountService
         result.CustomerName = requestModel.CustomerName;
         lst[index] = result;
 
-        await _localStorageService.SetAccount(lst);
+        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(),lst);
         model = new AccountResponseModel
         {
             Data = result,
