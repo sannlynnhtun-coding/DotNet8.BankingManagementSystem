@@ -16,10 +16,10 @@ public class UserService
     public async Task<UserResponseModel> CreateUser(UserModel requestModel)
     {
         UserResponseModel model = new UserResponseModel();
-        var lst = await _localStorageService.GetUserList(EnumService.Tbl_User.GetKeyName());
+        var lst = await _localStorageService.GetList<UserModel>(EnumService.Tbl_User.GetKeyName());
         lst ??= new();
         lst.Add(requestModel);
-        await _localStorageService.SetUser(lst);
+        await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(),lst);
         model.Response = new MessageResponseModel(true, "User has been registered successfully.");
         return model;
     }
@@ -27,7 +27,7 @@ public class UserService
     public async Task<UserResponseModel> GetUser(UserModel requestModel)
     {
         UserResponseModel model = new UserResponseModel();
-        var lst = await _localStorageService.GetUserList(EnumService.Tbl_User.GetKeyName());
+        var lst = await _localStorageService.GetList<UserModel>(EnumService.Tbl_User.GetKeyName());
         lst ??= new();
         var item = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
         if (item is null)
@@ -45,7 +45,7 @@ public class UserService
     public async Task<UserResponseModel> UpdateUser(UserModel requestModel)
     {
         UserResponseModel model = new UserResponseModel();
-        var lst = await _localStorageService.GetUserList(EnumService.Tbl_User.GetKeyName());
+        var lst = await _localStorageService.GetList<UserModel>(EnumService.Tbl_User.GetKeyName());
         var result = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
         var index = lst.FindIndex(x => result != null && x.UserCode == result.UserCode);
         if (result is null)
@@ -65,7 +65,7 @@ public class UserService
         result.TownshipCode = requestModel.TownshipCode;
         lst[index] = result;
 
-        await _localStorageService.SetUser(lst);
+        await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(),lst);
         model.Data = result;
         model.Response = new MessageResponseModel(true, "User has been removed.");
         return model;
@@ -74,7 +74,7 @@ public class UserService
     public async Task<UserResponseModel> DeleteUser(UserModel requestModel)
     {
         UserResponseModel model = new UserResponseModel();
-        var lst = await _localStorageService.GetUserList(EnumService.Tbl_User.GetKeyName());
+        var lst = await _localStorageService.GetList<UserModel>(EnumService.Tbl_User.GetKeyName());
         lst ??= new();
         var item = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
         if (item == null)
@@ -84,7 +84,7 @@ public class UserService
         }
 
         lst.Remove(item);
-        await _localStorageService.SetUser(lst);
+        await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(),lst);
         model.Response = new MessageResponseModel(true, "Account has been removed.");
         return model;
     }
