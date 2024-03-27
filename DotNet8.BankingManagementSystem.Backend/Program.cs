@@ -1,6 +1,11 @@
 using Blazored.LocalStorage;
+using DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage;
+using DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage.Account;
+using DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage.Transaction;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using Microsoft.EntityFrameworkCore;
+using AccountService = DotNet8.BankingManagementSystem.Backend.Services.Features.Account.AccountService;
+using TransactionService = DotNet8.BankingManagementSystem.Backend.Services.Features.Transaction.TransactionService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +42,21 @@ builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<AdminUserService>();
 builder.Services.AddScoped<TransactionService>();
 builder.Services.AddScoped<ILocalStorageService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<SessionStorageService>();
+builder.Services.AddScoped<SessionAccountService>();
+builder.Services.AddScoped<SessionTransactionService>();
+builder.Services.AddScoped<SessionUserService>();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(1);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 #endregion
+
 
 //builder.Services
 //    .AddRefitClient<IStateApi>()
@@ -58,7 +77,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+app.UseSession();
 app.UseCors("AllowAll");
 
 app.MapControllers();
