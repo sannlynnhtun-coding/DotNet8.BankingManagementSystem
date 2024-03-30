@@ -1,4 +1,4 @@
-﻿namespace DotNet8.BankingManagementSystem.Database.Frontend.Service.Localstorage.Transaction;
+﻿namespace DotNet8.BankingManagementSystem.Database.Frontend.Features.Transaction;
 
 public class TransactionService
 {

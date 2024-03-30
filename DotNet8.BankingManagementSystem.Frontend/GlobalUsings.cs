@@ -1,5 +1,8 @@
 ﻿// Global using directives
 
+global using System.Text.Json;
+global using System.Text.Json.Serialization;
+global using Blazored.LocalStorage;
 global using BlazorNotiflix;
 global using DotNet8.BankingManagementSystem.Frontend;
 global using DotNet8.BankingManagementSystem.Frontend.Api;

@@ -54,7 +54,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\DotNet8.BankingManagementSystem.Common\DotNet8.BankingManagementSystem.Database.Frontend\DotNet8.BankingManagementSystem.Database.Frontend.csproj" />
 	  <ProjectReference Include="..\DotNet8.BankingManagementSystem.Common\DotNet8.BankingManagementSystem.Frontend.Api\DotNet8.BankingManagementSystem.Frontend.Api.csproj" />
 	  <ProjectReference Include="..\DotNet8.BankingManagementSystem.Common\DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj" />
 	</ItemGroup>
