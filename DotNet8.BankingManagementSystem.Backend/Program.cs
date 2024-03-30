@@ -1,10 +1,12 @@
 using Blazored.LocalStorage;
-using DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage;
-using DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage.Account;
-using DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage.Transaction;
 using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
+using DotNet8.BankingManagementSystem.Database.Frontend.Features;
+using DotNet8.BankingManagementSystem.Database.Frontend.Features.Account;
+using DotNet8.BankingManagementSystem.Database.Frontend.Features.Transaction;
+using DotNet8.BankingManagementSystem.Database.Frontend.Features.User;
 using Microsoft.EntityFrameworkCore;
 using AccountService = DotNet8.BankingManagementSystem.Backend.Services.Features.Account.AccountService;
+using LocalStorageService = DotNet8.BankingManagementSystem.Database.Frontend.Features.LocalStorageService;
 using TransactionService = DotNet8.BankingManagementSystem.Backend.Services.Features.Transaction.TransactionService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,7 +45,7 @@ builder.Services.AddScoped<AdminUserService>();
 builder.Services.AddScoped<TransactionService>();
 builder.Services.AddScoped<ILocalStorageService>();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<SessionStorageService>();
+builder.Services.AddScoped<LocalStorageService>();
 builder.Services.AddScoped<SessionAccountService>();
 builder.Services.AddScoped<SessionTransactionService>();
 builder.Services.AddScoped<SessionUserService>();

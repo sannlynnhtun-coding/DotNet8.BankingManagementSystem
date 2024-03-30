@@ -1,7 +1,7 @@
-﻿namespace DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage;
+﻿namespace DotNet8.BankingManagementSystem.Database.Frontend.Features.User;
 public class SessionUserService
 {
-    private readonly SessionStorageService _service;
+    private readonly LocalStorageService _service;
 
     public async Task<UserListResponseModel> GetUserList()
     {

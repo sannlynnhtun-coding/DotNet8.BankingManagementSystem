@@ -1,6 +1,4 @@
 ﻿using Blazored.LocalStorage;
-using DotNet8.BankingManagementSystem.Models.Account;
-using DotNet8.BankingManagementSystem.Models.Users;
 
 namespace DotNet8.BankingManagementSystem.Database.Frontend;
 

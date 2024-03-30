@@ -2,7 +2,6 @@
 global using DotNet8.BankingManagementSystem.Backend.Services.Features.AdminUser;
 global using DotNet8.BankingManagementSystem.Backend.Services.Features.Transaction;
 global using DotNet8.BankingManagementSystem.Backend.Services.Features.Township;
-global using DotNet8.BankingManagementSystem.Backend.Services.Features.Transaction;
 global using DotNet8.BankingManagementSystem.Backend.Services.Features.Account;
 global using DotNet8.BankingManagementSystem.Backend.Services.Features.State;
 global using DotNet8.BankingManagementSystem.Backend.Services.Features.User;

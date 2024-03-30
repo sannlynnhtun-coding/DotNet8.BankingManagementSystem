@@ -1,10 +1,4 @@
-﻿using Blazored.LocalStorage;
-using DotNet8.BankingManagementSystem.Database.Frontend;
-using DotNet8.BankingManagementSystem.Models;
-using DotNet8.BankingManagementSystem.Models.Account;
-using DotNet8.BankingManagementSystem.Models.Transfer;
-
-namespace DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage.Transaction;
+﻿namespace DotNet8.BankingManagementSystem.Database.Frontend.Service.Localstorage.Transaction;
 
 public class TransactionService
 {

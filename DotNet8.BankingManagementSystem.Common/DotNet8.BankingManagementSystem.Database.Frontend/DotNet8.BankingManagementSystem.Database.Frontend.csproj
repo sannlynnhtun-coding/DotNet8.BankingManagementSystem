@@ -13,6 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DotNet8.BankingManagementSystem.Models\DotNet8.BankingManagementSystem.Models.csproj" />
+      <ProjectReference Include="..\DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj" />
     </ItemGroup>
 
 </Project>

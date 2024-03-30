@@ -1,10 +1,10 @@
-﻿namespace DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage.Transaction;
+﻿namespace DotNet8.BankingManagementSystem.Database.Frontend.Features.Transaction;
 
 public class SessionTransactionService
 {
-    private readonly SessionStorageService _service;
+    private readonly LocalStorageService _service;
 
-    public SessionTransactionService(SessionStorageService service)
+    public SessionTransactionService(LocalStorageService service)
     {
         _service = service;
     }

@@ -1,8 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Database.Frontend;
-using DotNet8.BankingManagementSystem.Models;
-using DotNet8.BankingManagementSystem.Models.Users;
-
-namespace DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage;
+﻿namespace DotNet8.BankingManagementSystem.Database.Frontend.Service.Localstorage.User;
 
 public class UserService
 {
