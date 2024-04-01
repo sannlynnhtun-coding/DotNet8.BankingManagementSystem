@@ -1,7 +1,3 @@
-using DotNet8.BankingManagementSystem.Database.Frontend.Features.Account;
-using DotNet8.BankingManagementSystem.Database.Frontend.Features.Transaction;
-using DotNet8.BankingManagementSystem.Database.Frontend.Features.User;
-
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
