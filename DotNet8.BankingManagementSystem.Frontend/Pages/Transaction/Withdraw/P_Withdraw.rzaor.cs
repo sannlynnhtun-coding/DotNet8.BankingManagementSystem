@@ -1,8 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.Account;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.Transaction.Withdraw;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.Transaction.Withdraw;
 
 public partial class P_Withdraw : ComponentBase
 {

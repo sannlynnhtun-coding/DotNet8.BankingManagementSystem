@@ -1,5 +1,3 @@
-using Refit;
-
 namespace DotNet8.BankingManagementSystem.Frontend.Services;
 
 public static class RefitExtensions

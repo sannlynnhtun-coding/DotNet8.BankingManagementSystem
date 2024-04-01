@@ -1,7 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.Account;
-using Microsoft.AspNetCore.Components;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Account;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Account;
 
 public partial class P_AccountCreate : ComponentBase
 {

@@ -1,7 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models;
-using DotNet8.BankingManagementSystem.Models.TransactionHistory;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.Report;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.Report;
 
 public partial class TransactionHistoryDateRange
 {

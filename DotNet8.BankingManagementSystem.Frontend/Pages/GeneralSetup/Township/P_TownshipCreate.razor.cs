@@ -1,9 +1,6 @@
-﻿using DotNet8.BankingManagementSystem.Models;
-using DotNet8.BankingManagementSystem.Models.State;
+﻿using DotNet8.BankingManagementSystem.Models.State;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 using DotNet8.BankingManagementSystem.Models.Users;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 
 namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Township;
 

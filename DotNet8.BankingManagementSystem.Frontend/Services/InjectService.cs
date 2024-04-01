@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Services;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Services;
 
 public class InjectService
 {

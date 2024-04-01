@@ -1,6 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models;
-using DotNet8.BankingManagementSystem.Models.Users;
-using Microsoft.AspNetCore.Components;
+﻿using DotNet8.BankingManagementSystem.Models.Users;
 using MudBlazor;
 
 namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.User;

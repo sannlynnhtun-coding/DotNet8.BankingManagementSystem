@@ -1,8 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.Transfer;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.Transaction.Transfer;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.Transaction.Transfer;
 
 public partial class P_Transfer : ComponentBase
 {

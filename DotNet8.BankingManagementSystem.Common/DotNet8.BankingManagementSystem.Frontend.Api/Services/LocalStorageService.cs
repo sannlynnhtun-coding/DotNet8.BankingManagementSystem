@@ -1,6 +1,4 @@
-﻿using Blazored.LocalStorage;
-
-namespace DotNet8.BankingManagementSystem.Database.Frontend;
+﻿namespace DotNet8.BankingManagementSystem.Database.Frontend;
 
 public class LocalStorageService
 {

@@ -1,6 +1,4 @@
 ﻿using DotNet8.BankingManagementSystem.Models.AdminUser;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Forms;
 
 namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Admin;
 
