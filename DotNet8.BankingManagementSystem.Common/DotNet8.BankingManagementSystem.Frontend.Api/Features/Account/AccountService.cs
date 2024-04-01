@@ -1,8 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Database.Frontend;
-using DotNet8.BankingManagementSystem.Models;
-using DotNet8.BankingManagementSystem.Models.Account;
-
-namespace DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage.Account;
+﻿namespace DotNet8.BankingManagementSystem.Database.Frontend.Features.Account;
 
 public class AccountService
 {

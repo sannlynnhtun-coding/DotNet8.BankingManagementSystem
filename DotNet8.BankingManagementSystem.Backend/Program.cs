@@ -1,12 +1,3 @@
-using Blazored.LocalStorage;
-using DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage;
-using DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage.Account;
-using DotNet8.BankingManagementSystem.Backend.Services.Service.Localstorage.Transaction;
-using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
-using Microsoft.EntityFrameworkCore;
-using AccountService = DotNet8.BankingManagementSystem.Backend.Services.Features.Account.AccountService;
-using TransactionService = DotNet8.BankingManagementSystem.Backend.Services.Features.Transaction.TransactionService;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -14,9 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
-        builder =>
+        config =>
         {
-            builder
+            config
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader();
@@ -41,12 +32,8 @@ builder.Services.AddScoped<UserServices>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<AdminUserService>();
 builder.Services.AddScoped<TransactionService>();
-builder.Services.AddScoped<ILocalStorageService>();
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<SessionStorageService>();
-builder.Services.AddScoped<SessionAccountService>();
-builder.Services.AddScoped<SessionTransactionService>();
-builder.Services.AddScoped<SessionUserService>();
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
