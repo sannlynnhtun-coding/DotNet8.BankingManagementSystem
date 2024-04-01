@@ -1,3 +1,4 @@
+using DotNet8.BankingManagementSystem.Frontend.Api.Features;
 using DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
 using DotNet8.BankingManagementSystem.Frontend.Api.Features.AdminUser;
 using DotNet8.BankingManagementSystem.Frontend.Api.Features.State;
@@ -43,6 +44,9 @@ switch (apiType)
     default:
         throw new Exception("Invalid Api Type. Choose Api or LocalStorage.");
 }
+
+builder.Services.AddSingleton<Config>();
+builder.Services.AddScoped<ApiService>();
 
 builder.Services.AddScoped<InjectService>();
 

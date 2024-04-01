@@ -1,4 +1,5 @@
 ﻿using DotNet8.BankingManagementSystem.Frontend.Api.Services;
+using System.Reflection;
 
 namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
 
@@ -11,15 +12,12 @@ public class AccountService
         _localStorageService = localStorageService;
     }
 
-    public async Task<AccountResponseModel> CreateAccount(AccountModel requestModel)
+    public async Task<AccountListResponseModel> GetAccounts()
     {
-        AccountResponseModel model = new AccountResponseModel();
+        AccountListResponseModel model = new AccountListResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
-        lst ??= new();
-        lst.Add(requestModel);
-        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(),lst);
-
-        model.Response = new MessageResponseModel(true, "Account has been registered.");
+        model.Data = lst;
+        model.Response = new MessageResponseModel(true, "Success.");
         return model;
     }
 
@@ -40,22 +38,15 @@ public class AccountService
         return model;
     }
 
-    public async Task<AccountResponseModel> DeleteAccount(AccountModel requestModel)
+    public async Task<AccountResponseModel> CreateAccount(AccountModel requestModel)
     {
         AccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
         lst ??= new();
-        var item = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
-        if (item is null)
-        {
-            model.Response = new MessageResponseModel(false, "No Data Found.");
-            return model;
-        }
+        lst.Add(requestModel);
+        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(), lst);
 
-        lst.Remove(item);
-        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(),lst);
-
-        model.Response = new MessageResponseModel(true, "Account has been removed.");
+        model.Response = new MessageResponseModel(true, "Account has been registered.");
         return model;
     }
 
@@ -77,12 +68,31 @@ public class AccountService
         result.CustomerName = requestModel.CustomerName;
         lst[index] = result;
 
-        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(),lst);
+        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(), lst);
         model = new AccountResponseModel
         {
             Data = result,
             Response = new MessageResponseModel(true, "Account has been removed.")
         };
+        return model;
+    }
+
+    public async Task<AccountResponseModel> DeleteAccount(AccountModel requestModel)
+    {
+        AccountResponseModel model = new AccountResponseModel();
+        var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
+        lst ??= new();
+        var item = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
+        if (item is null)
+        {
+            model.Response = new MessageResponseModel(false, "No Data Found.");
+            return model;
+        }
+
+        lst.Remove(item);
+        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(), lst);
+
+        model.Response = new MessageResponseModel(true, "Account has been removed.");
         return model;
     }
 }

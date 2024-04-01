@@ -32,7 +32,7 @@ public class TransactionService
         result.Balance -= amount;
 
         lst[lst.FindIndex(x => x.AccountNo == result.AccountNo)] = result;
-        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(),lst);
+        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(), lst);
 
         model.Data = result;
         model.Response = new MessageResponseModel(true, "Withdrawal successful.");
@@ -56,7 +56,7 @@ public class TransactionService
 
         lst[lst.FindIndex(x => x.AccountNo == result.AccountNo)] = result;
 
-        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(),lst);
+        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(), lst);
 
         model.Data = result;
         model.Response = new MessageResponseModel(true, "Deposit successful.");
@@ -96,10 +96,10 @@ public class TransactionService
         toAccount.Balance += requestModel.Amount;
 
         lst[lst.FindIndex(x => x.AccountNo == fromAccount.AccountNo)] = fromAccount;
-        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(),lst);
+        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(), lst);
 
         lst1[lst1.FindIndex(x => x.AccountNo == toAccount.AccountNo)] = toAccount;
-        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(),lst1);
+        await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(), lst1);
 
         model.Data.FromAccountNo = Convert.ToString(fromAccount);
         model.Data.ToAccountNo = Convert.ToString(toAccount);

@@ -17,7 +17,7 @@ public class UserService
         var lst = await _localStorageService.GetList<UserModel>(EnumService.Tbl_User.GetKeyName());
         lst ??= new();
         lst.Add(requestModel);
-        await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(),lst);
+        await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(), lst);
         model.Response = new MessageResponseModel(true, "User has been registered successfully.");
         return model;
     }
@@ -33,7 +33,6 @@ public class UserService
             model.Response = new MessageResponseModel(false, "No Data Found.");
             return model;
         }
-
 
         model.Data = item;
         model.Response = new MessageResponseModel(true, "Success.");
@@ -63,7 +62,7 @@ public class UserService
         result.TownshipCode = requestModel.TownshipCode;
         lst[index] = result;
 
-        await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(),lst);
+        await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(), lst);
         model.Data = result;
         model.Response = new MessageResponseModel(true, "User has been removed.");
         return model;
@@ -82,7 +81,7 @@ public class UserService
         }
 
         lst.Remove(item);
-        await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(),lst);
+        await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(), lst);
         model.Response = new MessageResponseModel(true, "Account has been removed.");
         return model;
     }
