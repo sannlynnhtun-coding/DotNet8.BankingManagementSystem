@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DotNet8.BankingManagementSystem.Database.Frontend
+﻿namespace DotNet8.BankingManagementSystem.Database.Frontend
 {
     public enum EnumService
     {
