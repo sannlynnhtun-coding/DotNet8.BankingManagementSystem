@@ -1,4 +1,6 @@
-﻿namespace DotNet8.BankingManagementSystem.Database.Frontend.Features.User;
+﻿using DotNet8.BankingManagementSystem.Frontend.Api.Services;
+
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.User;
 
 public class UserService
 {

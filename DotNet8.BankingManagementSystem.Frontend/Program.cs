@@ -1,3 +1,10 @@
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.AdminUser;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.State;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.Township;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.User;
+
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");

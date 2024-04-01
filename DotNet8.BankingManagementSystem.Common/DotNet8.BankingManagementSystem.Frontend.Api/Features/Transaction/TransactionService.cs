@@ -1,4 +1,6 @@
-﻿namespace DotNet8.BankingManagementSystem.Database.Frontend.Features.Transaction;
+﻿using DotNet8.BankingManagementSystem.Frontend.Api.Services;
+
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
 
 public class TransactionService
 {

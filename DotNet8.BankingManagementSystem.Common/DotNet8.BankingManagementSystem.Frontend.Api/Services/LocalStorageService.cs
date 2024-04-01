@@ -1,4 +1,4 @@
-﻿namespace DotNet8.BankingManagementSystem.Database.Frontend;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Services;
 
 public class LocalStorageService
 {

@@ -1,12 +1,7 @@
 ﻿using DotNet8.BankingManagementSystem.Models.AdminUser;
 using Refit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Api;
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.AdminUser;
 
 public interface IAdminUser
 {

@@ -1,7 +1,7 @@
-﻿using Refit;
-using DotNet8.BankingManagementSystem.Models.State;
+﻿using DotNet8.BankingManagementSystem.Models.State;
+using Refit;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Api;
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.State;
 
 public interface IStateApi
 {

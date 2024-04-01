@@ -1,9 +1,7 @@
-﻿using DotNet8.BankingManagementSystem.Models.Account;
-using DotNet8.BankingManagementSystem.Models.TransactionHistory;
-using DotNet8.BankingManagementSystem.Models.Transfer;
+﻿using DotNet8.BankingManagementSystem.Models.TransactionHistory;
 using Refit;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Api;
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
 
 public interface ITransactionApi
 

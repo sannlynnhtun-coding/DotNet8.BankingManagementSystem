@@ -1,7 +1,7 @@
-﻿using Refit;
-using DotNet8.BankingManagementSystem.Models.TownShip;
+﻿using DotNet8.BankingManagementSystem.Models.TownShip;
+using Refit;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Api;
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township;
 
 public interface ITownshipApi
 {

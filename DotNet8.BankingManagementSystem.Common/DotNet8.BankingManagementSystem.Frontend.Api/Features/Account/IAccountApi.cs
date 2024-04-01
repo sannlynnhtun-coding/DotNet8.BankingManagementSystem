@@ -1,9 +1,6 @@
-﻿using DotNet8.BankingManagementSystem.Models.Account;
-using DotNet8.BankingManagementSystem.Models.State;
-using DotNet8.BankingManagementSystem.Models.Users;
-using Refit;
+﻿using Refit;
 
-namespace DotNet8.BankingManagementSystem.Frontend.Api;
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
 
 public interface IAccountApi
 {
