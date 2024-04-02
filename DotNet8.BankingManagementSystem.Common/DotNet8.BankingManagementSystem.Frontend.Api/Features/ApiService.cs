@@ -24,19 +24,39 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features
 
         public async Task<AccountListResponseModel> GetAccounts()
         {
-            return _enumApiType == EnumApiType.LocalStorage ? 
-                await _accountService.GetAccounts() : 
-                await _accountApi.GetAccounts();
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _accountService.GetAccounts()
+                : await _accountApi.GetAccounts();
         }
 
         //Task<AccountListResponseModel> GetAccountList(int pageNo, int pageSize);
 
-        //Task<AccountResponseModel> GetAccount(string accountNo);
+        public async Task<AccountResponseModel> GetAccount(string accountNo)
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _accountService.GetAccount(accountNo)
+                : await _accountApi.GetAccount(accountNo);
+        }
 
-        //Task<AccountResponseModel> CreateAccount(AccountRequestModel requestModel);
+        public async Task<AccountResponseModel> CreateAccount(AccountRequestModel requestModel)
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _accountService.CreateAccount(requestModel)
+                : await _accountApi.CreateAccount(requestModel);
+        }
 
-        //Task<AccountResponseModel> UpdateAccount(string accountNo, AccountRequestModel requestModel);
+        public async Task<AccountResponseModel> UpdateAccount(string accountNo, AccountRequestModel requestModel)
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _accountService.UpdateAccount(accountNo, requestModel)
+                : await _accountApi.UpdateAccount(accountNo, requestModel);
+        }
 
-        //Task<AccountResponseModel> DeleteAccount(string accountNo);
+        public async Task<AccountResponseModel> DeleteAccount(string accountNo)
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _accountService.DeleteAccount(accountNo)
+                : await _accountApi.DeleteAccount(accountNo);
+        }
     }
 }
