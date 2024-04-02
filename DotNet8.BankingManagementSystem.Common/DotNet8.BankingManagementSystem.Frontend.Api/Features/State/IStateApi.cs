@@ -9,7 +9,7 @@ public interface IStateApi
     Task<StateListResponseModel> GetStates();
 
     [Get("/api/state/{pageNo}/{pageSize}")]
-    Task<StateListResponseModel> GetStates(int pageNo, int pageSize);
+    Task<StateListResponseModel> GetStateList(int pageNo, int pageSize);
 
     [Get("/api/state/{stateCode}")]
     Task<StateResponseModel> GetStateByCode(string stateCode);
