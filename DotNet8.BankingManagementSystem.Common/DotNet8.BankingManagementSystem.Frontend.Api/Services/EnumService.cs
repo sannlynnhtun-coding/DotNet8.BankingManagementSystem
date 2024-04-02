@@ -4,6 +4,7 @@ public enum EnumService
 {
     Tbl_User,
     Tbl_Account,
+    Tbl_State,
 }
 
 public static class EnumServiceExtensions

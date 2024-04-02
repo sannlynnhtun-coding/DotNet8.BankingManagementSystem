@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DotNet8.BankingManagementSystem.Mapper\DotNet8.BankingManagementSystem.Mapper.csproj" />
     <ProjectReference Include="..\DotNet8.BankingManagementSystem.Models\DotNet8.BankingManagementSystem.Models.csproj" />
   </ItemGroup>
 
