@@ -21,12 +21,12 @@ public class AccountService
         return model;
     }
 
-    public async Task<AccountResponseModel> GetAccount(AccountModel requestModel)
+    public async Task<AccountResponseModel> GetAccount(string accountNo)
     {
         AccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
         lst ??= new();
-        var item = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
+        var item = lst.FirstOrDefault(x => x.AccountNo == accountNo);
         if (item is null)
         {
             model.Response = new MessageResponseModel(false, "No Data Found.");
@@ -38,23 +38,31 @@ public class AccountService
         return model;
     }
 
-    public async Task<AccountResponseModel> CreateAccount(AccountModel requestModel)
+    public async Task<AccountResponseModel> CreateAccount(AccountRequestModel requestModel)
     {
         AccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
-        lst ??= new();
-        lst.Add(requestModel);
+        lst ??= new List<AccountModel>();
+
+        lst.Add(new AccountModel
+        {
+            AccountNo = requestModel.AccountNo,
+            CustomerName = requestModel.CustomerName,
+            Balance = requestModel.Balance,
+            CustomerCode = requestModel.CustomerCode,
+        });
+
         await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(), lst);
 
         model.Response = new MessageResponseModel(true, "Account has been registered.");
         return model;
     }
 
-    public async Task<AccountResponseModel> UpdateAccount(AccountModel requestModel)
+    public async Task<AccountResponseModel> UpdateAccount(string accountNo, AccountRequestModel requestModel)
     {
         AccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
-        var result = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
+        var result = lst.FirstOrDefault(x => x.AccountNo == accountNo);
         var index = lst.FindIndex(x => result != null && x.AccountNo == result.AccountNo);
         if (result is null)
         {
@@ -77,12 +85,12 @@ public class AccountService
         return model;
     }
 
-    public async Task<AccountResponseModel> DeleteAccount(AccountModel requestModel)
+    public async Task<AccountResponseModel> DeleteAccount(string accountNo)
     {
         AccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
         lst ??= new();
-        var item = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
+        var item = lst.FirstOrDefault(x => x.AccountNo == accountNo);
         if (item is null)
         {
             model.Response = new MessageResponseModel(false, "No Data Found.");
