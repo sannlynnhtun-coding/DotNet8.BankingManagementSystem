@@ -82,9 +82,23 @@ public static class ChangeModel
         return model;
     }
 
-    public static TblUser Change(this UserRequestModel item)
+    //public static TblUser Change(this UserRequestModel item)
+    //{
+    //    return new TblUser()
+    //    {
+    //        UserName = item.UserName,
+    //        FullName = item.FullName,
+    //        Email = item.Email,
+    //        Address = item.Address,
+    //        MobileNo = item.MobileNo,
+    //        Nrc = item.Nrc,
+    //        StateCode = item.StateCode,
+    //        TownshipCode = item.TownshipCode
+    //    };
+    //}
+    public static UserModel Change(this UserRequestModel item)
     {
-        return new TblUser()
+        return new UserModel()
         {
             UserName = item.UserName,
             FullName = item.FullName,
@@ -96,7 +110,6 @@ public static class ChangeModel
             TownshipCode = item.TownshipCode
         };
     }
-
     #endregion
 
     #region Account

@@ -22,7 +22,7 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
 
         public async Task<TownshipListResponceModel> GetTownShipList(int pageNo, int pageSize)
         {
-            var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_State.GetKeyName());
+            var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_Township.GetKeyName());
             var result = query
                 .OrderByDescending(x => x.TownshipId)
                 .Skip((pageNo - 1) * pageSize)
@@ -52,7 +52,7 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
             TownshipResponseModel model = new TownshipResponseModel();
             try
             {
-                var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_State.GetKeyName());
+                var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_Township.GetKeyName());
                 var item = query
                     .FirstOrDefault(x => x.TownshipCode == townshipCode);
                 if (item == null)
@@ -79,10 +79,10 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
             TownshipResponseModel model = new TownshipResponseModel();
             try
             {
-                var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_State.GetKeyName());
+                var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_Township.GetKeyName());
                 query ??= new List<TblPlaceTownship>();
                 var item = requestModel.Change();
-                await _localStorageService.SetList<TblPlaceTownship>(EnumService.Tbl_State.GetKeyName(), query);
+                await _localStorageService.SetList<TblPlaceTownship>(EnumService.Tbl_Township.GetKeyName(), query);
 
                 model.Data = item.Change();
                 model.Response = new MessageResponseModel(true, "Township has created successfully");
@@ -104,7 +104,7 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
             TownshipResponseModel model = new TownshipResponseModel();
             try
             {
-                var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_State.GetKeyName());
+                var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_Township.GetKeyName());
                 var item = query
                     .FirstOrDefault(x => x.TownshipCode == townshipCode);
                 if (item == null)
@@ -133,14 +133,14 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
             TownshipResponseModel model = new TownshipResponseModel();
             try
             {
-                var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_State.GetKeyName());
+                var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_Township.GetKeyName());
                 var item = query.FirstOrDefault(x => x.TownshipCode == townShipCode);
                 if (item == null)
                 {
                     throw new Exception("TownshipCode doesn't exist.");
                 }
                 query.Remove(item);
-                await _localStorageService.SetList(EnumService.Tbl_State.GetKeyName(), query);
+                await _localStorageService.SetList(EnumService.Tbl_Township.GetKeyName(), query);
                 model.Response = new MessageResponseModel(true, "Township has deleted successfully.");
             }
             catch (Exception ex)
@@ -154,7 +154,7 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
 
         public async Task<TownshipListResponceModel> GetTownShipByStateCode(string stateCode)
         {
-            var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_State.GetKeyName());
+            var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_Township.GetKeyName());
             var lst = query
                 .Where(x => x.StateCode == stateCode).ToList();
             TownshipListResponceModel model = new TownshipListResponceModel()
