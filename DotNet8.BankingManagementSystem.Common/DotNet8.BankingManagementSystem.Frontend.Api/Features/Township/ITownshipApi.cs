@@ -6,10 +6,10 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township;
 public interface ITownshipApi
 {
     [Get("/api/Township/{pageNo}/{pageSize}")]
-    Task<TownshipListResponceModel> GetTownships(int pageNo, int pageSize);
+    Task<TownshipListResponceModel> GetTownShipList(int pageNo, int pageSize);
 
     [Get("/api/Township/{townshipCode}")]
-    Task<TownshipResponseModel> GetTownship(string townshipCode);
+    Task<TownshipResponseModel> GetTownShipByCode(string townshipCode);
 
     [Post("/api/Township")]
     Task<TownshipResponseModel> CreateTownship(TownshipRequestModel requestModel);
