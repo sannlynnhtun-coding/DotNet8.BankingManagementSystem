@@ -56,7 +56,17 @@ public class UserServices
 
     public async Task<UserResponseModel> CreateUser(UserRequestModel requestModel)
     {
-        var item = requestModel.Change(); //need extra changes here
+        var item = new TblUser()
+        {
+            UserName = requestModel.UserName,
+            FullName = requestModel.FullName,
+            Email = requestModel.Email,
+            Address = requestModel.Address,
+            MobileNo = requestModel.MobileNo,
+            Nrc = requestModel.Nrc,
+            StateCode = requestModel.StateCode,
+            TownshipCode = requestModel.TownshipCode
+        };
         var userCode = GenerateUniqueUserCode();
         item.UserCode = userCode;
         await _appDbContext.TblUsers.AddAsync(item);
@@ -74,15 +84,20 @@ public class UserServices
 
     #region Update User info
 
-    public async Task<UserResponseModel> UpdateUserInfo(string userCode, UserRequestModel requestModel)
+    public async Task<UserResponseModel> UpdateUserInfo(UserRequestModel requestModel)
     {
         var query = _appDbContext.TblUsers.AsNoTracking();
-        var item = await query.FirstOrDefaultAsync(x => x.UserCode == userCode);
+        var item = await query.FirstOrDefaultAsync(x => x.UserCode == requestModel.UserCode);
         if (item is null)
         {
             throw new Exception("User is null.");
         }
-
+        if (string.IsNullOrEmpty(requestModel.UserCode)) throw new Exception("UserCode is required.");
+        if (string.IsNullOrEmpty(requestModel.UserName)) throw new Exception("UserName is required.");
+        if (string.IsNullOrEmpty(requestModel.FullName)) throw new Exception("FullName is required.");
+        if (string.IsNullOrEmpty(requestModel.Nrc)) throw new Exception("Nrc is required.");
+        if (string.IsNullOrEmpty(requestModel.Address)) throw new Exception("Address is required.");
+        if (string.IsNullOrEmpty(requestModel.Email)) throw new Exception("Email is required.");
         item.UserCode = requestModel.UserCode;
         item.UserName = requestModel.UserName;
         item.FullName = requestModel.FullName;

@@ -1,4 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Frontend.Api.Services;
+﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 
 namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.User;
 
@@ -11,38 +11,75 @@ public class UserService
         _localStorageService = localStorageService;
     }
 
-    public async Task<UserResponseModel> CreateUser(UserModel requestModel)
+    #region Get Users
+
+    public async Task<UserListResponseModel> GetUserList(int pageNo, int pageSize)
+    {
+        var query = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.GetKeyName());
+        var result = query
+            .OrderByDescending(x => x.UserId)
+            .Skip((pageNo - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        var count = query.Count();
+        int pageCount = count / pageSize;
+        if (count % pageSize > 0) pageCount++;
+
+        UserListResponseModel model = new UserListResponseModel()
+        {
+            Data = result.Select(x => x.Change()).ToList(),
+            PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
+            Response = new MessageResponseModel(true, "Success")
+        };
+        return model;
+    }
+
+    #endregion
+    public async Task<UserResponseModel> CreateUser(UserRequestModel requestModel)
     {
         UserResponseModel model = new UserResponseModel();
-        var lst = await _localStorageService.GetList<UserModel>(EnumService.Tbl_User.GetKeyName());
+        requestModel.UserCode = await GenerateUniqueUserCode();
+        var userModel = new TblUser()
+        {
+            UserName = requestModel.UserName,
+            FullName = requestModel.FullName,
+            Email = requestModel.Email,
+            Address = requestModel.Address,
+            MobileNo = requestModel.MobileNo,
+            Nrc = requestModel.Nrc,
+            StateCode = requestModel.StateCode,
+            TownshipCode = requestModel.TownshipCode
+        };
+        var lst = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.GetKeyName());
         lst ??= new();
-        lst.Add(requestModel);
+        lst.Add(userModel);
         await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(), lst);
         model.Response = new MessageResponseModel(true, "User has been registered successfully.");
         return model;
     }
 
-    public async Task<UserResponseModel> GetUser(UserModel requestModel)
+    public async Task<UserResponseModel> GetUserByCode(string userCode)
     {
         UserResponseModel model = new UserResponseModel();
-        var lst = await _localStorageService.GetList<UserModel>(EnumService.Tbl_User.GetKeyName());
+        var lst = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.GetKeyName());
         lst ??= new();
-        var item = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
+        var item = lst.FirstOrDefault(x => x.UserCode == userCode);
         if (item is null)
         {
             model.Response = new MessageResponseModel(false, "No Data Found.");
             return model;
         }
 
-        model.Data = item;
+        model.Data = item.Change();
         model.Response = new MessageResponseModel(true, "Success.");
         return model;
     }
 
-    public async Task<UserResponseModel> UpdateUser(UserModel requestModel)
+    public async Task<UserResponseModel> UpdateUser(UserRequestModel requestModel)
     {
         UserResponseModel model = new UserResponseModel();
-        var lst = await _localStorageService.GetList<UserModel>(EnumService.Tbl_User.GetKeyName());
+        var lst = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.GetKeyName());
         var result = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
         var index = lst.FindIndex(x => result != null && x.UserCode == result.UserCode);
         if (result is null)
@@ -63,17 +100,17 @@ public class UserService
         lst[index] = result;
 
         await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(), lst);
-        model.Data = result;
+        model.Data = result.Change();
         model.Response = new MessageResponseModel(true, "User has been removed.");
         return model;
     }
 
-    public async Task<UserResponseModel> DeleteUser(UserModel requestModel)
+    public async Task<UserResponseModel> DeleteUser(string userCode)
     {
         UserResponseModel model = new UserResponseModel();
-        var lst = await _localStorageService.GetList<UserModel>(EnumService.Tbl_User.GetKeyName());
+        var lst = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.GetKeyName());
         lst ??= new();
-        var item = lst.FirstOrDefault(x => x.UserCode == requestModel.UserCode);
+        var item = lst.FirstOrDefault(x => x.UserCode == userCode);
         if (item == null)
         {
             model.Response = new MessageResponseModel(false, "No Data Found.");
@@ -85,7 +122,35 @@ public class UserService
         model.Response = new MessageResponseModel(true, "Account has been removed.");
         return model;
     }
+    #region Generate user codes
 
+    private async Task<string> GenerateUniqueUserCode()
+    {
+        string latestUserCode = "AB000";
+
+        if (int.TryParse(latestUserCode.Substring(2), out int numericPart))
+        {
+            numericPart++;
+
+            while (await IsUserCodeAlreadyUsed("AB" + numericPart.ToString("D3")))
+            {
+                numericPart++;
+            }
+
+            return "AB" + numericPart.ToString("D3");
+        }
+
+        return "AB000";
+    }
+
+    private async Task<bool> IsUserCodeAlreadyUsed(string userCode)
+    {
+        var lst = await _localStorageService.GetList<UserModel>(EnumService.Tbl_User.GetKeyName());
+
+        return lst.Any(x => x.UserCode == userCode);
+    }
+
+    #endregion
     #region Usernames
 
     private string[] GetUser()
