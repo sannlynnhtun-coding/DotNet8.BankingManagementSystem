@@ -20,7 +20,7 @@ public partial class P_TownshipEdit
     private async Task GetTownship(string townshipCode)
     {
         await InjectService.EnableLoading();
-        var result = await TownshipApi.GetTownship(townShipCode);
+        var result = await TownshipApi.GetTownShipByCode(townShipCode);
         if (result.Response.IsError)
         {
             return;
