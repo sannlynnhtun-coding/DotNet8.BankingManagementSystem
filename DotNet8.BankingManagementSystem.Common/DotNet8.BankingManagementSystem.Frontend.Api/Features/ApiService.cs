@@ -1,23 +1,4 @@
-﻿using Azure;
-using DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
-using DotNet8.BankingManagementSystem.Frontend.Api.Features.State;
-using DotNet8.BankingManagementSystem.Frontend.Api.Features.Township;
-using DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
-using DotNet8.BankingManagementSystem.Frontend.Api.Features.User;
-using DotNet8.BankingManagementSystem.Frontend.Api.Services;
-using DotNet8.BankingManagementSystem.Models.State;
-using DotNet8.BankingManagementSystem.Models.TownShip;
-using DotNet8.BankingManagementSystem.Models.TransactionHistory;
-using DotNet8.BankingManagementSystem.Models.Users;
-using Microsoft.Identity.Client;
-using Refit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Api.Features
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features
 {
     public class ApiService
     {
@@ -51,6 +32,7 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features
             _userApi = userApi;
             _userService = userService;
         }
+
         #region Account
 
         public async Task<AccountListResponseModel> GetAccounts()
@@ -60,7 +42,12 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features
                 : await _accountApi.GetAccounts();
         }
 
-        //Task<AccountListResponseModel> GetAccountList(int pageNo, int pageSize);
+        public async Task<AccountListResponseModel> GetAccountList(int pageNo, int pageSize)
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _accountService.GetAccountList(pageNo, pageSize)
+                : await _accountApi.GetAccountList(pageNo, pageSize);
+        }
 
         public async Task<AccountResponseModel> GetAccount(string accountNo)
         {
@@ -93,6 +80,7 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features
         #endregion
 
         #region State
+
         public async Task<StateListResponseModel> GetStates()
         {
             return _enumApiType == EnumApiType.LocalStorage
@@ -110,75 +98,78 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features
         public async Task<StateResponseModel> GetStateByCode(string stateCode)
         {
             return _enumApiType == EnumApiType.LocalStorage
-               ? await _stateApi.GetStateByCode(stateCode)
-               : await _stateService.GetStateByCode(stateCode);
+                ? await _stateApi.GetStateByCode(stateCode)
+                : await _stateService.GetStateByCode(stateCode);
         }
 
         public async Task<StateResponseModel> CreateState(StateRequestModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-              ? await _stateApi.CreateState(requestModel)
-              : await _stateService.CreateState(requestModel);
+                ? await _stateApi.CreateState(requestModel)
+                : await _stateService.CreateState(requestModel);
         }
 
         public async Task<StateResponseModel> UpdateState(string stateCode, StateRequestModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-              ? await _stateApi.UpdateState(stateCode, requestModel)
-              : await _stateService.UpdateState(stateCode, requestModel);
+                ? await _stateApi.UpdateState(stateCode, requestModel)
+                : await _stateService.UpdateState(stateCode, requestModel);
         }
 
         public async Task<StateResponseModel> DeleteState(string stateCode)
         {
             return _enumApiType == EnumApiType.LocalStorage
-              ? await _stateApi.DeleteState(stateCode)
-              : await _stateService.DeleteState(stateCode);
+                ? await _stateApi.DeleteState(stateCode)
+                : await _stateService.DeleteState(stateCode);
         }
+
         #endregion
 
         #region TownShip
+
         public async Task<TownshipListResponceModel> GetTownships(int pageNo, int pageSize)
         {
             return _enumApiType == EnumApiType.LocalStorage
-              ? await _townshipApi.GetTownShipList(pageNo, pageSize)
-              : await _townshipService.GetTownShipList(pageNo, pageSize);
+                ? await _townshipApi.GetTownShipList(pageNo, pageSize)
+                : await _townshipService.GetTownShipList(pageNo, pageSize);
         }
 
         public async Task<TownshipResponseModel> GetTownShipByCode(string townshipCode)
         {
             return _enumApiType == EnumApiType.LocalStorage
-             ? await _townshipApi.GetTownShipByCode(townshipCode)
-             : await _townshipService.GetTownShipByCode(townshipCode);
+                ? await _townshipApi.GetTownShipByCode(townshipCode)
+                : await _townshipService.GetTownShipByCode(townshipCode);
         }
 
         public async Task<TownshipResponseModel> CreateTownship(TownshipRequestModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-           ? await _townshipApi.CreateTownship(requestModel)
-           : await _townshipService.CreateTownship(requestModel);
+                ? await _townshipApi.CreateTownship(requestModel)
+                : await _townshipService.CreateTownship(requestModel);
         }
 
         public async Task<TownshipResponseModel> UpdateTownship(string townshipCode,
             TownshipRequestModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-          ? await _townshipApi.UpdateTownship(townshipCode, requestModel)
-          : await _townshipService.UpdateTownship(townshipCode, requestModel);
+                ? await _townshipApi.UpdateTownship(townshipCode, requestModel)
+                : await _townshipService.UpdateTownship(townshipCode, requestModel);
         }
 
         public async Task<TownshipResponseModel> DeleteTownship(string townshipCode)
         {
             return _enumApiType == EnumApiType.LocalStorage
-          ? await _townshipApi.DeleteTownship(townshipCode)
-          : await _townshipService.DeleteTownship(townshipCode);
+                ? await _townshipApi.DeleteTownship(townshipCode)
+                : await _townshipService.DeleteTownship(townshipCode);
         }
 
         public async Task<TownshipListResponceModel> GetTownShipByStateCode(string stateCode)
         {
             return _enumApiType == EnumApiType.LocalStorage
-        ? await _townshipApi.GetTownShipByStateCode(stateCode)
-        : await _townshipService.GetTownShipByStateCode(stateCode);
+                ? await _townshipApi.GetTownShipByStateCode(stateCode)
+                : await _townshipService.GetTownShipByStateCode(stateCode);
         }
+
         #endregion
 
         #region Transaction History
@@ -186,45 +177,45 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features
         public async Task<TransactionHistoryListResponseModel> TransactionHistory(int pageNo, int pageSize)
         {
             return _enumApiType == EnumApiType.LocalStorage
-       ? await _transactionApi.TransactionHistory(pageNo, pageSize)
-       : await _transactionService.TransactionHistory(pageNo, pageSize);
-
+                ? await _transactionApi.TransactionHistory(pageNo, pageSize)
+                : await _transactionService.TransactionHistory(pageNo, pageSize);
         }
 
-        public async Task<TransactionHistoryListResponseModel> TransactionHistoryWithDate(TransactionHistorySearchModel requestModel)
+        public async Task<TransactionHistoryListResponseModel> TransactionHistoryWithDate(
+            TransactionHistorySearchModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-       ? await _transactionApi.TransactionHistoryWithDate(requestModel)
-       : await _transactionService.TransactionHistoryWithDate(requestModel);
+                ? await _transactionApi.TransactionHistoryWithDate(requestModel)
+                : await _transactionService.TransactionHistoryWithDate(requestModel);
         }
 
         public async Task<AccountResponseModel> Deposit(TransactionRequestModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-       ? await _transactionApi.Deposit(requestModel)
-       : await _transactionService.Deposit(requestModel);
+                ? await _transactionApi.Deposit(requestModel)
+                : await _transactionService.Deposit(requestModel);
         }
 
         public async Task<AccountResponseModel> Withdraw(TransactionRequestModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-       ? await _transactionApi.Withdraw(requestModel)
-       : await _transactionService.Withdraw(requestModel);
+                ? await _transactionApi.Withdraw(requestModel)
+                : await _transactionService.Withdraw(requestModel);
         }
 
         public async Task<TransferResponseModel> Transfer(TransferModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-      ? await _transactionApi.Transfer(requestModel)
-      : await _transactionService.Transfer(requestModel);
+                ? await _transactionApi.Transfer(requestModel)
+                : await _transactionService.Transfer(requestModel);
         }
 
         public async Task<TransactionHistoryListResponseModel> TransactionHistoryWithDateRange
             (TransactionHistorySearchModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-     ? await _transactionApi.TransactionHistoryWithDateRange(requestModel)
-     : await _transactionService.TransactionHistoryWithDateRange(requestModel);
+                ? await _transactionApi.TransactionHistoryWithDateRange(requestModel)
+                : await _transactionService.TransactionHistoryWithDateRange(requestModel);
         }
 
         #endregion
@@ -234,36 +225,36 @@ namespace DotNet8.BankingManagementSystem.Frontend.Api.Features
         public async Task<UserListResponseModel> GetUserList(int pageNo, int pageSize)
         {
             return _enumApiType == EnumApiType.LocalStorage
-     ? await _userApi.GetUserList(pageNo, pageSize)
-     : await _userService.GetUserList(pageNo, pageSize);
+                ? await _userApi.GetUserList(pageNo, pageSize)
+                : await _userService.GetUserList(pageNo, pageSize);
         }
 
         public async Task<UserResponseModel> GetUserByCode(string userCode)
         {
             return _enumApiType == EnumApiType.LocalStorage
-     ? await _userApi.GetUserByCode(userCode)
-     : await _userService.GetUserByCode(userCode);
+                ? await _userApi.GetUserByCode(userCode)
+                : await _userService.GetUserByCode(userCode);
         }
 
         public async Task<UserResponseModel> CreateUser(UserRequestModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-            ? await _userApi.CreateUser(requestModel)
-     : await _userService.CreateUser(requestModel);
+                ? await _userApi.CreateUser(requestModel)
+                : await _userService.CreateUser(requestModel);
         }
 
         public async Task<UserResponseModel> UpdateUser(UserRequestModel requestModel)
         {
             return _enumApiType == EnumApiType.LocalStorage
-            ? await _userApi.UpdateUser(requestModel)
-     : await _userService.UpdateUser(requestModel);
+                ? await _userApi.UpdateUser(requestModel)
+                : await _userService.UpdateUser(requestModel);
         }
 
         public async Task<UserResponseModel> DeleteUser(string userCode)
         {
             return _enumApiType == EnumApiType.LocalStorage
-            ? await _userApi.DeleteUser(userCode)
-     : await _userService.DeleteUser(userCode);
+                ? await _userApi.DeleteUser(userCode)
+                : await _userService.DeleteUser(userCode);
         }
 
         #endregion
