@@ -58,7 +58,7 @@ public partial class P_UserEdit : ComponentBase
             TownshipCode = _model.TownshipCode
         };
 
-        var response = await UserApi.UpdateUser(userCode, reqModel);
+        var response = await UserApi.UpdateUser(reqModel);
         await InjectService.Go("/general-setup/user");
         await InjectService.SuccessMessage("Updating Successful.");
         StateHasChanged();
