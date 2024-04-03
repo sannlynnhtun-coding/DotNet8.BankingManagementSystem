@@ -1,6 +1,4 @@
-﻿using Refit;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township;
 
 public interface ITownshipApi
 {
