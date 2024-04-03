@@ -10,7 +10,7 @@ public partial class P_StateCreate
     {
         try
         {
-            var response = await StateApi.CreateState(_model);
+            var response = await ApiService.CreateState(_model);
             await InjectService.Go("/general-setup/state");
             await InjectService.SuccessMessage("Creating Successful.");
         }
