@@ -17,7 +17,7 @@ public partial class P_AccountEdit : ComponentBase
     private async Task GetAccount(string accountNo)
     {
         await InjectService.EnableLoading();
-        var result = await AccountApi.GetAccount(accountNo);
+        var result = await ApiService.GetAccount(accountNo);
         if (result.Response.IsError)
         {
             //
@@ -37,7 +37,7 @@ public partial class P_AccountEdit : ComponentBase
             Balance = _model.Balance
         };
 
-        var response = await AccountApi.UpdateAccount(accountNo, reqModel);
+        var response = await ApiService.UpdateAccount(accountNo, reqModel);
         await InjectService.Go("/general-setup/account");
         await InjectService.SuccessMessage("Updating Successful.");
         StateHasChanged();
