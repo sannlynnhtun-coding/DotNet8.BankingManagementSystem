@@ -13,12 +13,16 @@
         private readonly TransactionService _transactionService;
         private readonly IUserApi _userApi;
         private readonly UserService _userService;
+        private readonly IAdminUser _adminUser;
+        private readonly AdminUserService _adminUserService;
 
         public ApiService(Config config, AccountService accountService,
             IAccountApi accountApi, IStateApi stateApi,
             StateService stateService, ITownshipApi townshipApi,
             TownshipService townshipService, ITransactionApi transactionApi,
-            TransactionService transactionService, IUserApi userApi, UserService userService)
+            TransactionService transactionService, IUserApi userApi,
+            UserService userService, IAdminUser adminUser,
+            AdminUserService adminUserService)
         {
             _accountService = accountService;
             _accountApi = accountApi;
@@ -31,6 +35,8 @@
             _transactionService = transactionService;
             _userApi = userApi;
             _userService = userService;
+            _adminUser = adminUser;
+            _adminUserService = adminUserService;
         }
 
         #region Account
@@ -127,7 +133,7 @@
 
         #region TownShip
 
-        public async Task<TownshipListResponceModel> GetTownships(int pageNo, int pageSize)
+        public async Task<TownshipListResponceModel> GetTownShipList(int pageNo, int pageSize)
         {
             return _enumApiType == EnumApiType.LocalStorage
                 ? await _townshipApi.GetTownShipList(pageNo, pageSize)
@@ -255,6 +261,52 @@
             return _enumApiType == EnumApiType.LocalStorage
                 ? await _userApi.DeleteUser(userCode)
                 : await _userService.DeleteUser(userCode);
+        }
+
+        #endregion
+
+        #region AdminUser
+
+        public async Task<AdminUserListResponseModel> GetAdminUsers()
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _adminUser.GetAdminUsers()
+                : await _adminUserService.GetAdminUsers();
+        }
+
+        public async Task<AdminUserListResponseModel> GetAdminUserList(int pageNo, int pageSize)
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _adminUser.GetAdminUserList(pageNo, pageSize)
+                : await _adminUserService.GetAdminUserList(pageNo, pageSize);
+        }
+
+        public async Task<AdminUserResponseModel> GetAdminUserByCode(string adminUserCode)
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _adminUser.GetAdminUserByCode(adminUserCode)
+                : await _adminUserService.GetAdminUserByCode(adminUserCode);
+        }
+
+        public async Task<AdminUserResponseModel> CreateAdminUser(AdminUserRequestModel requestModel)
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _adminUser.CreateAdminUser(requestModel)
+                : await _adminUserService.CreateAdminUser(requestModel);
+        }
+
+        public async Task<AdminUserResponseModel> UpdateAdminUser(AdminUserRequestModel requestModel)
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _adminUser.UpdateAdminUser(requestModel)
+                : await _adminUserService.UpdateAdminUser(requestModel);
+        }
+
+        public async Task<AdminUserResponseModel> DeleteAdminUser(string adminUserCode)
+        {
+            return _enumApiType == EnumApiType.LocalStorage
+                ? await _adminUser.DeleteAdminUser(adminUserCode)
+                : await _adminUserService.DeleteAdminUser(adminUserCode);
         }
 
         #endregion
