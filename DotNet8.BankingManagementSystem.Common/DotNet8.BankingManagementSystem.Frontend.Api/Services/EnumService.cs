@@ -6,6 +6,7 @@ public enum EnumService
     Tbl_Account,
     Tbl_State,
     Tbl_Township,
+    Tbl_AdminUser,
     Tbl_TransactionHistory
 }
 
