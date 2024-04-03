@@ -1,14 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
-using DotNet8.BankingManagementSystem.Frontend.Api.Services;
-using DotNet8.BankingManagementSystem.Models.TownShip;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
 {
     public class TownshipService
     {
