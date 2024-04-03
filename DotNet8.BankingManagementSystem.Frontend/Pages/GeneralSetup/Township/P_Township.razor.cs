@@ -25,7 +25,7 @@ public partial class P_Township
     private async Task List(int pageNo, int pageSize)
     {
         await InjectService.EnableLoading();
-        _model = await TownshipApi.GetTownships(pageNo, pageSize);
+        _model = await TownshipApi.GetTownShipList(pageNo, pageSize);
         if (_model.Response.IsError)
         {
             //
