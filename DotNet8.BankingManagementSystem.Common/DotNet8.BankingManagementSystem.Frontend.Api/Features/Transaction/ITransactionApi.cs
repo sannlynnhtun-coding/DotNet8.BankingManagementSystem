@@ -1,6 +1,4 @@
-﻿using Refit;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
 
 public interface ITransactionApi
 
