@@ -1,6 +1,4 @@
-﻿using Refit;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
 
 public interface IAccountApi
 {
