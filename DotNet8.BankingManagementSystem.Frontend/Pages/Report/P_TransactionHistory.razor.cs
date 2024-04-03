@@ -23,7 +23,7 @@ public partial class P_TransactionHistory : ComponentBase
     private async Task List(int pageNo, int pageSize)
     {
         await InjectService.EnableLoading();
-        _model = await TransactionAPI.TransactionHistory(pageNo, pageSize);
+        _model = await ApiService.TransactionHistory(pageNo, pageSize);
         if (_model.Response.IsError)
         {
             //
@@ -43,7 +43,7 @@ public partial class P_TransactionHistory : ComponentBase
         //    PageNo = 1,
         //    PageSize = 10
         //});
-        _model = await TransactionAPI.TransactionHistoryWithDateRange(new TransactionHistorySearchModel
+        _model = await ApiService.TransactionHistoryWithDateRange(new TransactionHistorySearchModel
         {
             FromDate = date,
             ToDate = date,

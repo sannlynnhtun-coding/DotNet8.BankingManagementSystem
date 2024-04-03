@@ -1,6 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.AdminUser;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Admin;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Admin;
 
 public partial class P_AdminUserCreate : ComponentBase
 {
@@ -10,7 +8,7 @@ public partial class P_AdminUserCreate : ComponentBase
     {
         try
         {
-            var response = await AdminUserAPI.CreateAdminUser(_model);
+            var response = await ApiService.CreateAdminUser(_model);
             StateHasChanged();
         }
         catch (Exception ex)

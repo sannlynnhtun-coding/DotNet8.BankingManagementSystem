@@ -1,6 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.User;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.User;
 
 public class UserService
 {

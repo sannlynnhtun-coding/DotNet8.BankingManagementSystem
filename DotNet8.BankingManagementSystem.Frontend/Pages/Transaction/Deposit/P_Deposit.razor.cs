@@ -8,7 +8,7 @@ public partial class P_Deposit : ComponentBase
     {
         try
         {
-            var response = await TransactionApi.Deposit(_model);
+            var response = await ApiService.Deposit(_model);
             await InjectService.Go("/user-and-account/account");
             await InjectService.SuccessMessage("Deposit Successful.");
         }

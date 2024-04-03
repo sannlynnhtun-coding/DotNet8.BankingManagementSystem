@@ -1,6 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.State;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.State;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.State;
 
 public partial class P_StateCreate
 {

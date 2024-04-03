@@ -1,7 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.AdminUser;
-using MudBlazor;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Admin;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Admin;
 
 public partial class P_AdminUser : ComponentBase
 {
@@ -25,7 +22,7 @@ public partial class P_AdminUser : ComponentBase
     private async Task List(int pageNo, int pageSize)
     {
         await InjectService.EnableLoading();
-        _model = await AdminUserAPI.GetAdminUserList(pageNo, pageSize);
+        _model = await ApiService.GetAdminUserList(pageNo, pageSize);
         if (_model.Response.IsError)
         {
             return;
@@ -35,7 +32,7 @@ public partial class P_AdminUser : ComponentBase
         await InjectService.DisableLoading();
     }
 
-    private async Task Delete(string AdminUserCode)
+    private async Task Delete(string adminUserCode)
     {
         var parameters = new DialogParameters<Dialog>();
         parameters.Add(x => x.ContentText,
@@ -48,7 +45,7 @@ public partial class P_AdminUser : ComponentBase
         if (result.Canceled) return;
 
         //var adminUserResult = await AdminUserAPI.DeleteAdminUser(AdminUserCode);
-        var adminUserResult = await AdminUserAPI.DeleteAdminUser(AdminUserCode);
+        var adminUserResult = await ApiService.DeleteAdminUser(adminUserCode);
         if (result is not null)
         {
             await InjectService.EnableLoading();

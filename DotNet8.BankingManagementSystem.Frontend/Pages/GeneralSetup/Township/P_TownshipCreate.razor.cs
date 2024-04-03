@@ -1,8 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.State;
-using DotNet8.BankingManagementSystem.Models.TownShip;
-using DotNet8.BankingManagementSystem.Models.Users;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Township;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Township;
 
 public partial class P_TownshipCreate
 {
@@ -12,7 +8,7 @@ public partial class P_TownshipCreate
     {
         try
         {
-            var response = await TownshipApi.CreateTownship(_model);
+            var response = await ApiService.CreateTownship(_model);
             StateHasChanged();
         }
         catch (Exception ex)

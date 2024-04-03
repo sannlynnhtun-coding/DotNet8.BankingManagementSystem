@@ -25,7 +25,7 @@ public partial class TransactionHistoryDateRange
     private async Task List(int pageNo, int pageSize)
     {
         await InjectService.EnableLoading();
-        _model = await TransactionAPI.TransactionHistory(pageNo, pageSize);
+        _model = await ApiService.TransactionHistory(pageNo, pageSize);
         if (_model.Response.IsError)
         {
             //
@@ -39,7 +39,7 @@ public partial class TransactionHistoryDateRange
     private async Task Search()
     {
         await InjectService.EnableLoading();
-        _model = await TransactionAPI.TransactionHistoryWithDateRange(new TransactionHistorySearchModel
+        _model = await ApiService.TransactionHistoryWithDateRange(new TransactionHistorySearchModel
         {
             FromDate = fromDate,
             ToDate = toDate,

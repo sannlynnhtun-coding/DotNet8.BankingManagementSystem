@@ -8,7 +8,7 @@ public partial class P_Withdraw : ComponentBase
     {
         try
         {
-            var response = await TransactionApi.Withdraw(_model);
+            var response = await ApiService.Withdraw(_model);
             await InjectService.Go("/user-and-account/account");
             await InjectService.SuccessMessage("Withdraw Successful.");
         }

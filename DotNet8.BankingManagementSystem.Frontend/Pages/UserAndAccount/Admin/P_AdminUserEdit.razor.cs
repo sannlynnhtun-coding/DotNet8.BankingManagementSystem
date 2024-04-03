@@ -1,10 +1,8 @@
-﻿using DotNet8.BankingManagementSystem.Models.AdminUser;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Admin;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Admin;
 
 public partial class P_AdminUserEdit : ComponentBase
 {
-    [Parameter] public string AdminUserCode { get; set; }
+    [Parameter] public string adminUserCode { get; set; }
 
     private AdminUserModel _model = new AdminUserModel();
 
@@ -12,15 +10,15 @@ public partial class P_AdminUserEdit : ComponentBase
     {
         if (firstRender)
         {
-            await GetAdminUser(AdminUserCode);
+            await GetAdminUserByCode(adminUserCode);
             StateHasChanged();
         }
     }
 
-    private async Task GetAdminUser(string AdminUserCode)
+    private async Task GetAdminUserByCode(string adminUserCode)
     {
         await InjectService.EnableLoading();
-        var result = await AdminUserAPI.GetAdminUser(AdminUserCode);
+        var result = await ApiService.GetAdminUserByCode(adminUserCode);
         if (result.Response.IsError)
         {
             return;
@@ -40,7 +38,7 @@ public partial class P_AdminUserEdit : ComponentBase
             MobileNo = _model.MobileNo,
             UserRoleCode = _model.UserRoleCode,
         };
-        var response = await AdminUserAPI.UpdateAdminUser(AdminUserCode, reqModel);
+        var response = await ApiService.UpdateAdminUser(reqModel);
         await InjectService.SuccessMessage("Updating Successful.");
         Nav.NavigateTo("/general-setup/adminUser");
         StateHasChanged();

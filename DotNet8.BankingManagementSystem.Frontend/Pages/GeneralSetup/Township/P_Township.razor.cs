@@ -1,7 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.TownShip;
-using MudBlazor;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Township;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Township;
 
 public partial class P_Township
 {
@@ -25,7 +22,7 @@ public partial class P_Township
     private async Task List(int pageNo, int pageSize)
     {
         await InjectService.EnableLoading();
-        _model = await TownshipApi.GetTownShipList(pageNo, pageSize);
+        _model = await ApiService.GetTownShipList(pageNo, pageSize);
         if (_model.Response.IsError)
         {
             //
@@ -54,7 +51,7 @@ public partial class P_Township
         var result = await dialog.Result;
         if (result.Canceled) return;
 
-        var townShipresult = await TownshipApi.DeleteTownship(TownshipCode);
+        var response = await ApiService.DeleteTownship(TownshipCode);
         if (result is not null)
         {
             await InjectService.EnableLoading();

@@ -1,5 +1,4 @@
-﻿
-namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.State;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.State;
 
 public class StateService
 {

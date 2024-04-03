@@ -1,7 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.Users;
-using MudBlazor;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.User;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.User;
 
 public partial class P_User : ComponentBase
 {
@@ -17,7 +14,6 @@ public partial class P_User : ComponentBase
     {
         if (firstRender)
         {
-            //CallbackMethodNo();
             await List(_setting.PageNo, _setting.PageSize);
         }
     }
@@ -25,7 +21,7 @@ public partial class P_User : ComponentBase
     private async Task List(int pageNo, int pageSize)
     {
         await InjectService.EnableLoading();
-        _model = await UserApi.GetUserList(pageNo, pageSize);
+        _model = await ApiService.GetUserList(pageNo, pageSize);
         if (_model.Response.IsError)
         {
             //
@@ -43,7 +39,7 @@ public partial class P_User : ComponentBase
         //Nav.NavigateTo("/general-setup/user");
     }
 
-    private async Task Delete(string UserCode)
+    private async Task Delete(string userCode)
     {
         var parameters = new DialogParameters<Dialog>();
         parameters.Add(x => x.ContentText,
@@ -55,7 +51,7 @@ public partial class P_User : ComponentBase
         var result = await dialog.Result;
         if (result.Canceled) return;
 
-        var response = await UserApi.DeleteUser(UserCode);
+        var response = await ApiService.DeleteUser(userCode);
         if (result is not null)
         {
             await InjectService.EnableLoading();

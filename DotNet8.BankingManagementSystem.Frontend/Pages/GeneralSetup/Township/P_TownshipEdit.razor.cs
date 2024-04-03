@@ -1,6 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.TownShip;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Township;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.GeneralSetup.Township;
 
 public partial class P_TownshipEdit
 {
@@ -12,15 +10,15 @@ public partial class P_TownshipEdit
     {
         if (firstRender)
         {
-            await GetTownship(townShipCode);
+            await GetTownShipByCode(townShipCode);
             StateHasChanged();
         }
     }
 
-    private async Task GetTownship(string townshipCode)
+    private async Task GetTownShipByCode(string townshipCode)
     {
         await InjectService.EnableLoading();
-        var result = await TownshipApi.GetTownShipByCode(townShipCode);
+        var result = await ApiService.GetTownShipByCode(townShipCode);
         if (result.Response.IsError)
         {
             return;
@@ -39,7 +37,7 @@ public partial class P_TownshipEdit
             TownshipName = _model.TownshipName,
             StateCode = _model.StateCode,
         };
-        var response = await TownshipApi.UpdateTownship(townShipCode, reqModel);
+        var response = await ApiService.UpdateTownship(townShipCode, reqModel);
         await InjectService.SuccessMessage("Updating Successful.");
         Nav.NavigateTo("/general-setup/township");
         StateHasChanged();

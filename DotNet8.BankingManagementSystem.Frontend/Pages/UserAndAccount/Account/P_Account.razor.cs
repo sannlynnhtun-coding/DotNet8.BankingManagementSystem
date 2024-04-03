@@ -25,7 +25,7 @@ public partial class P_Account : ComponentBase
     private async Task List(int pageNo, int pageSize)
     {
         await InjectService.EnableLoading();
-        _model = await AccountApi.GetAccountList(pageNo, pageSize);
+        _model = await ApiService.GetAccountList(pageNo, pageSize);
         if (_model.Response.IsError)
         {
             //
@@ -50,7 +50,7 @@ public partial class P_Account : ComponentBase
 
     private async Task Delete(string accountNo)
     {
-        var result = await AccountApi.DeleteAccount(accountNo);
+        var result = await ApiService.DeleteAccount(accountNo);
         if (result is not null)
         {
             await InjectService.EnableLoading();

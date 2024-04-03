@@ -1,8 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.State;
-using DotNet8.BankingManagementSystem.Models.TownShip;
-using DotNet8.BankingManagementSystem.Models.Users;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.User;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.User;
 
 public partial class P_UserEdit : ComponentBase
 {
@@ -15,7 +11,7 @@ public partial class P_UserEdit : ComponentBase
     {
         if (firstRender)
         {
-            _stateListResponseModel = await StateApi.GetStates();
+            _stateListResponseModel = await ApiService.GetStates();
             await GetUserByCode(userCode);
             StateHasChanged();
         }
@@ -24,7 +20,7 @@ public partial class P_UserEdit : ComponentBase
     private async Task GetUserByCode(string userCode)
     {
         await InjectService.EnableLoading();
-        var result = await UserApi.GetUserByCode(userCode);
+        var result = await ApiService.GetUserByCode(userCode);
         if (result.Response.IsError)
         {
             //
@@ -39,7 +35,7 @@ public partial class P_UserEdit : ComponentBase
     private async Task ChangeState(string stateCode)
     {
         _model.StateCode = stateCode;
-        _townshipListResponceModel = await TownshipApi.GetTownShipByStateCode(_model.StateCode);
+        _townshipListResponceModel = await ApiService.GetTownShipByStateCode(_model.StateCode);
         StateHasChanged();
     }
 
@@ -58,7 +54,7 @@ public partial class P_UserEdit : ComponentBase
             TownshipCode = _model.TownshipCode
         };
 
-        var response = await UserApi.UpdateUser(reqModel);
+        var response = await ApiService.UpdateUser(reqModel);
         await InjectService.Go("/general-setup/user");
         await InjectService.SuccessMessage("Updating Successful.");
         StateHasChanged();
