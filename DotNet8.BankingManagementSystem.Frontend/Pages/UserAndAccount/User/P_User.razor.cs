@@ -25,7 +25,7 @@ public partial class P_User : ComponentBase
     private async Task List(int pageNo, int pageSize)
     {
         await InjectService.EnableLoading();
-        _model = await UserApi.GetStates(pageNo, pageSize);
+        _model = await UserApi.GetUserList(pageNo, pageSize);
         if (_model.Response.IsError)
         {
             //
