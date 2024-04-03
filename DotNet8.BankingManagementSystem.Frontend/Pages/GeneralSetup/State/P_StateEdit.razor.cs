@@ -19,7 +19,7 @@ public partial class P_StateEdit
     private async Task GetStateByCode(string stateCode)
     {
         await InjectService.EnableLoading();
-        var result = await StateApi.GetStateByCode(stateCode);
+        var result = await ApiService.GetStateByCode(stateCode);
         if (result.Response.IsError)
         {
             //
@@ -39,7 +39,7 @@ public partial class P_StateEdit
             StateName = _model.StateName
         };
 
-        var response = await StateApi.UpdateState(stateCode, reqModel);
+        var response = await ApiService.UpdateState(stateCode, reqModel);
         await InjectService.Go("/general-setup/state");
         await InjectService.SuccessMessage("Updating Successful.");
         StateHasChanged();
