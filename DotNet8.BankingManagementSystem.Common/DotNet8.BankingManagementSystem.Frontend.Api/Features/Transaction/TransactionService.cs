@@ -1,5 +1,4 @@
 ﻿using DotNet8.BankingManagementSystem.Frontend.Api.Services;
-using DotNet8.BankingManagementSystem.Models.TransactionHistory;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
