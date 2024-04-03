@@ -8,60 +8,60 @@ public class AdminUserController : BaseController
 
     public AdminUserController(AdminUserService adminUserService)
     {
-            _adminUserService = adminUserService;
-        }
+        _adminUserService = adminUserService;
+    }
 
     #region GetAdminUsers
 
     [HttpGet]
-    public async Task<IActionResult> GetAdminUser()
+    public async Task<IActionResult> GetAdminUsers()
     {
-            try
-            {
-                var model = await _adminUserService.GetAdminUsers();
-                return Ok(model);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+        try
+        {
+            var model = await _adminUserService.GetAdminUsers();
+            return Ok(model);
         }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
+        }
+    }
 
     #endregion
 
-    #region GetAdminUserszByPagination
+    #region GetAdminUserList
 
     [HttpGet("{pageNo}/{pageSize}")]
     public async Task<IActionResult> GetAdminUserList(int pageNo, int pageSize)
     {
-            try
-            {
-                var model = await _adminUserService.GetAdminUsersList(pageNo, pageSize);
-                return Ok(model);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+        try
+        {
+            var model = await _adminUserService.GetAdminUsersList(pageNo, pageSize);
+            return Ok(model);
         }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
+        }
+    }
 
     #endregion
 
-    #region GetAdminUserByAdminUserCode
+    #region GetAdminUserByCode
 
     [HttpGet("{AdminUserCode}")]
-    public async Task<IActionResult> GetAdminUser(string AdminUserCode)
+    public async Task<IActionResult> GetAdminUserByCode(string adminUserCode)
     {
-            try
-            {
-                var model = await _adminUserService.GetAdminUser(AdminUserCode);
-                return Ok(model);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+        try
+        {
+            var model = await _adminUserService.GetAdminUserByCode(adminUserCode);
+            return Ok(model);
         }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
+        }
+    }
 
     #endregion
 
@@ -70,52 +70,52 @@ public class AdminUserController : BaseController
     [HttpPost]
     public async Task<IActionResult> CreateAdminUser([FromBody] AdminUserRequestModel requestModel)
     {
-            try
-            {
-                var model = await _adminUserService.CreateAdminUser(requestModel);
-                return Ok(model);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+        try
+        {
+            var model = await _adminUserService.CreateAdminUser(requestModel);
+            return Ok(model);
         }
-
-    #endregion
-
-    #region DeleteAdminUser
-
-    [HttpDelete("{AdminUserCode}")]
-    public async Task<IActionResult> DeleteAdminUser(string AdminUserCode)
-    {
-            try
-            {
-                var model = await _adminUserService.DeleteAdminUser(AdminUserCode);
-                return Ok(model);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
         }
+    }
 
     #endregion
 
     #region UpdateAdminUser
 
     [HttpPut("{AdminUserCode}")]
-    public async Task<IActionResult> UpdateAdminUser(string AdminUserCode, AdminUserRequestModel reqModel)
+    public async Task<IActionResult> UpdateAdminUser(AdminUserRequestModel requestModel)
     {
-            try
-            {
-                var model = await _adminUserService.UpdateAdminUser(AdminUserCode, reqModel);
-                return Ok(model);
-            }
-            catch (Exception ex)
-            {
-                return InternalServerError(ex);
-            }
+        try
+        {
+            var model = await _adminUserService.UpdateAdminUser(requestModel);
+            return Ok(model);
         }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
+        }
+    }
+
+    #endregion
+
+    #region DeleteAdminUser
+
+    [HttpDelete("{AdminUserCode}")]
+    public async Task<IActionResult> DeleteAdminUser(string adminUserCode)
+    {
+        try
+        {
+            var model = await _adminUserService.DeleteAdminUser(adminUserCode);
+            return Ok(model);
+        }
+        catch (Exception ex)
+        {
+            return InternalServerError(ex);
+        }
+    }
 
     #endregion
 }
