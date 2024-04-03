@@ -68,11 +68,11 @@ public class UserController : BaseController
     #region Update User info
 
     [HttpPut("{userCode}")]
-    public async Task<IActionResult> UpdateUserInfo(string userCode, [FromBody] UserRequestModel requestModel)
+    public async Task<IActionResult> UpdateUserInfo([FromBody] UserRequestModel requestModel)
     {
         try
         {
-            var model = await _userService.UpdateUserInfo(userCode, requestModel);
+            var model = await _userService.UpdateUserInfo(requestModel);
             return Ok(model);
         }
         catch (Exception ex)
