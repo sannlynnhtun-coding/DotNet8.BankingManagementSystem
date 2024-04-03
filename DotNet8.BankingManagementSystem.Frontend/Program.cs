@@ -5,6 +5,7 @@ using DotNet8.BankingManagementSystem.Frontend.Api.Features.State;
 using DotNet8.BankingManagementSystem.Frontend.Api.Features.Township;
 using DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
 using DotNet8.BankingManagementSystem.Frontend.Api.Features.User;
+using DotNet8.BankingManagementSystem.Frontend.Api.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -14,10 +15,10 @@ builder.Services.AddMudServices();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-string apiType = "Api"; // Api or LocalStorage
-switch (apiType)
+Config config = new Config(); // Api or LocalStorage
+switch (config.EnumApiType)
 {
-    case "Api":
+    case EnumApiType.LocalStorage:
         builder.Services.AddRefitService<IStateApi>(builder.Configuration);
         builder.Services.AddRefitService<IUserApi>(builder.Configuration);
         builder.Services.AddRefitService<ITownshipApi>(builder.Configuration);
@@ -25,7 +26,7 @@ switch (apiType)
         builder.Services.AddRefitService<IAdminUser>(builder.Configuration);
         builder.Services.AddRefitService<ITransactionApi>(builder.Configuration);
         break;
-    case "LocalStorage":
+    case EnumApiType.Backend:
         builder.Services.AddBlazoredLocalStorage(config =>
         {
             config.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
