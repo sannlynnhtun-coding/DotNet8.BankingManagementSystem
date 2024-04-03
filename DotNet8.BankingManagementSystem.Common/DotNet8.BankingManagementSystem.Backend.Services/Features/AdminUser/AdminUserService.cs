@@ -11,6 +11,29 @@ public class AdminUserService
 
     #region GetAdminUsers
 
+    public async Task<AdminUserListResponseModel> GetAdminUsers()
+    {
+        var query = _appDbContext.TblAdminUsers
+            .AsNoTracking();
+
+        var result = await query
+            .OrderByDescending(x => x.AdminUserName)
+            .ToListAsync();
+
+        var lst = result.Select(x => x.Change()).ToList();
+
+        AdminUserListResponseModel model = new AdminUserListResponseModel()
+        {
+            Data = lst,
+            Response = new MessageResponseModel(true, "success")
+        };
+        return model;
+    }
+
+    #endregion
+    
+    #region GetAdminUsersList
+
     public async Task<AdminUserListResponseModel> GetAdminUsersList(int pageNo, int pageSize)
     {
         var query = _appDbContext.TblAdminUsers
@@ -32,7 +55,7 @@ public class AdminUserService
         AdminUserListResponseModel model = new AdminUserListResponseModel()
         {
             Data = lst,
-            pageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
+            PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
             Response = new MessageResponseModel(true, "success")
         };
         return model;
@@ -40,39 +63,15 @@ public class AdminUserService
 
     #endregion
 
-    #region GetAdminUser
+    #region GetAdminUserByCode
 
-    public async Task<AdminUserListResponseModel> GetAdminUsers()
-    {
-        var query = _appDbContext.TblAdminUsers
-            .AsNoTracking();
-
-        var result = await query
-            .OrderByDescending(x => x.AdminUserName)
-            .ToListAsync();
-
-        var lst = result.Select(x => x.Change()).ToList();
-
-        AdminUserListResponseModel model = new AdminUserListResponseModel()
-        {
-            Data = lst,
-            //pageSetting
-            Response = new MessageResponseModel(true, "success")
-        };
-        return model;
-    }
-
-    #endregion
-
-    #region GetAdminUserByAdminUserCode
-
-    public async Task<AdminUserResponseModel> GetAdminUser(string AdminUserCode)
+    public async Task<AdminUserResponseModel> GetAdminUserByCode(string adminUserCode)
     {
         var query = _appDbContext.TblAdminUsers
             .AsNoTracking();
 
         var item = await query
-            .FirstOrDefaultAsync(x => x.AdminUserCode == AdminUserCode);
+            .FirstOrDefaultAsync(x => x.AdminUserCode == adminUserCode);
 
         if (item == null)
         {
@@ -107,37 +106,12 @@ public class AdminUserService
 
     #endregion
 
-    #region DeleteAdminUser
-
-    public async Task<AdminUserResponseModel> DeleteAdminUser(string AdminUserCode)
-    {
-        var query = _appDbContext.TblAdminUsers.AsNoTracking();
-        var item = await query.FirstOrDefaultAsync(x => x.AdminUserCode == AdminUserCode);
-
-        if (item == null)
-        {
-            throw new Exception("Invalid AdminUser");
-        }
-
-        _appDbContext.Entry(item!).State = EntityState.Deleted;
-        _appDbContext.TblAdminUsers.Remove(item!);
-        var result = await _appDbContext.SaveChangesAsync();
-
-        AdminUserResponseModel model = new AdminUserResponseModel()
-        {
-            Response = new MessageResponseModel(true, "Deleted AdminUser Successfully")
-        };
-        return model;
-    }
-
-    #endregion
-
     #region UpdateAdminUser
 
-    public async Task<AdminUserResponseModel> UpdateAdminUser(string AdminUserCode, AdminUserRequestModel reqModel)
+    public async Task<AdminUserResponseModel> UpdateAdminUser(AdminUserRequestModel reqModel)
     {
         var query = _appDbContext.TblAdminUsers.AsNoTracking();
-        var item = await query.FirstOrDefaultAsync(x => x.AdminUserCode == AdminUserCode);
+        var item = await query.FirstOrDefaultAsync(x => x.AdminUserCode == reqModel.AdminUserCode);
 
         if (item is null)
         {
@@ -156,7 +130,32 @@ public class AdminUserService
         AdminUserResponseModel model = new AdminUserResponseModel()
         {
             Data = item.Change(),
-            Response = new MessageResponseModel(true, "Update AdminUser Successfully")
+            Response = new MessageResponseModel(true, "Update AdminUser Successfully.")
+        };
+        return model;
+    }
+
+    #endregion
+    
+    #region DeleteAdminUser
+
+    public async Task<AdminUserResponseModel> DeleteAdminUser(string adminUserCode)
+    {
+        var query = _appDbContext.TblAdminUsers.AsNoTracking();
+        var item = await query.FirstOrDefaultAsync(x => x.AdminUserCode == adminUserCode);
+
+        if (item == null)
+        {
+            throw new Exception("Invalid AdminUser");
+        }
+
+        _appDbContext.Entry(item!).State = EntityState.Deleted;
+        _appDbContext.TblAdminUsers.Remove(item!);
+        var result = await _appDbContext.SaveChangesAsync();
+
+        AdminUserResponseModel model = new AdminUserResponseModel()
+        {
+            Response = new MessageResponseModel(true, "Deleted AdminUser Successfully")
         };
         return model;
     }
