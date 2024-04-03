@@ -95,26 +95,6 @@ public class AccountService
 
     #endregion
 
-    // public async Task<AccountResponseModel> CreateAccountv1(AccountRequestModel requestModel)
-    // {
-    //     AccountResponseModel model = new AccountResponseModel();
-    //     var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
-    //     lst ??= new List<AccountModel>();
-    //
-    //     lst.Add(new AccountModel
-    //     {
-    //         AccountNo = requestModel.AccountNo,
-    //         CustomerName = requestModel.CustomerName,
-    //         Balance = requestModel.Balance,
-    //         CustomerCode = requestModel.CustomerCode,
-    //     });
-    //
-    //     await _localStorageService.SetList(EnumService.Tbl_Account.GetKeyName(), lst);
-    //
-    //     model.Response = new MessageResponseModel(true, "Account has been registered.");
-    //     return model;
-    // }
-
     #region UpdateAccount
 
     public async Task<AccountResponseModel> UpdateAccount(string accountNo, AccountRequestModel requestModel)
