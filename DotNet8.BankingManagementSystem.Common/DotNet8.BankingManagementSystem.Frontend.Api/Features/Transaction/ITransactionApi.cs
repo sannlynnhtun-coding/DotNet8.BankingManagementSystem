@@ -1,5 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Models.TransactionHistory;
-using Refit;
+﻿using Refit;
 
 namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
 
