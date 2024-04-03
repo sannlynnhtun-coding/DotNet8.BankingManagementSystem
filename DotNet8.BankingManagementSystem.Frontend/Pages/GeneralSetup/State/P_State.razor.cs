@@ -26,7 +26,7 @@ public partial class P_State : ComponentBase
     private async Task List(int pageNo, int pageSize)
     {
         await InjectService.EnableLoading();
-        _model = await StateApi.GetStates(pageNo, pageSize);
+        _model = await ApiService.GetStates(pageNo, pageSize);
         if (_model.Response.IsError)
         {
             //
@@ -51,7 +51,7 @@ public partial class P_State : ComponentBase
 
     private async Task Delete(string stateCode)
     {
-        var result = await StateApi.DeleteState(stateCode);
+        var result = await ApiService.DeleteState(stateCode);
         if (result is not null)
         {
             await InjectService.EnableLoading();
