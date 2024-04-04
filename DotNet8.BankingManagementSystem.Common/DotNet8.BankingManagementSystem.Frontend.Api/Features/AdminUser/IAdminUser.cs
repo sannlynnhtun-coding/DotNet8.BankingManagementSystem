@@ -14,7 +14,7 @@ public interface IAdminUser
     [Post("/api/AdminUser")]
     Task<AdminUserResponseModel> CreateAdminUser(AdminUserRequestModel requestModel);
 
-    [Put("/api/AdminUser/{AdminUserCode}")]
+    [Put("/api/AdminUser")]
     Task<AdminUserResponseModel> UpdateAdminUser(AdminUserRequestModel requestModel);
 
     [Delete("/api/AdminUser/{AdminUserCode}")]
