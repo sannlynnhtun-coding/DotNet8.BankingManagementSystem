@@ -14,7 +14,7 @@ public class AccountService
     public async Task<AccountListResponseModel> GetAccounts()
     {
         AccountListResponseModel model = new AccountListResponseModel();
-        var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
+        var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.ToString());
         model.Data = lst;
         model.Response = new MessageResponseModel(true, "Success.");
         return model;
