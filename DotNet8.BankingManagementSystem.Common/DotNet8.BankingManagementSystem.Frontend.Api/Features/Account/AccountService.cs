@@ -24,20 +24,18 @@ public class AccountService
 
     #region GetAccountList
 
-    public async Task<AccountListResponseModel> GetAccountList(int pageNo, int pageSize)
+    public async Task<AccountListResponseModel> GetAccountList(int pageNo = 1, int pageSize = 5)
     {
         var query = await _localStorageService.GetList<TblAccount>(EnumService.Tbl_Account.ToString());
-        var result = query
-            .OrderByDescending(x => x.AccountNo)
-            .Skip((pageNo - 1) * pageSize)
-            .Take(pageSize)
-            .ToList();
-
+        query ??= new();
         var count = query.Count();
         int pageCount = count / pageSize;
         if (count % pageSize > 0) pageCount++;
+        var result = query
+            .Skip((pageNo - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
         var lst = result.Select(x => x.Change()).ToList();
-
         AccountListResponseModel model = new AccountListResponseModel
         {
             Data = lst,
