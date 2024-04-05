@@ -11,29 +11,38 @@ public class UserService
 
     #region Get Users
 
-    public async Task<UserListResponseModel> GetUserList(int pageNo, int pageSize)
+    public async Task<UserListResponseModel> GetUserList(int pageNo = 1, int pageSize = 10)
     {
-        var query = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.GetKeyName());
-        var result = query
-            .OrderByDescending(x => x.UserId)
-            .Skip((pageNo - 1) * pageSize)
-            .Take(pageSize)
-            .ToList();
-
-        var count = query.Count();
-        int pageCount = count / pageSize;
-        if (count % pageSize > 0) pageCount++;
-
-        UserListResponseModel model = new UserListResponseModel()
+        try
         {
-            Data = result.Select(x => x.Change()).ToList(),
-            PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
-            Response = new MessageResponseModel(true, "Success")
-        };
-        return model;
+            var query = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.ToString());
+            query ??= new List<TblUser>();
+            var result = query
+                .Skip((pageNo - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var count = query.Count();
+            int pageCount = count / pageSize;
+            if (count % pageSize > 0) pageCount++;
+
+            UserListResponseModel model = new UserListResponseModel()
+            {
+                Data = result.Select(x => x.Change()).ToList(),
+                PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
+                Response = new MessageResponseModel(true, "Success")
+            };
+            return model;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            throw ex;
+        }
     }
 
     #endregion
+
     public async Task<UserResponseModel> CreateUser(UserRequestModel requestModel)
     {
         UserResponseModel model = new UserResponseModel();
@@ -120,6 +129,7 @@ public class UserService
         model.Response = new MessageResponseModel(true, "Account has been removed.");
         return model;
     }
+
     #region Generate user codes
 
     private async Task<string> GenerateUniqueUserCode()
@@ -149,6 +159,7 @@ public class UserService
     }
 
     #endregion
+
     #region Usernames
 
     private string[] GetUser()
