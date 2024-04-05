@@ -12,7 +12,7 @@ public class LocalStorageService
     public async Task<List<T>> GetList<T>(string keyName)
     {
         var result = await _localStorageService.GetItemAsync<List<T>>(keyName);
-        return result!;
+        return result ?? new List<T>();
     }
 
     public async Task SetList<T>(string keyName, List<T> lst)

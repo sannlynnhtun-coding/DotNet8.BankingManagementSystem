@@ -14,14 +14,6 @@ public static class EnumServiceExtensions
 {
     public static string GetKeyName(this EnumService key)
     {
-        switch (key)
-        {
-            case EnumService.Tbl_User:
-                return "Tbl_User";
-            case EnumService.Tbl_Account:
-                return "Tbl_Account";
-            default:
-                throw new ArgumentException("Invalid enum value", nameof(key));
-        }
+        return key.ToString();
     }
 }
