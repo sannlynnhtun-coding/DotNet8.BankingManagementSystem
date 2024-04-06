@@ -27,6 +27,7 @@ public static class ChangeModel
     {
         var model = new TblPlaceState()
         {
+            StateId = item.StateId,
             StateCode = item.StateCode,
             StateName = item.StateName,
         };
@@ -52,6 +53,7 @@ public static class ChangeModel
     {
         var model = new TblPlaceTownship()
         {
+            TownshipId = item.TownshipId,
             TownshipCode = item.TownshipCode,
             TownshipName = item.TownshipName,
             StateCode = item.StateCode

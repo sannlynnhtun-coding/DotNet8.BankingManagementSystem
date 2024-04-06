@@ -1,4 +1,6 @@
-﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.State;
+﻿using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.State;
 
 public class StateService
 {
@@ -76,7 +78,7 @@ public class StateService
         {
             var item = requestModel.Change();
             var query = await _localStorageService.GetList<TblPlaceState>(EnumService.Tbl_State.GetKeyName());
-            query ??= new List<TblPlaceState>();
+            query ??= [];
             query.Add(item);
             await _localStorageService.SetList(EnumService.Tbl_State.GetKeyName(), query);
             model.Data = item.Change();
@@ -87,6 +89,12 @@ public class StateService
             model.Response = new MessageResponseModel(false, ex);
         }
         return model;
+    }
+
+    public async Task CreateStates(List<StateRequestModel> lst)
+    {
+        List<TblPlaceState> states = lst.Select(x=> x.Change()).ToList();
+        await _localStorageService.SetList(EnumService.Tbl_State.GetKeyName(), states);
     }
 
     #endregion

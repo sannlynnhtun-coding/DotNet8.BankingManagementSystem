@@ -60,4 +60,12 @@ public partial class P_State : ComponentBase
 
         StateHasChanged();
     }
+
+    private async Task Generate()
+    {
+        await InjectService.EnableLoading();
+        var lst = await HttpClientService.GetAsync<StateRequestModel>("data/state.json");
+        await ApiService.CreateStates(lst);
+        await List(_setting.PageNo, _setting.PageSize);
+    }
 }

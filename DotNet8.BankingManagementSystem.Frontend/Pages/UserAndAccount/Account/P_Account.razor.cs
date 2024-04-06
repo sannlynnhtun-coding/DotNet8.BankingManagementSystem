@@ -1,4 +1,6 @@
-﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Account;
+﻿using DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.User;
+
+namespace DotNet8.BankingManagementSystem.Frontend.Pages.UserAndAccount.Account;
 
 public partial class P_Account : ComponentBase
 {
@@ -9,15 +11,14 @@ public partial class P_Account : ComponentBase
     };
 
     private AccountListResponseModel? _model;
-
-    //[Inject]
-    //public InjectService InjectService { get; set; }
+    private UserListResponseModel _users;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             // await InjectService.LoadJavaScript();
+            _users = await ApiService.GetUserList(0);
             await List(_setting.PageNo, _setting.PageSize);
         }
     }

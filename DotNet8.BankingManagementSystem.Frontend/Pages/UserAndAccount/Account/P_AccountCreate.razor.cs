@@ -3,6 +3,19 @@
 public partial class P_AccountCreate : ComponentBase
 {
     private AccountRequestModel _model = new();
+
+    private AccountListResponseModel? _accountListResponseModel;
+    private UserListResponseModel? _userListResponseModel;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _accountListResponseModel = await ApiService.GetAccountList(0);
+            _userListResponseModel = await ApiService.GetUserList(0);
+        }
+    }
+
     private async Task OnValidSubmit()
     {
         try

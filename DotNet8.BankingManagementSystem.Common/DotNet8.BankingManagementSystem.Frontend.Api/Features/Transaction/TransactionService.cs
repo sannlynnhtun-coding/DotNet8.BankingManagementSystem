@@ -167,7 +167,7 @@ public class TransactionService
     public async Task<List<TblAccount>> GenerateAccounts(int count, int year)
     {
         Random random = new Random();
-        List<TblAccount> model = new List<TblAccount>();
+        List<TblAccount> model = [];
 
         for (int i = 0; i < count; i++)
         {
@@ -188,11 +188,11 @@ public class TransactionService
             model.Add(item);
         }
         var accountQuery = await _localStorageService.GetList<TblAccount>(EnumService.Tbl_Account.ToString());
-        accountQuery ??= new List<TblAccount>();
+        accountQuery ??= [];
         accountQuery.AddRange(model);
         await _localStorageService.SetList<TblAccount>(EnumService.Tbl_Account.ToString(), accountQuery);
 
-        List<TblTransactionHistory> transactions = new List<TblTransactionHistory>();
+        List<TblTransactionHistory> transactions = [];
         foreach (var item in model)
         {
             for (DateTime date = new DateTime(DateTime.Now.Year - year, 1, 1).Date;
@@ -237,7 +237,7 @@ public class TransactionService
             }
         }
         var query = await _localStorageService.GetList<TblTransactionHistory>(EnumService.Tbl_TransactionHistory.ToString());
-        query ??= new List<TblTransactionHistory>();
+        query ??= [];
         query.AddRange(transactions);
         await _localStorageService.SetList(EnumService.Tbl_TransactionHistory.ToString(), query);
         return model;
@@ -251,7 +251,7 @@ public class TransactionService
 
     private static string GenerateCustomerName()
     {
-        string[] firstNames = { "John", "Alice", "Michael", "Emily", "David", "Sarah" };
+        string[] firstNames = ["John", "Alice", "Michael", "Emily", "David", "Sarah"];
 
         Random rand = new Random();
         string name = firstNames[rand.Next(firstNames.Length)];

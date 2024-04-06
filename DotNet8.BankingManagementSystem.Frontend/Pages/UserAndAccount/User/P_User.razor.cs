@@ -62,4 +62,20 @@ public partial class P_User : ComponentBase
 
         StateHasChanged();
     }
+
+    private async Task Generate()
+    {
+        Random random = new Random();
+        await InjectService.EnableLoading();
+        var lst = await HttpClientService.GetAsync<UserRequestModel>("data/user.json");
+        lst.ForEach(x =>
+        {
+            int randomNumber = random.Next(1000000);
+            x.Nrc = $"12/BHN(N){randomNumber}";
+            x.StateCode = "MMR013";
+            x.TownshipCode = "MMR013040";
+        });
+        await ApiService.CreateUsers(lst);
+        await List(_setting.PageNo, _setting.PageSize);
+    }
 }

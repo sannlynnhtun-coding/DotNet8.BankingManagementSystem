@@ -1,5 +1,4 @@
 ﻿@page "/general-setup/township"
-
 @{
     int count = 0;
 }
@@ -19,9 +18,10 @@
                                 <NavLink Class="dt-button add-new btn btn-primary" @onclick="() => InjectService.IntervalLoading()" href="general-setup/township/create">
                                     <span>
                                         <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                        <span class="d-none d-sm-inline-block">Add Township</span>
+                                        <span class="d-none d-sm-inline-block">New Township</span>
                                     </span>
                                 </NavLink>
+                                <GenerateButton OnClick="Generate"></GenerateButton>
                             </div>
                             <div id="DataTables_Table_0_filter" class="dataTables_filter ">
                                 <label>
@@ -52,7 +52,7 @@
                                     <a class="btn btn-warning" href=@($"/general-setup/township/edit/{item.TownshipCode}")>
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <button type="button" class="btn btn-danger btnDelete" @onclick="() => Delete(item.TownshipCode)">
+                                    <button type="button" class="btn btn-danger text-white" @onclick="() => Delete(item.TownshipCode)">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </td>
@@ -62,7 +62,7 @@
                     </table>
 
                     <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
-                        <div class="col-sm-12 col-md-6 ">
+                        <div class="col-sm-12 col-md-8 d-flex justify-content-end">
                             <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4"/>
                         </div>
                     </div>

@@ -48,7 +48,7 @@ public class ApiService
             : await _accountService.GetAccounts();
     }
 
-    public async Task<AccountListResponseModel> GetAccountList(int pageNo, int pageSize)
+    public async Task<AccountListResponseModel> GetAccountList(int pageNo = 1, int pageSize = 10)
     {
         return _enumApiType == EnumApiType.Backend
             ? await _accountApi.GetAccountList(pageNo, pageSize)
@@ -115,6 +115,11 @@ public class ApiService
             : await _stateService.CreateState(requestModel);
     }
 
+    public async Task CreateStates(List<StateRequestModel> lst)
+    {
+        await _stateService.CreateStates(lst);
+    }
+
     public async Task<StateResponseModel> UpdateState(string stateCode, StateRequestModel requestModel)
     {
         return _enumApiType == EnumApiType.Backend
@@ -152,6 +157,11 @@ public class ApiService
         return _enumApiType == EnumApiType.Backend
             ? await _townshipApi.CreateTownship(requestModel)
             : await _townshipService.CreateTownship(requestModel);
+    }
+
+    public async Task CreateTownships(List<TownshipRequestModel> requestModel)
+    {
+        await _townshipService.CreateTownships(requestModel);
     }
 
     public async Task<TownshipResponseModel> UpdateTownship(string townshipCode,
@@ -228,7 +238,7 @@ public class ApiService
 
     #region User
 
-    public async Task<UserListResponseModel> GetUserList(int pageNo, int pageSize)
+    public async Task<UserListResponseModel> GetUserList(int pageNo = 1, int pageSize = 10)
     {
         return _enumApiType == EnumApiType.Backend
             ? await _userApi.GetUserList(pageNo, pageSize)
@@ -247,6 +257,11 @@ public class ApiService
         return _enumApiType == EnumApiType.Backend
             ? await _userApi.CreateUser(requestModel)
             : await _userService.CreateUser(requestModel);
+    }
+
+    public async Task CreateUsers(List<UserRequestModel> lst)
+    {
+        await _userService.CreateUsers(lst);
     }
 
     public async Task<UserResponseModel> UpdateUser(UserRequestModel requestModel)

@@ -6,10 +6,10 @@
             <MudText Typo="Typo.h6" Class="mud-width-full">Registration Form</MudText>
             <MudCard>
                 <MudCardContent>
-                    <MudTextField Label="Fullname"
+                    <MudTextField Label="Full Name"
                                   @bind-Value="_model.FullName" For="@(() => _model.FullName)"/>
 
-                    <MudTextField Label="Username" Class="mt-3"
+                    <MudTextField Label="User Name" Class="mt-3"
                                   @bind-Value="_model.UserName" For="@(() => _model.UserName)"/>
 
                     <MudTextField Label="Email" Class="mt-3"
@@ -27,7 +27,7 @@
                     <MudTextField Label="NRC No" Class="mt-3"
                                   @bind-Value="_model.Nrc" For="@(() => _model.Nrc)"/>
 
-                    <MudSelect T="string" ValueChanged="(stateCode) => ChangeState(stateCode)" Class="pt-3" Label="Select your state" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined" Clearable>
+                    <MudSelect T="string" ValueChanged="(stateCode) => ChangeState(stateCode)" Class="pt-3" Label="State" AnchorOrigin="Origin.BottomCenter" Clearable>
                         @if (_stateListResponseModel is not null && _stateListResponseModel.Data is not null)
                         {
                             @foreach (var item in _stateListResponseModel.Data)
@@ -36,7 +36,7 @@
                             }
                         }
                     </MudSelect>
-                    <MudSelect T="string" @bind-Value="@_model.TownshipCode" Class="pt-3" Label="Select your state" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Outlined" Clearable>
+                    <MudSelect T="string" @bind-Value="@_model.TownshipCode" Class="pt-3" Label="Township" AnchorOrigin="Origin.BottomCenter" Clearable>
                         @if (_townshipListResponceModel is not null && _townshipListResponceModel.Data is not null)
                         {
                             @foreach (var item in _townshipListResponceModel.Data)

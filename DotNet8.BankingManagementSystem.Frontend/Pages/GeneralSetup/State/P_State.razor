@@ -1,4 +1,4 @@
-﻿@page "/general-setup/state" 
+﻿@page "/general-setup/state"
 @{
     int count = 0;
 }
@@ -18,9 +18,10 @@
                                 <NavLink Class="dt-button add-new btn btn-primary" @onclick="() => InjectService.IntervalLoading()" href="general-setup/state/create">
                                     <span>
                                         <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                        <span class="d-none d-sm-inline-block">Add State</span>
+                                        <span class="d-none d-sm-inline-block">New State</span>
                                     </span>
                                 </NavLink>
+                                <GenerateButton OnClick="Generate" />
                             </div>
                             <div id="DataTables_Table_0_filter" class="dataTables_filter ">
                                 <label>
@@ -31,37 +32,36 @@
                     </div>
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">State Code</th>
-                            <th scope="col">State Name</th>
-                            <th scope="col">Actions</th>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">State Code</th>
+                                <th scope="col">State Name</th>
+                                <th scope="col">Actions</th>
 
-                        </tr>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach (var item in _model.Data)
-                        {
-                            <tr>
-                                <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
-                                <td>@item.StateCode</td>
-                                <td>@item.StateName</td>
-                                <td>
-                                    <a class="btn btn-warning" href=@($"/general-setup/state/edit/{item.StateCode}")>
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    <a class="btn btn-danger btnDelete" @onclick="() => IsConfirmed(item.StateCode)">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
+                            @foreach (var item in _model.Data)
+                            {
+                                <tr>
+                                    <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
+                                    <td>@item.StateCode</td>
+                                    <td>@item.StateName</td>
+                                    <td>
+                                        <a class="btn btn-warning" href=@($"/general-setup/state/edit/{item.StateCode}")>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <a class="btn btn-danger text-white" @onclick="() => IsConfirmed(item.StateCode)">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
-
                     <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
-                        <div class="col-sm-12 col-md-6 ">
-                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4"/>
+                        <div class="col-sm-12 col-md-8 d-flex justify-content-end">
+                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
                         </div>
                     </div>
                 </div>

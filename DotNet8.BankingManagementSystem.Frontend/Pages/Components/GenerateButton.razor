@@ -1,0 +1,11 @@
+﻿<button type="button" Class="dt-button add-new btn btn-primary" @onclick="OnClick">
+    <span>
+        <i class="mdi mdi-play me-0 me-sm-1"></i>
+        <span class="d-none d-sm-inline-block">Generate Data</span>
+    </span>
+</button>
+
+@code{
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
+}

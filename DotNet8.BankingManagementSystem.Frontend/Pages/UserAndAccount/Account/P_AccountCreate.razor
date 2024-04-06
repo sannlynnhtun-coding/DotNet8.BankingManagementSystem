@@ -6,10 +6,21 @@
             <MudText Typo="Typo.h5" Class="mud-width-full py-4">Account Create Form</MudText>
             <MudCard>
                 <MudCardContent>
-                    <MudTextField Label="CustomerCode" @bind-Value="_model.CustomerCode" For="@(() => _model.CustomerCode)"/>
-                    <MudTextField Label="CustomerName" Class="mt-3" @bind-Value="_model.CustomerName" For="@(() => _model.CustomerName)"/>
-                    <MudTextField Label="Balance" Class="mt-3" @bind-Value="_model.Balance" For="@(() => _model.Balance)"/>
-                    
+                    @* <MudTextField Label="CustomerCode" @bind-Value="_model.CustomerCode" For="@(() => _model.CustomerCode)"/> *@
+                    @* <MudTextField Label="CustomerName" Class="mt-3" @bind-Value="_model.CustomerName" For="@(() => _model.CustomerName)"/> *@
+                    <MudSelect T="string" @bind-Value="_model.CustomerCode" Class="pt-3" Label="User Name" AnchorOrigin="Origin.BottomCenter" Clearable>
+                        @if (_userListResponseModel is not null && _userListResponseModel.Data is not null)
+                        {
+                            string[] userCodes = _accountListResponseModel!.Data.Select(x => x.CustomerCode).ToArray();
+                            @foreach (var item in _userListResponseModel.Data
+                                .Where(x => !userCodes.Contains(x.UserCode))
+                                .OrderBy(x => x.FullName))
+                            {
+                                <MudSelectItem Value="@item.UserCode">@item.FullName (@item.MobileNo)</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+                    <MudTextField Label="Balance" Class="mt-3" @bind-Value="_model.Balance" For="@(() => _model.Balance)" />
                 </MudCardContent>
                 <MudCardActions>
                     <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Href="/user-and-account/account" Color="Color.Warning">

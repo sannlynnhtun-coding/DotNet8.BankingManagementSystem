@@ -6,7 +6,7 @@
 {
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light"> All Customers</span>
+            <span class="text-muted fw-light">Users</span>
         </h4>
         <div class="card">
             <div class="card-datatable table-responsive">
@@ -18,9 +18,10 @@
                                 <NavLink Class="dt-button add-new btn btn-primary" @onclick="@(() => InjectService.IntervalLoading())" href="/user-and-account/user/register">
                                     <span>
                                         <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                        <span class="d-none d-sm-inline-block">Add Customer</span>
+                                        <span class="d-none d-sm-inline-block">New User</span>
                                     </span>
                                 </NavLink>
+                                <GenerateButton OnClick="Generate" />
                             </div>
                             <div id="DataTables_Table_0_filter" class="dataTables_filter ">
                                 <label>
@@ -33,15 +34,15 @@
                         <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">UserCode</th>
-                            <th scope="col">UserName</th>
-                            <th scope="col">CustomerId</th>
-                            <th scope="col">FullName</th>
-                            <th scope="col">MobileNo</th>
+                            <th scope="col">User Code</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Customer Id</th>
+                            <th scope="col">Full Name</th>
+                            <th scope="col">Mobile No</th>
                             <th scope="col">Email</th>
                             <th scope="col">Address</th>
-                            <th scope="col">StateCode</th>
-                            <th scope="col">TownshipCode</th>
+                            <th scope="col">State Code</th>
+                            <th scope="col">Township Code</th>
                             <th scope="col">Actions</th>
                         </tr>
                         </thead>
@@ -71,11 +72,11 @@
                         }
                         </tbody>
                     </table>
-                    <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
-                        <div class="col-sm-12 col-md-6 ">
-                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4"/>
-                        </div>
-                    </div>
+                </div>
+            </div>
+            <div class="row mx-1 d-flex justify-content-end pb-3">
+                <div class="col-sm-12 col-md-8 d-flex justify-content-end">
+                    <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
                 </div>
             </div>
         </div>

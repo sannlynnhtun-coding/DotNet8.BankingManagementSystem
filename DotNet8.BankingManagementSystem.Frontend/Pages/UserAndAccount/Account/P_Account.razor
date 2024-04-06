@@ -1,13 +1,13 @@
-﻿@page "/user-and-account/account" 
+﻿@page "/user-and-account/account"
 @{
     int count = 0;
 }
 @if (_model is not null && _model.Data is not null)
 {
     <div class="container-xxl flex-grow-1 container-p-y">
-      <h4 class="py-3 mb-4">
-                <span class="text-muted fw-light"> All Accounts</span>
-            </h4>
+        <h4 class="py-3 mb-4">
+            <span class="text-muted fw-light">Account List</span>
+        </h4>
         <div class="card">
             <div class="card-datatable table-responsive">
                 <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
@@ -17,7 +17,7 @@
                                 <NavLink Class="dt-button add-new btn btn-primary" @onclick="() => InjectService.IntervalLoading()" href="/user-and-account/account/create">
                                     <span>
                                         <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                        <span class="d-none d-sm-inline-block">Add Account</span>
+                                        <span class="d-none d-sm-inline-block">New Account</span>
                                     </span>
                                 </NavLink>
                             </div>
@@ -30,43 +30,46 @@
                     </div>
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">AccountNo</th>
-                            <th scope="col">CustomerCode</th>
-                            <th scope="col">CustomerName</th>
-                            <th scope="col">Balance</th>
-                            <th scope="col">Actions</th>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Account No</th>
+                                @* <th scope="col">Customer Code</th> *@
+                                <th scope="col">Customer Name</th>
+                                <th scope="col">Mobile No</th>
+                                <th scope="col">Balance</th>
+                                <th scope="col">Actions</th>
 
-                        </tr>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach (var item in _model.Data)
-                        {
-                            <tr>
-                                <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
-                                <td>@item.AccountNo</td>
-                                <td>@item.CustomerCode</td>
-                                <td>@item.CustomerName</td>
-                                <td>@item.Balance</td>
-                                <td>
+                            @foreach (var item in _model.Data)
+                            {
+                                var result = _users.Data.First(x => x.UserCode == item.CustomerCode);
+                                <tr>
+                                    <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
+                                    <td>@item.AccountNo</td>
+                                    @* <td>@item.CustomerCode</td> *@
+                                    <td>@result.FullName</td>
+                                    <td>@result.MobileNo</td>
+                                    <td>@item.Balance</td>
+                                    <td>
                                         <a class="btn btn-warning" href=@($"/user-and-account/account{item.AccountNo}")>
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    <a class="btn btn-danger btnDelete" @onclick="() => IsConfirmed(item.AccountNo)">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        }
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <a class="btn btn-danger text-white" @onclick="() => IsConfirmed(item.AccountNo)">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
 
-                    <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
-                        <div class="col-sm-12 col-md-6 ">
-                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4"/>
-                        </div>
-                    </div>
+                </div>
+            </div>
+            <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
+                <div class="col-sm-12 col-md-8 d-flex justify-content-end">
+                    <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
                 </div>
             </div>
         </div>

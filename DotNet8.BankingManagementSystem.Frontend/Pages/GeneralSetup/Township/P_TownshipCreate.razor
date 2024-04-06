@@ -6,12 +6,19 @@
             <MudText Typo="Typo.h6" Class="mud-width-full">Township Create Form</MudText>
             <MudCard>
                 <MudCardContent>
-                    <MudTextField Label="TownshipCode"
+                    <MudTextField Label="Township Code"
                                   @bind-Value="_model.TownshipCode" For="@(() => _model.TownshipCode)"/>
-                    <MudTextField Label="TownshipName" Class="mt-3"
+                    <MudTextField Label="Township Name" Class="mt-3"
                                   @bind-Value="_model.TownshipName" For="@(() => _model.TownshipName)"/>
-                    <MudTextField Label="StateCode" Class="mt-3"
-                                  @bind-Value="_model.StateCode" For="@(() => _model.StateCode)"/>
+                    <MudSelect T="string" @bind-Value="_model.StateCode" Class="pt-3" Label="State" AnchorOrigin="Origin.BottomCenter" Clearable>
+                        @if (_stateListResponseModel is not null && _stateListResponseModel.Data is not null)
+                        {
+                            @foreach (var item in _stateListResponseModel.Data)
+                            {
+                                <MudSelectItem Value="@item.StateCode">@item.StateName</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
                 </MudCardContent>
                 <MudCardActions>
                     <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Href="/general-setup/township" Color="Color.Warning">

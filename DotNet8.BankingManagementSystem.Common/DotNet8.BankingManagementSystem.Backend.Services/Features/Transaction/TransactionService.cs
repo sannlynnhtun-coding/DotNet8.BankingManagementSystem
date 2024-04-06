@@ -216,7 +216,7 @@ public class TransactionService
     public async Task<List<TblAccount>> GenerateAccounts(int count, int year)
     {
         Random random = new Random();
-        List<TblAccount> model = new List<TblAccount>();
+        List<TblAccount> model = [];
 
         for (int i = 0; i < count; i++)
         {
@@ -240,7 +240,7 @@ public class TransactionService
         await _dbContext.TblAccounts.AddRangeAsync(model);
         await _dbContext.SaveChangesAsync();
 
-        List<TblTransactionHistory> transactions = new List<TblTransactionHistory>();
+        List<TblTransactionHistory> transactions = [];
         foreach (var item in model)
         {
             for (DateTime date = new DateTime(DateTime.Now.Year - year, 1, 1).Date;
@@ -298,7 +298,7 @@ public class TransactionService
 
     private static string GenerateCustomerName()
     {
-        string[] firstNames = { "John", "Alice", "Michael", "Emily", "David", "Sarah" };
+        string[] firstNames = ["John", "Alice", "Michael", "Emily", "David", "Sarah"];
 
         Random rand = new Random();
         string name = firstNames[rand.Next(firstNames.Length)];

@@ -59,7 +59,7 @@ public class AdminUserService
         {
             var item = requestModel.Change();
             var query = await _localStorageService.GetList<TblAdminUser>(EnumService.Tbl_AdminUser.ToString());
-            query ??= new List<TblAdminUser>();
+            query ??= [];
             query.Add(item);
             await _localStorageService.SetList(EnumService.Tbl_AdminUser.ToString(), query);
             model.Data = item.Change();
@@ -82,7 +82,7 @@ public class AdminUserService
     {
         AdminUserResponseModel model = new AdminUserResponseModel();
         var lst = await _localStorageService.GetList<TblAdminUser>(EnumService.Tbl_AdminUser.ToString());
-        lst ??= new();
+        lst ??= [];
         var item = lst.FirstOrDefault(x => x.AdminUserCode == adminUserCode);
         if (item is null)
         {
@@ -132,7 +132,7 @@ public class AdminUserService
     {
         AdminUserResponseModel model = new AdminUserResponseModel();
         var lst = await _localStorageService.GetList<TblAdminUser>(EnumService.Tbl_AdminUser.ToString());
-        lst ??= new();
+        lst ??= [];
         var item = lst.FirstOrDefault(x => x.AdminUserCode == adminUserCode);
         if (item == null)
         {

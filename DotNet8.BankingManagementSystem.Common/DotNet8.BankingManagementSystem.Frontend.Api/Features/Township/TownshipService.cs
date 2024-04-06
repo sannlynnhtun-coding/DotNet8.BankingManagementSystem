@@ -1,4 +1,6 @@
-﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
+﻿using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
 {
     public class TownshipService
     {
@@ -69,10 +71,11 @@
             TownshipResponseModel model = new TownshipResponseModel();
             try
             {
-                var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_Township.GetKeyName());
-                query ??= new List<TblPlaceTownship>();
                 var item = requestModel.Change();
-                await _localStorageService.SetList<TblPlaceTownship>(EnumService.Tbl_Township.GetKeyName(), query);
+                var query = await _localStorageService.GetList<TblPlaceTownship>(EnumService.Tbl_Township.GetKeyName());
+                query ??= [];
+                query.Add(item);
+                await _localStorageService.SetList(EnumService.Tbl_Township.GetKeyName(), query);
 
                 model.Data = item.Change();
                 model.Response = new MessageResponseModel(true, "Township has created successfully");
@@ -83,6 +86,11 @@
             }
 
             return model;
+        }
+
+        public async Task CreateTownships(List<TownshipRequestModel> lst)
+        {
+            await _localStorageService.SetList(EnumService.Tbl_Township.GetKeyName(), lst);
         }
 
         #endregion

@@ -62,4 +62,12 @@ public partial class P_Township
 
         StateHasChanged();
     }
+
+    private async Task Generate()
+    {
+        await InjectService.EnableLoading();
+        var lst = await HttpClientService.GetAsync<TownshipRequestModel>("data/township.json");
+        await ApiService.CreateTownships(lst);
+        await List(_setting.PageNo, _setting.PageSize);
+    }
 }

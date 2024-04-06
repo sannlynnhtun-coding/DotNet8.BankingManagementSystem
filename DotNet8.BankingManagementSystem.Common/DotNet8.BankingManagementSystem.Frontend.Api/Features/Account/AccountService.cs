@@ -1,4 +1,8 @@
-﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
+﻿using DotNet8.BankingManagementSystem.Shared;
+using System.Collections.Generic;
+using System.Text;
+
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
 
 public class AccountService
 {
@@ -26,22 +30,34 @@ public class AccountService
 
     public async Task<AccountListResponseModel> GetAccountList(int pageNo = 1, int pageSize = 5)
     {
+        AccountListResponseModel model = new AccountListResponseModel();
         var query = await _localStorageService.GetList<TblAccount>(EnumService.Tbl_Account.ToString());
-        query ??= new();
-        var count = query.Count();
-        int pageCount = count / pageSize;
-        if (count % pageSize > 0) pageCount++;
-        var result = query
-            .Skip((pageNo - 1) * pageSize)
-            .Take(pageSize)
-            .ToList();
-        var lst = result.Select(x => x.Change()).ToList();
-        AccountListResponseModel model = new AccountListResponseModel
+        if (pageNo == 0)
         {
-            Data = lst,
-            PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
-            Response = new MessageResponseModel(true, "Success")
-        };
+            model = new AccountListResponseModel
+            {
+                Data = query.Select(x => x.Change()).ToList(),
+                Response = new MessageResponseModel(true, "Success")
+            };
+        }
+        else
+        {
+            query ??= [];
+            var count = query.Count();
+            int pageCount = count / pageSize;
+            if (count % pageSize > 0) pageCount++;
+            var result = query
+                .Skip((pageNo - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+            var lst = result.Select(x => x.Change()).ToList();
+            model = new AccountListResponseModel
+            {
+                Data = lst,
+                PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
+                Response = new MessageResponseModel(true, "Success")
+            };
+        }
         return model;
     }
 
@@ -53,7 +69,7 @@ public class AccountService
     {
         AccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
-        lst ??= new();
+        lst ??= [];
         var item = lst.FirstOrDefault(x => x.AccountNo == accountNo);
         if (item is null)
         {
@@ -76,8 +92,9 @@ public class AccountService
         try
         {
             var item = requestModel.Change();
+            item.AccountNo = GenerateIBAN();
             var query = await _localStorageService.GetList<TblAccount>(EnumService.Tbl_Account.ToString());
-            query ??= new List<TblAccount>();
+            query ??= [];
             query.Add(item);
             await _localStorageService.SetList(EnumService.Tbl_Account.ToString(), query);
             model.Data = item.Change();
@@ -89,6 +106,51 @@ public class AccountService
         }
 
         return model;
+    }
+
+    private string GenerateUniqueAccountNumber()
+    {
+        // Get current timestamp in ticks
+        long timestamp = DateTime.Now.Ticks;
+
+        // Generate a unique identifier (e.g., GUID)
+        string uniqueId = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 6); // Using first 6 characters of GUID
+
+        // Concatenate timestamp and unique identifier to form the account number
+        string accountNumber = $"{timestamp}{uniqueId}";
+
+        return accountNumber;
+    }
+
+    private string GenerateIBAN()
+    {
+        Random random = new Random();
+
+        // Example format: CountryCode (2 letters) + CheckDigits (2 digits) + AccountNumber (22 digits)
+        StringBuilder ibanBuilder = new StringBuilder();
+
+        // Generate random country code (2 uppercase letters)
+        ibanBuilder.Append(GetRandomLetters(2));
+
+        // Add random check digits (2 digits)
+        ibanBuilder.Append(random.Next(10));
+        ibanBuilder.Append(random.Next(10));
+
+        // Add random account number (22 digits)
+        for (int i = 0; i < 22; i++)
+        {
+            ibanBuilder.Append(random.Next(10));
+        }
+
+        return ibanBuilder.ToString();
+    }
+
+    private string GetRandomLetters(int length)
+    {
+        Random random = new Random();
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        return new string(Enumerable.Repeat(chars, length)
+          .Select(s => s[random.Next(s.Length)]).ToArray());
     }
 
     #endregion
@@ -130,7 +192,7 @@ public class AccountService
     {
         AccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.GetKeyName());
-        lst ??= new();
+        lst ??= [];
         var item = lst.FirstOrDefault(x => x.AccountNo == accountNo);
         if (item is null)
         {

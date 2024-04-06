@@ -13,10 +13,19 @@ public class UserService
 
     public async Task<UserListResponseModel> GetUserList(int pageNo = 1, int pageSize = 10)
     {
-        try
+        UserListResponseModel model = new UserListResponseModel();
+        var query = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.ToString());
+        if (pageNo == 0)
         {
-            var query = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.ToString());
-            query ??= new List<TblUser>();
+            model = new UserListResponseModel()
+            {
+                Data = query.Select(x => x.Change()).ToList(),
+                Response = new MessageResponseModel(true, "Success")
+            };
+        }
+        else
+        {
+            query ??= [];
             var result = query
                 .Skip((pageNo - 1) * pageSize)
                 .Take(pageSize)
@@ -26,19 +35,14 @@ public class UserService
             int pageCount = count / pageSize;
             if (count % pageSize > 0) pageCount++;
 
-            UserListResponseModel model = new UserListResponseModel()
+            model = new UserListResponseModel()
             {
                 Data = result.Select(x => x.Change()).ToList(),
                 PageSetting = new PageSettingModel(pageNo, pageSize, pageCount),
                 Response = new MessageResponseModel(true, "Success")
             };
-            return model;
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-            throw ex;
-        }
+        return model;
     }
 
     #endregion
@@ -59,18 +63,23 @@ public class UserService
             TownshipCode = requestModel.TownshipCode
         };
         var lst = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.GetKeyName());
-        lst ??= new();
+        lst ??= [];
         lst.Add(userModel);
         await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(), lst);
         model.Response = new MessageResponseModel(true, "User has been registered successfully.");
         return model;
     }
 
+    public async Task CreateUsers(List<UserRequestModel> lst)
+    {
+        await _localStorageService.SetList(EnumService.Tbl_User.GetKeyName(), lst);
+    }
+
     public async Task<UserResponseModel> GetUserByCode(string userCode)
     {
         UserResponseModel model = new UserResponseModel();
         var lst = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.GetKeyName());
-        lst ??= new();
+        lst ??= [];
         var item = lst.FirstOrDefault(x => x.UserCode == userCode);
         if (item is null)
         {
@@ -116,7 +125,7 @@ public class UserService
     {
         UserResponseModel model = new UserResponseModel();
         var lst = await _localStorageService.GetList<TblUser>(EnumService.Tbl_User.GetKeyName());
-        lst ??= new();
+        lst ??= [];
         var item = lst.FirstOrDefault(x => x.UserCode == userCode);
         if (item == null)
         {
@@ -164,8 +173,8 @@ public class UserService
 
     private string[] GetUser()
     {
-        return new[]
-        {
+        return
+        [
             "John", "Jane", "Alice", "Bob", "Charlie", "David", "Emily", "Frank", "Grace", "Henry",
             "Isabella", "Jack", "Kate", "Liam", "Mary", "Nathan", "Olivia", "Peter", "Quinn", "Rachel",
             "Samuel", "Tina", "Ursula", "Victor", "Wendy", "Xander", "Yvonne", "Zachary",
@@ -205,8 +214,8 @@ public class UserService
             "Conner", "Luciana", "Sergio", "Yaretzi", "Mario", "Diana", "Donovan", "Athena", "Marco",
             "Emery", "Leonel", "Sasha", "Emilio", "Nia", "Andres", "Gracelyn", "Derek", "Ruth",
             "Jasper", "Janelle", "Emerson", "Elaina", "Malachi", "Kelly", "Walter", "Kyla", "Zayn",
-            "Maddison", "Derrick", "Alivia", "Quinn", "Jayleen", "Gage", "Harper", "Russell",
-        };
+            "Maddison", "Derrick", "Alivia", "Quinn", "Jayleen", "Gage", "Harper", "Russell"
+        ];
     }
 
     #endregion
