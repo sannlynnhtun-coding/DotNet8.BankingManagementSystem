@@ -22,3 +22,4 @@ global using DotNet8.BankingManagementSystem.Models.State;
 global using DotNet8.BankingManagementSystem.Models.TownShip;
 global using DotNet8.BankingManagementSystem.Models.TransactionHistory;
 global using Refit;
+global using System.Text;
