@@ -1,8 +1,4 @@
-﻿using DotNet8.BankingManagementSystem.Shared;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
+﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
 
 public class AccountService
 {
