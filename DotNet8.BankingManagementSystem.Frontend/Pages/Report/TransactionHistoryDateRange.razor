@@ -35,7 +35,6 @@
                             <th scope="col">To Account No</th>
                             <th scope="col">Transaction Date</th>
                             <th scope="col">Amount</th>
-                            <th scope="col">Transaction Type</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,16 +52,6 @@
                                 <td>@item.ToAccountNo</td>
                                 <td>@item.TransactionDate.ToString("dd-MMM-yyyy hh:mm tt")</td>
                                 <td class="text-right">@item.Amount.ToString("n0")</td>
-                                <td>
-                                    @if (@item.TransactionType == "Credit")
-                                    {
-                                        <span class="badge text-bg-success">Credit</span>
-                                    }
-                                    else if (@item.TransactionType == "Debit")
-                                    {
-                                        <span class="badge text-bg-danger">Debit</span>
-                                    }
-                                </td>
                             </tr>
                         }
                     </tbody>
