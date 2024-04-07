@@ -1,20 +1,20 @@
 {
-  "name": "DotNet8.BankingManagementSystem.App",
-  "short_name": "DotNet8.BankingManagementSystem.App",
+  "name": "Banking Management System",
+  "short_name": "Banking Management System",
   "id": "./",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#03173d",
+  "theme_color": "#887EF2",
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "icon-512.png",
+      "src": "favicon.ico",
       "type": "image/png",
       "sizes": "512x512"
     },
     {
-      "src": "icon-192.png",
+      "src": "favicon.ico",
       "type": "image/png",
       "sizes": "192x192"
     }
