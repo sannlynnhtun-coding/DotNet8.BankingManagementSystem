@@ -67,7 +67,7 @@ public partial class P_User : ComponentBase
     {
         Random random = new Random();
         await InjectService.EnableLoading();
-        var lst = await HttpClientService.GetAsync<UserRequestModel>("data/user.json");
+        var lst = await HttpClientService.GetAsync<UserRequestModel>("https://raw.githubusercontent.com/sannlynnhtun-coding/Banking-Management-System/main/User.json");
         lst.ForEach(x =>
         {
             int randomNumber = random.Next(1000000);
