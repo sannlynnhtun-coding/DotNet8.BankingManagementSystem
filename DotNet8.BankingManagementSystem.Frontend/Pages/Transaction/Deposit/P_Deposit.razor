@@ -8,7 +8,7 @@
                     @*   <MudTextField Label="AccountNo"
                     @bind-Value="_model.AccountNo" For="@(() => _model.AccountNo)"/> *@
 
-                    <MudSelect T="string" @bind-Value="_model.CustomerCode" Class="pt-3" Label="Account Number" AnchorOrigin="Origin.BottomCenter" Clearable>
+                    <MudSelect T="string" @bind-Value="_model.AccountNo" Class="pt-3" Label="Account Number" AnchorOrigin="Origin.BottomCenter" Clearable>
                         @if (_accountListResponseModel is not null && _accountListResponseModel.Data is not null)
                         {
                             string[] userCodes = _accountListResponseModel!.Data.Select(x => x.CustomerCode).ToArray();
