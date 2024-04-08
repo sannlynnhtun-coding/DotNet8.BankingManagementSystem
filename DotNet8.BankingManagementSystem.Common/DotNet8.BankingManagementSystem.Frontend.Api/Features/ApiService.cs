@@ -205,14 +205,14 @@ public class ApiService
             : await _transactionService.TransactionHistoryWithDate(requestModel);
     }
 
-    public async Task<AccountResponseModel> Deposit(TransactionRequestModel requestModel)
+    public async Task<AccountResponseModel> Deposit(AccountRequestModel requestModel)
     {
         return _enumApiType == EnumApiType.Backend
             ? await _transactionApi.Deposit(requestModel)
             : await _transactionService.Deposit(requestModel);
     }
 
-    public async Task<AccountResponseModel> Withdraw(TransactionRequestModel requestModel)
+    public async Task<AccountResponseModel> Withdraw(AccountRequestModel requestModel)
     {
         return _enumApiType == EnumApiType.Backend
             ? await _transactionApi.Withdraw(requestModel)

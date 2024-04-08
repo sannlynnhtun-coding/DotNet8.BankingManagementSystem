@@ -6,10 +6,23 @@
             <MudText Typo="Typo.h5" Class="mud-width-full py-4">Deposit</MudText>
             <MudCard>
                 <MudCardContent>
-                    <MudTextField Label="AccountNo"
-                                  @bind-Value="_model.AccountNo" For="@(() => _model.AccountNo)"/>
+                    @*   <MudTextField Label="AccountNo"
+                    @bind-Value="_model.AccountNo" For="@(() => _model.AccountNo)"/> *@
+
+                    <MudSelect T="string" @bind-Value="_model.CustomerCode" Class="pt-3" Label="Account Number" AnchorOrigin="Origin.BottomCenter" Clearable>
+                        @if (_accountListResponseModel is not null && _accountListResponseModel.Data is not null)
+                        {
+                            string[] userCodes = _accountListResponseModel!.Data.Select(x => x.CustomerCode).ToArray();
+                            @foreach (var item in _accountListResponseModel.Data
+                           .Where(x => !userCodes.Contains(x.AccountNo))
+                           .OrderBy(x => x.AccountId))
+                            {
+                                <MudSelectItem Value="@item.AccountNo">@item.CustomerCode (@item.AccountNo)</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
                     <MudTextField Label="Amount" Class="mt-3"
-                                  @bind-Value="_model.Amount" For="@(() => _model.Amount)"/>
+                                  @bind-Value="_model.Balance" For="@(() => _model.Balance)" />
                 </MudCardContent>
                 <MudCardActions>
                     <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Href="/report/transaction-history" Color="Color.Warning">

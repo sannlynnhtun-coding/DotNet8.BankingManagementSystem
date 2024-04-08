@@ -13,6 +13,7 @@ public partial class P_AccountCreate : ComponentBase
         {
             _accountListResponseModel = await ApiService.GetAccountList(0);
             _userListResponseModel = await ApiService.GetUserList(0);
+            StateHasChanged();
         }
     }
 
@@ -23,6 +24,7 @@ public partial class P_AccountCreate : ComponentBase
             var response = await ApiService.CreateAccount(_model);
             await InjectService.Go("/user-and-account/account");
             await InjectService.SuccessMessage("Creating Successful.");
+            StateHasChanged();
         }
         catch (Exception ex)
         {

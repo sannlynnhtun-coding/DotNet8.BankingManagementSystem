@@ -12,7 +12,7 @@ public class TransactionService
         _localStorageService = localStorageService;
     }
 
-    public async Task<AccountResponseModel> Withdraw(TransactionRequestModel requestModel)
+    public async Task<AccountResponseModel> Withdraw(AccountRequestModel requestModel)
     {
         AccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.ToString());
@@ -24,13 +24,13 @@ public class TransactionService
             return model;
         }
 
-        if (result.Balance < requestModel.Amount)
+        if (result.Balance < requestModel.Balance)
         {
             model.Response = new MessageResponseModel(false, "Insufficient balance.");
             return model;
         }
 
-        result.Balance -= requestModel.Amount;
+        result.Balance -= requestModel.Balance;
 
         lst[lst.FindIndex(x => x.AccountNo == result.AccountNo)] = result;
         await _localStorageService.SetList(EnumService.Tbl_Account.ToString(), lst);
@@ -41,19 +41,19 @@ public class TransactionService
         return model;
     }
 
-    public async Task<AccountResponseModel> Deposit(TransactionRequestModel requestModel)
+    public async Task<AccountResponseModel> Deposit(AccountRequestModel requestModel)
     {
         AccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.ToString());
-        var result = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
+        var result = lst.FirstOrDefault(x => x.AccountNo == requestModel.CustomerCode);
 
-        if (result == null)
+        if (result is null)
         {
             model.Response = new MessageResponseModel(false, "Account not found.");
             return model;
         }
 
-        result.Balance += requestModel.Amount;
+        result.Balance += requestModel.Balance;
 
         lst[lst.FindIndex(x => x.AccountNo == result.AccountNo)] = result;
 

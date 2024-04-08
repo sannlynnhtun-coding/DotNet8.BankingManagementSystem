@@ -10,10 +10,10 @@ public interface ITransactionApi
     Task<TransactionHistoryListResponseModel> TransactionHistoryWithDate(TransactionHistorySearchModel requestModel);
 
     [Post("/api/Transaction/Deposit")]
-    Task<AccountResponseModel> Deposit(TransactionRequestModel requestModel);
+    Task<AccountResponseModel> Deposit(AccountRequestModel requestModel);
 
     [Post("/api/Transaction/Withdraw")]
-    Task<AccountResponseModel> Withdraw(TransactionRequestModel requestModel);
+    Task<AccountResponseModel> Withdraw(AccountRequestModel requestModel);
 
     [Post("/api/Transaction/Transfer")]
     Task<TransferResponseModel> Transfer(TransferModel requestModel);

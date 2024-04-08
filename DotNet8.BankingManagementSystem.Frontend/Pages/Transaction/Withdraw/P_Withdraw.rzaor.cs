@@ -2,7 +2,7 @@
 
 public partial class P_Withdraw : ComponentBase
 {
-    private TransactionRequestModel _model = new();
+    private AccountRequestModel _model = new();
 
     private async Task OnValidSubmit(EditContext context)
     {

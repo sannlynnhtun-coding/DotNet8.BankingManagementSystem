@@ -2,7 +2,19 @@
 
 public partial class P_Deposit : ComponentBase
 {
-    private TransactionRequestModel _model = new();
+    private AccountRequestModel _model = new();
+    private AccountListResponseModel? _accountListResponseModel;
+    private UserListResponseModel? _userListResponseModel;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _accountListResponseModel = await ApiService.GetAccountList(0);
+            _userListResponseModel = await ApiService.GetUserList(0);
+            StateHasChanged();
+        }
+    }
 
     private async Task OnValidSubmit(EditContext context)
     {
