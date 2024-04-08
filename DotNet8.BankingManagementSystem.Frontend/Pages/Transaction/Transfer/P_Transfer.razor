@@ -1,14 +1,14 @@
 ﻿@page "/transaction/transfer"
 
 <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
-    <MudGrid Class="justify-content-center">
+    <MudGrid Class="justify-content-center my-4">
         <MudItem xs="12" sm="7">
-            <MudText Typo="Typo.h5" Class="mud-width-full py-4">Transfer Balance</MudText>
             <MudCard>
                 <MudCardContent>
-                    <MudTextField Label="FromAccountNo"
+                    <MudText Typo="Typo.h5" Class="mud-width-full">Transfer Balance</MudText>
+                    <MudTextField Label="From Account No"
                                   @bind-Value="_model.FromAccountNo" For="@(() => _model.FromAccountNo)"/>
-                    <MudTextField Label="ToAccountNo"
+                    <MudTextField Label="To Account No"
                                   @bind-Value="_model.ToAccountNo" For="@(() => _model.ToAccountNo)"/>
                     <MudTextField Label="Amount" Class="mt-3"
                                   @bind-Value="_model.Amount" For="@(() => _model.Amount)"/>

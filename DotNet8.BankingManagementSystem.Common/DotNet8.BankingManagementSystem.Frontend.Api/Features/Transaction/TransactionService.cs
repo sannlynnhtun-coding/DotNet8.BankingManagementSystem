@@ -71,9 +71,7 @@ public class TransactionService
 
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.ToString());
         var fromAccount = lst.FirstOrDefault(x => x.AccountNo == requestModel.FromAccountNo);
-
-        var lst1 = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.ToString());
-        var toAccount = lst1.FirstOrDefault(x => x.AccountNo == requestModel.ToAccountNo);
+        var toAccount = lst.FirstOrDefault(x => x.AccountNo == requestModel.ToAccountNo);
 
         if (fromAccount is null)
         {
@@ -97,13 +95,25 @@ public class TransactionService
         toAccount.Balance += requestModel.Amount;
 
         lst[lst.FindIndex(x => x.AccountNo == fromAccount.AccountNo)] = fromAccount;
+        lst[lst.FindIndex(x => x.AccountNo == toAccount.AccountNo)] = toAccount;
+
         await _localStorageService.SetList(EnumService.Tbl_Account.ToString(), lst);
 
-        lst1[lst1.FindIndex(x => x.AccountNo == toAccount.AccountNo)] = toAccount;
-        await _localStorageService.SetList(EnumService.Tbl_Account.ToString(), lst1);
+        var lstTransaction = await _localStorageService.GetList<TblTransactionHistory>(EnumService.Tbl_TransactionHistory.ToString());
+        lstTransaction.Add(new TblTransactionHistory
+        {
+            FromAccountNo = fromAccount.AccountNo!,
+            ToAccountNo = toAccount.AccountNo!,
+            Amount = requestModel.Amount,
+            TransactionDate = DateTime.Now,
+            TransactionHistoryId = lstTransaction.Count == 0 ? 1 : lstTransaction.Max(x => x.TransactionHistoryId) + 1,
+            AdminUserCode = "admin"
+        });
+        await _localStorageService.SetList(EnumService.Tbl_TransactionHistory.ToString(), lstTransaction);
 
-        model.Data.FromAccountNo = Convert.ToString(fromAccount);
-        model.Data.ToAccountNo = Convert.ToString(toAccount);
+        model.Data = new TransferModel();
+        model.Data.FromAccountNo = fromAccount.AccountNo!;
+        model.Data.ToAccountNo = toAccount.AccountNo!;
         model.Response = new MessageResponseModel(true, "Transfer successful.");
 
         return model;
@@ -113,11 +123,11 @@ public class TransactionService
     {
         TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
         var query = await _localStorageService.GetList<TblTransactionHistory>(EnumService.Tbl_TransactionHistory.ToString());
-        var result =  query.OrderByDescending(x => x.TransactionDate)
+        var result = query.OrderByDescending(x => x.TransactionDate)
             .Skip((pageNo - 1) * pageSize)
             .Take(pageSize).ToList();
 
-        var count =  query.Count();
+        var count = query.Count();
         int pageCount = count / pageSize;
         if (count % pageSize > 0) pageCount++;
         var lst = result.Select(x => x.Change()).ToList();
@@ -143,11 +153,11 @@ public class TransactionService
             query = query.Where(x => x.TransactionDate.Date == requestModel.FromDate.Value.Date).ToList();
         }
 
-        var result =  query.OrderByDescending(x => x.TransactionDate)
+        var result = query.OrderByDescending(x => x.TransactionDate)
             .Skip((requestModel.PageNo - 1) * requestModel.PageSize)
             .Take(requestModel.PageSize).ToList();
 
-        var count =  query.Count();
+        var count = query.Count();
         int pageCount = count / requestModel.PageSize;
         if (count % requestModel.PageSize > 0) pageCount++;
         var lst = result.Select(x => x.Change()).ToList();
@@ -268,7 +278,7 @@ public class TransactionService
     {
         TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
         var query = await _localStorageService.GetList<TblTransactionHistory>(EnumService.Tbl_TransactionHistory.ToString());
-        var result =  query
+        var result = query
             .Where(x => x.TransactionDate >= requestModel.FromDate && x.TransactionDate <= requestModel.ToDate)
             .Skip((requestModel.PageNo - 1) * requestModel.PageSize).Take(requestModel.PageSize)
             .ToList();

@@ -64,7 +64,7 @@ public partial class P_State : ComponentBase
     private async Task Generate()
     {
         await InjectService.EnableLoading();
-        var lst = await HttpClientService.GetAsync<StateRequestModel>("data/state.json");
+        var lst = await HttpClientService.GetAsync<StateRequestModel>("https://raw.githubusercontent.com/sannlynnhtun-coding/Banking-Management-System/main/State.json");
         await ApiService.CreateStates(lst);
         await List(_setting.PageNo, _setting.PageSize);
     }

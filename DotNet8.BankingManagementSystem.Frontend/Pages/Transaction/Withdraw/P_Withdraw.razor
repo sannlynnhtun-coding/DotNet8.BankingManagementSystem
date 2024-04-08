@@ -1,13 +1,13 @@
 ﻿@page "/transaction/withdraw"
 
 <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
-    <MudGrid Class="justify-content-center">
+    <MudGrid Class="justify-content-center my-4">
         <MudItem xs="12" sm="7">
-            <MudText Typo="Typo.h5" Class="mud-width-full py-4">Withdraw</MudText>
             <MudCard>
                 <MudCardContent>
-                    <MudTextField Label="AccountNo"
-                                  @bind-Value="_model.AccountNo" For="@(() => _model.AccountNo)"/>
+                    <MudText Typo="Typo.h5" Class="mud-width-full">Withdraw</MudText>
+                    <MudTextField Label="Account No"
+                                  @bind-Value="_model.AccountNo" For="@(() => _model.AccountNo)" />
                     <MudTextField Label="Amount" Class="mt-3"
                                   @bind-Value="_model.Balance" For="@(() => _model.Balance)"/>
                 </MudCardContent>

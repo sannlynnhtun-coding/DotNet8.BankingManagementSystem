@@ -20,6 +20,7 @@
                                         <span class="d-none d-sm-inline-block">New Account</span>
                                     </span>
                                 </NavLink>
+                                <GenerateButton Name="Reload" OnClick="() => List(1, 10)" />
                             </div>
                             <div id="DataTables_Table_0_filter" class="dataTables_filter ">
                                 <label>
@@ -51,7 +52,7 @@
                                     @* <td>@item.CustomerCode</td> *@
                                     <td>@result.FullName</td>
                                     <td>@result.MobileNo</td>
-                                    <td>@item.Balance</td>
+                                    <td>@item.Balance.ToString("n0")</td>
                                     <td>
                                         <a class="btn btn-warning" href=@($"/user-and-account/account{item.AccountNo}")>
                                             <i class="fa-solid fa-pen-to-square"></i>

@@ -9,8 +9,8 @@ public partial class P_Transfer : ComponentBase
         try
         {
             var response = await ApiService.Transfer(_model);
-             await InjectService.Go("/report/transaction-history");
             await InjectService.SuccessMessage("Balance transfer Successful.");
+            await InjectService.Go("/report/transaction-history");
         }
         catch (Exception ex)
         {

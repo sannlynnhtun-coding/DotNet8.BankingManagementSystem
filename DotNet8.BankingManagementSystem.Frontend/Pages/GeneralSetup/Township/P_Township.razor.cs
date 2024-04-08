@@ -66,7 +66,7 @@ public partial class P_Township
     private async Task Generate()
     {
         await InjectService.EnableLoading();
-        var lst = await HttpClientService.GetAsync<TownshipRequestModel>("data/township.json");
+        var lst = await HttpClientService.GetAsync<TownshipRequestModel>("https://raw.githubusercontent.com/sannlynnhtun-coding/Banking-Management-System/main/Township.json");
         await ApiService.CreateTownships(lst);
         await List(_setting.PageNo, _setting.PageSize);
     }
