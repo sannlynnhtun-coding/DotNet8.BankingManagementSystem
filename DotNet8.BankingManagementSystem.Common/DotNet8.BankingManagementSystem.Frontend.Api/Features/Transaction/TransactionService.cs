@@ -43,14 +43,14 @@ public class TransactionService
 
     public async Task<AccountResponseModel> Deposit(AccountRequestModel requestModel)
     {
-        xAccountResponseModel model = new AccountResponseModel();
+        AccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.ToString());
         var result = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
 
         if (result is null)
         {
             model.Response = new MessageResponseModel(false, "Account not found.");
-            return model;
+            return model!;
         }
 
         result.Balance += requestModel.Balance;
@@ -62,7 +62,7 @@ public class TransactionService
         model.Data = result;
         model.Response = new MessageResponseModel(true, "Deposit successful.");
 
-        return model;
+        return model!;
     }
 
     public async Task<TransferResponseModel> Transfer(TransferModel requestModel)
