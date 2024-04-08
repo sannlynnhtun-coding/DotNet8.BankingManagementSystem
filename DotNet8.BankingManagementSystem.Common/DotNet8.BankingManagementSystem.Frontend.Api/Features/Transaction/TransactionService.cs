@@ -43,9 +43,9 @@ public class TransactionService
 
     public async Task<AccountResponseModel> Deposit(AccountRequestModel requestModel)
     {
-        AccountResponseModel model = new AccountResponseModel();
+        xAccountResponseModel model = new AccountResponseModel();
         var lst = await _localStorageService.GetList<AccountModel>(EnumService.Tbl_Account.ToString());
-        var result = lst.FirstOrDefault(x => x.AccountNo == requestModel.CustomerCode);
+        var result = lst.FirstOrDefault(x => x.AccountNo == requestModel.AccountNo);
 
         if (result is null)
         {
