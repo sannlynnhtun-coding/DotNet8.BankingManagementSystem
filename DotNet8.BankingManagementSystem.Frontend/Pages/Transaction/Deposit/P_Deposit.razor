@@ -16,7 +16,7 @@
                            .Where(x => !userCodes.Contains(x.AccountNo))
                            .OrderBy(x => x.AccountId))
                             {
-                                <MudSelectItem Value="@item.AccountNo">@item.CustomerCode (@item.AccountNo)</MudSelectItem>
+                                <MudSelectItem Value="@item.AccountNo">@item.CustomerName (@item.AccountNo)</MudSelectItem>
                             }
                         }
                     </MudSelect>
