@@ -1,17 +1,41 @@
 ﻿@page "/transaction/transfer"
 
-<EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+<EditForm Model="@reqModel" OnValidSubmit="OnValidSubmit">
     <MudGrid Class="justify-content-center my-4">
         <MudItem xs="12" sm="7">
             <MudCard>
                 <MudCardContent>
                     <MudText Typo="Typo.h5" Class="mud-width-full">Transfer Balance</MudText>
-                    <MudTextField Label="From Account No"
-                                  @bind-Value="_model.FromAccountNo" For="@(() => _model.FromAccountNo)"/>
-                    <MudTextField Label="To Account No"
-                                  @bind-Value="_model.ToAccountNo" For="@(() => _model.ToAccountNo)"/>
+
+                    <MudSelect T="string" @bind-Value="reqModel.FromAccountNo" Class="pt-3" Label="From Account Number" AnchorOrigin="Origin.BottomCenter" Clearable>
+                        @if (_accountListResponseModel is not null && _accountListResponseModel.Data is not null)
+                        {
+                            string[] userCodes = _accountListResponseModel!.Data.Select(x => x.CustomerCode).ToArray();
+                            @foreach (var item in _accountListResponseModel.Data
+                           .OrderBy(x => x.AccountId))
+                            {
+                                <MudSelectItem Value="@item.AccountNo">@item.CustomerCode (@item.AccountNo)</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+
+                    <MudSelect T="string" @bind-Value="reqModel.ToAccountNo" Class="pt-3" Label="To Account Number" AnchorOrigin="Origin.BottomCenter" Clearable>
+                        @if (_accountListResponseModel is not null && _accountListResponseModel.Data is not null)
+                        {
+                            string[] userCodes = _accountListResponseModel!.Data.Select(x => x.CustomerCode).ToArray();
+                            var filteredAccounts = _accountListResponseModel.Data
+                            .Where(x => x.AccountNo != reqModel.FromAccountNo)
+                            .OrderBy(x => x.AccountId);
+
+                            foreach (var item in filteredAccounts)
+                            {
+                                <MudSelectItem Value="@item.AccountNo">@item.CustomerCode (@item.AccountNo)</MudSelectItem>
+                            }
+                        }
+                    </MudSelect>
+
                     <MudTextField Label="Amount" Class="mt-3"
-                                  @bind-Value="_model.Amount" For="@(() => _model.Amount)"/>
+                                  @bind-Value="reqModel.Amount" For="@(() => reqModel.Amount)" />
                 </MudCardContent>
                 <MudCardActions>
                     <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Href="/report/transaction-history" Color="Color.Warning">
@@ -22,4 +46,5 @@
             </MudCard>
         </MudItem>
     </MudGrid>
+
 </EditForm>
