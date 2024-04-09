@@ -3,7 +3,6 @@
 public partial class P_Deposit : ComponentBase
 {
     private AccountRequestModel _model = new();
-    private UserListResponseModel _users = new();
     private AccountListResponseModel? _accountListResponseModel;
     private UserListResponseModel? _userListResponseModel;
 
