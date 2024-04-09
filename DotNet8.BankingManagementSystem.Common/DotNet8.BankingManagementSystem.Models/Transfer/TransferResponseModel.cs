@@ -1,4 +1,6 @@
-﻿namespace DotNet8.BankingManagementSystem.Models.Transfer;
+﻿using DotNet8.BankingManagementSystem.Models.Account;
+
+namespace DotNet8.BankingManagementSystem.Models.Transfer;
 
 public class TransferResponseModel
 {
