@@ -1,3 +1,3 @@
 ### Banking Management System
 
-Vertical Slice Architecture+ NLayer Architecture 
+Vertical Slice Architecture + NLayer Architecture 
