@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNet8.BankingManagementSy
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{5B3424F8-FDA6-4FC0-A9A2-589D25ACBB81}"
 	ProjectSection(SolutionItems) = preProject
+		..\..\..\Desktop\BankingManagementSystem.sql = ..\..\..\Desktop\BankingManagementSystem.sql
 		README.md = README.md
 	EndProjectSection
 EndProject
