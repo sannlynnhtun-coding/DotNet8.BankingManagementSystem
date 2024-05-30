@@ -6,6 +6,19 @@ Database backup file is [here](BankingManagementSystem.sql).
 
 -------
 
+## Vertical Slice Architecture
+
+Each feature in our application is developed as a vertical slice, cutting across all necessary layers. This approach allows for independent deployment and scaling of each feature, improving modularity and maintainability.
+
+## NLayer Architecture
+
+- **Presentation Layer**: Handles user interaction and presentation logic.
+- **Business Logic Layer**: Contains business rules and domain logic.
+- **Data Access Layer**: Manages data persistence and retrieval.
+
+
+-------
+
 ## Project Structure 
 
 The **DotNet8.BankingManagementSystem** project is structured to implement a banking management system using **.NET 8**. Here's an overview of the project structure based on the repository's content:
