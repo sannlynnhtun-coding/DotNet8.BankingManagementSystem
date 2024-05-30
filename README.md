@@ -1,6 +1,6 @@
-### Banking Management System
+## Banking Management System(Vertical Slice Architecture + NLayer Architecture)
 
-Vertical Slice Architecture + NLayer Architecture 
+Notes :
 
 Database backup file is [here](BankingManagementSystem.sql).
 
