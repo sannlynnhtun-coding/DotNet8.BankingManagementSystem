@@ -14,6 +14,7 @@ public partial class P_Transfer : ComponentBase
         {
             _accountListResponseModel = await ApiService.GetAccountList(0);
             _userListResponseModel = await ApiService.GetUserList(0);
+            StateHasChanged();
         }
     }
 
@@ -21,13 +22,20 @@ public partial class P_Transfer : ComponentBase
     {
         try
         {
+            await InjectService.EnableLoading();
             var response = await ApiService.Transfer(reqModel);
+            if (response.Response.IsError) return;
+
             await InjectService.SuccessMessage("Balance transfer Successful.");
-            await InjectService.Go("/report/transaction-history");
+            await InjectService.Go("/user-and-account/account");
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            await InjectService.DisableLoading();
         }
     }
 }
