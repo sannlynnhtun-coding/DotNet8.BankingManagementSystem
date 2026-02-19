@@ -17,18 +17,24 @@ public partial class P_AccountCreate : ComponentBase
         }
     }
 
-    private async Task OnValidSubmit()
+    private async Task OnValidSubmit(EditContext context)
     {
         try
         {
+            await InjectService.EnableLoading();
             var response = await ApiService.CreateAccount(_model);
-            await InjectService.Go("/user-and-account/account");
+            if (response.Response.IsError) return;
+
             await InjectService.SuccessMessage("Creating Successful.");
-            StateHasChanged();
+            await InjectService.Go("/user-and-account/account");
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            await InjectService.DisableLoading();
         }
     }
 }

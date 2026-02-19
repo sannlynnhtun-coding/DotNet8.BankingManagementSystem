@@ -12,7 +12,7 @@
 
     <!-- Form Card -->
     <div class="card-lg">
-        <EditForm Model="@_model">
+        <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
             <div class="card-body space-y-6">
                 <!-- Inputs Group -->
                 <div class="space-y-4">
@@ -20,9 +20,9 @@
                         <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Select Customer</label>
                         <InputSelect @bind-Value="_model.CustomerCode" class="search-input">
                             <option value="">Choose a customer</option>
-                            @if (_userListResponseModel is not null && _userListResponseModel.Data is not null)
+                            @if (_userListResponseModel is not null && _userListResponseModel.Data is not null && _accountListResponseModel is not null && _accountListResponseModel.Data is not null)
                             {
-                                string[] userCodes = _accountListResponseModel!.Data.Select(x => x.CustomerCode).ToArray();
+                                string[] userCodes = _accountListResponseModel.Data.Select(x => x.CustomerCode).ToArray();
                                 @foreach (var item in _userListResponseModel.Data
                                     .Where(x => !userCodes.Contains(x.UserCode))
                                     .OrderBy(x => x.FullName))
@@ -60,7 +60,6 @@
                     Cancel
                 </a>
                 <button type="submit" 
-                        @onclick="OnValidSubmit"
                         class="btn btn-primary flex-[2] px-6 py-3 font-bold shadow-lg shadow-primary-200 group">
                     Create Account
                     <i class="fa-solid fa-plus-circle ml-2 text-primary-300 group-hover:rotate-90 transition-transform"></i>
