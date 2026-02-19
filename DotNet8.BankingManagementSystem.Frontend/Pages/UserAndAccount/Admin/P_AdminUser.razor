@@ -1,73 +1,103 @@
-﻿@page "/user-and-account/admin-user"
-@{
-    int count = 0;
-}
+@page "/user-and-account/admin-user"
+
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light"> Admin User List</span>
-        </h4>
-        <div class="card">
-            <div class="card-datatable table-responsive">
-                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                    <div class="card-header d-flex rounded-0 flex-wrap py-md-0 ">
-                        <div class="me-5 pe-5 p-3 d-flex gap-10">
+    <div class="page animate-in fade-in duration-500">
+        <!-- Header & Action Row -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Admin Staff</h1>
+                <p class="page-subtitle">Manage system administrators and staff access roles.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="relative flex-1 md:w-64">
+                    <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <input type="text" 
+                           placeholder="Search staff..." 
+                           class="w-full pl-11 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all outline-none" />
+                </div>
+                <a href="/user-and-account/admin-user/create" 
+                   @onclick="() => InjectService.IntervalLoading()"
+                   class="btn bg-slate-900 hover:bg-slate-800 text-white shadow-sm group font-bold">
+                    <i class="fa-solid fa-user-plus mr-2 text-slate-400 group-hover:text-white transition-colors"></i>
+                    Add Staff
+                </a>
+            </div>
+        </div>
 
-                            <div class="dt-buttons">
-                                <NavLink Class="dt-button add-new btn btn-primary" @onclick="() => InjectService.IntervalLoading()" href="/user-and-account/admin-user/create">
-                                    <span>
-                                        <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                        <span class="d-none d-sm-inline-block">Add AdminUser</span>
-                                    </span>
-                                </NavLink>
-                            </div>
-                            <div id="DataTables_Table_0_filter" class="dataTables_filter ">
-                                <label>
-                                    <input type="search" class="form-control ms-0" placeholder="Search State" aria-controls="DataTables_Table_0">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">AdminUserCode</th>
-                            <th scope="col">AdminUserName</th>
-                            <th scope="col">MobileNo</th>
-                            <th scope="col">UserRoleCode</th>
-                            <th scope="col">Action</th>
+        <!-- Table Card -->
+        <div class="table-card rounded-3xl">
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr class="table-head-row">
+                            <th class="table-th font-black">#</th>
+                            <th class="table-th font-black">Staff Details</th>
+                            <th class="table-th font-black">Contact</th>
+                            <th class="table-th font-black">Role</th>
+                            <th class="table-th font-black text-right">Actions</th>
                         </tr>
-                        </thead>
-                        <tbody>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        @{ int count = 0; }
                         @foreach (var item in _model.Data)
                         {
-                            <tr>
-                                <td>@(++count + ((_model.PageSetting?.PageNo - 1) * _model.PageSetting?.PageSize))</td>
-                                <td>@item.AdminUserCode</td>
-                                <td>@item.AdminUserName</td>
-                                <td>@item.MobileNo</td>
-                                <td>@item.UserRoleCode</td>
-                                <td>
-                                    <a class="btn btn-warning" href=@($"/general-setup/adminUser/edit/{item.AdminUserCode}")>
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    <a class="btn btn-danger btnDelete" @onclick="() => Delete(item.AdminUserCode)">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
+                            <tr class="table-row group">
+                                <td class="table-td text-sm font-medium text-slate-400">
+                                    @(++count + ((_model.PageSetting?.PageNo - 1) * _model.PageSetting?.PageSize))
+                                </td>
+                                <td class="table-td">
+                                    <div class="flex items-center gap-3">
+                                        <div class="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold border border-slate-200 uppercase">
+                                            @item.AdminUserName.Substring(0, 1)
+                                        </div>
+                                        <div>
+                                            <div class="text-sm font-bold text-slate-900">@item.AdminUserName</div>
+                                            <div class="text-xs text-slate-500 font-mono">ID: @item.AdminUserCode</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="table-td">
+                                    <div class="flex flex-col gap-1">
+                                        <div class="flex items-center gap-2 text-sm text-slate-600">
+                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
+                                            @item.MobileNo
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="table-td">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">
+                                        @item.UserRoleCode
+                                    </span>
+                                </td>
+                                <td class="table-td text-right">
+                                    <div class="action-cell">
+                                        <a href="/user-and-account/admin-user/edit/@item.AdminUserCode" 
+                                           class="action-btn action-btn-edit text-slate-400 hover:text-amber-600"
+                                           title="Edit">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <button @onclick="() => Delete(item.AdminUserCode)"
+                                                class="action-btn action-btn-delete text-slate-400 hover:text-red-600"
+                                                title="Delete">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         }
-                        </tbody>
-                    </table>
+                    </tbody>
+                </table>
+            </div>
 
-                    <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
-                        <div class="col-sm-12 col-md-6 ">
-                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4"/>
-                        </div>
-                    </div>
+            <!-- Footer / Pagination -->
+            <div class="card-footer flex items-center justify-between">
+                <div class="text-xs text-slate-500 font-medium">
+                    Showing Page <span class="text-slate-900 font-bold">@_model.PageSetting.PageNo</span> of <span class="text-slate-900 font-bold">@_model.PageSetting.PageCount</span>
                 </div>
+                <TPagination PageNo="@(_model.PageSetting.PageNo)" 
+                               PageCount="@(_model.PageSetting.PageCount)" 
+                               SelectedChanged="PageChanged" />
             </div>
         </div>
     </div>

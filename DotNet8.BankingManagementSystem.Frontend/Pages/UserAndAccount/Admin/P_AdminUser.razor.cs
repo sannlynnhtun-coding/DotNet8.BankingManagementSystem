@@ -34,25 +34,16 @@ public partial class P_AdminUser : ComponentBase
 
     private async Task Delete(string adminUserCode)
     {
-        var parameters = new DialogParameters<Dialog>();
-        parameters.Add(x => x.ContentText,
-            "Are you sure want to delete?");
+        var isConfirmed = await InjectService.ConfirmMessage("Are you sure want to delete?");
+        if (!isConfirmed) return;
 
-        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.ExtraSmall };
+        var result = await ApiService.DeleteAdminUser(adminUserCode);
+        if (result.Response.IsError) return;
 
-        var dialog = await DialogService.ShowAsync<Dialog>("Confirm", parameters, options);
-        var result = await dialog.Result;
-        if (result.Canceled) return;
-
-        //var adminUserResult = await AdminUserAPI.DeleteAdminUser(AdminUserCode);
-        var adminUserResult = await ApiService.DeleteAdminUser(adminUserCode);
-        if (result is not null)
-        {
-            await InjectService.EnableLoading();
-            await List(_setting.PageNo, _setting.PageSize);
-            await InjectService.DisableLoading();
-            await InjectService.SuccessMessage("Deleting Successful.");
-        }
+        await InjectService.EnableLoading();
+        await List(_setting.PageNo, _setting.PageSize);
+        await InjectService.DisableLoading();
+        await InjectService.SuccessMessage("Deleting Successful.");
 
         StateHasChanged();
     }
