@@ -1,3 +1,225 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Dashboard | IBanking</PageTitle>
+
+@if (IsLoading)
+{
+    <div class="flex items-center justify-center min-h-[400px]">
+        <div class="flex flex-col items-center gap-4">
+            <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600"></div>
+            <p class="text-slate-500 font-medium animate-pulse">Gathering financial insights...</p>
+        </div>
+    </div>
+}
+else
+{
+    <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <!-- Dashboard Header -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Overview</h1>
+                <p class="text-slate-500 font-medium mt-1">Detailed summary of your banking ecosystem.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button @onclick="LoadDashboardData" class="btn btn-secondary px-4 py-2 text-sm font-bold flex items-center gap-2 bg-white border-slate-200">
+                    <i class="fa-solid fa-rotate text-slate-400"></i>
+                    Refresh
+                </button>
+                <a href="/transaction/transfer" class="btn bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 text-sm font-bold flex items-center gap-2 shadow-lg shadow-primary-100 transition-all active:scale-95">
+                    <i class="fa-solid fa-paper-plane text-primary-200"></i>
+                    New Transfer
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Total Balance -->
+            <div class="card bg-white border-none shadow-sm hover:shadow-md transition-all duration-300 group overflow-hidden relative">
+                <div class="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+                    <i class="fa-solid fa-money-bill-trend-up text-7xl -rotate-12"></i>
+                </div>
+                <div class="card-body p-6 flex flex-col justify-between min-h-[140px]">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-2.5 bg-emerald-50 text-emerald-600 rounded-xl">
+                            <i class="fa-solid fa-vault text-xl"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full uppercase tracking-wider">Total Equity</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 mb-1">Global Balance</p>
+                        <h3 class="text-2xl font-black text-slate-900 tabular-nums">@TotalBalance.ToString("N0") <span class="text-xs text-slate-400 font-bold ml-1">MMK</span></h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Accounts -->
+            <div class="card bg-white border-none shadow-sm hover:shadow-md transition-all duration-300 group overflow-hidden relative">
+                <div class="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+                    <i class="fa-solid fa-address-card text-7xl -rotate-12"></i>
+                </div>
+                <div class="card-body p-6 flex flex-col justify-between min-h-[140px]">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-2.5 bg-blue-50 text-blue-600 rounded-xl">
+                            <i class="fa-solid fa-id-card-clip text-xl"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full uppercase tracking-wider">Portfolio</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 mb-1">Total Accounts</p>
+                        <h3 class="text-2xl font-black text-slate-900 tabular-nums">@TotalAccounts</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Customers -->
+            <div class="card bg-white border-none shadow-sm hover:shadow-md transition-all duration-300 group overflow-hidden relative">
+                <div class="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+                    <i class="fa-solid fa-users text-7xl -rotate-12"></i>
+                </div>
+                <div class="card-body p-6 flex flex-col justify-between min-h-[140px]">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-2.5 bg-purple-50 text-purple-600 rounded-xl">
+                            <i class="fa-solid fa-user-group text-xl"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-purple-600 bg-purple-50 px-2 py-0.5 rounded-full uppercase tracking-wider">Clientele</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 mb-1">Total Customers</p>
+                        <h3 class="text-2xl font-black text-slate-900 tabular-nums">@TotalCustomers</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lifetime Txns -->
+            <div class="card bg-white border-none shadow-sm hover:shadow-md transition-all duration-300 group overflow-hidden relative">
+                <div class="absolute top-0 right-0 p-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity">
+                    <i class="fa-solid fa-clock-rotate-left text-7xl -rotate-12"></i>
+                </div>
+                <div class="card-body p-6 flex flex-col justify-between min-h-[140px]">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-2.5 bg-orange-50 text-orange-600 rounded-xl">
+                            <i class="fa-solid fa-receipt text-xl"></i>
+                        </div>
+                        <span class="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full uppercase tracking-wider">Activity</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-bold text-slate-500 mb-1">Recent Activity</p>
+                        <h3 class="text-2xl font-black text-slate-900 tabular-nums">@RecentTransactionsCount</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Recent Transactions -->
+            <div class="lg:col-span-2 space-y-4">
+                <div class="flex items-center justify-between px-2">
+                    <h3 class="text-lg font-bold text-slate-900">Recent Transactions</h3>
+                    <a href="/report/transaction-history" class="text-xs font-bold text-primary-600 hover:text-primary-700 flex items-center gap-1 group">
+                        View Detailed History
+                        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                </div>
+                <div class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+                    @if (!RecentTransactions.Any())
+                    {
+                        <div class="p-12 text-center text-slate-400">
+                            <i class="fa-solid fa-inbox text-4xl mb-4 block opacity-20"></i>
+                            <p class="font-medium">No recent transaction data available.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="bg-slate-50/50 border-b border-slate-100">
+                                        <th class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Accounts</th>
+                                        <th class="px-6 py-4 text-left text-[10px] font-black text-slate-400 uppercase tracking-widest">Date</th>
+                                        <th class="px-6 py-4 text-right text-[10px] font-black text-slate-400 uppercase tracking-widest">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-50">
+                                    @foreach (var txn in RecentTransactions)
+                                    {
+                                        <tr class="hover:bg-slate-50/50 transition-colors group">
+                                            <td class="px-6 py-4">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="flex flex-col">
+                                                        <span class="text-xs font-bold text-slate-900 font-mono">@txn.FromAccountNo</span>
+                                                        <i class="fa-solid fa-arrow-down-long text-[8px] text-slate-300 my-0.5 ml-2"></i>
+                                                        <span class="text-xs font-bold text-slate-900 font-mono">@txn.ToAccountNo</span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <div class="flex flex-col">
+                                                    <span class="text-xs font-bold text-slate-700">@txn.TransactionDate.ToString("dd MMM yyyy")</span>
+                                                    <span class="text-[9px] text-slate-400 font-medium">@txn.TransactionDate.ToString("hh:mm tt")</span>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 text-right">
+                                                <span class="text-sm font-black text-slate-900 tabular-nums">@txn.Amount.ToString("N0")</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <!-- Quick Actions & Insights -->
+            <div class="space-y-6">
+                <div class="px-2">
+                    <h3 class="text-lg font-bold text-slate-900">Direct Actions</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 gap-4">
+                    <a href="/transaction/deposit" class="flex items-center gap-4 p-4 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md hover:border-emerald-100 transition-all group">
+                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-plus"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-slate-900">Cash Deposit</p>
+                            <p class="text-[10px] text-slate-400 font-medium">Add funds to account</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-200 group-hover:text-emerald-300 transition-colors"></i>
+                    </a>
+
+                    <a href="/transaction/withdraw" class="flex items-center gap-4 p-4 bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-md hover:border-rose-100 transition-all group">
+                        <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-minus"></i>
+                        </div>
+                        <div class="flex-1">
+                            <p class="text-sm font-bold text-slate-900">Cash Withdrawal</p>
+                            <p class="text-[10px] text-slate-400 font-medium">Extract funds from account</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-200 group-hover:text-rose-300 transition-colors"></i>
+                    </a>
+                </div>
+
+                <!-- Insights Card -->
+                <div class="bg-gradient-to-br from-primary-600 to-primary-800 rounded-3xl p-6 text-white shadow-xl shadow-primary-200 relative overflow-hidden">
+                    <div class="absolute -top-4 -right-4 w-24 h-24 bg-white/10 rounded-full blur-2xl"></div>
+                    <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-primary-400/20 rounded-full blur-3xl"></div>
+                    
+                    <div class="relative z-10 space-y-4">
+                        <h4 class="text-sm font-bold text-primary-100 flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            System Tip
+                        </h4>
+                        <p class="text-xs font-medium leading-relaxed text-white/90">
+                            Regularly auditing your accounts helps maintain system integrity and security.
+                        </p>
+                        <button class="w-full py-2.5 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all">
+                            Learning Center
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
