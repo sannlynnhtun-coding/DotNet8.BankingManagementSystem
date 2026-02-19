@@ -1,78 +1,116 @@
-﻿@page "/user-and-account/account"
+@page "/user-and-account/account"
 @{
     int count = 0;
 }
+
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">Account List</span>
-        </h4>
-        <div class="card">
-            <div class="card-datatable table-responsive">
-                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                    <div class="card-header d-flex rounded-0 flex-wrap py-md-0 ">
-                        <div class="me-5 pe-5 p-3 d-flex gap-10">
-                            <div class="dt-buttons">
-                                <NavLink Class="dt-button add-new btn btn-primary" @onclick="() => InjectService.IntervalLoading()" href="/user-and-account/account/create">
-                                    <span>
-                                        <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                        <span class="d-none d-sm-inline-block">New Account</span>
-                                    </span>
-                                </NavLink>
-                                <GenerateButton Name="Reload" OnClick="() => List(1, 10)" />
-                            </div>
-                            <div id="DataTables_Table_0_filter" class="dataTables_filter ">
-                                <label>
-                                    <input type="search" class="form-control ms-0" placeholder="Search Account" aria-controls="DataTables_Table_0">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Account No</th>
-                                @* <th scope="col">Customer Code</th> *@
-                                <th scope="col">Customer Name</th>
-                                <th scope="col">Mobile No</th>
-                                <th scope="col">Balance</th>
-                                <th scope="col">Actions</th>
+    <div class="page animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Bank Accounts</h1>
+                <p class="page-subtitle">Monitor customer account balances and managed account details.</p>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <NavLink href="/user-and-account/account/create" 
+                         @onclick="() => InjectService.IntervalLoading()"
+                         class="btn btn-primary group">
+                    <i class="fa-solid fa-plus-circle mr-2 text-primary-200 group-hover:text-white transition-colors"></i>
+                    New Account
+                </NavLink>
+                <GenerateButton Name="Reload" OnClick="() => List(1, 10)" />
+            </div>
+        </div>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in _model.Data)
-                            {
-                                var result = _users.Data.First(x => x.UserCode == item.CustomerCode);
-                                <tr>
-                                    <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
-                                    <td>@item.AccountNo</td>
-                                    @* <td>@item.CustomerCode</td> *@
-                                    <td>@result.FullName</td>
-                                    <td>@result.MobileNo</td>
-                                    <td>@item.Balance.ToString("n0")</td>
-                                    <td>
-                                        <a class="btn btn-warning" href=@($"/user-and-account/account{item.AccountNo}")>
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <a class="btn btn-danger text-white" @onclick="() => IsConfirmed(item.AccountNo)">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-
+        <!-- Filters & Quick Actions Card -->
+        <div class="card card-body-sm">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="relative w-full md:w-96 group">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary-500 transition-colors"></i>
+                    </span>
+                    <input type="search" 
+                           class="search-input" 
+                           placeholder="Search by account number..."/>
                 </div>
             </div>
-            <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
-                <div class="col-sm-12 col-md-8 d-flex justify-content-end">
-                    <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
+        </div>
+
+        <!-- Data Table Card -->
+        <div class="table-card">
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr class="table-head-row">
+                            <th class="table-th w-16">#</th>
+                            <th class="table-th">Account Number</th>
+                            <th class="table-th">Customer Name</th>
+                            <th class="table-th">Mobile</th>
+                            <th class="table-th">Balance</th>
+                            <th class="table-th text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        @foreach (var item in _model.Data)
+                        {
+                            var result = _users.Data.FirstOrDefault(x => x.UserCode == item.CustomerCode);
+                            <tr class="table-row group">
+                                <td class="table-td text-sm text-slate-500">
+                                    @(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))
+                                </td>
+                                <td class="table-td">
+                                    <div class="flex items-center gap-2">
+                                        <div class="p-1.5 bg-primary-50 text-primary-600 rounded-lg">
+                                            <i class="fa-solid fa-building-columns text-xs"></i>
+                                        </div>
+                                        <span class="text-sm font-bold text-slate-900 font-mono tracking-wider">@item.AccountNo</span>
+                                    </div>
+                                </td>
+                                <td class="table-td">
+                                    <span class="text-sm font-medium text-slate-700">@(result?.FullName ?? "N/A")</span>
+                                </td>
+                                <td class="table-td">
+                                    <span class="text-xs text-slate-500">@(result?.MobileNo ?? "N/A")</span>
+                                </td>
+                                <td class="table-td">
+                                    <div class="inline-flex items-center gap-1.5 text-sm font-bold text-slate-900">
+                                        <span class="text-slate-400 font-normal">MMK</span>
+                                        @item.Balance.ToString("n0")
+                                    </div>
+                                </td>
+                                <td class="table-td text-right">
+                                    <div class="action-cell">
+                                        <a href=@($"/user-and-account/account{item.AccountNo}") 
+                                           class="action-btn action-btn-edit"
+                                           title="Edit Account">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                        <button type="button" 
+                                                class="action-btn action-btn-delete"
+                                                @onclick="() => IsConfirmed(item.AccountNo)"
+                                                title="Delete Account">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination Container -->
+            <div class="card-footer flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-sm text-slate-500">
+                    Showing page <b>@_model.PageSetting.PageNo</b> of <b>@_model.PageSetting.PageCount</b>
                 </div>
+                <TPagination PageNo="@(_model.PageSetting.PageNo)" 
+                               PageCount="@(_model.PageSetting.PageCount)" 
+                               SelectedChanged="PageChanged" />
             </div>
         </div>
     </div>
 }
+

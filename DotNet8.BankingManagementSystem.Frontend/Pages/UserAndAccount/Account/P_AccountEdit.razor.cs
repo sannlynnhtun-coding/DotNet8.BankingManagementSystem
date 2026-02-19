@@ -2,14 +2,15 @@
 
 public partial class P_AccountEdit : ComponentBase
 {
-    [Parameter] public string accountNo { get; set; }
+    [Parameter] public string AccountNo { get; set; } = null!;
+
     private AccountModel _model = new();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await GetAccount(accountNo);
+            await GetAccount(AccountNo);
             StateHasChanged();
         }
     }
@@ -37,7 +38,7 @@ public partial class P_AccountEdit : ComponentBase
             Balance = _model.Balance
         };
 
-        var response = await ApiService.UpdateAccount(accountNo, reqModel);
+        var response = await ApiService.UpdateAccount(AccountNo, reqModel);
         await InjectService.Go("/general-setup/account");
         await InjectService.SuccessMessage("Updating Successful.");
         StateHasChanged();

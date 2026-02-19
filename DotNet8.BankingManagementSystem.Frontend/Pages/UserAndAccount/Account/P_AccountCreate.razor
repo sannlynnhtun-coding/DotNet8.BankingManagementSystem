@@ -1,34 +1,71 @@
-﻿@page "/user-and-account/account/create"
+@page "/user-and-account/account/create"
 
-<EditForm Model="@_model">
-    <MudGrid Class="justify-content-center">
-        <MudItem xs="12" sm="7">
-            <MudText Typo="Typo.h5" Class="mud-width-full py-4">Account Create Form</MudText>
-            <MudCard>
-                <MudCardContent>
-                    @* <MudTextField Label="CustomerCode" @bind-Value="_model.CustomerCode" For="@(() => _model.CustomerCode)"/> *@
-                    @* <MudTextField Label="CustomerName" Class="mt-3" @bind-Value="_model.CustomerName" For="@(() => _model.CustomerName)"/> *@
-                    <MudSelect T="string" @bind-Value="_model.CustomerCode" Class="pt-3" Label="User Name" AnchorOrigin="Origin.BottomCenter" Clearable>
-                        @if (_userListResponseModel is not null && _userListResponseModel.Data is not null)
-                        {
-                            string[] userCodes = _accountListResponseModel!.Data.Select(x => x.CustomerCode).ToArray();
-                            @foreach (var item in _userListResponseModel.Data
-                                .Where(x => !userCodes.Contains(x.UserCode))
-                                .OrderBy(x => x.FullName))
+<div class="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <!-- Header Section -->
+    <div class="text-center space-y-2">
+        <div class="inline-flex items-center justify-center p-3 bg-primary-50 text-primary-600 rounded-2xl shadow-sm mb-2">
+            <i class="fa-solid fa-file-invoice-dollar text-2xl"></i>
+        </div>
+        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Open New Account</h1>
+        <p class="text-slate-500 max-w-sm mx-auto">Create a new financial account for a registered customer.</p>
+    </div>
+
+    <!-- Form Card -->
+    <div class="card-lg">
+        <EditForm Model="@_model">
+            <div class="card-body space-y-6">
+                <!-- Inputs Group -->
+                <div class="space-y-4">
+                    <div class="group">
+                        <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Select Customer</label>
+                        <InputSelect @bind-Value="_model.CustomerCode" class="search-input">
+                            <option value="">Choose a customer</option>
+                            @if (_userListResponseModel is not null && _userListResponseModel.Data is not null)
                             {
-                                <MudSelectItem Value="@item.UserCode">@item.FullName (@item.MobileNo)</MudSelectItem>
+                                string[] userCodes = _accountListResponseModel!.Data.Select(x => x.CustomerCode).ToArray();
+                                @foreach (var item in _userListResponseModel.Data
+                                    .Where(x => !userCodes.Contains(x.UserCode))
+                                    .OrderBy(x => x.FullName))
+                                {
+                                    <option value="@item.UserCode">
+                                        @item.FullName (@item.MobileNo)
+                                    </option>
+                                }
                             }
-                        }
-                    </MudSelect>
-                    <MudTextField Label="Balance" Class="mt-3" @bind-Value="_model.Balance" For="@(() => _model.Balance)" />
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Button" Variant="Variant.Filled" Href="/user-and-account/account" Color="Color.Warning">
-                        Cancel
-                    </MudButton>
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" @onclick="OnValidSubmit" Class="ml-2">Create Account</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
-</EditForm>
+                        </InputSelect>
+                    </div>
+
+                    <div class="group">
+                        <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Initial Balance (MMK)</label>
+                        <InputNumber @bind-Value="_model.Balance" 
+                                     class="search-input" 
+                                     placeholder="0.00" />
+                        <ValidationMessage For="@(() => _model.Balance)" class="text-xs text-rose-500 mt-1" />
+                    </div>
+                </div>
+
+                <!-- Info Box -->
+                <div class="bg-primary-50 rounded-xl p-4 flex gap-3 border border-primary-100">
+                    <i class="fa-solid fa-circle-right text-primary-500 mt-0.5"></i>
+                    <p class="text-xs text-primary-800 leading-relaxed font-medium">
+                        A unique account number will be automatically generated upon successful creation.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="card-footer flex flex-col sm:flex-row gap-3 px-8 py-6 bg-slate-50">
+                <a href="/user-and-account/account" 
+                   class="btn btn-secondary flex-1 px-6 py-3 font-bold">
+                    Cancel
+                </a>
+                <button type="submit" 
+                        @onclick="OnValidSubmit"
+                        class="btn btn-primary flex-[2] px-6 py-3 font-bold shadow-lg shadow-primary-200 group">
+                    Create Account
+                    <i class="fa-solid fa-plus-circle ml-2 text-primary-300 group-hover:rotate-90 transition-transform"></i>
+                </button>
+            </div>
+        </EditForm>
+    </div>
+</div>

@@ -45,7 +45,9 @@ public partial class P_Account : ComponentBase
 
     private async Task IsConfirmed(string accountNo)
     {
-        // await InjectService.IsConfirmed(stateCode);
+        var isConfirmed = await InjectService.ConfirmMessage("Are you sure want to delete?");
+        if (!isConfirmed) return;
+        
         await Delete(accountNo);
     }
 
