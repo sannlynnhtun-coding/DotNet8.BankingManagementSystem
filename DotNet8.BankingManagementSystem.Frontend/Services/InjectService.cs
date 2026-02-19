@@ -41,9 +41,9 @@ public class InjectService
         await _jSRuntime.InvokeVoidAsync("errorMessage", message);
     }
 
-    public async Task IsConfirmed(string stateCode)
+    public async Task<bool> ConfirmMessage(string message)
     {
-        await _jSRuntime.InvokeVoidAsync("isConfirmed", stateCode);
+        return await _jSRuntime.InvokeAsync<bool>("confirmMessage", message);
     }
 
     public async Task ReloadPage()
