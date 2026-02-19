@@ -28,13 +28,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
                     <div class="space-y-1.5">
                         <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Start Date</label>
-                        <input type="date" @onchange="@(e => fromDate = DateTime.Parse(e.Value.ToString()))" 
+                        <input type="date" @onchange="@(e => fromDate = string.IsNullOrEmpty(e.Value?.ToString()) ? null : DateTime.Parse(e.Value.ToString()!))" 
                                value="@fromDate?.ToString("yyyy-MM-dd")"
                                class="search-input" />
                     </div>
                     <div class="space-y-1.5">
                         <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">End Date</label>
-                        <input type="date" @onchange="@(e => toDate = DateTime.Parse(e.Value.ToString()))" 
+                        <input type="date" @onchange="@(e => toDate = string.IsNullOrEmpty(e.Value?.ToString()) ? null : DateTime.Parse(e.Value.ToString()!))" 
                                value="@toDate?.ToString("yyyy-MM-dd")"
                                class="search-input" />
                     </div>

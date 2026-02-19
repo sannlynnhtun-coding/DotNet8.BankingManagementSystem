@@ -33,6 +33,13 @@
                                 }
                             }
                         </InputSelect>
+                        @if (!string.IsNullOrEmpty(_model.AccountNo))
+                        {
+                            <div class="mt-2 flex items-center gap-2 text-xs font-semibold text-slate-500 animate-in fade-in slide-in-from-top-1 duration-300">
+                                <i class="fa-solid fa-wallet text-slate-400"></i>
+                                Current Balance: <span class="text-rose-600">@(GetAccountBalance().ToString("N0")) MMK</span>
+                            </div>
+                        }
                         <ValidationMessage For="@(() => _model.AccountNo)" class="text-xs text-rose-500 mt-1" />
                     </div>
 

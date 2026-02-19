@@ -36,4 +36,14 @@ public partial class P_Deposit : ComponentBase
             await InjectService.DisableLoading();
         }
     }
+
+    private decimal GetAccountBalance()
+    {
+        if (string.IsNullOrEmpty(_model.AccountNo) || _accountListResponseModel?.Data == null)
+            return 0;
+
+        return _accountListResponseModel.Data
+            .FirstOrDefault(x => x.AccountNo == _model.AccountNo)?
+            .Balance ?? 0;
+    }
 }

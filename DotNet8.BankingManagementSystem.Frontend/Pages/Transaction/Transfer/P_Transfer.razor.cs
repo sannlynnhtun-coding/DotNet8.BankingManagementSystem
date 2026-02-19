@@ -38,4 +38,24 @@ public partial class P_Transfer : ComponentBase
             await InjectService.DisableLoading();
         }
     }
+
+    private decimal GetFromAccountBalance()
+    {
+        if (string.IsNullOrEmpty(reqModel.FromAccountNo) || _accountListResponseModel?.Data == null)
+            return 0;
+
+        return _accountListResponseModel.Data
+            .FirstOrDefault(x => x.AccountNo == reqModel.FromAccountNo)?
+            .Balance ?? 0;
+    }
+
+    private decimal GetToAccountBalance()
+    {
+        if (string.IsNullOrEmpty(reqModel.ToAccountNo) || _accountListResponseModel?.Data == null)
+            return 0;
+
+        return _accountListResponseModel.Data
+            .FirstOrDefault(x => x.AccountNo == reqModel.ToAccountNo)?
+            .Balance ?? 0;
+    }
 }
