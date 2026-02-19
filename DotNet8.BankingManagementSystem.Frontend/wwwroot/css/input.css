@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+/* Tailwind v4 content sources (ensures Razor class scanning) */
+@source "../../**/*.razor";
+@source "../../**/*.cshtml";
+@source "../../wwwroot/index.html";
+
+@theme {
+    --color-primary-50: #f5f3ff;
+    --color-primary-100: #ede9fe;
+    --color-primary-200: #ddd6fe;
+    --color-primary-300: #c4b5fd;
+    --color-primary-400: #a78bfa;
+    --color-primary-500: #8b5cf6;
+    --color-primary-600: #7c3aed;
+    --color-primary-700: #6d28d9;
+    --color-primary-800: #5b21b6;
+    --color-primary-900: #4c1d95;
+    --color-primary-950: #2e1065;
+}
+
+@layer base {
+
+    html,
+    body {
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+            "Segoe UI Symbol", "Noto Color Emoji";
+    }
+}
+
+@layer components {
+    .page {
+        @apply space-y-6;
+    }
+
+    .page-header {
+        @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4;
+    }
+
+    .page-title {
+        @apply text-2xl font-bold text-slate-900 tracking-tight;
+    }
+
+    .page-subtitle {
+        @apply text-sm text-slate-500;
+    }
+
+    .card {
+        @apply bg-white rounded-2xl border border-slate-200 shadow-sm;
+    }
+
+    .card-lg {
+        @apply bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden;
+    }
+
+    .card-body {
+        @apply p-6;
+    }
+
+    .card-body-sm {
+        @apply p-4;
+    }
+
+    .card-footer {
+        @apply px-6 py-4 bg-slate-50/50 border-t border-slate-200;
+    }
+
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95;
+    }
+
+    .btn-primary {
+        @apply bg-primary-600 hover:bg-primary-700 text-white shadow-sm shadow-primary-200;
+    }
+
+    .btn-secondary {
+        @apply bg-white hover:bg-slate-50 text-slate-700 border border-slate-200;
+    }
+
+    .btn-danger {
+        @apply bg-rose-600 hover:bg-rose-700 text-white shadow-sm shadow-rose-200;
+    }
+
+    .icon-btn {
+        @apply h-10 w-10 p-2.5 rounded-xl inline-flex items-center justify-center text-slate-500 hover:text-primary-600 hover:bg-primary-50 transition-all;
+    }
+
+    .badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700;
+    }
+
+    .search-input {
+        @apply block w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-200;
+    }
+
+    .table-card {
+        @apply bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden;
+    }
+
+    .table {
+        @apply w-full text-left border-collapse;
+    }
+
+    .table-head-row {
+        @apply bg-slate-50/50 border-b border-slate-200 text-slate-500;
+    }
+
+    .table-th {
+        @apply px-6 py-4 text-xs font-bold uppercase tracking-wider;
+    }
+
+    .table-td {
+        @apply px-6 py-4;
+    }
+
+    .table-row {
+        @apply hover:bg-slate-50/50 transition-colors duration-150;
+    }
+
+    .action-cell {
+        @apply flex justify-end gap-2 opacity-0 transition-opacity duration-200;
+    }
+
+    .group:hover .action-cell {
+        opacity: 1;
+    }
+
+    .action-btn {
+        @apply p-2 rounded-lg transition-colors;
+    }
+
+    .action-btn-edit {
+        @apply text-amber-600 hover:bg-amber-50;
+    }
+
+    .action-btn-delete {
+        @apply text-rose-600 hover:bg-rose-50;
+    }
+
+    .nav-link {
+        @apply flex items-center px-4 py-3 text-sm font-medium text-slate-600 rounded-xl hover:bg-slate-50 hover:text-primary-600 transition-all duration-200;
+    }
+
+    .nav-link-active {
+        @apply bg-primary-50 text-primary-700;
+    }
+
+    .nav-sublink {
+        @apply block px-4 py-2 text-sm text-slate-500 rounded-lg hover:bg-slate-50 hover:text-primary-600 transition-colors;
+    }
+
+    .nav-sublink-active {
+        @apply bg-primary-50 text-primary-700 font-semibold;
+    }
+
+}
+
+@layer utilities {
+    @keyframes tw-enter {
+        from {
+            opacity: var(--tw-enter-opacity, 1);
+            transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale(var(--tw-enter-scale, 1));
+        }
+
+        to {
+            opacity: 1;
+            transform: translate3d(0, 0, 0) scale(1);
+        }
+    }
+
+    .animate-in {
+        animation-name: tw-enter;
+        animation-duration: var(--tw-duration, 300ms);
+        animation-timing-function: var(--tw-ease, cubic-bezier(0.4, 0, 0.2, 1));
+        animation-fill-mode: both;
+    }
+
+    .fade-in {
+        --tw-enter-opacity: 0;
+    }
+
+    .slide-in-from-bottom-4 {
+        --tw-enter-translate-y: 1rem;
+    }
+
+    .slide-in-from-left {
+        --tw-enter-translate-x: -1rem;
+    }
+}

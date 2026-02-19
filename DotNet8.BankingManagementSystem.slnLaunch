@@ -1,0 +1,12 @@
+[
+  {
+    "Name": "App + API",
+    "Projects": [
+      {
+        "Path": "DotNet8.BankingManagementSystem.Frontend\\DotNet8.BankingManagementSystem.Frontend.csproj",
+        "Action": "Start",
+        "DebugTarget": "https"
+      }
+    ]
+  }
+]

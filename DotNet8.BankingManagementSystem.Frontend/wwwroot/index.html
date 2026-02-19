@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact " dir="ltr" data-theme="theme-semi-dark" data-assets-path="assets/" data-template="vertical-menu-template-semi-dark">
+<html lang="en" class="light-style layout-navbar-fixed layout-menu-fixed layout-compact " dir="ltr"
+    data-theme="theme-semi-dark" data-assets-path="assets/" data-template="vertical-menu-template-semi-dark">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,138 +23,88 @@
     <link rel="apple-touch-icon" sizes="512x512" href="favicon.ico" />
     <link rel="apple-touch-icon" sizes="192x192" href="favicon.ico" />
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
-    <link href="_content/MudBlazor/MudBlazor.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/1.35.0/iconfont/tabler-icons.min.css" integrity="sha512-tpsEzNMLQS7w9imFSjbEOHdZav3/aObSESAL1y5jyJDoICFF2YwEdAHOPdOr1t+h8hTzar0flphxR76pd0V1zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />
-
-    <link href="plugins/notiflix-3-2-7/notiflix-3.2.7.min.css" rel="stylesheet" />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&ampdisplay=swap" rel="stylesheet">
+    <!-- Notiflix -->
+    <link rel="stylesheet" href="plugins/notiflix-3-2-7/notiflix-3.2.7.min.css" />
 
     <!-- Icons -->
-    <link rel="stylesheet" href="assets/vendor/fonts/materialdesignicons.css" />
-    <link rel="stylesheet" href="assets/vendor/fonts/flag-icons.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/1.35.0/iconfont/tabler-icons.min.css" />
 
-    <!-- Menu waves for no-customizer fix -->
-    <link rel="stylesheet" href="assets/vendor/libs/node-waves/node-waves.css" />
-
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="assets/vendor/css/rtl/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="assets/vendor/css/rtl/theme-semi-dark.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="assets/css/demo.css" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="assets/vendor/libs/apex-charts/apex-charts.css" />
-    <!-- Page CSS -->
-    <!-- Helpers -->
-    <script src="assets/vendor/js/helpers.js"></script>
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Template customizer: To hide customizer set displayCustomizer value false in config.js.  -->
-    <script src="assets/vendor/js/template-customizer.js"></script>
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="assets/js/config.js"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- <link href="_content/BlazorNotiflix/notiflix.min.css" rel="stylesheet" /> -->
-    <link href="plugins/notiflix-3-2-7/notiflix-3.2.7.min.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="assets/app.css" />
-    <link href="custom.css" rel="stylesheet" />
+    <link href="css/tailwind.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="bg-gray-50 text-slate-900 font-sans">
     <div id="app">
-        <div class="d-flex justify-content-center align-item-center pt-5 mt-5">
-            <div class="pt-5 mt-5">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(255, 255, 255, 0.02); display: block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                    <defs>
-                        <filter id="ldio-zghctd3p7br-filter" x="-100%" y="-100%" width="300%" height="300%" color-interpolation-filters="sRGB">
-                            <feGaussianBlur in="SourceGraphic" stdDeviation="10"></feGaussianBlur>
-                            <feComponentTransfer result="cutoff">
-                                <feFuncA type="linear" slope="125" intercept="-75"></feFuncA>
-                            </feComponentTransfer>
-                        </filter>
-                    </defs>
-                    <g filter="url(#ldio-zghctd3p7br-filter)">
-                        <circle cx="30" cy="50" r="10" fill="#9055fd">
-                            <animate attributeName="r" repeatCount="indefinite" dur="0.42918454935622324s" keyTimes="0;0.5;1" values="18;25;18" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
-                            <animate attributeName="cx" repeatCount="indefinite" dur="0.42918454935622324s" keyTimes="0;0.5;1" values="20;27;20" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
-                        </circle>
-                        <circle cx="70" cy="50" r="10" fill="#b085ff">
-                            <animate attributeName="r" repeatCount="indefinite" dur="0.42918454935622324s" keyTimes="0;0.5;1" values="25;18;25" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
-                            <animate attributeName="cx" repeatCount="indefinite" dur="0.42918454935622324s" keyTimes="0;0.5;1" values="66;73;66" keySplines="0.5 0 0.5 1;0.5 0 0.5 1" calcMode="spline"></animate>
-                        </circle>
-                    </g>
-                </svg>
+        <!-- Modern Loading Screen -->
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="flex flex-col items-center">
+                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-600 mb-4"></div>
+                <p class="text-slate-600 font-medium">Banking System Loading...</p>
             </div>
         </div>
-
     </div>
-    <div id="blazor-error-ui">
+    <div id="blazor-error-ui"
+        class="hidden fixed bottom-0 left-0 right-0 bg-red-100 text-red-800 p-4 border-t border-red-200 z-50">
         An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
+        <a href="" class="underline font-semibold">Reload</a>
+        <a class="absolute right-4 top-4 cursor-pointer">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 
-    <script src="_content/MudBlazor/MudBlazor.min.js"></script>
-
-    <script src="assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="assets/vendor/libs/popper/popper.js"></script>
-    <script src="assets/vendor/js/bootstrap.js"></script>
-    <script src="assets/vendor/libs/node-waves/node-waves.js"></script>
-    <script src="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-    <script src="assets/vendor/libs/hammer/hammer.js"></script>
-    <script src="assets/vendor/libs/i18n/i18n.js"></script>
-    <script src="assets/vendor/libs/typeahead-js/typeahead.js"></script>
-   <!--  <script src="assets/vendor/js/menu.js"></script> -->
-    <!-- endbuild -->
-    <!-- Vendors JS -->
-    <script src="assets/vendor/libs/apex-charts/apexcharts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js" integrity="sha512-GWzVrcGlo0TxTRvz9ttioyYJ+Wwk9Ck0G81D+eO63BaqHaJ3YZX9wuqjwgfcV/MrB2PhaVX9DkYVhbFpStnqpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <!-- Main JS -->
-    <!-- <script src="assets/js/main.js"></script> -->
-    <!-- Page JS -->
-    <!-- <script src="assets/js/dashboards-analytics.js"></script> -->
-    <!-- Page JS -->
     <script src="plugins/notiflix-3-2-7/notiflix-3.2.7.min.js"></script>
-
     <script src="custom.js"></script>
+
     <script>
-        window.loadJs = function (sourceUrl) {
-            $('[data-name="plugin-script"]').remove();
+        //window.loadJs = function (sourceUrl) {
+        //    $('[data-name="plugin-script"]').remove();
 
-            if (sourceUrl.Length == 0) {
-                console.error("Invalid source URL");
-                return;
-            }
+        //    if (sourceUrl.Length == 0) {
+        //        console.error("Invalid source URL");
+        //        return;
+        //    }
 
-            var tag = document.createElement('script');
-            tag.src = sourceUrl;
-            tag.type = "text/javascript";
-            tag.setAttribute("data-name", "plugin-script");
+        //    var tag = document.createElement('script');
+        //    tag.src = sourceUrl;
+        //    tag.type = "text/javascript";
+        //    tag.setAttribute("data-name", "plugin-script");
 
-            tag.onload = function () {
-                console.log("Script loaded successfully");
-            }
+        //    tag.onload = function () {
+        //        console.log("Script loaded successfully");
+        //    }
+        //window.loadJs = function (sourceUrl) {
+        //    $('[data-name="plugin-script"]').remove();
 
-            tag.onerror = function () {
-                console.error("Failed to load script");
-            }
+        //    if (sourceUrl.Length == 0) {
+        //        console.error("Invalid source URL");
+        //        return;
+        //    }
 
-            document.body.appendChild(tag);
-        }
+        //    var tag = document.createElement('script');
+        //    tag.src = sourceUrl;
+        //    tag.type = "text/javascript";
+        //    tag.setAttribute("data-name", "plugin-script");
+
+        //    tag.onload = function () {
+        //        console.log("Script loaded successfully");
+        //    }
+
+        //    tag.onerror = function () {
+        //        console.error("Failed to load script");
+        //    }
+
+        //    document.body.appendChild(tag);
+        //}
+        //    tag.onerror = function () {
+        //        console.error("Failed to load script");
+        //    }
+
+        //    document.body.appendChild(tag);
+        //}
     </script>
 </body>
 

@@ -27,47 +27,16 @@ window.successMessage = function (message) {
     Notiflix.Notify.success(message);
 }
 
-// function confirmMessage(message) {
-//     return new Promise((resolve, reject) => {
-//         Swal.fire({
-//             title: "Confirm",
-//             text: message,
-//             icon: "warning",
-//             showCancelButton: true,
-//         }).then((result) => {
-//             // return result.isConfirmed;
-//             resolve(result.isConfirmed)
-//         });
-//     });
-// }
-window.isConfirmed = function (stateCode, dotNetReference) {
-    Notiflix.Confirm.show(
-        'Do you want to delete?',
-        'Are you sure?',
-        'Yes',
-        'No',
-        async function okCb() {
-            // await dotNetReference.invokeMethodAsync('Delete', stateCode);
-        },
-        function cancelCb() {
-            return;
-        },
-        {},
-    );
+window.confirmMessage = function (message) {
+    return new Promise((resolve) => {
+        Notiflix.Confirm.show(
+            'Confirmation',
+            message,
+            'Yes',
+            'No',
+            () => resolve(true),
+            () => resolve(false),
+            {}
+        );
+    });
 }
-
-// window.isConfirmed = function (stateCode,dotNetReference) {
-//     Notiflix.Confirm.show(
-//         'Do you want to delete?',
-//         'Are you sure?',
-//         'Yes',
-//         'No',
-//         function okCb() {
-//             await dotNetReference.invokeMethodAsync('DeleteState', stateCode);
-//         },
-//         function cancelCb() {
-//             return;
-//         },
-//         {},
-//     );
-// }
