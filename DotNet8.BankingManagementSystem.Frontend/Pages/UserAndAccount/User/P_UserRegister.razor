@@ -1,58 +1,131 @@
-﻿@page "/user-and-account/user/register"
-<EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+@page "/user-and-account/user/register"
 
-    <MudGrid Class="justify-content-center">
-        <MudItem xs="12" sm="7">
-            <MudText Typo="Typo.h6" Class="mud-width-full">Registration Form</MudText>
-            <MudCard>
-                <MudCardContent>
-                    <MudTextField Label="Full Name"
-                                  @bind-Value="_model.FullName" For="@(() => _model.FullName)"/>
+<div class="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <!-- Header Section -->
+    <div class="text-center space-y-2">
+        <div class="inline-flex items-center justify-center p-3 bg-primary-50 text-primary-600 rounded-2xl shadow-sm mb-2">
+            <i class="fa-solid fa-user-plus text-2xl"></i>
+        </div>
+        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Register New Customer</h1>
+        <p class="text-slate-500 max-w-sm mx-auto">Onboard a new customer by providing their personal and contact details.</p>
+    </div>
 
-                    <MudTextField Label="User Name" Class="mt-3"
-                                  @bind-Value="_model.UserName" For="@(() => _model.UserName)"/>
+    <!-- Form Card -->
+    <div class="card-lg">
+        <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+            <div class="card-body space-y-8">
+                <!-- Grid Layout for Form -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <!-- Column 1: Personal Info -->
+                    <div class="space-y-6">
+                        <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-id-card text-xs"></i>
+                            Personal Information
+                        </h3>
+                        
+                        <div class="group">
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Full Name</label>
+                            <InputText @bind-Value="_model.FullName" 
+                                       class="search-input" 
+                                       placeholder="e.g. John Doe" />
+                            <ValidationMessage For="@(() => _model.FullName)" class="text-xs text-rose-500 mt-1" />
+                        </div>
 
-                    <MudTextField Label="Email" Class="mt-3"
-                                  @bind-Value="_model.Email" For="@(() => _model.Email)" InputType="InputType.Email"/>
+                        <div class="group">
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">User Name</label>
+                            <InputText @bind-Value="_model.UserName" 
+                                       class="search-input" 
+                                       placeholder="e.g. johndoe_99" />
+                            <ValidationMessage For="@(() => _model.UserName)" class="text-xs text-rose-500 mt-1" />
+                        </div>
 
-                    @* <MudTextField Label="Password" Class="mt-3" *@
-                    @*               @bind-Value="_model.Password" For="@(() => _model.Password)" InputType="InputType.Password" /> *@
+                        <div class="group">
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">NRC Number</label>
+                            <InputText @bind-Value="_model.Nrc" 
+                                       class="search-input" 
+                                       placeholder="e.g. 12/YAKANA(N)123456" />
+                            <ValidationMessage For="@(() => _model.Nrc)" class="text-xs text-rose-500 mt-1" />
+                        </div>
+                    </div>
 
-                    <MudTextField Label="Mobile No" Class="mt-3"
-                                  @bind-Value="_model.MobileNo" For="@(() => _model.MobileNo)"/>
+                    <!-- Column 2: Contact & Location -->
+                    <div class="space-y-6">
+                        <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                            <i class="fa-solid fa-address-book text-xs"></i>
+                            Contact & Location
+                        </h3>
 
-                    <MudTextField Label="Address" Class="mt-3"
-                                  @bind-Value="_model.Address" For="@(() => _model.Address)"/>
+                        <div class="group">
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Email Address</label>
+                            <InputText @bind-Value="_model.Email" 
+                                       type="email"
+                                       class="search-input" 
+                                       placeholder="john@example.com" />
+                            <ValidationMessage For="@(() => _model.Email)" class="text-xs text-rose-500 mt-1" />
+                        </div>
 
-                    <MudTextField Label="NRC No" Class="mt-3"
-                                  @bind-Value="_model.Nrc" For="@(() => _model.Nrc)"/>
+                        <div class="group">
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Mobile Number</label>
+                            <InputText @bind-Value="_model.MobileNo" 
+                                       class="search-input" 
+                                       placeholder="09xxxxxxxxx" />
+                            <ValidationMessage For="@(() => _model.MobileNo)" class="text-xs text-rose-500 mt-1" />
+                        </div>
 
-                    <MudSelect T="string" ValueChanged="(stateCode) => ChangeState(stateCode)" Class="pt-3" Label="State" AnchorOrigin="Origin.BottomCenter" Clearable>
-                        @if (_stateListResponseModel is not null && _stateListResponseModel.Data is not null)
-                        {
-                            @foreach (var item in _stateListResponseModel.Data)
-                            {
-                                <MudSelectItem Value="@item.StateCode">@item.StateName</MudSelectItem>
-                            }
-                        }
-                    </MudSelect>
-                    <MudSelect T="string" @bind-Value="@_model.TownshipCode" Class="pt-3" Label="Township" AnchorOrigin="Origin.BottomCenter" Clearable>
-                        @if (_townshipListResponceModel is not null && _townshipListResponceModel.Data is not null)
-                        {
-                            @foreach (var item in _townshipListResponceModel.Data)
-                            {
-                                <MudSelectItem Value="@item.TownshipCode">@item.TownshipName</MudSelectItem>
-                            }
-                        }
-                    </MudSelect>
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton ButtonType="ButtonType.Button" @onclick="@(() => InjectService.EnableLoading())" Variant="Variant.Filled" Href="/user-and-account/user" Color="Color.Warning">
-                        Cancel
-                    </MudButton>
-                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-2">Register</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
-</EditForm>
+                        <div class="group">
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Home Address</label>
+                            <InputText @bind-Value="_model.Address" 
+                                       class="search-input" 
+                                       placeholder="Street, Building, Room..." />
+                            <ValidationMessage For="@(() => _model.Address)" class="text-xs text-rose-500 mt-1" />
+                        </div>
+                    </div>
+
+                    <!-- Full Width: Geographic Info -->
+                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+                        <div class="group">
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">State / Division</label>
+                            <select class="search-input" @onchange="(e) => ChangeState(e.Value?.ToString() ?? string.Empty)">
+                                <option value="">Select State</option>
+                                @if (_stateListResponseModel is not null && _stateListResponseModel.Data is not null)
+                                {
+                                    @foreach (var item in _stateListResponseModel.Data)
+                                    {
+                                        <option value="@item.StateCode">@item.StateName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="group">
+                            <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Township</label>
+                            <InputSelect @bind-Value="@_model.TownshipCode" class="search-input">
+                                <option value="">Select Township</option>
+                                @if (_townshipListResponceModel is not null && _townshipListResponceModel.Data is not null)
+                                {
+                                    @foreach (var item in _townshipListResponceModel.Data)
+                                    {
+                                        <option value="@item.TownshipCode">@item.TownshipName</option>
+                                    }
+                                }
+                            </InputSelect>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Bar -->
+            <div class="card-footer flex flex-col sm:flex-row gap-3 px-8 py-6 bg-slate-50">
+                <button type="button" 
+                        @onclick="@(() => InjectService.EnableLoading())"
+                        class="btn btn-secondary flex-1 px-6 py-3 font-bold">
+                    Cancel
+                </button>
+                <button type="submit" 
+                        class="btn btn-primary flex-[2] px-6 py-3 font-bold shadow-lg shadow-primary-200 group">
+                    Complete Registration
+                    <i class="fa-solid fa-user-check ml-2 text-primary-300 group-hover:scale-110 transition-transform"></i>
+                </button>
+            </div>
+        </EditForm>
+    </div>
+</div>

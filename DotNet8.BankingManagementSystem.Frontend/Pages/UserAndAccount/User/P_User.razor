@@ -1,86 +1,126 @@
-﻿@page "/user-and-account/user"
+@page "/user-and-account/user"
 @{
     int count = 0;
 }
+
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">Users</span>
-        </h4>
-        <div class="card">
-            <div class="card-datatable table-responsive">
-                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                    <div class="card-header d-flex rounded-0 flex-wrap py-md-0 ">
-                        <div class="me-5 pe-5 p-3 d-flex gap-10">
+    <div class="page animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">User Management</h1>
+                <p class="page-subtitle">Manage application users, their credentials, and contact information.</p>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <NavLink href="/user-and-account/user/register" 
+                         @onclick="@(() => InjectService.IntervalLoading())"
+                         class="btn btn-primary group">
+                    <i class="fa-solid fa-user-plus mr-2 text-primary-200 group-hover:text-white transition-colors"></i>
+                    New User
+                </NavLink>
+                <GenerateButton OnClick="Generate" />
+            </div>
+        </div>
 
-                            <div class="dt-buttons">
-                                <NavLink Class="dt-button add-new btn btn-primary" @onclick="@(() => InjectService.IntervalLoading())" href="/user-and-account/user/register">
-                                    <span>
-                                        <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                        <span class="d-none d-sm-inline-block">New User</span>
-                                    </span>
-                                </NavLink>
-                                <GenerateButton OnClick="Generate" />
-                            </div>
-                            <div id="DataTables_Table_0_filter" class="dataTables_filter ">
-                                <label>
-                                    <input type="search" class="form-control ms-0" placeholder="Search Order" aria-controls="DataTables_Table_0">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">User Code</th>
-                            <th scope="col">User Name</th>
-                            <th scope="col">Customer Id</th>
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Mobile No</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Address</th>
-                            <th scope="col">State Code</th>
-                            <th scope="col">Township Code</th>
-                            <th scope="col">Actions</th>
+        <!-- Search & Statistics Card -->
+        <div class="card card-body-sm">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="relative w-full md:w-96 group">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary-500 transition-colors"></i>
+                    </span>
+                    <input type="search" 
+                           class="search-input" 
+                           placeholder="Search users by name, email, or code..."/>
+                </div>
+                
+                <div class="flex items-center gap-4 text-sm text-slate-500">
+                    <span class="flex items-center gap-1.5 px-3 py-1 bg-slate-50 rounded-lg font-medium text-slate-700">
+                        <i class="fa-solid fa-user text-slate-400"></i>
+                         @_model.Data.Count Users Total
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table Card -->
+        <div class="table-card">
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr class="table-head-row">
+                            <th class="table-th w-16">#</th>
+                            <th class="table-th">UserInfo</th>
+                            <th class="table-th">Customer ID</th>
+                            <th class="table-th">Contact</th>
+                            <th class="table-th">Location</th>
+                            <th class="table-th text-right">Actions</th>
                         </tr>
-                        </thead>
-                        <tbody>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
                         @foreach (var item in _model.Data)
                         {
-                            <tr>
-                                <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
-                                <td>@item.UserCode</td>
-                                <td>@item.UserName</td>
-                                <td>@item.CustomerId</td>
-                                <td>@item.FullName</td>
-                                <td>@item.MobileNo</td>
-                                <td>@item.Email</td>
-                                <td>@item.Address</td>
-                                <td>@item.StateCode</td>
-                                <td>@item.TownshipCode</td>
-                                    <td>
-                                        <a class="btn btn-warning" href=@($"/user-and-account/user/edit/{item.UserCode}")>
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btnDelete" @onclick="() => Delete(item.UserCode)">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                            <tr class="table-row group">
+                                <td class="table-td text-sm text-slate-500">
+                                    @(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))
+                                </td>
+                                <td class="table-td">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold text-xs ring-2 ring-white">
+                                            @(string.IsNullOrWhiteSpace(item.UserName)
+                                                ? "?"
+                                                : item.UserName.Substring(0, Math.Min(2, item.UserName.Length)).ToUpperInvariant())
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-bold text-slate-900 leading-tight">@item.UserName</p>
+                                            <p class="text-[11px] text-slate-500 font-medium font-mono">@item.UserCode</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="table-td">
+                                    <span class="text-sm font-semibold text-slate-700 font-mono">@item.CustomerId</span>
+                                </td>
+                                <td class="table-td">
+                                    <p class="text-xs font-semibold text-slate-900">@item.FullName</p>
+                                    <p class="text-[11px] text-slate-500">@item.Email</p>
+                                    <p class="text-[10px] text-slate-400">@item.MobileNo</p>
+                                </td>
+                                <td class="table-td">
+                                    <p class="text-xs text-slate-600 line-clamp-1">@item.Address</p>
+                                    <p class="text-[10px] text-slate-400">@item.TownshipCode, @item.StateCode</p>
+                                </td>
+                                <td class="table-td text-right">
+                                    <div class="action-cell">
+                                        <a href=@($"/user-and-account/user/edit/{item.UserCode}") 
+                                           class="action-btn action-btn-edit"
+                                           title="Edit User">
+                                            <i class="fa-solid fa-user-pen"></i>
+                                        </a>
+                                        <button type="button" 
+                                                class="action-btn action-btn-delete btnDelete" 
+                                                @onclick="() => Delete(item.UserCode)"
+                                                title="Delete User">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         }
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
-            <div class="row mx-1 d-flex justify-content-end pb-3">
-                <div class="col-sm-12 col-md-8 d-flex justify-content-end">
-                    <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
+
+            <!-- Pagination Container -->
+            <div class="card-footer flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-sm text-slate-500">
+                    Showing page <b>@_model.PageSetting.PageNo</b> of <b>@_model.PageSetting.PageCount</b>
                 </div>
+                <TPagination PageNo="@(_model.PageSetting.PageNo)" 
+                               PageCount="@(_model.PageSetting.PageCount)" 
+                               SelectedChanged="PageChanged" />
             </div>
         </div>
     </div>
 }
-
-
