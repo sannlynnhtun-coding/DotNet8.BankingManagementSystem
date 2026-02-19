@@ -1,9 +1,10 @@
-﻿<button type="button" Class="dt-button add-new btn btn-primary" @onclick="OnClick">
-    <span>
-        <i class="mdi mdi-play me-0 me-sm-1"></i>
-        <span class="d-none d-sm-inline-block">@Name</span>
-    </span>
+<button type="button" 
+        class="btn btn-primary font-bold shadow-md shadow-primary-200 group" 
+        @onclick="OnClick">
+    <i class="fa-solid fa-wand-magic-sparkles mr-2 text-primary-300 group-hover:rotate-12 transition-transform"></i>
+    <span>@Name</span>
 </button>
+
 
 @code{
     [Parameter]

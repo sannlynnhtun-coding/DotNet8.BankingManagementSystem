@@ -1,0 +1,53 @@
+<div class="flex items-center justify-center gap-2 mt-6">
+    <button @onclick="GoToFirst" 
+            disabled="@(PageNo <= 1)"
+            class="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-primary-600 disabled:opacity-30 disabled:pointer-events-none transition-all">
+        <i class="fa-solid fa-angles-left text-xs"></i>
+    </button>
+    
+    <button @onclick="GoToPrevious" 
+            disabled="@(PageNo <= 1)"
+            class="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-primary-600 disabled:opacity-30 disabled:pointer-events-none transition-all">
+        <i class="fa-solid fa-chevron-left text-xs"></i>
+    </button>
+
+    <div class="flex items-center gap-1">
+        @for (int i = StartPage; i <= EndPage; i++)
+        {
+            var pageIndex = i;
+            <button @onclick="() => SelectPage(pageIndex)"
+                    class="h-10 min-w-[2.5rem] px-2 flex items-center justify-center rounded-xl font-bold text-sm transition-all @(PageNo == i ? "bg-primary-600 text-white shadow-lg shadow-primary-200" : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-primary-600")">
+                @i
+            </button>
+        }
+    </div>
+
+    <button @onclick="GoToNext" 
+            disabled="@(PageNo >= PageCount)"
+            class="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-primary-600 disabled:opacity-30 disabled:pointer-events-none transition-all">
+        <i class="fa-solid fa-chevron-right text-xs"></i>
+    </button>
+    
+    <button @onclick="GoToLast" 
+            disabled="@(PageNo >= PageCount)"
+            class="h-10 w-10 flex items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-500 hover:bg-slate-50 hover:text-primary-600 disabled:opacity-30 disabled:pointer-events-none transition-all">
+        <i class="fa-solid fa-angles-right text-xs"></i>
+    </button>
+</div>
+
+@code {
+    [Parameter] public int PageNo { get; set; }
+    [Parameter] public int PageCount { get; set; }
+    [Parameter] public EventCallback<int> SelectedChanged { get; set; }
+
+    private int VisiblePages = 5;
+
+    private int StartPage => Math.Max(1, PageNo - (VisiblePages / 2));
+    private int EndPage => Math.Min(PageCount, StartPage + VisiblePages - 1);
+
+    private async Task SelectPage(int page) => await SelectedChanged.InvokeAsync(page);
+    private async Task GoToFirst() => await SelectPage(1);
+    private async Task GoToLast() => await SelectPage(PageCount);
+    private async Task GoToPrevious() => await SelectPage(Math.Max(1, PageNo - 1));
+    private async Task GoToNext() => await SelectPage(Math.Min(PageCount, PageNo + 1));
+}
