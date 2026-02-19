@@ -1,4 +1,4 @@
-﻿@page "/report/transaction-history-date-range"
+@page "/report/transaction-history-date-range"
 
 @{
     int count = 0;
@@ -6,38 +6,63 @@
 
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="page animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">Transaction History</h1>
+                <p class="page-subtitle">Review all financial movements across accounts within a selected period.</p>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <span class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 rounded-lg text-xs font-bold text-slate-600">
+                    <i class="fa-solid fa-file-invoice text-slate-400"></i>
+                    Report
+                </span>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
         <div class="card">
-            <div class="card-datatable table-responsive">
-                <div class="row pt-3 px-3 mb-4">
-                    <div class="col-md-4">
-                        <MudDatePicker Label="From Date" Mask="@(new DateMask("dd-MM-yyyy"))" DateFormat="dd-MM-yyyy" @bind-Date="fromDate" />
-                        <MudDatePicker Label="To Date" Mask="@(new DateMask("dd-MM-yyyy"))" DateFormat="dd-MM-yyyy" @bind-Date="toDate" />
+            <div class="card-body">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Start Date</label>
+                        <input type="date" @onchange="@(e => fromDate = DateTime.Parse(e.Value.ToString()))" 
+                               value="@fromDate?.ToString("yyyy-MM-dd")"
+                               class="search-input" />
                     </div>
-                    <div class="col-md-8">
+                    <div class="space-y-1.5">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">End Date</label>
+                        <input type="date" @onchange="@(e => toDate = DateTime.Parse(e.Value.ToString()))" 
+                               value="@toDate?.ToString("yyyy-MM-dd")"
+                               class="search-input" />
                     </div>
-                </div>
-                <div class="row px-3 mb-4">
-                    <div class="col-md-2">
-                        <button class="dt-button add-new btn btn-primary" @onclick="Search">
-                            <span>
-                                <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                <span class="d-none d-sm-inline-block">Search</span>
-                            </span>
+                    <div class="lg:col-span-2 flex items-end">
+                        <button class="inline-flex items-center justify-center px-6 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-bold rounded-xl shadow-lg shadow-primary-200 transition-all duration-200 active:scale-95 group w-full md:w-auto" 
+                                @onclick="Search">
+                            <i class="fa-solid fa-magnifying-glass mr-2 text-primary-300 group-hover:text-white transition-colors"></i>
+                            Search History
                         </button>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Table Card -->
+        <div class="table-card">
+            <div class="overflow-x-auto">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">From Account No</th>
-                            <th scope="col">To Account No</th>
-                            <th scope="col">Transaction Date</th>
-                            <th scope="col">Amount</th>
+                        <tr class="table-head-row">
+                            <th class="table-th w-16 text-center">#</th>
+                            <th class="table-th">From Account</th>
+                            <th class="table-th">To Account</th>
+                            <th class="table-th">Date & Time</th>
+                            <th class="table-th text-right">Amount (MMK)</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="divide-y divide-slate-100">
                         @foreach (var item in _model.Data)
                         {
                             count++;
@@ -46,25 +71,59 @@
                             {
                                 rowNo += ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize);
                             }
-                            <tr>
-                                <td>@(rowNo)</td>
-                                <td>@item.FromAccountNo</td>
-                                <td>@item.ToAccountNo</td>
-                                <td>@item.TransactionDate.ToString("dd-MMM-yyyy hh:mm tt")</td>
-                                <td class="text-right">@item.Amount.ToString("n0")</td>
+                            <tr class="table-row group">
+                                <td class="table-td text-sm text-slate-400 font-mono text-center">@rowNo</td>
+                                <td class="table-td">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 rounded-full bg-rose-400"></div>
+                                        <span class="text-sm font-bold text-slate-900 font-mono">@item.FromAccountNo</span>
+                                    </div>
+                                </td>
+                                <td class="table-td">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-2 h-2 rounded-full bg-emerald-400"></div>
+                                        <span class="text-sm font-bold text-slate-900 font-mono">@item.ToAccountNo</span>
+                                    </div>
+                                </td>
+                                <td class="table-td">
+                                    <div class="flex flex-col">
+                                        <span class="text-sm font-medium text-slate-700">@item.TransactionDate.ToString("dd-MMM-yyyy")</span>
+                                        <span class="text-[10px] text-slate-400 uppercase tracking-tight">@item.TransactionDate.ToString("hh:mm tt")</span>
+                                    </div>
+                                </td>
+                                <td class="table-td text-right">
+                                    <span class="text-sm font-extrabold text-slate-900 tabular-nums">@item.Amount.ToString("n0")</span>
+                                </td>
                             </tr>
                         }
                     </tbody>
                 </table>
-                @if (_model.PageSetting is not null)
-                {
-                    <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
-                        <div class="col-sm-12 col-md-12 float-right">
-                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
-                        </div>
-                    </div>
-                }
             </div>
+
+            <!-- Empty State -->
+            @if (!_model.Data.Any())
+            {
+                <div class="p-12 text-center">
+                    <div class="inline-flex items-center justify-center p-4 bg-slate-50 text-slate-300 rounded-full mb-4">
+                        <i class="fa-solid fa-receipt text-3xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900">No transactions found</h3>
+                    <p class="text-sm text-slate-500">Try adjusting your date range or filters.</p>
+                </div>
+            }
+
+            <!-- Pagination -->
+            @if (_model.PageSetting is not null)
+            {
+                <div class="card-footer flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="text-sm text-slate-500">
+                        Showing page <b>@_model.PageSetting.PageNo</b> of <b>@_model.PageSetting.PageCount</b>
+                    </div>
+                    <TPagination PageNo="@(_model.PageSetting.PageNo)" 
+                                   PageCount="@(_model.PageSetting.PageCount)" 
+                                   SelectedChanged="PageChanged" />
+                </div>
+            }
         </div>
     </div>
 }
