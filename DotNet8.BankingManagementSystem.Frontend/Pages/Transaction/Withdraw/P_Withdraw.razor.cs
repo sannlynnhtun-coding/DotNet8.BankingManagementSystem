@@ -20,13 +20,20 @@ public partial class P_Withdraw : ComponentBase
     {
         try
         {
+            await InjectService.EnableLoading();
             var response = await ApiService.Withdraw(_model);
-            await InjectService.Go("/user-and-account/account");
+            if (response.Response.IsError) return;
+
             await InjectService.SuccessMessage("Withdraw Successful.");
+            await InjectService.Go("/user-and-account/account");
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            await InjectService.DisableLoading();
         }
     }
 }
