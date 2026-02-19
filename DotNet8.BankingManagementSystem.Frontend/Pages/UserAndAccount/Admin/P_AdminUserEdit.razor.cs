@@ -31,16 +31,29 @@ public partial class P_AdminUserEdit : ComponentBase
 
     private async Task OnValidSubmit()
     {
-        var reqModel = new AdminUserRequestModel
+        try
         {
-            AdminUserCode = _model.AdminUserCode,
-            AdminUserName = _model.AdminUserName,
-            MobileNo = _model.MobileNo,
-            UserRoleCode = _model.UserRoleCode,
-        };
-        var response = await ApiService.UpdateAdminUser(reqModel);
-        await InjectService.SuccessMessage("Updating Successful.");
-        Nav.NavigateTo("/general-setup/adminUser");
-        StateHasChanged();
+            await InjectService.EnableLoading();
+            var reqModel = new AdminUserRequestModel
+            {
+                AdminUserCode = _model.AdminUserCode,
+                AdminUserName = _model.AdminUserName,
+                MobileNo = _model.MobileNo,
+                UserRoleCode = _model.UserRoleCode,
+            };
+            var response = await ApiService.UpdateAdminUser(reqModel);
+            if (response.Response.IsError) return;
+
+            await InjectService.SuccessMessage("Updating Successful.");
+            await InjectService.Go("/user-and-account/admin-user");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            await InjectService.DisableLoading();
+        }
     }
 }

@@ -8,16 +8,20 @@ public partial class P_AdminUserCreate : ComponentBase
     {
         try
         {
+            await InjectService.EnableLoading();
             var response = await ApiService.CreateAdminUser(_model);
-            StateHasChanged();
+            if (response.Response.IsError) return;
+
+            await InjectService.SuccessMessage("Create AdminUser Success");
+            await InjectService.Go("/user-and-account/admin-user");
         }
         catch (Exception ex)
         {
-            //Error
-            return;
+            Console.WriteLine(ex.ToString());
         }
-
-        await InjectService.SuccessMessage("Create AdminUser Success");
-        NavigationManager.NavigateTo("/general-setup/adminuser");
+        finally
+        {
+            await InjectService.DisableLoading();
+        }
     }
 }
