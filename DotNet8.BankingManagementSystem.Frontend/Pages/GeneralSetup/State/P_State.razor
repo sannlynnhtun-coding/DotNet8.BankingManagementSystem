@@ -1,70 +1,99 @@
-﻿@page "/general-setup/state"
+@page "/general-setup/state"
 @{
     int count = 0;
 }
+
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="py-3 mb-4">
-            <span class="text-muted fw-light">State List</span>
-        </h4>
-        <div class="card">
-            <div class="card-datatable table-responsive">
-                <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
-                    <div class="card-header d-flex rounded-0 flex-wrap py-md-0 ">
-                        <div class="me-5 pe-5 p-3 d-flex gap-10">
+    <div class="page animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div>
+                <h1 class="page-title">States</h1>
+                <p class="page-subtitle">Manage administrative zones and state codes.</p>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <NavLink href="general-setup/state/create" 
+                         @onclick="() => InjectService.IntervalLoading()"
+                         class="btn btn-primary group">
+                    <i class="fa-solid fa-plus mr-2 text-primary-200 group-hover:text-white transition-colors"></i>
+                    New State
+                </NavLink>
+                <GenerateButton OnClick="Generate" />
+            </div>
+        </div>
 
-                            <div class="dt-buttons">
-                                <NavLink Class="dt-button add-new btn btn-primary" @onclick="() => InjectService.IntervalLoading()" href="general-setup/state/create">
-                                    <span>
-                                        <i class="mdi mdi-plus me-0 me-sm-1"></i>
-                                        <span class="d-none d-sm-inline-block">New State</span>
-                                    </span>
-                                </NavLink>
-                                <GenerateButton OnClick="Generate" />
-                            </div>
-                            <div id="DataTables_Table_0_filter" class="dataTables_filter ">
-                                <label>
-                                    <input type="search" class="form-control ms-0" placeholder="Search State" aria-controls="DataTables_Table_0">
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">State Code</th>
-                                <th scope="col">State Name</th>
-                                <th scope="col">Actions</th>
+        <!-- Filters/Search Card -->
+        <div class="card card-body-sm">
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="relative w-full md:w-96 group">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary-500 transition-colors"></i>
+                    </span>
+                    <input type="search" 
+                           class="search-input" 
+                           placeholder="Search states..."/>
+                </div>
+                
+                <div class="flex items-center gap-2 text-sm text-slate-500">
+                    <span>Showing <b>@_model.Data.Count</b> results</span>
+                </div>
+            </div>
+        </div>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in _model.Data)
-                            {
-                                <tr>
-                                    <td>@(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))</td>
-                                    <td>@item.StateCode</td>
-                                    <td>@item.StateName</td>
-                                    <td>
-                                        <a class="btn btn-warning" href=@($"/general-setup/state/edit/{item.StateCode}")>
+        <!-- Data Table Card -->
+        <div class="table-card">
+            <div class="overflow-x-auto">
+                <table class="table">
+                    <thead>
+                        <tr class="table-head-row">
+                            <th class="table-th w-16">#</th>
+                            <th class="table-th">State Code</th>
+                            <th class="table-th">State Name</th>
+                            <th class="table-th text-right">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        @foreach (var item in _model.Data)
+                        {
+                            <tr class="table-row group">
+                                <td class="table-td text-sm text-slate-500">
+                                    @(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))
+                                </td>
+                                <td class="table-td">
+                                    <span class="badge">@item.StateCode</span>
+                                </td>
+                                <td class="table-td text-sm font-medium text-slate-900">@item.StateName</td>
+                                <td class="table-td text-right">
+                                    <div class="action-cell">
+                                        <a href=@($"/general-setup/state/edit/{item.StateCode}") 
+                                           class="action-btn action-btn-edit"
+                                           title="Edit">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
-                                        <a class="btn btn-danger text-white" @onclick="() => IsConfirmed(item.StateCode)">
+                                        <button type="button" 
+                                                class="action-btn action-btn-delete"
+                                                @onclick="() => IsConfirmed(item.StateCode)"
+                                                title="Delete">
                                             <i class="fa-solid fa-trash"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <div class="row mx-1 d-flex justify-content-end pt-3 pb-3">
-                        <div class="col-sm-12 col-md-8 d-flex justify-content-end">
-                            <MudPagination SelectedChanged="PageChanged" ShowFirstButton="true" ShowLastButton="true" Count="@_model.PageSetting.PageCount" Class="mt-4" />
-                        </div>
-                    </div>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="card-footer flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-sm text-slate-500">
+                    Page <b>@_model.PageSetting.PageNo</b> of <b>@_model.PageSetting.PageCount</b>
                 </div>
+                <TPagination PageNo="@(_model.PageSetting.PageNo)" 
+                               PageCount="@(_model.PageSetting.PageCount)" 
+                               SelectedChanged="PageChanged" />
             </div>
         </div>
     </div>
