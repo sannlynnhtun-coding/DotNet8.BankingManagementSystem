@@ -2,7 +2,7 @@
 
 public partial class P_TownshipEdit
 {
-    [Parameter] public string townShipCode { get; set; }
+    [Parameter] public string TownshipCode { get; set; } = null!;
 
     private TownshipModel _model = new TownshipModel();
 
@@ -10,7 +10,7 @@ public partial class P_TownshipEdit
     {
         if (firstRender)
         {
-            await GetTownShipByCode(townShipCode);
+            await GetTownShipByCode(TownshipCode);
             StateHasChanged();
         }
     }
@@ -18,7 +18,7 @@ public partial class P_TownshipEdit
     private async Task GetTownShipByCode(string townshipCode)
     {
         await InjectService.EnableLoading();
-        var result = await ApiService.GetTownShipByCode(townShipCode);
+        var result = await ApiService.GetTownShipByCode(TownshipCode);
         if (result.Response.IsError)
         {
             return;
@@ -37,7 +37,7 @@ public partial class P_TownshipEdit
             TownshipName = _model.TownshipName,
             StateCode = _model.StateCode,
         };
-        var response = await ApiService.UpdateTownship(townShipCode, reqModel);
+        var response = await ApiService.UpdateTownship(TownshipCode, reqModel);
         await InjectService.SuccessMessage("Updating Successful.");
         Nav.NavigateTo("/general-setup/township");
         StateHasChanged();
