@@ -19,13 +19,20 @@ public partial class P_UserRegister : ComponentBase
     {
         try
         {
+            await InjectService.EnableLoading();
             var response = await ApiService.CreateUser(_model);
-            await InjectService.Go("/user-and-account/user");
+            if (response.Response.IsError) return;
+
             await InjectService.SuccessMessage("Registration Successful.");
+            await InjectService.Go("/user-and-account/user");
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            await InjectService.DisableLoading();
         }
     }
 

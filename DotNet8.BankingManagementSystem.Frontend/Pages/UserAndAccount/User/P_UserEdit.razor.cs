@@ -41,22 +41,35 @@ public partial class P_UserEdit : ComponentBase
 
     private async Task OnValidSubmit()
     {
-        var reqModel = new UserRequestModel
+        try
         {
-            UserName = _model.UserName,
-            UserCode = _model.UserCode,
-            FullName = _model.FullName,
-            MobileNo = _model.MobileNo,
-            Email = _model.Email,
-            Nrc = _model.Nrc,
-            Address = _model.Address,
-            StateCode = _model.StateCode,
-            TownshipCode = _model.TownshipCode
-        };
+            await InjectService.EnableLoading();
+            var reqModel = new UserRequestModel
+            {
+                UserName = _model.UserName,
+                UserCode = _model.UserCode,
+                FullName = _model.FullName,
+                MobileNo = _model.MobileNo,
+                Email = _model.Email,
+                Nrc = _model.Nrc,
+                Address = _model.Address,
+                StateCode = _model.StateCode,
+                TownshipCode = _model.TownshipCode
+            };
 
-        var response = await ApiService.UpdateUser(reqModel);
-        await InjectService.Go("/general-setup/user");
-        await InjectService.SuccessMessage("Updating Successful.");
-        StateHasChanged();
+            var response = await ApiService.UpdateUser(reqModel);
+            if (response.Response.IsError) return;
+
+            await InjectService.SuccessMessage("Updating Successful.");
+            await InjectService.Go("/user-and-account/user");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+        finally
+        {
+            await InjectService.DisableLoading();
+        }
     }
 }
