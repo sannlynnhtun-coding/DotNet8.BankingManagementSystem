@@ -1,0 +1,89 @@
+<nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+    <div>
+        <p class="px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Main Menu</p>
+
+        <NavLink href="/" Match="NavLinkMatch.All" class="nav-link group" ActiveClass="nav-link-active" @onclick="HandleNavigate">
+            <i class="fa-solid fa-house w-5 h-5 flex items-center mr-3 text-slate-400 group-hover:text-primary-600"></i>
+            Dashboard
+        </NavLink>
+
+        <div class="pt-2">
+            <button @onclick="ToggleSetup" class="w-full nav-link group justify-between">
+                <span class="flex items-center">
+                    <i class="fa-solid fa-gear w-5 h-5 flex items-center mr-3 text-slate-400 group-hover:text-primary-600"></i>
+                    General Setup
+                </span>
+                <i class="fa-solid fa-chevron-right text-[10px] transition-transform duration-200 @(IsSetupOpen ? "rotate-90" : "")"></i>
+            </button>
+            @if (IsSetupOpen)
+            {
+                <div class="mt-1 ml-4 pl-4 border-l border-slate-100 space-y-1">
+                    <NavLink href="/general-setup/state" class="nav-sublink" ActiveClass="nav-sublink-active" @onclick="HandleNavigate">State List</NavLink>
+                    <NavLink href="/general-setup/township" class="nav-sublink" ActiveClass="nav-sublink-active" @onclick="HandleNavigate">Township List</NavLink>
+                </div>
+            }
+        </div>
+
+        <div class="pt-2">
+            <button @onclick="ToggleUsers" class="w-full nav-link group justify-between">
+                <span class="flex items-center">
+                    <i class="fa-solid fa-users w-5 h-5 flex items-center mr-3 text-slate-400 group-hover:text-primary-600"></i>
+                    User & Accounts
+                </span>
+                <i class="fa-solid fa-chevron-right text-[10px] transition-transform duration-200 @(IsUsersOpen ? "rotate-90" : "")"></i>
+            </button>
+            @if (IsUsersOpen)
+            {
+                <div class="mt-1 ml-4 pl-4 border-l border-slate-100 space-y-1">
+                    <NavLink href="/user-and-account/user" class="nav-sublink" ActiveClass="nav-sublink-active" @onclick="HandleNavigate">User List</NavLink>
+                    <NavLink href="/user-and-account/account" class="nav-sublink" ActiveClass="nav-sublink-active" @onclick="HandleNavigate">Account List</NavLink>
+                    <NavLink href="/user-and-account/admin-user" class="nav-sublink" ActiveClass="nav-sublink-active" @onclick="HandleNavigate">Admin Staff</NavLink>
+                </div>
+            }
+        </div>
+
+        <div class="pt-2 border-t border-slate-100 mt-4 pt-4">
+            <p class="px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Finance</p>
+
+            <NavLink href="/transaction/transfer" class="nav-link group" ActiveClass="nav-link-active" @onclick="HandleNavigate">
+                <i class="fa-solid fa-money-bill-transfer w-5 h-5 flex items-center mr-3 text-slate-400 group-hover:text-primary-600"></i>
+                Transfer
+            </NavLink>
+            <NavLink href="/transaction/withdraw" class="nav-link group" ActiveClass="nav-link-active" @onclick="HandleNavigate">
+                <i class="fa-solid fa-hand-holding-dollar w-5 h-5 flex items-center mr-3 text-slate-400 group-hover:text-primary-600"></i>
+                Withdraw
+            </NavLink>
+            <NavLink href="/transaction/deposit" class="nav-link group" ActiveClass="nav-link-active" @onclick="HandleNavigate">
+                <i class="fa-solid fa-wallet w-5 h-5 flex items-center mr-3 text-slate-400 group-hover:text-primary-600"></i>
+                Deposit
+            </NavLink>
+        </div>
+
+        <div class="pt-2 border-t border-slate-100 mt-4 pt-4">
+            <p class="px-2 text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Reports</p>
+
+            <NavLink href="/report/transaction-history-date-range" class="nav-link group" ActiveClass="nav-link-active" @onclick="HandleNavigate">
+                <i class="fa-solid fa-chart-line w-5 h-5 flex items-center mr-3 text-slate-400 group-hover:text-primary-600"></i>
+                Transaction History
+            </NavLink>
+            <NavLink href="/report/transaction-history" class="nav-link group" ActiveClass="nav-link-active" @onclick="HandleNavigate">
+                <i class="fa-solid fa-layer-group w-5 h-5 flex items-center mr-3 text-slate-400 group-hover:text-primary-600"></i>
+                System Transactions
+            </NavLink>
+        </div>
+    </div>
+</nav>
+
+@code {
+    [Parameter] public bool IsSetupOpen { get; set; }
+    [Parameter] public bool IsUsersOpen { get; set; }
+
+    [Parameter] public EventCallback ToggleSetup { get; set; }
+    [Parameter] public EventCallback ToggleUsers { get; set; }
+
+    [Parameter] public EventCallback OnNavigate { get; set; }
+
+    private Task HandleNavigate()
+        => OnNavigate.HasDelegate ? OnNavigate.InvokeAsync() : Task.CompletedTask;
+}
+

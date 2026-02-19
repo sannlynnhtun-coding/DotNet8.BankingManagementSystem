@@ -1,578 +1,147 @@
-﻿@inherits LayoutComponentBase
-<!-- Layout wrapper -->
-<div class="layout-wrapper layout-content-navbar  ">
-    <div class="layout-container">
+@inherits LayoutComponentBase
 
+<div class="min-h-screen flex bg-slate-50">
+    <!-- Desktop Sidebar -->
+    <aside class="hidden lg:flex flex-col w-72 bg-white border-r border-slate-200">
+        <div class="h-16 flex items-center px-6 border-b border-slate-200 bg-white">
+            <div class="flex items-center gap-3">
+                <div class="bg-primary-600 p-2 rounded-lg">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                    </svg>
+                </div>
+                <span class="text-xl font-bold text-slate-900 tracking-tight">IBanking</span>
+            </div>
+        </div>
 
-        <!-- Menu -->
+        <NavMenu IsSetupOpen="isSetupOpen"
+                 IsUsersOpen="isUsersOpen"
+                 ToggleSetup="ToggleSetup"
+                 ToggleUsers="ToggleUsers" />
 
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+        <div class="p-4 border-t border-slate-100">
+            <div class="flex items-center gap-3 px-3 py-2 bg-slate-50 rounded-2xl">
+                <div class="w-10 h-10 rounded-xl bg-primary-600 text-white font-black text-sm flex items-center justify-center border-2 border-white shadow-sm">
+                    @UserInitials
+                </div>
+                <div class="flex-1 overflow-hidden">
+                    <p class="text-sm font-bold text-slate-900 truncate">@UserDisplayName</p>
+                    <p class="text-xs text-slate-500 truncate italic">@UserRoleName</p>
+                </div>
+            </div>
+        </div>
+    </aside>
 
-
-            <div class="app-brand demo ">
-                <a href="index.html" class="app-brand-link">
-                    <span class="app-brand-logo demo me-1">
-                        <span style="color:var(--bs-primary);">
-                            <svg width="30" height="24" viewBox="0 0 250 196" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3002 1.25469L56.655 28.6432C59.0349 30.1128 60.4839 32.711 60.4839 35.5089V160.63C60.4839 163.468 58.9941 166.097 56.5603 167.553L12.2055 194.107C8.3836 196.395 3.43136 195.15 1.14435 191.327C0.395485 190.075 0 188.643 0 187.184V8.12039C0 3.66447 3.61061 0.0522461 8.06452 0.0522461C9.56056 0.0522461 11.0271 0.468577 12.3002 1.25469Z" fill="currentColor" />
-                                <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M0 65.2656L60.4839 99.9629V133.979L0 65.2656Z" fill="black" />
-                                <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M0 65.2656L60.4839 99.0795V119.859L0 65.2656Z" fill="black" />
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M237.71 1.22393L193.355 28.5207C190.97 29.9889 189.516 32.5905 189.516 35.3927V160.631C189.516 163.469 191.006 166.098 193.44 167.555L237.794 194.108C241.616 196.396 246.569 195.151 248.856 191.328C249.605 190.076 250 188.644 250 187.185V8.09597C250 3.64006 246.389 0.027832 241.935 0.027832C240.444 0.027832 238.981 0.441882 237.71 1.22393Z" fill="currentColor" />
-                                <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M250 65.2656L189.516 99.8897V135.006L250 65.2656Z" fill="black" />
-                                <path opacity="0.077704" fill-rule="evenodd" clip-rule="evenodd" d="M250 65.2656L189.516 99.0497V120.886L250 65.2656Z" fill="black" />
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2787 1.18923L125 70.3075V136.87L0 65.2465V8.06814C0 3.61223 3.61061 0 8.06452 0C9.552 0 11.0105 0.411583 12.2787 1.18923Z" fill="currentColor" />
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.2787 1.18923L125 70.3075V136.87L0 65.2465V8.06814C0 3.61223 3.61061 0 8.06452 0C9.552 0 11.0105 0.411583 12.2787 1.18923Z" fill="white" fill-opacity="0.15" />
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M237.721 1.18923L125 70.3075V136.87L250 65.2465V8.06814C250 3.61223 246.389 0 241.935 0C240.448 0 238.99 0.411583 237.721 1.18923Z" fill="currentColor" />
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M237.721 1.18923L125 70.3075V136.87L250 65.2465V8.06814C250 3.61223 246.389 0 241.935 0C240.448 0 238.99 0.411583 237.721 1.18923Z" fill="white" fill-opacity="0.3" />
-                            </svg>
-                        </span>
-                    </span>
-                    <span class="app-brand-text demo menu-text fw-semibold ms-2">IBanking</span>
-                </a>
-
-                <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
-                    <i class="mdi menu-toggle-icon d-xl-block align-middle mdi-20px"></i>
-                </a>
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="h-16 flex items-center justify-between px-8 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30">
+            <div class="flex items-center gap-4 lg:hidden">
+                <button @onclick="ToggleMobileMenu" class="p-2 -ml-2 text-slate-500 hover:text-primary-600 focus:outline-none">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+                <span class="text-lg font-bold text-slate-900">IBanking</span>
             </div>
 
-            <div class="menu-inner-shadow"></div>
-
-            <ul class="menu-inner py-1">
-                <!-- Dashboards -->
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons mdi mdi-home-outline"></i>
-                        <div data-i18n="Dashboards">General Setup</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="/general-setup/state" class="menu-link">
-                                <div data-i18n="Analytics">State list</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="/general-setup/township" class="menu-link">
-                                <div data-i18n="Analytics">Township List</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-regular fa-user fa-1x"></i>
-                        <div data-i18n="Dashboards">User &amp; Accounts</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="/user-and-account/user" class="menu-link">
-                                <div data-i18n="CRM">User List</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a href="/user-and-account/account" class="menu-link">
-                                <div data-i18n="Logistics">Account List</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-solid fa-info fa-1x"></i>
-                        @* <i class="menu-icon tf-icons mdi mdi-home-outline"></i> *@
-                        <div data-i18n="Dashboards">Report</div>
-                    </a>
-                    <ul class="menu-sub">
-                        @* <li class="menu-item">
-                        <a href="/report/transaction-history" class="menu-link">
-                        <div data-i18n="Logistics">Transaction History</div>
-                        </a>
-                        </li>
-                        <li class="menu-item">
-                        <a href="/report/transaction-history-date-range" class="menu-link">
-                        <div data-i18n="Logistics">Transaction DateRange</div>
-                        </a>
-                        </li> *@
-                        <li class="menu-item">
-                            <a href="/report/transaction-history-date-range" class="menu-link">
-                                <div data-i18n="Logistics">Transaction History</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="menu-item">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon fa-regular fa-credit-card fa-1x"></i>
-                        @* <i class="menu-icon tf-icons mdi mdi-home-outline"></i> *@
-                        <div data-i18n="Dashboards">Transaction</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a href="/transaction/transfer" class="menu-link">
-                                <div data-i18n="Logistics">Transfer</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="/transaction/withdraw" class="menu-link">
-                                <div data-i18n="Logistics">Withdraw</div>
-                            </a>
-                        </li>
-                        <li class="menu-item">
-                            <a href="/transaction/deposit" class="menu-link">
-                                <div data-i18n="Logistics">Deposit</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-
-
-        </aside>
-        <!-- / Menu -->
-        <!-- Layout container -->
-        <div class="layout-page">
-
-            <!-- Navbar -->
-
-            <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
-
-
-                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0   d-xl-none ">
-                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                        <i class="mdi mdi-menu mdi-24px"></i>
-                    </a>
-                </div>
-
-
-                <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-
-
-                    <!-- Search -->
-                    <div class="navbar-nav align-items-center">
-                        <div class="nav-item navbar-search-wrapper mb-0">
-                            <a class="nav-item nav-link search-toggler fw-normal px-0" href="javascript:void(0);">
-                                <i class="mdi mdi-magnify mdi-24px scaleX-n1-rtl"></i>
-                                <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
-                            </a>
-                        </div>
+            <!-- Search Area -->
+            <div class="hidden md:flex items-center flex-1 max-w-xl">
+                <div class="relative w-full group">
+                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary-500 transition-colors"></i>
+                    </span>
+                    <input type="text" 
+                           class="block w-full pl-11 pr-4 py-2.5 bg-slate-100 border-transparent rounded-2xl text-sm placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300" 
+                           placeholder="Search your account, transactions..."/>
+                    <div class="absolute inset-y-0 right-0 py-2 pr-2 hidden sm:flex">
+                        <kbd class="inline-flex items-center border border-slate-200 rounded-lg px-1.5 text-xs text-slate-400 font-sans tracking-tight">⌘K</kbd>
                     </div>
-                    <!-- /Search -->
-
-
-                    <ul class="navbar-nav flex-row align-items-center ms-auto">
-
-
-                        <!-- Language -->
-                        <li class="nav-item dropdown-language dropdown me-1 me-xl-0">
-                            <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                <i class='mdi mdi-translate mdi-24px'></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end py-2">
-                                <li>
-                                    <a class="dropdown-item" href="javascript:void(0);" data-language="en">
-                                        <span class="align-middle">English</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:void(0);" data-language="fr">
-                                        <span class="align-middle">French</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:void(0);" data-language="de">
-                                        <span class="align-middle">German</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="javascript:void(0);" data-language="pt">
-                                        <span class="align-middle">Portuguese</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--/ Language -->
-                        <!-- Style Switcher -->
-                        <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
-                            <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                <i class='mdi mdi-24px'></i>
-                            </a>
-                        </li>
-                        <!-- / Style Switcher-->
-                        <!-- Quick links  -->
-                        <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-1 me-xl-0">
-                            <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                <i class='mdi mdi-view-grid-outline mdi-24px'></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end py-0">
-                                <div class="dropdown-menu-header border-bottom">
-                                    <div class="dropdown-header d-flex align-items-center py-3">
-                                        <h6 class="mb-0 me-auto">Shortcuts</h6>
-                                        <a href="javascript:void(0)" class="dropdown-shortcuts-add text-heading" data-bs-toggle="tooltip" data-bs-placement="top" title="Add shortcuts">
-                                            <i class="mdi mdi-plus mdi-24px"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="dropdown-shortcuts-list scrollable-container">
-                                    <div class="row row-bordered overflow-visible g-0">
-                                        <div class="dropdown-shortcuts-item col">
-                                            <span class="dropdown-shortcuts-icon bg-label-secondary text-heading rounded-circle mb-3">
-                                                <i class="mdi mdi-calendar-blank mdi-24px"></i>
-                                            </span>
-                                            <a href="app-calendar.html" class="stretched-link">Calendar</a>
-                                            <small>Appointments</small>
-                                        </div>
-                                        <div class="dropdown-shortcuts-item col">
-                                            <span class="dropdown-shortcuts-icon bg-label-secondary text-heading rounded-circle mb-3">
-                                                <i class="mdi mdi mdi-content-paste mdi-24px"></i>
-                                            </span>
-                                            <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
-                                            <small>Manage Accounts</small>
-                                        </div>
-                                    </div>
-                                    <div class="row row-bordered overflow-visible g-0">
-                                        <div class="dropdown-shortcuts-item col">
-                                            <span class="dropdown-shortcuts-icon bg-label-secondary text-heading rounded-circle mb-3">
-                                                <i class="mdi mdi-account-outline mdi-24px"></i>
-                                            </span>
-                                            <a href="app-user-list.html" class="stretched-link">User App</a>
-                                            <small>Manage Users</small>
-                                        </div>
-                                        <div class="dropdown-shortcuts-item col">
-                                            <span class="dropdown-shortcuts-icon bg-label-secondary text-heading rounded-circle mb-3">
-                                                <i class="mdi mdi-shield-check-outline mdi-24px"></i>
-                                            </span>
-                                            <a href="app-access-roles.html" class="stretched-link">Role Management</a>
-                                            <small>Permission</small>
-                                        </div>
-                                    </div>
-                                    <div class="row row-bordered overflow-visible g-0">
-                                        <div class="dropdown-shortcuts-item col">
-                                            <span class="dropdown-shortcuts-icon bg-label-secondary text-heading rounded-circle mb-3">
-                                                <i class="mdi mdi-monitor mdi-24px"></i>
-                                            </span>
-                                            <a href="index.html" class="stretched-link">Dashboard</a>
-                                            <small>Analytics</small>
-                                        </div>
-                                        <div class="dropdown-shortcuts-item col">
-                                            <span class="dropdown-shortcuts-icon bg-label-secondary text-heading rounded-circle mb-3">
-                                                <i class="mdi mdi-cog-outline mdi-24px"></i>
-                                            </span>
-                                            <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
-                                            <small>Account Settings</small>
-                                        </div>
-                                    </div>
-                                    <div class="row row-bordered overflow-visible g-0">
-                                        <div class="dropdown-shortcuts-item col">
-                                            <span class="dropdown-shortcuts-icon bg-label-secondary text-heading rounded-circle mb-3">
-                                                <i class="mdi mdi-help-circle-outline mdi-24px"></i>
-                                            </span>
-                                            <a href="pages-faq.html" class="stretched-link">FAQs</a>
-                                            <small class="text-muted mb-0">FAQs & Articles</small>
-                                        </div>
-                                        <div class="dropdown-shortcuts-item col">
-                                            <span class="dropdown-shortcuts-icon bg-label-secondary text-heading rounded-circle mb-3">
-                                                <i class="mdi mdi-dock-window mdi-24px"></i>
-                                            </span>
-                                            <a href="modal-examples.html" class="stretched-link">Modals</a>
-                                            <small>Useful Popups</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- Quick links -->
-                        <!-- Notification -->
-                        <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-2 me-xl-1">
-                            <a class="nav-link btn btn-text-secondary rounded-pill btn-icon dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                <i class="mdi mdi-bell-outline mdi-24px"></i>
-                                <span class="position-absolute top-0 start-50 translate-middle-y badge badge-dot bg-danger mt-2 border"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end py-0">
-                                <li class="dropdown-menu-header border-bottom">
-                                    <div class="dropdown-header d-flex align-items-center py-3">
-                                        <h6 class="fw-normal mb-0 me-auto">Notification</h6>
-                                        <span class="badge rounded-pill bg-label-primary">8 New</span>
-                                    </div>
-                                </li>
-                                <li class="dropdown-notifications-list scrollable-container">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar me-1">
-                                                        <img src="assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-250">
-                                                    <h6 class="mb-1 text-truncate">Congratulation Lettie 🎉</h6>
-                                                    <small class="text-truncate text-body">Won the monthly best seller gold badge</small>
-                                                </div>
-                                                <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                    <small class="text-muted">1h ago</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar me-1">
-                                                        <span class="avatar-initial rounded-circle bg-label-danger">CF</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-250">
-                                                    <h6 class="mb-1 text-truncate">Charles Franklin</h6>
-                                                    <small class="text-truncate text-body">Accepted your connection</small>
-                                                </div>
-                                                <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                    <small class="text-muted">12hr ago</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar me-1">
-                                                        <img src="assets/img/avatars/2.png" alt class="w-px-40 h-auto rounded-circle">
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-250">
-                                                    <h6 class="mb-1 text-truncate">New Message ✉️</h6>
-                                                    <small class="text-truncate text-body">You have new message from Natalie</small>
-                                                </div>
-                                                <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                    <small class="text-muted">1h ago</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar me-1">
-                                                        <span class="avatar-initial rounded-circle bg-label-success">
-                                                            <i class="mdi mdi-cart-outline"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-250">
-                                                    <h6 class="mb-1 text-truncate">Whoo! You have new order 🛒 </h6>
-                                                    <small class="text-truncate text-body">ACME Inc. made new order $1,154</small>
-                                                </div>
-                                                <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                    <small class="text-muted">1 day ago</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar me-1">
-                                                        <img src="assets/img/avatars/9.png" alt class="w-px-40 h-auto rounded-circle">
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-250">
-                                                    <h6 class="mb-1 text-truncate">Application has been approved 🚀 </h6>
-                                                    <small class="text-truncate text-body">Your ABC project application has been approved.</small>
-                                                </div>
-                                                <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                    <small class="text-muted">2 days ago</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar me-1">
-                                                        <span class="avatar-initial rounded-circle bg-label-success">
-                                                            <i class="mdi mdi-chart-pie-outline"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-250">
-                                                    <h6 class="mb-1 text-truncate">Monthly report is generated</h6>
-                                                    <small class="text-truncate text-body">July monthly financial report is generated </small>
-                                                </div>
-                                                <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                    <small class="text-muted">3 days ago</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar me-1">
-                                                        <img src="assets/img/avatars/5.png" alt class="w-px-40 h-auto rounded-circle">
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-250">
-                                                    <h6 class="mb-1 text-truncate">Send connection request</h6>
-                                                    <small class="text-truncate text-body">Peter sent you connection request</small>
-                                                </div>
-                                                <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                    <small class="text-muted">4 days ago</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar me-1">
-                                                        <img src="assets/img/avatars/6.png" alt class="w-px-40 h-auto rounded-circle">
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-250">
-                                                    <h6 class="mb-1 text-truncate">New message from Jane</h6>
-                                                    <small class="text-truncate text-body">Your have new message from Jane</small>
-                                                </div>
-                                                <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                    <small class="text-muted">5 days ago</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action dropdown-notifications-item marked-as-read">
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="flex-shrink-0">
-                                                    <div class="avatar me-1">
-                                                        <span class="avatar-initial rounded-circle bg-label-warning">
-                                                            <i class="mdi mdi-alert-circle-outline"></i>
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-column flex-grow-1 overflow-hidden w-px-250">
-                                                    <h6 class="mb-1">CPU is running high</h6>
-                                                    <small class="text-truncate text-body">CPU Utilization Percent is currently at 88.63%,</small>
-                                                </div>
-                                                <div class="flex-shrink-0 dropdown-notifications-actions">
-                                                    <small class="text-muted">5 days ago</small>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown-menu-footer border-top p-3">
-                                    <a href="javascript:void(0);" class="btn btn-primary d-flex justify-content-center">Read all notifications</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--/ Notification -->
-                        <!-- User -->
-                        <li class="nav-item navbar-dropdown dropdown-user dropdown">
-                            <a class="nav-link dropdown-toggle hide-arrow p-0" href="javascript:void(0);" data-bs-toggle="dropdown">
-                                <div class="avatar avatar-online">
-                                    <img src="assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
-                                </div>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-end mt-3 py-2">
-                                <li>
-                                    <a class="dropdown-item pb-2 mb-1" href="pages-account-settings-account.html">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0 me-2 pe-1">
-                                                <div class="avatar avatar-online">
-                                                    <img src="assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
-                                                </div>
-                                            </div>
-                                            <div class="flex-grow-1">
-                                                <h6 class="mb-0">John Doe</h6>
-                                                <small class="text-muted">Admin</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider my-0"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="pages-profile-user.html">
-                                        <i class="mdi mdi-account-outline me-1 mdi-20px"></i>
-                                        <span class="align-middle">My Profile</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="pages-account-settings-account.html">
-                                        <i class="mdi mdi-cog-outline me-1 mdi-20px"></i>
-                                        <span class="align-middle">Settings</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="pages-account-settings-billing.html">
-                                        <span class="d-flex align-items-center align-middle">
-                                            <i class="flex-shrink-0 mdi mdi-credit-card-outline me-1 mdi-20px"></i>
-                                            <span class="flex-grow-1 align-middle ms-1">Billing</span>
-                                            <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                        </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="pages-faq.html">
-                                        <i class="mdi mdi-help-circle-outline me-1 mdi-20px"></i>
-                                        <span class="align-middle">FAQ</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="pages-pricing.html">
-                                        <i class="mdi mdi-currency-usd me-1 mdi-20px"></i>
-                                        <span class="align-middle">Pricing</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <div class="dropdown-divider my-1"></div>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
-                                        <i class="mdi mdi-logout me-1 mdi-20px"></i>
-                                        <span class="align-middle">Log Out</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <!--/ User -->
-
-
-                    </ul>
                 </div>
+            </div>
 
-
-                <!-- Search Small Screens -->
-                <div class="navbar-search-wrapper search-input-wrapper  d-none">
-                    <input type="text" class="form-control search-input container-xxl border-0" placeholder="Search..." aria-label="Search...">
-                    <i class="mdi mdi-close search-toggler cursor-pointer"></i>
+            <!-- Right Actions -->
+            <div class="flex items-center gap-3">
+                <button class="p-2.5 text-slate-500 hover:text-primary-600 hover:bg-primary-50 rounded-xl transition-all h-10 w-10 flex items-center justify-center">
+                    <i class="fa-regular fa-bell text-lg"></i>
+                </button>
+                <div class="h-8 w-px bg-slate-200 mx-2 hidden sm:block"></div>
+                <div class="flex items-center gap-3 group cursor-pointer pl-2">
+                    <div class="hidden sm:block text-right">
+                        <p class="text-xs font-bold text-slate-900 group-hover:text-primary-600 transition-colors">@UserDisplayName</p>
+                        <p class="text-[10px] text-slate-500">@UserRoleName</p>
+                    </div>
+                    <div class="w-9 h-9 rounded-xl bg-primary-600 text-white font-black text-xs flex items-center justify-center ring-2 ring-primary-100 group-hover:ring-primary-200 shadow-sm transition-all">
+                        @UserInitials
+                    </div>
                 </div>
+            </div>
+        </header>
 
-
-            </nav>
-
-            <!-- / Navbar -->
-            <!-- Content wrapper -->
-            <div class="content-wrapper">
+        <!-- Page Content -->
+        <main class="flex-1 p-8">
+            <div class="max-w-7xl mx-auto">
                 @Body
             </div>
-            <!-- Content wrapper -->
-        </div>
-        <!-- / Layout page -->
+        </main>
     </div>
-
-
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-
-
-    <!-- Drag Target Area To SlideIn Menu On Small Screens -->
-    <div class="drag-target"></div>
-
 </div>
-<!-- / Layout wrapper -->
 
-<MudThemeProvider />
-<MudDialogProvider />
-<MudSnackbarProvider />
+    <!-- Mobile Menu Overlay -->
+    @if (isMobileMenuOpen)
+    {
+        <div class="fixed inset-0 z-50 lg:hidden">
+            <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" @onclick="ToggleMobileMenu"></div>
+            <div class="fixed inset-y-0 left-0 w-72 bg-white shadow-2xl flex flex-col animate-in slide-in-from-left duration-300">
+                <div class="h-16 flex items-center px-6 border-b border-slate-100">
+                    <span class="text-xl font-bold text-slate-900 tracking-tight">IBanking</span>
+                    <button @onclick="ToggleMobileMenu" class="ml-auto p-2 text-slate-400 hover:text-slate-600">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <NavMenu IsSetupOpen="isSetupOpen"
+                         IsUsersOpen="isUsersOpen"
+                         ToggleSetup="ToggleSetup"
+                         ToggleUsers="ToggleUsers"
+                         OnNavigate="CloseMobileMenu" />
+            </div>
+        </div>
+    }
 @code {
+    private bool isSetupOpen = false;
+    private bool isUsersOpen = false;
+    private bool isMobileMenuOpen = false;
+
+    private void ToggleSetup() => isSetupOpen = !isSetupOpen;
+    private void ToggleUsers() => isUsersOpen = !isUsersOpen;
+    private void ToggleMobileMenu() => isMobileMenuOpen = !isMobileMenuOpen;
+    private void CloseMobileMenu() => isMobileMenuOpen = false;
+
+    private string UserDisplayName { get; set; } = "Sann Lynn Htun";
+    private string UserRoleName { get; set; } = "Administrator";
+    private string UserInitials => GetInitials(UserDisplayName);
+
+    private static string GetInitials(string? name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return "?";
+
+        var parts = name.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        if (parts.Length == 0)
+            return "?";
+
+        var first = char.ToUpperInvariant(parts[0][0]);
+        if (parts.Length == 1)
+            return first.ToString();
+
+        var second = char.ToUpperInvariant(parts[1][0]);
+        return string.Concat(first, second);
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await InjectService.LoadJavaScript();
+            // await InjectService.LoadJavaScript();
         }
     }
 }
+
