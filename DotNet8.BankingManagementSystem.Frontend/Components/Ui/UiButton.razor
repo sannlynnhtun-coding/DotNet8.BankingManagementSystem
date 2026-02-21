@@ -1,0 +1,52 @@
+@namespace DotNet8.BankingManagementSystem.Frontend.Components.Ui
+
+@if (!string.IsNullOrWhiteSpace(Href))
+{
+    <a href="@Href" class="@ComputedClass" aria-disabled="@Disabled" @onclick="OnClick">
+        @ChildContent
+    </a>
+}
+else
+{
+    <button type="@Type" class="@ComputedClass" disabled="@Disabled" @onclick="OnClick">
+        @ChildContent
+    </button>
+}
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    [Parameter] public string? Href { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public string Type { get; set; } = "button";
+
+    [Parameter] public UiButtonVariant Variant { get; set; } = UiButtonVariant.Default;
+    [Parameter] public UiButtonSize Size { get; set; } = UiButtonSize.Default;
+    [Parameter] public string? Class { get; set; }
+
+    private string ComputedClass => ClassNames.Merge(
+        "ui-btn",
+        Variant switch
+        {
+            UiButtonVariant.Default => "ui-btn-primary",
+            UiButtonVariant.Secondary => "ui-btn-secondary",
+            UiButtonVariant.Neutral => "ui-btn-neutral",
+            UiButtonVariant.Destructive => "ui-btn-destructive",
+            UiButtonVariant.Outline => "ui-btn-outline",
+            UiButtonVariant.Ghost => "ui-btn-ghost",
+            UiButtonVariant.Link => "ui-btn-link",
+            _ => "ui-btn-primary"
+        },
+        Size switch
+        {
+            UiButtonSize.Sm => "ui-btn-sm",
+            UiButtonSize.Lg => "ui-btn-lg",
+            UiButtonSize.Icon => "ui-btn-icon",
+            _ => null
+        },
+        Disabled ? "ui-disabled" : null,
+        Class
+    );
+}
+

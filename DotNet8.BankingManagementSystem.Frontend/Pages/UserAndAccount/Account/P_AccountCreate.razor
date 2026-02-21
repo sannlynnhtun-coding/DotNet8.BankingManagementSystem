@@ -17,8 +17,8 @@
                 <!-- Inputs Group -->
                 <div class="space-y-4">
                     <div class="group">
-                        <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Select Customer</label>
-                        <InputSelect @bind-Value="_model.CustomerCode" class="search-input">
+                        <UiLabel>Select Customer</UiLabel>
+                        <InputSelect @bind-Value="_model.CustomerCode" class="ui-input">
                             <option value="">Choose a customer</option>
                             @if (_userListResponseModel is not null && _userListResponseModel.Data is not null && _accountListResponseModel is not null && _accountListResponseModel.Data is not null)
                             {
@@ -36,34 +36,42 @@
                     </div>
 
                     <div class="group">
-                        <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Initial Balance (MMK)</label>
+                        <UiLabel>Initial Balance (MMK)</UiLabel>
                         <InputNumber @bind-Value="_model.Balance" 
-                                     class="search-input" 
+                                     class="ui-input" 
                                      placeholder="0.00" />
                         <ValidationMessage For="@(() => _model.Balance)" class="text-xs text-rose-500 mt-1" />
                     </div>
                 </div>
 
                 <!-- Info Box -->
-                <div class="bg-primary-50 rounded-xl p-4 flex gap-3 border border-primary-100">
-                    <i class="fa-solid fa-circle-right text-primary-500 mt-0.5"></i>
-                    <p class="text-xs text-primary-800 leading-relaxed font-medium">
-                        A unique account number will be automatically generated upon successful creation.
-                    </p>
-                </div>
+                <UiAlert Variant="UiAlertVariant.Info">
+                    <Icon>
+                        <i class="fa-solid fa-circle-right text-primary-500"></i>
+                    </Icon>
+                    <ChildContent>
+                        <p class="text-xs text-slate-700 leading-relaxed font-medium">
+                            A unique account number will be automatically generated upon successful creation.
+                        </p>
+                    </ChildContent>
+                </UiAlert>
             </div>
 
             <!-- Action Bar -->
             <div class="card-footer flex flex-col sm:flex-row gap-3 px-8 py-6 bg-slate-50">
-                <a href="/user-and-account/account" 
-                   class="btn btn-secondary flex-1 px-6 py-3 font-bold">
+                <UiButton Href="/user-and-account/account"
+                          Variant="UiButtonVariant.Secondary"
+                          Size="UiButtonSize.Lg"
+                          Class="flex-1 px-6 font-bold">
                     Cancel
-                </a>
-                <button type="submit" 
-                        class="btn btn-primary flex-[2] px-6 py-3 font-bold shadow-lg shadow-primary-200 group">
+                </UiButton>
+                <UiButton Type="submit"
+                          Variant="UiButtonVariant.Default"
+                          Size="UiButtonSize.Lg"
+                          Class="flex-[2] px-6 font-bold shadow-lg shadow-primary-200 group">
                     Create Account
                     <i class="fa-solid fa-plus-circle ml-2 text-primary-300 group-hover:rotate-90 transition-transform"></i>
-                </button>
+                </UiButton>
             </div>
         </EditForm>
     </div>

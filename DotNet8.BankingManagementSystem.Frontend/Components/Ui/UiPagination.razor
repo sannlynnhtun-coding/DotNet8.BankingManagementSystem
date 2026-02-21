@@ -1,0 +1,12 @@
+@namespace DotNet8.BankingManagementSystem.Frontend.Components.Ui
+
+<TPagination PageNo="@PageNo"
+             PageCount="@PageCount"
+             SelectedChanged="@SelectedChanged" />
+
+@code {
+    [Parameter] public int PageNo { get; set; }
+    [Parameter] public int PageCount { get; set; }
+    [Parameter] public EventCallback<int> SelectedChanged { get; set; }
+}
+

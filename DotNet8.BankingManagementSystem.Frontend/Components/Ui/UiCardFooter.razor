@@ -1,0 +1,13 @@
+@namespace DotNet8.BankingManagementSystem.Frontend.Components.Ui
+
+<div class="@ComputedClass">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? Class { get; set; }
+
+    private string ComputedClass => ClassNames.Merge("ui-card-footer", Class);
+}
+

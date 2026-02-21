@@ -6,23 +6,18 @@
 @if (_model is not null && _model.Data is not null)
 {
     <div class="page animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <!-- Page Header -->
-        <div class="page-header">
-            <div>
-                <h1 class="page-title">States</h1>
-                <p class="page-subtitle">Manage administrative zones and state codes.</p>
-            </div>
-            
-            <div class="flex items-center gap-3">
-                <NavLink href="general-setup/state/create" 
-                         @onclick="() => InjectService.IntervalLoading()"
-                         class="btn btn-primary group">
+        <UiPageHeader Title="States" Subtitle="Manage administrative zones and state codes.">
+            <Actions>
+                <UiButton Href="general-setup/state/create"
+                          OnClick="() => InjectService.IntervalLoading()"
+                          Variant="UiButtonVariant.Default"
+                          Class="group">
                     <i class="fa-solid fa-plus mr-2 text-primary-200 group-hover:text-white transition-colors"></i>
                     New State
-                </NavLink>
+                </UiButton>
                 <GenerateButton OnClick="Generate" />
-            </div>
-        </div>
+            </Actions>
+        </UiPageHeader>
 
         <!-- Filters/Search Card -->
         <div class="card card-body-sm">
@@ -32,7 +27,7 @@
                         <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary-500 transition-colors"></i>
                     </span>
                     <input type="search" 
-                           class="search-input" 
+                           class="ui-input pl-10" 
                            placeholder="Search states..."/>
                 </div>
                 
@@ -62,7 +57,7 @@
                                     @(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))
                                 </td>
                                 <td class="table-td">
-                                    <span class="badge">@item.StateCode</span>
+                                    <UiBadge>@item.StateCode</UiBadge>
                                 </td>
                                 <td class="table-td text-sm font-medium text-slate-900">@item.StateName</td>
                                 <td class="table-td text-right">
@@ -91,9 +86,9 @@
                 <div class="text-sm text-slate-500">
                     Page <b>@_model.PageSetting.PageNo</b> of <b>@_model.PageSetting.PageCount</b>
                 </div>
-                <TPagination PageNo="@(_model.PageSetting.PageNo)" 
-                               PageCount="@(_model.PageSetting.PageCount)" 
-                               SelectedChanged="PageChanged" />
+                <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
+                              PageCount="@(_model.PageSetting.PageCount)" 
+                              SelectedChanged="PageChanged" />
             </div>
         </div>
     </div>

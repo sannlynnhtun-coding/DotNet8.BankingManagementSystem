@@ -7,20 +7,14 @@
 @if (_model is not null && _model.Data is not null)
 {
     <div class="page animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <!-- Page Header -->
-        <div class="page-header">
-            <div>
-                <h1 class="page-title">System Transactions</h1>
-                <p class="page-subtitle">Comprehensive overview of all transaction activity within the system.</p>
-            </div>
-            
-            <div class="flex items-center gap-2">
-                <span class="flex items-center gap-1.5 px-3 py-1.5 bg-slate-100 rounded-lg text-xs font-bold text-slate-600">
+        <UiPageHeader Title="System Transactions" Subtitle="Comprehensive overview of all transaction activity within the system.">
+            <Actions>
+                <UiBadge Variant="UiBadgeVariant.Secondary" Class="gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600">
                     <i class="fa-solid fa-layer-group text-slate-400"></i>
                     All Records
-                </span>
-            </div>
-        </div>
+                </UiBadge>
+            </Actions>
+        </UiPageHeader>
 
         <!-- Filters Section -->
         <div class="card card-body">
@@ -29,13 +23,14 @@
                     <label class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Filter by Date</label>
                     <input type="date" @onchange="@(e => date = DateTime.Parse(e.Value.ToString()))" 
                            value="@date?.ToString("yyyy-MM-dd")"
-                           class="search-input" />
+                           class="ui-input" />
                 </div>
-                <button class="inline-flex items-center justify-center px-8 py-2.5 bg-primary-600 hover:bg-primary-700 text-white text-sm font-bold rounded-xl shadow-lg shadow-primary-200 transition-all duration-200 active:scale-95 group" 
-                        @onclick="Search">
+                <UiButton Variant="UiButtonVariant.Default"
+                          Class="px-8 shadow-lg shadow-primary-200 group"
+                          OnClick="Search">
                     <i class="fa-solid fa-filter mr-2 text-primary-300 group-hover:text-white transition-colors"></i>
                     Refresh List
-                </button>
+                </UiButton>
             </div>
         </div>
 
@@ -97,9 +92,9 @@
                     <div class="text-sm text-slate-500 font-medium">
                         Showing page <b>@_model.PageSetting.PageNo</b> of <b>@_model.PageSetting.PageCount</b>
                     </div>
-                    <TPagination PageNo="@(_model.PageSetting.PageNo)" 
-                                   PageCount="@(_model.PageSetting.PageCount)" 
-                                   SelectedChanged="PageChanged" />
+                    <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
+                                  PageCount="@(_model.PageSetting.PageCount)" 
+                                  SelectedChanged="PageChanged" />
                 </div>
             }
         </div>

@@ -1,0 +1,14 @@
+@namespace DotNet8.BankingManagementSystem.Frontend.Components.Ui
+
+<label class="@ComputedClass" for="@For">
+    @ChildContent
+</label>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? For { get; set; }
+    [Parameter] public string? Class { get; set; }
+
+    private string ComputedClass => ClassNames.Merge("ui-label", Class);
+}
+

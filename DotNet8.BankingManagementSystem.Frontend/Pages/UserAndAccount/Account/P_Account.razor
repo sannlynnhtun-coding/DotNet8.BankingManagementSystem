@@ -6,23 +6,18 @@
 @if (_model is not null && _model.Data is not null)
 {
     <div class="page animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <!-- Page Header -->
-        <div class="page-header">
-            <div>
-                <h1 class="page-title">Bank Accounts</h1>
-                <p class="page-subtitle">Monitor customer account balances and managed account details.</p>
-            </div>
-            
-            <div class="flex items-center gap-3">
-                <NavLink href="/user-and-account/account/create" 
-                         @onclick="() => InjectService.IntervalLoading()"
-                         class="btn btn-primary group">
+        <UiPageHeader Title="Bank Accounts" Subtitle="Monitor customer account balances and managed account details.">
+            <Actions>
+                <UiButton Href="/user-and-account/account/create"
+                          OnClick="() => InjectService.IntervalLoading()"
+                          Variant="UiButtonVariant.Default"
+                          Class="group">
                     <i class="fa-solid fa-plus-circle mr-2 text-primary-200 group-hover:text-white transition-colors"></i>
                     New Account
-                </NavLink>
+                </UiButton>
                 <GenerateButton Name="Reload" OnClick="() => List(1, 10)" />
-            </div>
-        </div>
+            </Actions>
+        </UiPageHeader>
 
         <!-- Filters & Quick Actions Card -->
         <div class="card card-body-sm">
@@ -32,7 +27,7 @@
                         <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary-500 transition-colors"></i>
                     </span>
                     <input type="search" 
-                           class="search-input" 
+                           class="ui-input pl-10" 
                            placeholder="Search by account number..."/>
                 </div>
             </div>
@@ -106,9 +101,9 @@
                 <div class="text-sm text-slate-500">
                     Showing page <b>@_model.PageSetting.PageNo</b> of <b>@_model.PageSetting.PageCount</b>
                 </div>
-                <TPagination PageNo="@(_model.PageSetting.PageNo)" 
-                               PageCount="@(_model.PageSetting.PageCount)" 
-                               SelectedChanged="PageChanged" />
+                <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
+                              PageCount="@(_model.PageSetting.PageCount)" 
+                              SelectedChanged="PageChanged" />
             </div>
         </div>
     </div>

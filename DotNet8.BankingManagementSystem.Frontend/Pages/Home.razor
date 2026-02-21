@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 
 <PageTitle>Dashboard | IBanking</PageTitle>
 
@@ -14,23 +14,22 @@
 else
 {
     <div class="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-        <!-- Dashboard Header -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-                <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Overview</h1>
-                <p class="text-slate-500 font-medium mt-1">Detailed summary of your banking ecosystem.</p>
-            </div>
-            <div class="flex items-center gap-3">
-                <button @onclick="LoadDashboardData" class="btn btn-secondary px-4 py-2 text-sm font-bold flex items-center gap-2 bg-white border-slate-200">
+        <UiPageHeader Title="Overview" Subtitle="Detailed summary of your banking ecosystem.">
+            <Actions>
+                <UiButton Variant="UiButtonVariant.Secondary"
+                          Class="px-4 py-2 text-sm font-bold flex items-center gap-2"
+                          OnClick="LoadDashboardData">
                     <i class="fa-solid fa-rotate text-slate-400"></i>
                     Refresh
-                </button>
-                <a href="/transaction/transfer" class="btn bg-primary-600 hover:bg-primary-700 text-white px-5 py-2.5 text-sm font-bold flex items-center gap-2 shadow-lg shadow-primary-100 transition-all active:scale-95">
+                </UiButton>
+                <UiButton Href="/transaction/transfer"
+                          Variant="UiButtonVariant.Default"
+                          Class="px-5 py-2.5 text-sm font-bold flex items-center gap-2 shadow-lg shadow-primary-100">
                     <i class="fa-solid fa-paper-plane text-primary-200"></i>
                     New Transfer
-                </a>
-            </div>
-        </div>
+                </UiButton>
+            </Actions>
+        </UiPageHeader>
 
         <!-- Stats Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

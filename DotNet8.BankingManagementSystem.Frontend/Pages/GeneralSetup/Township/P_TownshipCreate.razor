@@ -17,24 +17,24 @@
                 <!-- Inputs Group -->
                 <div class="space-y-4">
                     <div class="group">
-                        <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Township Code</label>
+                        <UiLabel>Township Code</UiLabel>
                         <InputText @bind-Value="_model.TownshipCode" 
-                                   class="search-input" 
+                                   class="ui-input" 
                                    placeholder="e.g. TS-001" />
                         <ValidationMessage For="@(() => _model.TownshipCode)" class="text-xs text-rose-500 mt-1" />
                     </div>
 
                     <div class="group">
-                        <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Township Name</label>
+                        <UiLabel>Township Name</UiLabel>
                         <InputText @bind-Value="_model.TownshipName" 
-                                   class="search-input" 
+                                   class="ui-input" 
                                    placeholder="e.g. Kamayut" />
                         <ValidationMessage For="@(() => _model.TownshipName)" class="text-xs text-rose-500 mt-1" />
                     </div>
 
                     <div class="group">
-                        <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Associated State</label>
-                        <InputSelect @bind-Value="_model.StateCode" class="search-input">
+                        <UiLabel>Associated State</UiLabel>
+                        <InputSelect @bind-Value="_model.StateCode" class="ui-input">
                             <option value="">Select assigned state</option>
                             @if (_stateListResponseModel is not null && _stateListResponseModel.Data is not null)
                             {
@@ -50,15 +50,19 @@
 
             <!-- Action Bar -->
             <div class="card-footer flex flex-col sm:flex-row gap-3 px-8 py-6 bg-slate-50">
-                <a href="/general-setup/township" 
-                   class="btn btn-secondary flex-1 px-6 py-3 font-bold">
+                <UiButton Href="/general-setup/township"
+                          Variant="UiButtonVariant.Secondary"
+                          Size="UiButtonSize.Lg"
+                          Class="flex-1 px-6 font-bold">
                     Cancel
-                </a>
-                <button type="submit" 
-                        class="btn btn-primary flex-[2] px-6 py-3 font-bold shadow-lg shadow-primary-200 group">
+                </UiButton>
+                <UiButton Type="submit"
+                          Variant="UiButtonVariant.Default"
+                          Size="UiButtonSize.Lg"
+                          Class="flex-[2] px-6 font-bold shadow-lg shadow-primary-200 group">
                     Create Township
                     <i class="fa-solid fa-plus-circle ml-2 text-primary-300 group-hover:rotate-90 transition-transform"></i>
-                </button>
+                </UiButton>
             </div>
         </EditForm>
     </div>

@@ -1,0 +1,26 @@
+@namespace DotNet8.BankingManagementSystem.Frontend.Components.Ui
+
+<span class="@ComputedClass">
+    @ChildContent
+</span>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public UiBadgeVariant Variant { get; set; } = UiBadgeVariant.Default;
+    [Parameter] public string? Class { get; set; }
+
+    private string ComputedClass => ClassNames.Merge(
+        "ui-badge",
+        Variant switch
+        {
+            UiBadgeVariant.Default => "ui-badge-default",
+            UiBadgeVariant.Secondary => "ui-badge-secondary",
+            UiBadgeVariant.Success => "ui-badge-success",
+            UiBadgeVariant.Warning => "ui-badge-warning",
+            UiBadgeVariant.Destructive => "ui-badge-destructive",
+            _ => "ui-badge-default"
+        },
+        Class
+    );
+}
+

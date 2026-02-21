@@ -1,0 +1,42 @@
+@namespace DotNet8.BankingManagementSystem.Frontend.Components.Ui
+
+<div class="@ComputedClass" role="alert">
+    @if (Icon is not null)
+    {
+        <div class="mt-0.5">
+            @Icon
+        </div>
+    }
+    <div class="min-w-0">
+        @if (Title is not null)
+        {
+            <div class="ui-alert-title">@Title</div>
+        }
+        <div class="ui-alert-description">
+            @ChildContent
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? Icon { get; set; }
+    [Parameter] public RenderFragment? Title { get; set; }
+    [Parameter] public UiAlertVariant Variant { get; set; } = UiAlertVariant.Default;
+    [Parameter] public string? Class { get; set; }
+
+    private string ComputedClass => ClassNames.Merge(
+        "ui-alert",
+        Variant switch
+        {
+            UiAlertVariant.Default => "ui-alert-default",
+            UiAlertVariant.Info => "ui-alert-info",
+            UiAlertVariant.Success => "ui-alert-success",
+            UiAlertVariant.Warning => "ui-alert-warning",
+            UiAlertVariant.Destructive => "ui-alert-destructive",
+            _ => "ui-alert-default"
+        },
+        Class
+    );
+}
+

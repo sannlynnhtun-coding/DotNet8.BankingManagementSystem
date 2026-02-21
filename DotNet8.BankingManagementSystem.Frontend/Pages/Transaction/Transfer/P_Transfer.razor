@@ -17,8 +17,8 @@
                 <!-- Inputs Group -->
                 <div class="space-y-4">
                     <div class="group">
-                        <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">From Account</label>
-                        <InputSelect @bind-Value="reqModel.FromAccountNo" class="search-input">
+                        <UiLabel>From Account</UiLabel>
+                        <InputSelect @bind-Value="reqModel.FromAccountNo" class="ui-input">
                             <option value="">Select source account</option>
                             @if (_accountListResponseModel is not null && _accountListResponseModel.Data is not null)
                             {
@@ -41,8 +41,8 @@
                     </div>
 
                     <div class="group">
-                        <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">To Account</label>
-                        <InputSelect @bind-Value="reqModel.ToAccountNo" class="search-input">
+                        <UiLabel>To Account</UiLabel>
+                        <InputSelect @bind-Value="reqModel.ToAccountNo" class="ui-input">
                             <option value="">Select destination account</option>
                             @if (_accountListResponseModel is not null && _accountListResponseModel.Data is not null)
                             {
@@ -69,34 +69,42 @@
                     </div>
 
                     <div class="group">
-                        <label class="block text-sm font-bold text-slate-700 mb-1.5 ml-1">Amount (MMK)</label>
+                        <UiLabel>Amount (MMK)</UiLabel>
                         <InputNumber @bind-Value="reqModel.Amount" 
-                                     class="search-input" 
+                                     class="ui-input" 
                                      placeholder="0.00" />
                         <ValidationMessage For="@(() => reqModel.Amount)" class="text-xs text-rose-500 mt-1" />
                     </div>
                 </div>
 
                 <!-- Warning/Information -->
-                <div class="bg-amber-50 rounded-xl p-4 flex gap-3 border border-amber-100">
-                    <i class="fa-solid fa-circle-info text-amber-500 mt-0.5"></i>
-                    <p class="text-xs text-amber-800 leading-relaxed font-medium">
-                        Please ensure the recipient's account number is correct. Transfers are irreversible once completed.
-                    </p>
-                </div>
+                <UiAlert Variant="UiAlertVariant.Warning">
+                    <Icon>
+                        <i class="fa-solid fa-circle-info text-amber-500"></i>
+                    </Icon>
+                    <ChildContent>
+                        <p class="text-xs leading-relaxed font-medium">
+                            Please ensure the recipient's account number is correct. Transfers are irreversible once completed.
+                        </p>
+                    </ChildContent>
+                </UiAlert>
             </div>
 
             <!-- Action Bar -->
             <div class="card-footer flex flex-col sm:flex-row gap-3 px-8 py-6 bg-slate-50">
-                <a href="/report/transaction-history" 
-                   class="btn btn-secondary flex-1 px-6 py-3 font-bold">
+                <UiButton Href="/report/transaction-history"
+                          Variant="UiButtonVariant.Secondary"
+                          Size="UiButtonSize.Lg"
+                          Class="flex-1 px-6 font-bold">
                     Cancel
-                </a>
-                <button type="submit" 
-                        class="btn btn-primary flex-[2] px-6 py-3 font-bold shadow-lg shadow-primary-200 group">
+                </UiButton>
+                <UiButton Type="submit"
+                          Variant="UiButtonVariant.Default"
+                          Size="UiButtonSize.Lg"
+                          Class="flex-[2] px-6 font-bold shadow-lg shadow-primary-200 group">
                     Send Funds
                     <i class="fa-solid fa-paper-plane ml-2 text-primary-300 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
-                </button>
+                </UiButton>
             </div>
         </EditForm>
     </div>

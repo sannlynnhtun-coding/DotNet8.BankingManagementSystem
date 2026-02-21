@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "tailwind": "npx tailwindcss -i ./wwwroot/css/input.css -o ./wwwroot/css/tailwind.css"
+    "tailwind": "npx tailwindcss -i ./wwwroot/css/input.css -o ./wwwroot/css/tailwind.css",
+    "favicon": "node ./scripts/generate-favicons.cjs"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,8 @@
     "@tailwindcss/cli": "^4.2.0",
     "autoprefixer": "^10.4.24",
     "postcss": "^8.5.6",
-    "tailwindcss": "^4.2.0"
+    "sharp": "^0.34.3",
+    "tailwindcss": "^4.2.0",
+    "to-ico": "^1.1.5"
   }
 }

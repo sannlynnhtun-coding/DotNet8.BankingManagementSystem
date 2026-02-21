@@ -3,27 +3,23 @@
 @if (_model is not null && _model.Data is not null)
 {
     <div class="page animate-in fade-in duration-500">
-        <!-- Header & Action Row -->
-        <div class="page-header">
-            <div>
-                <h1 class="page-title">Admin Staff</h1>
-                <p class="page-subtitle">Manage system administrators and staff access roles.</p>
-            </div>
-            <div class="flex items-center gap-3">
+        <UiPageHeader Title="Admin Staff" Subtitle="Manage system administrators and staff access roles.">
+            <Actions>
                 <div class="relative flex-1 md:w-64">
                     <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                     <input type="text" 
                            placeholder="Search staff..." 
-                           class="w-full pl-11 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all outline-none" />
+                           class="ui-input pl-11 bg-white" />
                 </div>
-                <a href="/user-and-account/admin-user/create" 
-                   @onclick="() => InjectService.IntervalLoading()"
-                   class="btn bg-slate-900 hover:bg-slate-800 text-white shadow-sm group font-bold">
+                <UiButton Href="/user-and-account/admin-user/create"
+                          OnClick="() => InjectService.IntervalLoading()"
+                          Variant="UiButtonVariant.Neutral"
+                          Class="group font-bold">
                     <i class="fa-solid fa-user-plus mr-2 text-slate-400 group-hover:text-white transition-colors"></i>
                     Add Staff
-                </a>
-            </div>
-        </div>
+                </UiButton>
+            </Actions>
+        </UiPageHeader>
 
         <!-- Table Card -->
         <div class="table-card rounded-3xl">
@@ -95,9 +91,9 @@
                 <div class="text-xs text-slate-500 font-medium">
                     Showing Page <span class="text-slate-900 font-bold">@_model.PageSetting.PageNo</span> of <span class="text-slate-900 font-bold">@_model.PageSetting.PageCount</span>
                 </div>
-                <TPagination PageNo="@(_model.PageSetting.PageNo)" 
-                               PageCount="@(_model.PageSetting.PageCount)" 
-                               SelectedChanged="PageChanged" />
+                <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
+                              PageCount="@(_model.PageSetting.PageCount)" 
+                              SelectedChanged="PageChanged" />
             </div>
         </div>
     </div>
