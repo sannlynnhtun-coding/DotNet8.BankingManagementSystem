@@ -20,7 +20,7 @@
 
         <UiCard>
             <div class="p-6 border-b border-border bg-muted/5">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 items-end">
                     <div class="space-y-2">
                         <UiLabel>Start Date</UiLabel>
                         <input type="date" @bind-value="fromDate" 
@@ -30,6 +30,15 @@
                         <UiLabel>End Date</UiLabel>
                         <input type="date" @bind-value="toDate" 
                                class="ui-input h-10" />
+                    </div>
+                    <div class="space-y-2">
+                        <UiLabel>Transaction Type</UiLabel>
+                        <select class="ui-input h-10" @bind="transactionType">
+                            <option value="">All Types</option>
+                            <option value="Deposit">Deposit</option>
+                            <option value="Withdraw">Withdraw</option>
+                            <option value="Transfer">Transfer</option>
+                        </select>
                     </div>
                     <div class="lg:col-span-2 flex items-end">
                         <UiButton Variant="UiButtonVariant.Default" Size="UiButtonSize.Default" Class="w-full md:w-auto" OnClick="Search">

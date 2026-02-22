@@ -21,6 +21,7 @@ public class TransactionHistorySearchModel
 {
     public DateTime? FromDate { get; set; }
     public DateTime? ToDate { get; set; }
+    public string? TransactionType { get; set; }
     public int PageNo { get; set; }
     public int PageSize { get; set; }
 }

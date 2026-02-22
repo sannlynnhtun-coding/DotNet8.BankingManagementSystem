@@ -9,6 +9,7 @@ public partial class P_TransactionHistory : ComponentBase
     };
     private DateTime? fromDate;
     private DateTime? toDate;
+    private string? transactionType;
 
     private TransactionHistoryListResponseModel? _model;
 
@@ -24,7 +25,14 @@ public partial class P_TransactionHistory : ComponentBase
     private async Task List(int pageNo, int pageSize)
     {
         await InjectService.EnableLoading();
-        _model = await ApiService.TransactionHistory(pageNo, pageSize);
+        _model = await ApiService.TransactionHistoryWithDateRange(new TransactionHistorySearchModel
+        {
+            FromDate = fromDate,
+            ToDate = toDate,
+            TransactionType = transactionType,
+            PageNo = pageNo,
+            PageSize = pageSize
+        });
         if (_model.Response.IsError)
         {
             //
@@ -37,22 +45,8 @@ public partial class P_TransactionHistory : ComponentBase
 
     private async Task Search()
     {
-        await InjectService.EnableLoading();
-        _model = await ApiService.TransactionHistoryWithDateRange(new TransactionHistorySearchModel
-        {
-            FromDate = fromDate,
-            ToDate = toDate,
-            PageNo = 1,
-            PageSize = 10
-        });
-        if (_model.Response.IsError)
-        {
-            //
-            return;
-        }
-
-        StateHasChanged();
-        await InjectService.DisableLoading();
+        _setting.PageNo = 1;
+        await List(_setting.PageNo, _setting.PageSize);
     }
 
     private async Task PageChanged(int i)

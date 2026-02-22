@@ -278,15 +278,32 @@ public class TransactionService
     {
         TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
         var query = await _localStorageService.GetList<TblTransactionHistory>(EnumService.Tbl_TransactionHistory.ToString());
-        var result = query
-            .Where(x => x.TransactionDate >= requestModel.FromDate && x.TransactionDate <= requestModel.ToDate)
+        
+        var filteredQuery = query.AsQueryable();
+        if (requestModel.FromDate.HasValue && requestModel.ToDate.HasValue)
+        {
+            filteredQuery = filteredQuery.Where(x => x.TransactionDate >= requestModel.FromDate && x.TransactionDate <= requestModel.ToDate);
+        }
+        
+        if (!string.IsNullOrEmpty(requestModel.TransactionType))
+        {
+            filteredQuery = filteredQuery.Where(x => x.TransactionType == requestModel.TransactionType);
+        }
+
+        var result = filteredQuery.OrderByDescending(x => x.TransactionDate)
             .Skip((requestModel.PageNo - 1) * requestModel.PageSize).Take(requestModel.PageSize)
             .ToList();
+            
+        var count = filteredQuery.Count();
+        int pageCount = count / requestModel.PageSize;
+        if (count % requestModel.PageSize > 0) pageCount++;
+        
         var lst = result.Select(x => x.Change()).ToList();
 
         model = new TransactionHistoryListResponseModel()
         {
             Data = lst,
+            PageSetting = new PageSettingModel(requestModel.PageNo, requestModel.PageSize, pageCount),
             Response = new MessageResponseModel(true, "Success")
         };
         return model;
