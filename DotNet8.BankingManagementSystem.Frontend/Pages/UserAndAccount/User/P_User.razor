@@ -5,100 +5,87 @@
 
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="page animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <UiPageHeader Title="User Management" Subtitle="Manage application users, their credentials, and contact information.">
+    <div class="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <UiPageHeader Title="Users" Subtitle="Manage application users and their access levels.">
             <Actions>
-                <UiButton Href="/user-and-account/user/register"
-                          OnClick="@(() => InjectService.IntervalLoading())"
-                          Variant="UiButtonVariant.Default"
-                          Class="group">
-                    <i class="fa-solid fa-user-plus mr-2 text-primary-200 group-hover:text-white transition-colors"></i>
+                <UiButton Variant="UiButtonVariant.Outline" Size="UiButtonSize.Sm" OnClick="Generate">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2 opacity-70"></i>
+                    Generate
+                </UiButton>
+                <UiButton Variant="UiButtonVariant.Default" Size="UiButtonSize.Sm" OnClick="@(() => NavigationManager.NavigateTo("/user-and-account/user/register"))">
+                    <i class="fa-solid fa-user-plus mr-2 opacity-70"></i>
                     New User
                 </UiButton>
-                <GenerateButton OnClick="Generate" />
             </Actions>
         </UiPageHeader>
 
-        <!-- Search & Statistics Card -->
-        <div class="card card-body-sm">
-            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                <div class="relative w-full md:w-96 group">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary-500 transition-colors"></i>
-                    </span>
-                    <input type="search" 
-                           class="ui-input pl-10" 
-                           placeholder="Search users by name, email, or code..."/>
-                </div>
-                
-                <div class="flex items-center gap-4 text-sm text-slate-500">
-                    <span class="flex items-center gap-1.5 px-3 py-1 bg-slate-50 rounded-lg font-medium text-slate-700">
-                        <i class="fa-solid fa-user text-slate-400"></i>
-                         @_model.Data.Count Users Total
-                    </span>
+        <UiCard>
+            <div class="p-4 border-b border-border bg-muted/20">
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div class="relative w-full md:w-80 group">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs"></i>
+                        <input type="search" 
+                               class="ui-input pl-9 h-9 text-xs" 
+                               placeholder="Search users..."/>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Data Table Card -->
-        <div class="table-card">
-            <div class="overflow-x-auto">
-                <table class="table">
-                    <thead>
-                        <tr class="table-head-row">
-                            <th class="table-th w-16">#</th>
-                            <th class="table-th">UserInfo</th>
-                            <th class="table-th">Customer ID</th>
-                            <th class="table-th">Contact</th>
-                            <th class="table-th">Location</th>
-                            <th class="table-th text-right">Actions</th>
+            
+            <div class="p-0 overflow-auto">
+                <table class="ui-table">
+                    <thead class="ui-table-header">
+                        <tr class="ui-table-row">
+                            <th class="ui-table-head w-16 text-center">#</th>
+                            <th class="ui-table-head">User Info</th>
+                            <th class="ui-table-head">Customer ID</th>
+                            <th class="ui-table-head">Contact & Location</th>
+                            <th class="ui-table-head text-right pr-6">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody>
                         @foreach (var item in _model.Data)
                         {
-                            <tr class="table-row group">
-                                <td class="table-td text-sm text-slate-500">
+                            <tr class="ui-table-row group">
+                                <td class="ui-table-cell text-center text-xs text-muted-foreground">
                                     @(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))
                                 </td>
-                                <td class="table-td">
+                                <td class="ui-table-cell">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold text-xs ring-2 ring-white">
+                                        <div class="w-8 h-8 rounded-md bg-muted flex items-center justify-center text-[10px] font-bold">
                                             @(string.IsNullOrWhiteSpace(item.UserName)
                                                 ? "?"
                                                 : item.UserName.Substring(0, Math.Min(2, item.UserName.Length)).ToUpperInvariant())
                                         </div>
-                                        <div>
-                                            <p class="text-sm font-bold text-slate-900 leading-tight">@item.UserName</p>
-                                            <p class="text-[11px] text-slate-500 font-medium font-mono">@item.UserCode</p>
+                                        <div class="flex flex-col">
+                                            <span class="text-xs font-bold">@item.UserName</span>
+                                            <span class="text-[10px] text-muted-foreground font-mono">@item.UserCode</span>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="table-td">
-                                    <span class="text-sm font-semibold text-slate-700 font-mono">@item.CustomerId</span>
+                                <td class="ui-table-cell">
+                                    <span class="text-xs font-mono font-medium">@item.CustomerId</span>
                                 </td>
-                                <td class="table-td">
-                                    <p class="text-xs font-semibold text-slate-900">@item.FullName</p>
-                                    <p class="text-[11px] text-slate-500">@item.Email</p>
-                                    <p class="text-[10px] text-slate-400">@item.MobileNo</p>
+                                <td class="ui-table-cell">
+                                    <div class="flex flex-col">
+                                        <span class="text-xs font-semibold">@item.FullName</span>
+                                        <span class="text-[10px] text-muted-foreground">@item.Email</span>
+                                        <span class="text-[9px] text-muted-foreground flex items-center gap-1 mt-0.5">
+                                            <i class="fa-solid fa-location-dot text-[8px]"></i>
+                                            @item.TownshipCode, @item.StateCode
+                                        </span>
+                                    </div>
                                 </td>
-                                <td class="table-td">
-                                    <p class="text-xs text-slate-600 line-clamp-1">@item.Address</p>
-                                    <p class="text-[10px] text-slate-400">@item.TownshipCode, @item.StateCode</p>
-                                </td>
-                                <td class="table-td text-right">
-                                    <div class="action-cell">
-                                        <a href=@($"/user-and-account/user/edit/{item.UserCode}") 
-                                           class="action-btn action-btn-edit"
-                                           title="Edit User">
-                                            <i class="fa-solid fa-user-pen"></i>
-                                        </a>
-                                        <button type="button" 
-                                                class="action-btn action-btn-delete btnDelete" 
-                                                @onclick="() => Delete(item.UserCode)"
-                                                title="Delete User">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+                                <td class="ui-table-cell text-right pr-4">
+                                    <div class="flex justify-end gap-1">
+                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
+                                                  OnClick="@(() => NavigationManager.NavigateTo($"/user-and-account/user/edit/{item.UserCode}"))">
+                                            <i class="fa-solid fa-user-pen text-xs opacity-70"></i>
+                                        </UiButton>
+                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
+                                                  Class="hover:bg-destructive/10 hover:text-destructive"
+                                                  OnClick="() => Delete(item.UserCode)">
+                                            <i class="fa-solid fa-trash text-xs opacity-70"></i>
+                                        </UiButton>
                                     </div>
                                 </td>
                             </tr>
@@ -107,15 +94,14 @@
                 </table>
             </div>
 
-            <!-- Pagination Container -->
-            <div class="card-footer flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="text-sm text-slate-500">
-                    Showing page <b>@_model.PageSetting.PageNo</b> of <b>@_model.PageSetting.PageCount</b>
+            <div class="p-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 bg-muted/10">
+                <div class="text-[11px] text-muted-foreground font-medium">
+                    Showing page <span class="text-foreground font-bold">@_model.PageSetting.PageNo</span> of <span class="text-foreground font-bold">@_model.PageSetting.PageCount</span>
                 </div>
                 <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
-                              PageCount="@(_model.PageSetting.PageCount)" 
-                              SelectedChanged="PageChanged" />
+                               PageCount="@(_model.PageSetting.PageCount)" 
+                               SelectedChanged="PageChanged" />
             </div>
-        </div>
+        </UiCard>
     </div>
 }

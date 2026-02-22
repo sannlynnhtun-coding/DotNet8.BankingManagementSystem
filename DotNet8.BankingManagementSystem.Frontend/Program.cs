@@ -71,5 +71,7 @@ builder.Services.AddScoped<TownshipService>();
 
 builder.Services.AddScoped<ApiService>();
 builder.Services.AddScoped<InjectService>();
+builder.Services.AddScoped<IndexedDbService>();
+builder.Services.AddScoped<DataGenerationService>();
 
 await builder.Build().RunAsync();

@@ -7,7 +7,8 @@ public partial class P_TransactionHistory : ComponentBase
         PageNo = 1,
         PageSize = 10
     };
-    private DateTime? date = DateTime.Now;
+    private DateTime? fromDate;
+    private DateTime? toDate;
 
     private TransactionHistoryListResponseModel? _model;
 
@@ -37,16 +38,10 @@ public partial class P_TransactionHistory : ComponentBase
     private async Task Search()
     {
         await InjectService.EnableLoading();
-        //_model = await TransactionAPI.TransactionHistoryWithDate(new TransactionHistorySearchModel
-        //{
-        //    FromDate = date,
-        //    PageNo = 1,
-        //    PageSize = 10
-        //});
         _model = await ApiService.TransactionHistoryWithDateRange(new TransactionHistorySearchModel
         {
-            FromDate = date,
-            ToDate = date,
+            FromDate = fromDate,
+            ToDate = toDate,
             PageNo = 1,
             PageSize = 10
         });

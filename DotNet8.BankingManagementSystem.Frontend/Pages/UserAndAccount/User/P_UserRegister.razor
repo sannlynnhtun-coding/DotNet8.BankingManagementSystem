@@ -1,89 +1,75 @@
 @page "/user-and-account/user/register"
 
-<div class="max-w-4xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-    <!-- Header Section -->
-    <div class="text-center space-y-2">
-        <div class="inline-flex items-center justify-center p-3 bg-primary-50 text-primary-600 rounded-2xl shadow-sm mb-2">
-            <i class="fa-solid fa-user-plus text-2xl"></i>
-        </div>
-        <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Register New Customer</h1>
-        <p class="text-slate-500 max-w-sm mx-auto">Onboard a new customer by providing their personal and contact details.</p>
+<div class="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
+    <div class="space-y-2">
+        <h1 class="text-2xl font-bold tracking-tight">Register Customer</h1>
+        <p class="text-muted-foreground text-sm">Fill in the details below to onboard a new banking customer.</p>
     </div>
 
-    <!-- Form Card -->
-    <div class="card-lg">
+    <UiCard>
         <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
-            <div class="card-body space-y-8">
-                <!-- Grid Layout for Form -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                    <!-- Column 1: Personal Info -->
-                    <div class="space-y-6">
-                        <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                            <i class="fa-solid fa-id-card text-xs"></i>
+            <DataAnnotationsValidator />
+            
+            <div class="p-6 space-y-6">
+                <!-- Personal Section -->
+                <div class="space-y-4">
+                    <div class="pb-2 border-b">
+                        <h4 class="text-sm font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-id-card text-muted-foreground"></i>
                             Personal Information
-                        </h3>
-                        
-                        <div class="group">
+                        </h4>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
                             <UiLabel>Full Name</UiLabel>
-                            <InputText @bind-Value="_model.FullName" 
-                                       class="ui-input" 
-                                       placeholder="e.g. John Doe" />
-                            <ValidationMessage For="@(() => _model.FullName)" class="text-xs text-rose-500 mt-1" />
+                            <InputText @bind-Value="_model.FullName" class="ui-input" placeholder="e.g. John Doe" />
+                            <ValidationMessage For="@(() => _model.FullName)" class="text-[10px] text-destructive font-medium" />
                         </div>
 
-                        <div class="group">
+                        <div class="space-y-2">
                             <UiLabel>User Name</UiLabel>
-                            <InputText @bind-Value="_model.UserName" 
-                                       class="ui-input" 
-                                       placeholder="e.g. johndoe_99" />
-                            <ValidationMessage For="@(() => _model.UserName)" class="text-xs text-rose-500 mt-1" />
+                            <InputText @bind-Value="_model.UserName" class="ui-input" placeholder="e.g. johndoe_99" />
+                            <ValidationMessage For="@(() => _model.UserName)" class="text-[10px] text-destructive font-medium" />
                         </div>
 
-                        <div class="group">
+                        <div class="space-y-2 md:col-span-2">
                             <UiLabel>NRC Number</UiLabel>
-                            <InputText @bind-Value="_model.Nrc" 
-                                       class="ui-input" 
-                                       placeholder="e.g. 12/YAKANA(N)123456" />
-                            <ValidationMessage For="@(() => _model.Nrc)" class="text-xs text-rose-500 mt-1" />
+                            <InputText @bind-Value="_model.Nrc" class="ui-input" placeholder="e.g. 12/YAKANA(N)123456" />
+                            <ValidationMessage For="@(() => _model.Nrc)" class="text-[10px] text-destructive font-medium" />
                         </div>
                     </div>
+                </div>
 
-                    <!-- Column 2: Contact & Location -->
-                    <div class="space-y-6">
-                        <h3 class="text-sm font-black text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                            <i class="fa-solid fa-address-book text-xs"></i>
+                <!-- Contact Section -->
+                <div class="space-y-4 pt-2">
+                    <div class="pb-2 border-b">
+                        <h4 class="text-sm font-semibold flex items-center gap-2">
+                            <i class="fa-solid fa-address-book text-muted-foreground"></i>
                             Contact & Location
-                        </h3>
-
-                        <div class="group">
-                            <UiLabel>Email Address</UiLabel>
-                            <InputText @bind-Value="_model.Email" 
-                                       type="email"
-                                       class="ui-input" 
-                                       placeholder="john@example.com" />
-                            <ValidationMessage For="@(() => _model.Email)" class="text-xs text-rose-500 mt-1" />
-                        </div>
-
-                        <div class="group">
-                            <UiLabel>Mobile Number</UiLabel>
-                            <InputText @bind-Value="_model.MobileNo" 
-                                       class="ui-input" 
-                                       placeholder="09xxxxxxxxx" />
-                            <ValidationMessage For="@(() => _model.MobileNo)" class="text-xs text-rose-500 mt-1" />
-                        </div>
-
-                        <div class="group">
-                            <UiLabel>Home Address</UiLabel>
-                            <InputText @bind-Value="_model.Address" 
-                                       class="ui-input" 
-                                       placeholder="Street, Building, Room..." />
-                            <ValidationMessage For="@(() => _model.Address)" class="text-xs text-rose-500 mt-1" />
-                        </div>
+                        </h4>
                     </div>
 
-                    <!-- Full Width: Geographic Info -->
-                    <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
-                        <div class="group">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <UiLabel>Email Address</UiLabel>
+                            <InputText @bind-Value="_model.Email" type="email" class="ui-input" placeholder="john@example.com" />
+                            <ValidationMessage For="@(() => _model.Email)" class="text-[10px] text-destructive font-medium" />
+                        </div>
+
+                        <div class="space-y-2">
+                            <UiLabel>Mobile Number</UiLabel>
+                            <InputText @bind-Value="_model.MobileNo" class="ui-input" placeholder="09xxxxxxxxx" />
+                            <ValidationMessage For="@(() => _model.MobileNo)" class="text-[10px] text-destructive font-medium" />
+                        </div>
+
+                        <div class="space-y-2 md:col-span-2">
+                            <UiLabel>Home Address</UiLabel>
+                            <InputText @bind-Value="_model.Address" class="ui-input" placeholder="Street, Building, Room..." />
+                            <ValidationMessage For="@(() => _model.Address)" class="text-[10px] text-destructive font-medium" />
+                        </div>
+
+                        <div class="space-y-2">
                             <UiLabel>State / Division</UiLabel>
                             <select class="ui-input" @onchange="(e) => ChangeState(e.Value?.ToString() ?? string.Empty)">
                                 <option value="">Select State</option>
@@ -96,7 +82,8 @@
                                 }
                             </select>
                         </div>
-                        <div class="group">
+
+                        <div class="space-y-2">
                             <UiLabel>Township</UiLabel>
                             <InputSelect @bind-Value="@_model.TownshipCode" class="ui-input">
                                 <option value="">Select Township</option>
@@ -113,23 +100,14 @@
                 </div>
             </div>
 
-            <!-- Action Bar -->
-            <div class="card-footer flex flex-col sm:flex-row gap-3 px-8 py-6 bg-slate-50">
-                <UiButton Type="button"
-                          OnClick="@(() => InjectService.EnableLoading())"
-                          Variant="UiButtonVariant.Secondary"
-                          Size="UiButtonSize.Lg"
-                          Class="flex-1 px-6 font-bold">
+            <div class="flex items-center justify-end gap-3 p-6 pt-0">
+                <UiButton Type="button" Variant="UiButtonVariant.Ghost" OnClick="@(() => InjectService.EnableLoading())">
                     Cancel
                 </UiButton>
-                <UiButton Type="submit"
-                          Variant="UiButtonVariant.Default"
-                          Size="UiButtonSize.Lg"
-                          Class="flex-[2] px-6 font-bold shadow-lg shadow-primary-200 group">
+                <UiButton Type="submit" Variant="UiButtonVariant.Default">
                     Complete Registration
-                    <i class="fa-solid fa-user-check ml-2 text-primary-300 group-hover:scale-110 transition-transform"></i>
                 </UiButton>
             </div>
         </EditForm>
-    </div>
+    </UiCard>
 </div>

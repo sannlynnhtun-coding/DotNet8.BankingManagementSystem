@@ -1,0 +1,109 @@
+@page "/setting/generate-data"
+@using DotNet8.BankingManagementSystem.Frontend.Services
+@inject DataGenerationService DataGenerationService
+
+<div class="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+    <UiPageHeader Title="Data Generation" Subtitle="Initialize system with mock data for testing and development.">
+    </UiPageHeader>
+
+    <UiCard Class="max-w-2xl">
+        <div class="flex flex-col space-y-1.5 p-6">
+            <h3 class="ui-card-title">Configuration</h3>
+            <p class="ui-card-description">Set parameters for the mock data generator.</p>
+        </div>
+        <div class="p-6 pt-0 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="space-y-2">
+                    <UiLabel>Number of Accounts</UiLabel>
+                    <input type="number" class="ui-input" @bind-value="_accountCount" min="1" max="1000" />
+                </div>
+                <div class="space-y-2 invisible">
+                    <!-- Placeholder to maintain grid -->
+                </div>
+                <div class="space-y-2">
+                    <UiLabel>Transaction Start Date</UiLabel>
+                    <input type="date" class="ui-input" @bind-value="_fromDate" />
+                </div>
+                <div class="space-y-2">
+                    <UiLabel>Transaction End Date</UiLabel>
+                    <input type="date" class="ui-input" @bind-value="_toDate" />
+                </div>
+            </div>
+
+            <div class="p-4 bg-muted/30 rounded-lg border border-border/50">
+                <div class="flex items-start gap-3">
+                    <i class="fa-solid fa-circle-info text-primary mt-0.5"></i>
+                    <div class="space-y-1">
+                        <p class="text-xs font-bold">Generation Rules</p>
+                        <ul class="text-[11px] text-muted-foreground list-disc ml-4 space-y-0.5">
+                            <li>Generates States, Townships, Users, and Accounts.</li>
+                            <li>Randomly creates 5-10 transactions per generated account.</li>
+                            <li>Amounts will range from 5,000 to 90,000,000 MMK with `000` suffix.</li>
+                            <li>All existing test data in these tables will be cleared.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4 pt-2">
+                <UiButton Variant="UiButtonVariant.Default" OnClick="GenerateData" Disabled="@_isGenerating" Class="min-w-[140px]">
+                    @if (_isGenerating)
+                    {
+                        <i class="fa-solid fa-spinner fa-spin mr-2"></i>
+                        <span>Generating...</span>
+                    }
+                    else
+                    {
+                        <span>Generate Data</span>
+                    }
+                </UiButton>
+                @if (_percentage > 0)
+                {
+                    <span class="text-xs font-bold text-primary tabular-nums">@_percentage% Complete</span>
+                }
+            </div>
+
+            @if (_isGenerating || _percentage > 0)
+            {
+                <div class="space-y-3 pt-4 border-t border-border">
+                    <div class="h-2 w-full bg-muted rounded-full overflow-hidden">
+                        <div class="h-full bg-primary transition-all duration-300 ease-out" style="width: @(_percentage)%;"></div>
+                    </div>
+                    
+                    <UiAlert Variant="UiAlertVariant.Info" Class="bg-primary/5 border-primary/10">
+                        <i class="fa-solid fa-cloud-arrow-down text-primary"></i>
+                        <span class="text-xs font-medium">@_statusMessage</span>
+                    </UiAlert>
+                </div>
+            }
+        </div>
+    </UiCard>
+</div>
+
+@code {
+    private int _accountCount = 10;
+    private DateTime _fromDate = DateTime.Now.AddMonths(-1);
+    private DateTime _toDate = DateTime.Now;
+    private bool _isGenerating = false;
+    private int _percentage = 0;
+    private string _statusMessage = "";
+
+    private async Task GenerateData()
+    {
+        _isGenerating = true;
+        _percentage = 0;
+        _statusMessage = "Starting...";
+
+        var progress = new Progress<(int Percentage, string Message)>(p =>
+        {
+            _percentage = p.Percentage;
+            _statusMessage = p.Message;
+            StateHasChanged();
+        });
+
+        await DataGenerationService.GenerateData(_accountCount, _fromDate, _toDate, progress);
+
+        _isGenerating = false;
+        StateHasChanged();
+    }
+}

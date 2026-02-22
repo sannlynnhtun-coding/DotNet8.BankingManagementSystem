@@ -5,74 +5,66 @@
 
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="page animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div class="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
         <UiPageHeader Title="States" Subtitle="Manage administrative zones and state codes.">
             <Actions>
-                <UiButton Href="general-setup/state/create"
-                          OnClick="() => InjectService.IntervalLoading()"
-                          Variant="UiButtonVariant.Default"
-                          Class="group">
-                    <i class="fa-solid fa-plus mr-2 text-primary-200 group-hover:text-white transition-colors"></i>
-                    New State
-                </UiButton>
-                <GenerateButton OnClick="Generate" />
+                <div class="flex items-center gap-2">
+                    <UiButton Variant="UiButtonVariant.Default" Size="UiButtonSize.Sm" OnClick="@(() => NavigationManager.NavigateTo("/general-setup/state/create"))">
+                        <i class="fa-solid fa-plus mr-2 opacity-70"></i>
+                        New State
+                    </UiButton>
+                    <GenerateButton OnClick="Generate" />
+                </div>
             </Actions>
         </UiPageHeader>
 
-        <!-- Filters/Search Card -->
-        <div class="card card-body-sm">
-            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                <div class="relative w-full md:w-96 group">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary-500 transition-colors"></i>
-                    </span>
-                    <input type="search" 
-                           class="ui-input pl-10" 
-                           placeholder="Search states..."/>
-                </div>
-                
-                <div class="flex items-center gap-2 text-sm text-slate-500">
-                    <span>Showing <b>@_model.Data.Count</b> results</span>
+        <UiCard>
+            <div class="p-6 border-b border-border bg-muted/5">
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div class="relative w-full md:w-96 group">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs"></i>
+                        <input type="search" 
+                               class="ui-input pl-9 h-10 text-xs" 
+                               placeholder="Search states..."/>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Data Table Card -->
-        <div class="table-card">
-            <div class="overflow-x-auto">
-                <table class="table">
-                    <thead>
-                        <tr class="table-head-row">
-                            <th class="table-th w-16">#</th>
-                            <th class="table-th">State Code</th>
-                            <th class="table-th">State Name</th>
-                            <th class="table-th text-right">Actions</th>
+            <div class="p-0 overflow-auto">
+                <table class="ui-table">
+                    <thead class="ui-table-header">
+                        <tr class="ui-table-row">
+                            <th class="ui-table-head w-16 text-center">#</th>
+                            <th class="ui-table-head w-32">State Code</th>
+                            <th class="ui-table-head">State Name</th>
+                            <th class="ui-table-head text-right pr-6">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody>
                         @foreach (var item in _model.Data)
                         {
-                            <tr class="table-row group">
-                                <td class="table-td text-sm text-slate-500">
+                            <tr class="ui-table-row group">
+                                <td class="ui-table-cell text-center text-xs text-muted-foreground font-mono">
                                     @(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))
                                 </td>
-                                <td class="table-td">
-                                    <UiBadge>@item.StateCode</UiBadge>
+                                <td class="ui-table-cell">
+                                    <span class="ui-badge ui-badge-secondary font-mono text-[10px] uppercase tracking-wider px-2 py-0.5">
+                                        @item.StateCode
+                                    </span>
                                 </td>
-                                <td class="table-td text-sm font-medium text-slate-900">@item.StateName</td>
-                                <td class="table-td text-right">
-                                    <div class="action-cell">
-                                        <a href=@($"/general-setup/state/edit/{item.StateCode}") 
-                                           class="action-btn action-btn-edit"
-                                           title="Edit">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <button type="button" 
-                                                class="action-btn action-btn-delete"
-                                                @onclick="() => IsConfirmed(item.StateCode)"
-                                                title="Delete">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+                                <td class="ui-table-cell text-xs font-semibold">@item.StateName</td>
+                                <td class="ui-table-cell text-right pr-6">
+                                    <div class="flex items-center justify-end gap-1">
+                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
+                                                  OnClick="@(() => NavigationManager.NavigateTo($"/general-setup/state/edit/{item.StateCode}"))"
+                                                  Class="h-8 w-8 text-muted-foreground hover:text-foreground">
+                                            <i class="fa-solid fa-pen-to-square text-xs"></i>
+                                        </UiButton>
+                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
+                                                  OnClick="() => IsConfirmed(item.StateCode)"
+                                                  Class="h-8 w-8 text-muted-foreground hover:text-destructive">
+                                            <i class="fa-solid fa-trash text-xs"></i>
+                                        </UiButton>
                                     </div>
                                 </td>
                             </tr>
@@ -81,15 +73,14 @@
                 </table>
             </div>
 
-            <!-- Pagination -->
-            <div class="card-footer flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="text-sm text-slate-500">
-                    Page <b>@_model.PageSetting.PageNo</b> of <b>@_model.PageSetting.PageCount</b>
+            <div class="p-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 bg-muted/10">
+                <div class="text-[11px] text-muted-foreground font-medium">
+                    Showing page <span class="text-foreground font-bold">@_model.PageSetting.PageNo</span> of <span class="text-foreground font-bold">@_model.PageSetting.PageCount</span>
                 </div>
                 <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
                               PageCount="@(_model.PageSetting.PageCount)" 
                               SelectedChanged="PageChanged" />
             </div>
-        </div>
+        </UiCard>
     </div>
 }

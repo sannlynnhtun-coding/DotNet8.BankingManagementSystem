@@ -5,89 +5,82 @@
 
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="page animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <UiPageHeader Title="Bank Accounts" Subtitle="Monitor customer account balances and managed account details.">
+    <div class="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <UiPageHeader Title="Accounts" Subtitle="Manage and monitor system-wide bank accounts.">
             <Actions>
-                <UiButton Href="/user-and-account/account/create"
-                          OnClick="() => InjectService.IntervalLoading()"
-                          Variant="UiButtonVariant.Default"
-                          Class="group">
-                    <i class="fa-solid fa-plus-circle mr-2 text-primary-200 group-hover:text-white transition-colors"></i>
+                <UiButton Variant="UiButtonVariant.Outline" Size="UiButtonSize.Sm" OnClick="() => List(1, 10)">
+                    <i class="fa-solid fa-rotate mr-2 opacity-70"></i>
+                    Reload
+                </UiButton>
+                <UiButton Variant="UiButtonVariant.Default" Size="UiButtonSize.Sm" OnClick="@(() => NavigationManager.NavigateTo("/user-and-account/account/create"))">
+                    <i class="fa-solid fa-plus mr-2 opacity-70"></i>
                     New Account
                 </UiButton>
-                <GenerateButton Name="Reload" OnClick="() => List(1, 10)" />
             </Actions>
         </UiPageHeader>
 
-        <!-- Filters & Quick Actions Card -->
-        <div class="card card-body-sm">
-            <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                <div class="relative w-full md:w-96 group">
-                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary-500 transition-colors"></i>
-                    </span>
-                    <input type="search" 
-                           class="ui-input pl-10" 
-                           placeholder="Search by account number..."/>
+        <UiCard>
+            <div class="p-4 border-b border-border bg-muted/20">
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div class="relative w-full md:w-80 group">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs"></i>
+                        <input type="search" 
+                               class="ui-input pl-9 h-9 text-xs" 
+                               placeholder="Search account number..."/>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Data Table Card -->
-        <div class="table-card">
-            <div class="overflow-x-auto">
-                <table class="table">
-                    <thead>
-                        <tr class="table-head-row">
-                            <th class="table-th w-16">#</th>
-                            <th class="table-th">Account Number</th>
-                            <th class="table-th">Customer Name</th>
-                            <th class="table-th">Mobile</th>
-                            <th class="table-th">Balance</th>
-                            <th class="table-th text-right">Actions</th>
+            
+            <div class="p-0 overflow-auto">
+                <table class="ui-table">
+                    <thead class="ui-table-header">
+                        <tr class="ui-table-row">
+                            <th class="ui-table-head w-16 text-center">#</th>
+                            <th class="ui-table-head">Account Details</th>
+                            <th class="ui-table-head">Customer</th>
+                            <th class="ui-table-head">Balance</th>
+                            <th class="ui-table-head text-right pr-6">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody>
                         @foreach (var item in _model.Data)
                         {
                             var result = _users.Data.FirstOrDefault(x => x.UserCode == item.CustomerCode);
-                            <tr class="table-row group">
-                                <td class="table-td text-sm text-slate-500">
+                            <tr class="ui-table-row group">
+                                <td class="ui-table-cell text-center text-xs text-muted-foreground">
                                     @(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))
                                 </td>
-                                <td class="table-td">
+                                <td class="ui-table-cell">
                                     <div class="flex items-center gap-2">
-                                        <div class="p-1.5 bg-primary-50 text-primary-600 rounded-lg">
-                                            <i class="fa-solid fa-building-columns text-xs"></i>
+                                        <div class="w-8 h-8 rounded bg-primary/10 text-primary flex items-center justify-center">
+                                            <i class="fa-solid fa-building-columns text-[10px]"></i>
                                         </div>
-                                        <span class="text-sm font-bold text-slate-900 font-mono tracking-wider">@item.AccountNo</span>
+                                        <span class="text-xs font-bold font-mono tracking-tight">@item.AccountNo</span>
                                     </div>
                                 </td>
-                                <td class="table-td">
-                                    <span class="text-sm font-medium text-slate-700">@(result?.FullName ?? "N/A")</span>
-                                </td>
-                                <td class="table-td">
-                                    <span class="text-xs text-slate-500">@(result?.MobileNo ?? "N/A")</span>
-                                </td>
-                                <td class="table-td">
-                                    <div class="inline-flex items-center gap-1.5 text-sm font-bold text-slate-900">
-                                        <span class="text-slate-400 font-normal">MMK</span>
-                                        @item.Balance.ToString("n0")
+                                <td class="ui-table-cell">
+                                    <div class="flex flex-col">
+                                        <span class="text-xs font-semibold">@(result?.FullName ?? "N/A")</span>
+                                        <span class="text-[10px] text-muted-foreground">@(result?.MobileNo ?? "N/A")</span>
                                     </div>
                                 </td>
-                                <td class="table-td text-right">
-                                    <div class="action-cell">
-                                        <a href=@($"/user-and-account/account{item.AccountNo}") 
-                                           class="action-btn action-btn-edit"
-                                           title="Edit Account">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <button type="button" 
-                                                class="action-btn action-btn-delete"
-                                                @onclick="() => IsConfirmed(item.AccountNo)"
-                                                title="Delete Account">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+                                <td class="ui-table-cell">
+                                    <div class="flex flex-col">
+                                        <span class="text-xs font-bold tabular-nums">@item.Balance.ToString("N0")</span>
+                                        <span class="text-[9px] text-muted-foreground uppercase font-bold tracking-widest">MMK</span>
+                                    </div>
+                                </td>
+                                <td class="ui-table-cell text-right pr-4">
+                                    <div class="flex justify-end gap-1">
+                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
+                                                  OnClick="@(() => NavigationManager.NavigateTo($"/user-and-account/account{item.AccountNo}"))">
+                                            <i class="fa-solid fa-pen-to-square text-xs opacity-70"></i>
+                                        </UiButton>
+                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
+                                                  Class="hover:bg-destructive/10 hover:text-destructive"
+                                                  OnClick="() => IsConfirmed(item.AccountNo)">
+                                            <i class="fa-solid fa-trash text-xs opacity-70"></i>
+                                        </UiButton>
                                     </div>
                                 </td>
                             </tr>
@@ -96,16 +89,15 @@
                 </table>
             </div>
 
-            <!-- Pagination Container -->
-            <div class="card-footer flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div class="text-sm text-slate-500">
-                    Showing page <b>@_model.PageSetting.PageNo</b> of <b>@_model.PageSetting.PageCount</b>
+            <div class="p-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 bg-muted/10">
+                <div class="text-[11px] text-muted-foreground font-medium">
+                    Showing page <span class="text-foreground font-bold">@_model.PageSetting.PageNo</span> of <span class="text-foreground font-bold">@_model.PageSetting.PageCount</span>
                 </div>
                 <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
-                              PageCount="@(_model.PageSetting.PageCount)" 
-                              SelectedChanged="PageChanged" />
+                               PageCount="@(_model.PageSetting.PageCount)" 
+                               SelectedChanged="PageChanged" />
             </div>
-        </div>
+        </UiCard>
     </div>
 }
 

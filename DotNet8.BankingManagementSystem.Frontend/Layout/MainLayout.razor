@@ -16,17 +16,19 @@
 
         <NavMenu IsSetupOpen="isSetupOpen"
                  IsUsersOpen="isUsersOpen"
+                 IsSettingOpen="isSettingOpen"
                  ToggleSetup="ToggleSetup"
-                 ToggleUsers="ToggleUsers" />
+                 ToggleUsers="ToggleUsers"
+                 ToggleSetting="ToggleSetting" />
 
-        <div class="p-4 border-t border-slate-100">
-            <div class="flex items-center gap-3 px-3 py-2 bg-slate-50 rounded-2xl">
-                <div class="w-10 h-10 rounded-xl bg-primary-600 text-white font-black text-sm flex items-center justify-center border-2 border-white shadow-sm">
+        <div class="p-4 border-t border-slate-200">
+            <div class="flex items-center gap-3 px-3 py-2 bg-slate-50/50 rounded-lg">
+                <div class="w-9 h-9 rounded-md bg-primary text-white font-bold text-xs flex items-center justify-center border border-primary-700 shadow-sm">
                     @UserInitials
                 </div>
                 <div class="flex-1 overflow-hidden">
-                    <p class="text-sm font-bold text-slate-900 truncate">@UserDisplayName</p>
-                    <p class="text-xs text-slate-500 truncate italic">@UserRoleName</p>
+                    <p class="text-xs font-bold text-slate-900 truncate">@UserDisplayName</p>
+                    <p class="text-[10px] text-slate-500 truncate font-medium">@UserRoleName</p>
                 </div>
             </div>
         </div>
@@ -35,10 +37,10 @@
     <!-- Main Content -->
     <div class="flex-1 flex flex-col min-h-screen">
         <!-- Header -->
-        <header class="h-16 flex items-center justify-between px-8 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30">
+        <header class="h-14 flex items-center justify-between px-6 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30">
             <div class="flex items-center gap-4 lg:hidden">
-                <button @onclick="ToggleMobileMenu" class="p-2 -ml-2 text-slate-500 hover:text-primary-600 focus:outline-none">
-                    <i class="fa-solid fa-bars text-xl"></i>
+                <button @onclick="ToggleMobileMenu" class="p-2 -ml-2 text-slate-500 hover:text-primary focus:outline-none">
+                    <i class="fa-solid fa-bars text-lg"></i>
                 </button>
                 <span class="text-lg font-bold text-slate-900">IBanking</span>
             </div>
@@ -46,30 +48,27 @@
             <!-- Search Area -->
             <div class="hidden md:flex items-center flex-1 max-w-xl">
                 <div class="relative w-full group">
-                    <span class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary-500 transition-colors"></i>
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary transition-colors text-xs"></i>
                     </span>
                     <input type="text" 
-                           class="block w-full pl-11 pr-4 py-2.5 bg-slate-100 border-transparent rounded-2xl text-sm placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300" 
-                           placeholder="Search your account, transactions..."/>
-                    <div class="absolute inset-y-0 right-0 py-2 pr-2 hidden sm:flex">
-                        <kbd class="inline-flex items-center border border-slate-200 rounded-lg px-1.5 text-xs text-slate-400 font-sans tracking-tight">⌘K</kbd>
-                    </div>
+                           class="block w-full pl-9 pr-4 py-1.5 bg-slate-50 border border-slate-200 rounded-md text-sm placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200" 
+                           placeholder="Search infrastructure..."/>
                 </div>
             </div>
 
             <!-- Right Actions -->
             <div class="flex items-center gap-3">
-                <button class="p-2.5 text-slate-500 hover:text-primary-600 hover:bg-primary-50 rounded-xl transition-all h-10 w-10 flex items-center justify-center">
-                    <i class="fa-regular fa-bell text-lg"></i>
+                <button class="p-2 text-slate-500 hover:text-primary hover:bg-slate-50 rounded-md transition-all h-9 w-9 flex items-center justify-center">
+                    <i class="fa-regular fa-bell text-base"></i>
                 </button>
-                <div class="h-8 w-px bg-slate-200 mx-2 hidden sm:block"></div>
-                <div class="flex items-center gap-3 group cursor-pointer pl-2">
+                <div class="h-6 w-px bg-slate-200 mx-1 hidden sm:block"></div>
+                <div class="flex items-center gap-2 group cursor-pointer pl-1">
                     <div class="hidden sm:block text-right">
-                        <p class="text-xs font-bold text-slate-900 group-hover:text-primary-600 transition-colors">@UserDisplayName</p>
-                        <p class="text-[10px] text-slate-500">@UserRoleName</p>
+                        <p class="text-[11px] font-bold text-slate-900 group-hover:text-primary transition-colors">@UserDisplayName</p>
+                        <p class="text-[9px] text-slate-500 font-medium">@UserRoleName</p>
                     </div>
-                    <div class="w-9 h-9 rounded-xl bg-primary-600 text-white font-black text-xs flex items-center justify-center ring-2 ring-primary-100 group-hover:ring-primary-200 shadow-sm transition-all">
+                    <div class="w-8 h-8 rounded-md bg-primary text-white font-bold text-[10px] flex items-center justify-center shadow-sm">
                         @UserInitials
                     </div>
                 </div>
@@ -77,7 +76,7 @@
         </header>
 
         <!-- Page Content -->
-        <main class="flex-1 p-8">
+        <main class="flex-1 p-6">
             <div class="max-w-7xl mx-auto">
                 @Body
             </div>
@@ -89,18 +88,20 @@
     @if (isMobileMenuOpen)
     {
         <div class="fixed inset-0 z-50 lg:hidden">
-            <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm" @onclick="ToggleMobileMenu"></div>
-            <div class="fixed inset-y-0 left-0 w-72 bg-white shadow-2xl flex flex-col animate-in slide-in-from-left duration-300">
-                <div class="h-16 flex items-center px-6 border-b border-slate-100">
-                    <span class="text-xl font-bold text-slate-900 tracking-tight">IBanking</span>
+            <div class="fixed inset-0 bg-slate-900/20 backdrop-blur-[2px]" @onclick="ToggleMobileMenu"></div>
+            <div class="fixed inset-y-0 left-0 w-72 bg-white shadow-xl flex flex-col animate-in slide-in-from-left duration-300">
+                <div class="h-14 flex items-center px-6 border-b border-slate-200">
+                    <span class="text-lg font-bold text-slate-900">IBanking</span>
                     <button @onclick="ToggleMobileMenu" class="ml-auto p-2 text-slate-400 hover:text-slate-600">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
                 <NavMenu IsSetupOpen="isSetupOpen"
                          IsUsersOpen="isUsersOpen"
+                         IsSettingOpen="isSettingOpen"
                          ToggleSetup="ToggleSetup"
                          ToggleUsers="ToggleUsers"
+                         ToggleSetting="ToggleSetting"
                          OnNavigate="CloseMobileMenu" />
             </div>
         </div>
@@ -108,10 +109,12 @@
 @code {
     private bool isSetupOpen = false;
     private bool isUsersOpen = false;
+    private bool isSettingOpen = false;
     private bool isMobileMenuOpen = false;
 
     private void ToggleSetup() => isSetupOpen = !isSetupOpen;
     private void ToggleUsers() => isUsersOpen = !isUsersOpen;
+    private void ToggleSetting() => isSettingOpen = !isSettingOpen;
     private void ToggleMobileMenu() => isMobileMenuOpen = !isMobileMenuOpen;
     private void CloseMobileMenu() => isMobileMenuOpen = false;
 

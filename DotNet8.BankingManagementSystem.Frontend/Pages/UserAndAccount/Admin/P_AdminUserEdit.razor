@@ -2,73 +2,60 @@
 
 @if (_model is not null)
 {
-    <div class="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <!-- Header Section -->
-        <div class="text-center space-y-2">
-            <div class="inline-flex items-center justify-center p-3 bg-indigo-50 text-indigo-600 rounded-2xl shadow-sm mb-2 border border-indigo-100">
-                <i class="fa-solid fa-user-pen text-2xl"></i>
-            </div>
-            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight">Edit Staff Details</h1>
-            <p class="text-slate-500 max-w-sm mx-auto">Update administrative access and profile for <b>@adminUserCode</b>.</p>
+    <div class="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <div class="space-y-2">
+            <h1 class="text-2xl font-bold tracking-tight">Edit Staff Details</h1>
+            <p class="text-muted-foreground text-sm">Update administrative access and profile for <span class="font-mono font-bold text-foreground">@adminUserCode</span>.</p>
         </div>
 
-        <!-- Form Card -->
-        <div class="card-lg">
-            <EditForm Model="@_model">
-                <div class="card-body space-y-6">
-                    <!-- Inputs Group -->
-                    <div class="space-y-4">
-                        <div class="group opacity-70">
+        <UiCard>
+            <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator />
+                
+                <div class="p-6 space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
                             <UiLabel>Staff Access Code</UiLabel>
-                            <InputText @bind-Value="_model.AdminUserCode" 
-                                       class="ui-input bg-slate-50 border-slate-200 text-slate-500 cursor-not-allowed shadow-none" 
-                                       readonly="true" />
+                            <div class="ui-input bg-muted/50 text-muted-foreground cursor-not-allowed select-none flex items-center px-3 h-10 rounded-md border border-input text-sm">
+                                @_model.AdminUserCode
+                            </div>
                         </div>
 
-                        <div class="group">
+                        <div class="space-y-2">
                             <UiLabel>Staff Full Name</UiLabel>
                             <InputText @bind-Value="_model.AdminUserName" 
                                        class="ui-input" 
                                        placeholder="e.g. Updated Name" />
-                            <ValidationMessage For="@(() => _model.AdminUserName)" class="text-xs text-rose-500 mt-1" />
+                            <ValidationMessage For="@(() => _model.AdminUserName)" class="text-[10px] text-destructive font-medium" />
                         </div>
 
-                        <div class="group">
+                        <div class="space-y-2">
                             <UiLabel>Contact Number</UiLabel>
                             <InputText @bind-Value="_model.MobileNo" 
                                        class="ui-input" 
                                        placeholder="09xxxxxxxxx" />
-                            <ValidationMessage For="@(() => _model.MobileNo)" class="text-xs text-rose-500 mt-1" />
+                            <ValidationMessage For="@(() => _model.MobileNo)" class="text-[10px] text-destructive font-medium" />
                         </div>
 
-                        <div class="group">
+                        <div class="space-y-2">
                             <UiLabel>Assigned Role Code</UiLabel>
                             <InputText @bind-Value="_model.UserRoleCode" 
                                        class="ui-input" 
                                        placeholder="e.g. ROLE_SUPER" />
-                            <ValidationMessage For="@(() => _model.UserRoleCode)" class="text-xs text-rose-500 mt-1" />
+                            <ValidationMessage For="@(() => _model.UserRoleCode)" class="text-[10px] text-destructive font-medium" />
                         </div>
                     </div>
                 </div>
 
-                <!-- Action Bar -->
-                <div class="card-footer flex flex-col sm:flex-row gap-3 px-8 py-6 bg-slate-50">
-                    <UiButton Href="/user-and-account/admin-user"
-                              Variant="UiButtonVariant.Secondary"
-                              Size="UiButtonSize.Lg"
-                              Class="flex-1 px-6 font-bold">
+                <div class="flex items-center justify-end gap-3 p-6 pt-0">
+                    <UiButton Type="button" Variant="UiButtonVariant.Ghost" OnClick="@(() => NavigationManager.NavigateTo("/user-and-account/admin-user"))">
                         Cancel
                     </UiButton>
-                    <UiButton Type="submit"
-                              OnClick="OnValidSubmit"
-                              Variant="UiButtonVariant.Default"
-                              Size="UiButtonSize.Lg"
-                              Class="flex-[2] px-6 font-bold bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-200 group">
+                    <UiButton Type="submit" Variant="UiButtonVariant.Default">
                         Save Changes
-                        <i class="fa-solid fa-floppy-disk ml-2 text-indigo-300 group-hover:scale-110 transition-transform"></i>
                     </UiButton>
                 </div>
             </EditForm>
-        </div>
+        </UiCard>
     </div>
 }

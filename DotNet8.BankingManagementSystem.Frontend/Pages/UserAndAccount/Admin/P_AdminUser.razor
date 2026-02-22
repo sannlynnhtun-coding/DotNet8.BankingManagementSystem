@@ -2,82 +2,75 @@
 
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="page animate-in fade-in duration-500">
+    <div class="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
         <UiPageHeader Title="Admin Staff" Subtitle="Manage system administrators and staff access roles.">
             <Actions>
-                <div class="relative flex-1 md:w-64">
-                    <i class="fa-solid fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input type="text" 
-                           placeholder="Search staff..." 
-                           class="ui-input pl-11 bg-white" />
+                <div class="relative w-full md:w-64 group">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs"></i>
+                    <input type="search" 
+                           class="ui-input pl-9 h-9 text-xs" 
+                           placeholder="Search staff..."/>
                 </div>
-                <UiButton Href="/user-and-account/admin-user/create"
-                          OnClick="() => InjectService.IntervalLoading()"
-                          Variant="UiButtonVariant.Neutral"
-                          Class="group font-bold">
-                    <i class="fa-solid fa-user-plus mr-2 text-slate-400 group-hover:text-white transition-colors"></i>
+                <UiButton Variant="UiButtonVariant.Default" Size="UiButtonSize.Sm" OnClick="@(() => NavigationManager.NavigateTo("/user-and-account/admin-user/create"))">
+                    <i class="fa-solid fa-user-plus mr-2 opacity-70"></i>
                     Add Staff
                 </UiButton>
             </Actions>
         </UiPageHeader>
 
-        <!-- Table Card -->
-        <div class="table-card rounded-3xl">
-            <div class="overflow-x-auto">
-                <table class="table">
-                    <thead>
-                        <tr class="table-head-row">
-                            <th class="table-th font-black">#</th>
-                            <th class="table-th font-black">Staff Details</th>
-                            <th class="table-th font-black">Contact</th>
-                            <th class="table-th font-black">Role</th>
-                            <th class="table-th font-black text-right">Actions</th>
+        <UiCard>
+            <div class="p-0 overflow-auto">
+                <table class="ui-table">
+                    <thead class="ui-table-header">
+                        <tr class="ui-table-row">
+                            <th class="ui-table-head w-16 text-center">#</th>
+                            <th class="ui-table-head">Staff Details</th>
+                            <th class="ui-table-head">Contact</th>
+                            <th class="ui-table-head">Role</th>
+                            <th class="ui-table-head text-right pr-6">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
+                    <tbody>
                         @{ int count = 0; }
                         @foreach (var item in _model.Data)
                         {
-                            <tr class="table-row group">
-                                <td class="table-td text-sm font-medium text-slate-400">
+                            <tr class="ui-table-row group">
+                                <td class="ui-table-cell text-center text-xs text-muted-foreground">
                                     @(++count + ((_model.PageSetting?.PageNo - 1) * _model.PageSetting?.PageSize))
                                 </td>
-                                <td class="table-td">
+                                <td class="ui-table-cell">
                                     <div class="flex items-center gap-3">
-                                        <div class="h-10 w-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold border border-slate-200 uppercase">
-                                            @item.AdminUserName.Substring(0, 1)
+                                        <div class="w-8 h-8 rounded bg-muted flex items-center justify-center text-[10px] font-bold">
+                                            @item.AdminUserName.Substring(0, 1).ToUpper()
                                         </div>
-                                        <div>
-                                            <div class="text-sm font-bold text-slate-900">@item.AdminUserName</div>
-                                            <div class="text-xs text-slate-500 font-mono">ID: @item.AdminUserCode</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="table-td">
-                                    <div class="flex flex-col gap-1">
-                                        <div class="flex items-center gap-2 text-sm text-slate-600">
-                                            <i class="fa-solid fa-phone text-[10px] text-slate-400"></i>
-                                            @item.MobileNo
+                                        <div class="flex flex-col">
+                                            <span class="text-xs font-bold">@item.AdminUserName</span>
+                                            <span class="text-[10px] text-muted-foreground font-mono">@item.AdminUserCode</span>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="table-td">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-100">
+                                <td class="ui-table-cell">
+                                    <div class="flex items-center gap-2 text-xs">
+                                        <i class="fa-solid fa-phone text-[10px] text-muted-foreground"></i>
+                                        @item.MobileNo
+                                    </div>
+                                </td>
+                                <td class="ui-table-cell">
+                                    <span class="ui-badge ui-badge-secondary text-[10px] font-bold uppercase tracking-tight">
                                         @item.UserRoleCode
                                     </span>
                                 </td>
-                                <td class="table-td text-right">
-                                    <div class="action-cell">
-                                        <a href="/user-and-account/admin-user/edit/@item.AdminUserCode" 
-                                           class="action-btn action-btn-edit text-slate-400 hover:text-amber-600"
-                                           title="Edit">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </a>
-                                        <button @onclick="() => Delete(item.AdminUserCode)"
-                                                class="action-btn action-btn-delete text-slate-400 hover:text-red-600"
-                                                title="Delete">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </button>
+                                <td class="ui-table-cell text-right pr-4">
+                                    <div class="flex justify-end gap-1">
+                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
+                                                  OnClick="@(() => NavigationManager.NavigateTo($"/user-and-account/admin-user/edit/{item.AdminUserCode}"))">
+                                            <i class="fa-solid fa-pen-to-square text-xs opacity-70"></i>
+                                        </UiButton>
+                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
+                                                  Class="hover:bg-destructive/10 hover:text-destructive"
+                                                  OnClick="() => Delete(item.AdminUserCode)">
+                                            <i class="fa-solid fa-trash text-xs opacity-70"></i>
+                                        </UiButton>
                                     </div>
                                 </td>
                             </tr>
@@ -86,15 +79,14 @@
                 </table>
             </div>
 
-            <!-- Footer / Pagination -->
-            <div class="card-footer flex items-center justify-between">
-                <div class="text-xs text-slate-500 font-medium">
-                    Showing Page <span class="text-slate-900 font-bold">@_model.PageSetting.PageNo</span> of <span class="text-slate-900 font-bold">@_model.PageSetting.PageCount</span>
+            <div class="p-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 bg-muted/10">
+                <div class="text-[11px] text-muted-foreground font-medium">
+                    Showing page <span class="text-foreground font-bold">@_model.PageSetting.PageNo</span> of <span class="text-foreground font-bold">@_model.PageSetting.PageCount</span>
                 </div>
                 <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
-                              PageCount="@(_model.PageSetting.PageCount)" 
-                              SelectedChanged="PageChanged" />
+                               PageCount="@(_model.PageSetting.PageCount)" 
+                               SelectedChanged="PageChanged" />
             </div>
-        </div>
+        </UiCard>
     </div>
 }
