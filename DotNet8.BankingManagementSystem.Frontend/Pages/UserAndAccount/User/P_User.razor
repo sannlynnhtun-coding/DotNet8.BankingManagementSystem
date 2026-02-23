@@ -5,87 +5,92 @@
 
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
+    <div class="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
         <UiPageHeader Title="Users" Subtitle="Manage application users and their access levels.">
             <Actions>
-                <UiButton Variant="UiButtonVariant.Outline" Size="UiButtonSize.Sm" OnClick="Generate">
-                    <i class="fa-solid fa-wand-magic-sparkles mr-2 opacity-70"></i>
-                    Generate
-                </UiButton>
-                <UiButton Variant="UiButtonVariant.Default" Size="UiButtonSize.Sm" OnClick="@(() => NavigationManager.NavigateTo("/user-and-account/user/register"))">
-                    <i class="fa-solid fa-user-plus mr-2 opacity-70"></i>
-                    New User
-                </UiButton>
+                <div class="flex gap-2 p-1 bg-base-100 rounded-xl shadow-sm border border-base-300">
+                    <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Sm" OnClick="Generate">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-2 opacity-70"></i>
+                        Auto-Gen
+                    </UiButton>
+                    <UiButton Variant="UiButtonVariant.Default" Size="UiButtonSize.Sm" OnClick="@(() => NavigationManager.NavigateTo("/user-and-account/user/register"))">
+                        <i class="fa-solid fa-user-plus mr-2 opacity-70"></i>
+                        New User
+                    </UiButton>
+                </div>
             </Actions>
         </UiPageHeader>
 
         <UiCard>
-            <div class="p-4 border-b border-border bg-muted/20">
+            <div class="p-6 bg-base-200/50">
                 <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-                    <div class="relative w-full md:w-80 group">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs"></i>
-                        <input type="search" 
-                               class="ui-input pl-9 h-9 text-xs" 
-                               placeholder="Search users..."/>
+                    <div class="relative w-full md:w-96 group">
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-magnifying-glass text-base-content/40 group-focus-within:text-primary transition-colors text-xs"></i>
+                        </span>
+                        <input type="text" 
+                               class="input input-bordered input-sm w-full pl-9 focus:input-primary transition-all" 
+                               placeholder="Search users..." />
                     </div>
                 </div>
             </div>
             
-            <div class="p-0 overflow-auto">
-                <table class="ui-table">
-                    <thead class="ui-table-header">
-                        <tr class="ui-table-row">
-                            <th class="ui-table-head w-16 text-center">#</th>
-                            <th class="ui-table-head">User Info</th>
-                            <th class="ui-table-head">Customer ID</th>
-                            <th class="ui-table-head">Contact & Location</th>
-                            <th class="ui-table-head text-right pr-6">Actions</th>
+            <div class="overflow-x-auto">
+                <table class="table table-zebra table-md">
+                    <thead>
+                        <tr class="text-[10px] uppercase tracking-widest font-black opacity-40 bg-base-200/30">
+                            <th class="w-16 text-center">No.</th>
+                            <th>User</th>
+                            <th>Customer ID</th>
+                            <th>Personal Details</th>
+                            <th class="text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in _model.Data)
                         {
-                            <tr class="ui-table-row group">
-                                <td class="ui-table-cell text-center text-xs text-muted-foreground">
-                                    @(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))
+                            <tr class="hover group">
+                                <td class="text-center opacity-40 font-mono text-xs">
+                                    @((++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize)).ToString("D2"))
                                 </td>
-                                <td class="ui-table-cell">
+                                <td>
                                     <div class="flex items-center gap-3">
-                                        <div class="w-8 h-8 rounded-md bg-muted flex items-center justify-center text-[10px] font-bold">
-                                            @(string.IsNullOrWhiteSpace(item.UserName)
-                                                ? "?"
-                                                : item.UserName.Substring(0, Math.Min(2, item.UserName.Length)).ToUpperInvariant())
+                                        <div class="avatar placeholder">
+                                            <div class="bg-secondary/10 text-secondary rounded-lg w-10 text-xs font-black">
+                                                @(string.IsNullOrWhiteSpace(item.UserName)
+                                                    ? "?"
+                                                    : item.UserName.Substring(0, Math.Min(2, item.UserName.Length)).ToUpperInvariant())
+                                            </div>
                                         </div>
                                         <div class="flex flex-col">
-                                            <span class="text-xs font-bold">@item.UserName</span>
-                                            <span class="text-[10px] text-muted-foreground font-mono">@item.UserCode</span>
+                                            <span class="text-sm font-black">@item.UserName</span>
+                                            <span class="text-[10px] opacity-40 font-mono font-bold tracking-tight">@item.UserCode</span>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="ui-table-cell">
-                                    <span class="text-xs font-mono font-medium">@item.CustomerId</span>
+                                <td>
+                                    <span class="badge badge-outline border-base-300 font-mono font-bold text-[10px] opacity-60 px-3 py-3">@item.CustomerId</span>
                                 </td>
-                                <td class="ui-table-cell">
+                                <td>
                                     <div class="flex flex-col">
-                                        <span class="text-xs font-semibold">@item.FullName</span>
-                                        <span class="text-[10px] text-muted-foreground">@item.Email</span>
-                                        <span class="text-[9px] text-muted-foreground flex items-center gap-1 mt-0.5">
-                                            <i class="fa-solid fa-location-dot text-[8px]"></i>
-                                            @item.TownshipCode, @item.StateCode
-                                        </span>
+                                        <span class="text-sm font-black">@item.FullName</span>
+                                        <span class="text-[10px] opacity-40 font-bold">@item.Email</span>
+                                        <div class="flex items-center gap-1.5 mt-1">
+                                            <div class="w-1 h-1 rounded-full bg-primary/40"></div>
+                                            <span class="text-[9px] font-black uppercase tracking-widest opacity-40">@item.TownshipCode, @item.StateCode</span>
+                                        </div>
                                     </div>
                                 </td>
-                                <td class="ui-table-cell text-right pr-4">
-                                    <div class="flex justify-end gap-1">
-                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
-                                                  OnClick="@(() => NavigationManager.NavigateTo($"/user-and-account/user/edit/{item.UserCode}"))">
-                                            <i class="fa-solid fa-user-pen text-xs opacity-70"></i>
-                                        </UiButton>
-                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
-                                                  Class="hover:bg-destructive/10 hover:text-destructive"
-                                                  OnClick="() => Delete(item.UserCode)">
-                                            <i class="fa-solid fa-trash text-xs opacity-70"></i>
-                                        </UiButton>
+                                <td class="text-right">
+                                    <div class="join shadow-sm border border-base-300">
+                                        <button class="btn btn-ghost btn-xs join-item" 
+                                                @onclick="@(() => NavigationManager.NavigateTo($"/user-and-account/user/edit/{item.UserCode}"))">
+                                            <i class="fa-solid fa-user-pen opacity-70"></i>
+                                        </button>
+                                        <button class="btn btn-ghost btn-xs join-item text-error hover:bg-error hover:text-error-content" 
+                                                @onclick="() => Delete(item.UserCode)">
+                                            <i class="fa-solid fa-trash opacity-70"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -94,14 +99,17 @@
                 </table>
             </div>
 
-            <div class="p-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 bg-muted/10">
-                <div class="text-[11px] text-muted-foreground font-medium">
-                    Showing page <span class="text-foreground font-bold">@_model.PageSetting.PageNo</span> of <span class="text-foreground font-bold">@_model.PageSetting.PageCount</span>
+            @if (_model.PageSetting is not null)
+            {
+                <div class="p-6 bg-base-200/30 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-40">
+                        Page <span class="text-base-content opacity-100">@_model.PageSetting.PageNo</span> of <span class="text-base-content opacity-100">@_model.PageSetting.PageCount</span>
+                    </div>
+                    <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
+                                   PageCount="@(_model.PageSetting.PageCount)" 
+                                   SelectedChanged="PageChanged" />
                 </div>
-                <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
-                               PageCount="@(_model.PageSetting.PageCount)" 
-                               SelectedChanged="PageChanged" />
-            </div>
+            }
         </UiCard>
     </div>
 }

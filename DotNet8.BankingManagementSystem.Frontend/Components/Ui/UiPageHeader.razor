@@ -4,11 +4,11 @@
     <div class="min-w-0">
         @if (!string.IsNullOrWhiteSpace(Title))
         {
-            <h1 class="ui-page-title">@Title</h1>
+            <h1 class="text-4xl font-black text-base-content tracking-tight">@Title</h1>
         }
         @if (!string.IsNullOrWhiteSpace(Subtitle))
         {
-            <p class="ui-page-subtitle">@Subtitle</p>
+            <p class="text-base-content/60 mt-1 font-medium">@Subtitle</p>
         }
     </div>
     @if (Actions is not null)
@@ -25,6 +25,6 @@
     [Parameter] public RenderFragment? Actions { get; set; }
     [Parameter] public string? Class { get; set; }
 
-    private string ComputedClass => ClassNames.Merge("ui-page-header", Class);
+    private string ComputedClass => ClassNames.Merge("mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6", Class);
 }
 

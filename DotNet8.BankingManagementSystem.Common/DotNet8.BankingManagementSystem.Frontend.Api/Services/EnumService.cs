@@ -7,7 +7,9 @@ public enum EnumService
     Tbl_State,
     Tbl_Township,
     Tbl_AdminUser,
-    Tbl_TransactionHistory
+    Tbl_TransactionHistory,
+    Tbl_Bank,
+    Tbl_Branch
 }
 
 public static class EnumServiceExtensions
@@ -15,5 +17,10 @@ public static class EnumServiceExtensions
     public static string GetKeyName(this EnumService key)
     {
         return key.ToString();
+    }
+
+    public static string[] GetStoreNames()
+    {
+        return Enum.GetNames(typeof(EnumService));
     }
 }

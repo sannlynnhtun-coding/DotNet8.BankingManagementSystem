@@ -7,7 +7,7 @@ public class IndexedDbService
     private readonly IJSRuntime _jsRuntime;
     private const string JsModulePath = "./js/indexeddb.js";
     private const string DbName = "BankingDb";
-    private const int DbVersion = 2;
+    private const int DbVersion = 3;
 
     public IndexedDbService(IJSRuntime jsRuntime)
     {

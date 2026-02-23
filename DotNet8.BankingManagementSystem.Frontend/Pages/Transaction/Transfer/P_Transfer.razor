@@ -1,45 +1,49 @@
 @page "/transaction/transfer"
 
 <div class="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-    <div class="space-y-2">
-        <h1 class="text-2xl font-bold tracking-tight">Transfer Balance</h1>
-        <p class="text-muted-foreground text-sm">Move funds between accounts securely and instantly.</p>
+    <div class="text-center">
+        <h1 class="text-4xl font-black text-base-content tracking-tight text-primary">Transfer</h1>
+        <p class="text-base-content/60 mt-2 font-medium">Transfer funds between verified accounts.</p>
     </div>
 
     <UiCard>
         <EditForm Model="@reqModel" OnValidSubmit="OnValidSubmit">
             <DataAnnotationsValidator />
             
-            <div class="p-6 space-y-6">
+            <div class="p-8 space-y-8">
                 <!-- Inputs Group -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="space-y-2">
-                        <UiLabel>From Account</UiLabel>
-                        <InputSelect @bind-Value="reqModel.FromAccountNo" class="ui-input">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="form-control w-full">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">From Account</span></label>
+                        <InputSelect @bind-Value="reqModel.FromAccountNo" class="select select-bordered focus:select-primary transition-all font-mono font-bold">
                             <option value="">Select source</option>
                             @if (_accountListResponseModel is not null && _accountListResponseModel.Data is not null)
                             {
                                 @foreach (var item in _accountListResponseModel.Data.OrderBy(x => x.AccountId))
                                 {
-                                    <option value="@item.AccountNo">
-                                        @item.AccountNo (@item.CustomerCode)
-                                    </option>
+                                    <option value="@item.AccountNo">@item.AccountNo (@item.CustomerName)</option>
                                 }
                             }
                         </InputSelect>
+                        
                         @if (!string.IsNullOrEmpty(reqModel.FromAccountNo))
                         {
-                            <div class="mt-2 flex items-center gap-2 text-[11px] font-semibold text-muted-foreground animate-in fade-in slide-in-from-top-1 duration-300">
-                                <i class="fa-solid fa-wallet opacity-50"></i>
-                                Available: <span class="text-foreground font-mono">@(GetFromAccountBalance().ToString("N0")) MMK</span>
+                            <div class="mt-2 flex items-center gap-2 p-3 bg-base-200/50 rounded-lg animate-in fade-in slide-in-from-top-1 duration-300">
+                                <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                    <i class="fa-solid fa-wallet text-[10px]"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-black uppercase tracking-widest opacity-40">Current Balance</p>
+                                    <p class="text-xs font-mono font-black">@(GetFromAccountBalance().ToString("N0")) <span class="opacity-40">MMK</span></p>
+                                </div>
                             </div>
                         }
-                        <ValidationMessage For="@(() => reqModel.FromAccountNo)" class="text-[10px] text-destructive font-medium" />
+                        <ValidationMessage For="@(() => reqModel.FromAccountNo)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                     </div>
 
-                    <div class="space-y-2">
-                        <UiLabel>To Account</UiLabel>
-                        <InputSelect @bind-Value="reqModel.ToAccountNo" class="ui-input">
+                    <div class="form-control w-full">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">To Account</span></label>
+                        <InputSelect @bind-Value="reqModel.ToAccountNo" class="select select-bordered focus:select-primary transition-all font-mono font-bold">
                             <option value="">Select destination</option>
                             @if (_accountListResponseModel is not null && _accountListResponseModel.Data is not null)
                             {
@@ -49,44 +53,51 @@
 
                                 foreach (var item in filteredAccounts)
                                 {
-                                    <option value="@item.AccountNo">
-                                        @item.AccountNo (@item.CustomerCode)
-                                    </option>
+                                    <option value="@item.AccountNo">@item.AccountNo (@item.CustomerName)</option>
                                 }
                             }
                         </InputSelect>
+                        
                         @if (!string.IsNullOrEmpty(reqModel.ToAccountNo))
                         {
-                            <div class="mt-2 flex items-center gap-2 text-[11px] font-semibold text-muted-foreground animate-in fade-in slide-in-from-top-1 duration-300">
-                                <i class="fa-solid fa-wallet opacity-50"></i>
-                                Current: <span class="text-foreground font-mono">@(GetToAccountBalance().ToString("N0")) MMK</span>
+                            <div class="mt-2 flex items-center gap-2 p-3 bg-base-200/50 rounded-lg animate-in fade-in slide-in-from-top-1 duration-300">
+                                <div class="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center">
+                                    <i class="fa-solid fa-wallet text-[10px]"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-black uppercase tracking-widest opacity-40">Current Balance</p>
+                                    <p class="text-xs font-mono font-black">@(GetToAccountBalance().ToString("N0")) <span class="opacity-40">MMK</span></p>
+                                </div>
                             </div>
                         }
-                        <ValidationMessage For="@(() => reqModel.ToAccountNo)" class="text-[10px] text-destructive font-medium" />
+                        <ValidationMessage For="@(() => reqModel.ToAccountNo)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                     </div>
 
-                    <div class="space-y-2 md:col-span-2">
-                        <UiLabel>Amount (MMK)</UiLabel>
+                    <div class="form-control w-full md:col-span-2">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Amount (MMK)</span></label>
                         <InputNumber @bind-Value="reqModel.Amount" 
-                                     class="ui-input" 
+                                     class="input input-bordered focus:input-primary transition-all font-mono font-bold" 
                                      placeholder="0.00" />
-                        <ValidationMessage For="@(() => reqModel.Amount)" class="text-[10px] text-destructive font-medium" />
+                        <ValidationMessage For="@(() => reqModel.Amount)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                     </div>
                 </div>
 
-                <UiAlert Variant="UiAlertVariant.Warning" Class="bg-amber-500/5 border-amber-500/10">
-                    <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
-                    <span class="text-xs font-medium text-amber-900/80">Please ensure the recipient's account number is correct. Transfers are irreversible once completed.</span>
-                </UiAlert>
+                <div class="alert alert-warning shadow-sm bg-warning/5 border-warning/20">
+                    <i class="fa-solid fa-shield-halved text-warning"></i>
+                    <div>
+                        <h4 class="font-bold text-xs uppercase tracking-wider">Finalize</h4>
+                        <p class="text-[10px] opacity-70">Fund transfer is instant and cannot be reversed.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="flex items-center justify-end gap-3 p-6 pt-0">
-                <UiButton Type="button" Variant="UiButtonVariant.Ghost" OnClick="@(() => NavigationManager.NavigateTo("/report/transaction-history"))">
+            <div class="p-8 pt-0 flex items-center justify-end gap-4">
+                <button type="button" class="btn btn-ghost" @onclick="@(() => NavigationManager.NavigateTo("/report/transaction-history"))">
                     Cancel
-                </UiButton>
-                <UiButton Type="submit" Variant="UiButtonVariant.Default">
-                    Send Funds
-                </UiButton>
+                </button>
+                <button type="submit" class="btn btn-primary shadow-lg shadow-primary/20">
+                    Submit Transfer
+                </button>
             </div>
         </EditForm>
     </UiCard>

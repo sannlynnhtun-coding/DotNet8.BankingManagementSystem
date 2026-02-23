@@ -1,4 +1,11 @@
-﻿namespace DotNet8.BankingManagementSystem.Frontend.Pages.Report;
+﻿using Microsoft.AspNetCore.Components;
+using DotNet8.BankingManagementSystem.Models.Bank;
+using DotNet8.BankingManagementSystem.Models.Branch;
+using DotNet8.BankingManagementSystem.Models.TransactionHistory;
+using DotNet8.BankingManagementSystem.Models.Account;
+using DotNet8.BankingManagementSystem.Frontend.Features;
+
+namespace DotNet8.BankingManagementSystem.Frontend.Pages.Report;
 
 public partial class P_TransactionHistory : ComponentBase
 {
@@ -10,6 +17,12 @@ public partial class P_TransactionHistory : ComponentBase
     private DateTime? fromDate;
     private DateTime? toDate;
     private string? transactionType;
+    private string? bankCode;
+    private string? branchCode;
+    private bool isAll = false;
+
+    private List<BankModel> Banks { get; set; } = new();
+    private List<BranchModel> Branches { get; set; } = new();
 
     private TransactionHistoryListResponseModel? _model;
 
@@ -17,9 +30,35 @@ public partial class P_TransactionHistory : ComponentBase
     {
         if (firstRender)
         {
+            await LoadInitialData();
             await List(_setting.PageNo, _setting.PageSize);
             StateHasChanged();
         }
+    }
+
+    private async Task LoadInitialData()
+    {
+        var bankResponse = await ApiService.GetBanks();
+        if (bankResponse.Response.IsSuccess)
+        {
+            Banks = bankResponse.Data;
+        }
+    }
+
+    private async Task OnBankChanged(ChangeEventArgs e)
+    {
+        bankCode = e.Value?.ToString();
+        branchCode = null;
+        Branches.Clear();
+        if (!string.IsNullOrEmpty(bankCode))
+        {
+            var branchResponse = await ApiService.GetBranchesByBankCode(bankCode);
+            if (branchResponse.Response.IsSuccess)
+            {
+                Branches = branchResponse.Data;
+            }
+        }
+        await Search();
     }
 
     private async Task List(int pageNo, int pageSize)
@@ -30,6 +69,9 @@ public partial class P_TransactionHistory : ComponentBase
             FromDate = fromDate,
             ToDate = toDate,
             TransactionType = transactionType,
+            BankCode = bankCode,
+            BranchCode = branchCode,
+            IsAll = isAll,
             PageNo = pageNo,
             PageSize = pageSize
         });

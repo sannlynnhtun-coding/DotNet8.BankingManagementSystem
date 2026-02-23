@@ -26,15 +26,15 @@
     [Parameter] public string? Class { get; set; }
 
     private string ComputedClass => ClassNames.Merge(
-        "ui-alert",
+        "alert shadow-sm",
         Variant switch
         {
-            UiAlertVariant.Default => "ui-alert-default",
-            UiAlertVariant.Info => "ui-alert-info",
-            UiAlertVariant.Success => "ui-alert-success",
-            UiAlertVariant.Warning => "ui-alert-warning",
-            UiAlertVariant.Destructive => "ui-alert-destructive",
-            _ => "ui-alert-default"
+            UiAlertVariant.Default => "alert-info",
+            UiAlertVariant.Info => "alert-info",
+            UiAlertVariant.Success => "alert-success",
+            UiAlertVariant.Warning => "alert-warning",
+            UiAlertVariant.Destructive => "alert-error",
+            _ => "alert-info"
         },
         Class
     );

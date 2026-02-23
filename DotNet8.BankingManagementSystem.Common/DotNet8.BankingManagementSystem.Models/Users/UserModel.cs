@@ -13,4 +13,5 @@ public class UserModel
     public string Address { get; set; } = null!;
     public string StateCode { get; set; } = null!;
     public string TownshipCode { get; set; } = null!;
+    public string BranchCode { get; set; } = null!;
 }

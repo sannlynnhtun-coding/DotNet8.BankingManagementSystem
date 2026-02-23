@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
 /* Tailwind v4 content sources (ensures Razor class scanning) */
 @source "../../**/*.razor";
@@ -12,7 +13,7 @@
     --color-card-foreground: #0f172a;
     --color-popover: #ffffff;
     --color-popover-foreground: #0f172a;
-    --color-primary: #7c3aed;
+    --color-primary: #9333EA;
     --color-primary-foreground: #ffffff;
     --color-secondary: #f1f5f9;
     --color-secondary-foreground: #0f172a;
@@ -24,20 +25,20 @@
     --color-destructive-foreground: #f8fafc;
     --color-border: #e2e8f0;
     --color-input: #e2e8f0;
-    --color-ring: #7c3aed;
+    --color-ring: #9333EA;
     --radius: 0.5rem;
 
-    --color-primary-50: #f5f3ff;
-    --color-primary-100: #ede9fe;
-    --color-primary-200: #ddd6fe;
-    --color-primary-300: #c4b5fd;
-    --color-primary-400: #a78bfa;
-    --color-primary-500: #8b5cf6;
-    --color-primary-600: #7c3aed;
-    --color-primary-700: #6d28d9;
-    --color-primary-800: #5b21b6;
-    --color-primary-900: #4c1d95;
-    --color-primary-950: #2e1065;
+    --color-primary-50: #faf5ff;
+    --color-primary-100: #f3e8ff;
+    --color-primary-200: #e9d5ff;
+    --color-primary-300: #d8b4fe;
+    --color-primary-400: #c084fc;
+    --color-primary-500: #a855f7;
+    --color-primary-600: #9333EA;
+    --color-primary-700: #7e22ce;
+    --color-primary-800: #6b21a8;
+    --color-primary-900: #581c87;
+    --color-primary-950: #3b0764;
 }
 
 @layer base {
@@ -50,301 +51,15 @@
 }
 
 @layer components {
-
-    /* --- shadcn-like aliases (ui-*) --- */
-    .ui-disabled {
-        @apply disabled:opacity-50 disabled:pointer-events-none;
-    }
-
-    .ui-btn {
-        @apply inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-95;
-        @apply h-10 px-4 py-2;
-    }
-
-    .ui-btn-sm {
-        @apply h-9 px-3 text-xs;
-    }
-
-    .ui-btn-lg {
-        @apply h-11 px-8;
-    }
-
-    .ui-btn-icon {
-        @apply h-10 w-10;
-    }
-
-    .ui-btn-primary {
-        @apply bg-primary text-primary-foreground hover:bg-primary/90;
-    }
-
-    .ui-btn-secondary {
-        @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
-    }
-
-    .ui-btn-neutral {
-        @apply bg-slate-900 text-white hover:bg-slate-800;
-    }
-
-    .ui-btn-destructive {
-        @apply bg-destructive text-destructive-foreground hover:bg-destructive/90;
-    }
-
-    .ui-btn-outline {
-        @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
-    }
-
-    .ui-btn-ghost {
-        @apply hover:bg-accent hover:text-accent-foreground;
-    }
-
-    .ui-btn-link {
-        @apply text-primary underline-offset-4 hover:underline;
-    }
-
-    .ui-card {
-        @apply rounded-lg border border-border bg-card text-card-foreground shadow-sm;
-    }
-
-    .ui-card-header {
-        @apply flex flex-col space-y-1.5 p-6;
-    }
-
-    .ui-card-title {
-        @apply text-lg font-semibold leading-none tracking-tight;
-    }
-
-    .ui-card-description {
-        @apply text-sm text-muted-foreground;
-    }
-
-    .ui-card-content {
-        @apply p-6 pt-0;
-    }
-
-    .ui-card-footer {
-        @apply flex items-center p-6 pt-0;
-    }
-
-    .ui-input {
-        @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
-    }
-
-    .ui-label {
-        @apply text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
-    }
-
-    .ui-badge {
-        @apply inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
-    }
-
-    .ui-badge-default {
-        @apply border-transparent bg-primary text-primary-foreground hover:bg-primary/80;
-    }
-
-    .ui-badge-secondary {
-        @apply border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80;
-    }
-
-    .ui-badge-success {
-        @apply border-transparent bg-emerald-500 text-white hover:bg-emerald-500/80;
-    }
-
-    .ui-badge-warning {
-        @apply border-transparent bg-amber-500 text-white hover:bg-amber-500/80;
-    }
-
-    .ui-table {
-        @apply w-full caption-bottom text-sm;
-    }
-
-    .ui-table-header {
-        @apply [&_tr]:border-b;
-    }
-
-    .ui-table-row {
-        @apply border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted;
-    }
-
-    .ui-table-head {
-        @apply h-10 px-2 text-left align-middle font-medium text-muted-foreground [&:has([role=checkbox])]:pr-0;
-    }
-
-    .ui-table-cell {
-        @apply p-2 align-middle [&:has([role=checkbox])]:pr-0;
-    }
-
-    .ui-alert-icon {
-        @apply mt-0.5 text-foreground;
-    }
-
-    .ui-alert-content {
-        @apply flex-1;
-    }
-
-    .ui-alert-title {
-        @apply mb-1 font-medium leading-none tracking-tight;
-    }
-
-    .ui-alert-description {
-        @apply text-sm [&_p]:leading-relaxed opacity-90;
-    }
-
-    .ui-alert-default {
-        @apply bg-background text-foreground;
-    }
-
-    .ui-alert-info {
-        @apply border-primary/50 text-primary dark:border-primary;
-    }
-
-    .ui-alert-success {
-        @apply border-emerald-500/50 text-emerald-600 dark:border-emerald-500;
-    }
-
-    .ui-alert-warning {
-        @apply border-amber-500/50 text-amber-700 dark:border-amber-500;
-    }
-
-    .ui-alert-destructive {
-        @apply border-destructive/50 text-destructive dark:border-destructive;
-    }
-
-    .ui-page-header {
-        @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4;
-    }
-
-    .ui-page-title {
-        @apply text-2xl font-bold text-slate-900 tracking-tight;
-    }
-
-    .ui-page-subtitle {
-        @apply text-sm text-slate-500;
-    }
-
-    .page {
-        @apply space-y-6;
-    }
-
-    .page-header {
-        @apply flex flex-col md:flex-row md:items-center md:justify-between gap-4;
-    }
-
-    .page-title {
-        @apply text-2xl font-bold text-slate-900 tracking-tight;
-    }
-
-    .page-subtitle {
-        @apply text-sm text-slate-500;
-    }
-
-    .card {
-        @apply bg-white rounded-2xl border border-slate-200 shadow-sm;
-    }
-
-    .card-lg {
-        @apply bg-white rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 overflow-hidden;
-    }
-
-    .card-body {
-        @apply p-6;
-    }
-
-    .card-body-sm {
-        @apply p-4;
-    }
-
-    .card-footer {
-        @apply px-6 py-4 bg-slate-50/50 border-t border-slate-200;
-    }
-
-    .btn {
-        @apply inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 active:scale-95;
-    }
-
-    .btn-primary {
-        @apply bg-primary-600 hover:bg-primary-700 text-white shadow-sm shadow-primary-200;
-    }
-
-    .btn-secondary {
-        @apply bg-white hover:bg-slate-50 text-slate-700 border border-slate-200;
-    }
-
-    .btn-danger {
-        @apply bg-rose-600 hover:bg-rose-700 text-white shadow-sm shadow-rose-200;
-    }
-
-    .icon-btn {
-        @apply h-10 w-10 p-2.5 rounded-xl inline-flex items-center justify-center text-slate-500 hover:text-primary-600 hover:bg-primary-50 transition-all;
-    }
-
-    .badge {
-        @apply inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-semibold bg-slate-100 text-slate-700;
-    }
+    /* Keep only layout-specific or highly custom components that DaisyUI doesn't cover */
 
     .search-input {
-        @apply block w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 transition-all duration-200;
+        @apply block w-full pl-10 pr-4 py-2 bg-base-200 border border-base-300 rounded-xl text-sm placeholder-base-content/50 focus:bg-base-100 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200;
     }
 
     .table-card {
-        @apply bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden;
+        @apply bg-base-100 rounded-2xl border border-base-300 shadow-sm overflow-hidden;
     }
-
-    .table {
-        @apply w-full text-left border-collapse;
-    }
-
-    .table-head-row {
-        @apply bg-slate-50/50 border-b border-slate-200 text-slate-500;
-    }
-
-    .table-th {
-        @apply px-6 py-4 text-xs font-bold uppercase tracking-wider;
-    }
-
-    .table-td {
-        @apply px-6 py-4;
-    }
-
-    .table-row {
-        @apply hover:bg-slate-50/50 transition-colors duration-150;
-    }
-
-    .action-cell {
-        @apply flex justify-end gap-2 opacity-0 transition-opacity duration-200;
-    }
-
-    .group:hover .action-cell {
-        opacity: 1;
-    }
-
-    .action-btn {
-        @apply p-2 rounded-lg transition-colors;
-    }
-
-    .action-btn-edit {
-        @apply text-amber-600 hover:bg-amber-50;
-    }
-
-    .action-btn-delete {
-        @apply text-rose-600 hover:bg-rose-50;
-    }
-
-    .nav-link {
-        @apply flex items-center px-4 py-3 text-sm font-medium text-slate-600 rounded-xl hover:bg-slate-50 hover:text-primary-600 transition-all duration-200;
-    }
-
-    .nav-link-active {
-        @apply bg-primary-50 text-primary-700;
-    }
-
-    .nav-sublink {
-        @apply block px-4 py-2 text-sm text-slate-500 rounded-lg hover:bg-slate-50 hover:text-primary-600 transition-colors;
-    }
-
-    .nav-sublink-active {
-        @apply bg-primary-50 text-primary-700 font-semibold;
-    }
-
 }
 
 @layer utilities {
@@ -378,4 +93,26 @@
     .slide-in-from-left {
         --tw-enter-translate-x: -1rem;
     }
+}
+
+.slim-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary-200) transparent;
+}
+
+.slim-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.slim-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.slim-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary-100);
+    border-radius: 20px;
+}
+
+.slim-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary-200);
 }

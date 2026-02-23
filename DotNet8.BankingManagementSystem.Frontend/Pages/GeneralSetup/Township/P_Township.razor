@@ -5,70 +5,77 @@
 
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
-        <UiPageHeader Title="Townships" Subtitle="Manage your geographic distribution and township codes.">
+    <div class="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <UiPageHeader Title="Townships" Subtitle="Manage township codes and regional mapping.">
             <Actions>
-                <div class="flex items-center gap-2">
-                    <UiButton Variant="UiButtonVariant.Default" Size="UiButtonSize.Sm" OnClick="@(() => NavigationManager.NavigateTo("/general-setup/township/create"))">
+                <div class="flex gap-2 p-1 bg-base-100 rounded-xl shadow-sm border border-base-300">
+                    <button class="btn btn-ghost btn-sm" @onclick="Generate">
+                        <i class="fa-solid fa-wand-magic-sparkles mr-2 opacity-70"></i>
+                        Auto-Sync
+                    </button>
+                    <button class="btn btn-primary btn-sm" @onclick="@(() => NavigationManager.NavigateTo("/general-setup/township/create"))">
                         <i class="fa-solid fa-plus mr-2 opacity-70"></i>
                         New Township
-                    </UiButton>
-                    <GenerateButton OnClick="Generate" />
+                    </button>
                 </div>
             </Actions>
         </UiPageHeader>
 
         <UiCard>
-            <div class="p-6 border-b border-border bg-muted/5">
+            <div class="p-6 bg-base-200/50">
                 <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
                     <div class="relative w-full md:w-96 group">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs"></i>
-                        <input type="search" 
-                               class="ui-input pl-9 h-10 text-xs" 
-                               placeholder="Search townships..."/>
+                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fa-solid fa-magnifying-glass text-base-content/40 group-focus-within:text-primary transition-colors text-xs"></i>
+                        </span>
+                        <input type="text" 
+                               class="input input-bordered input-sm w-full pl-9 focus:input-primary transition-all" 
+                               placeholder="Search townships..." />
                     </div>
                 </div>
             </div>
 
-            <div class="p-0 overflow-auto">
-                <table class="ui-table">
-                    <thead class="ui-table-header">
-                        <tr class="ui-table-row">
-                            <th class="ui-table-head w-16 text-center">#</th>
-                            <th class="ui-table-head w-32">Township Code</th>
-                            <th class="ui-table-head">Township Name</th>
-                            <th class="ui-table-head w-32">State Code</th>
-                            <th class="ui-table-head text-right pr-6">Actions</th>
+            <div class="overflow-x-auto">
+                <table class="table table-zebra table-md">
+                    <thead>
+                        <tr class="text-[10px] uppercase tracking-widest font-black opacity-40 bg-base-200/30">
+                            <th class="w-16 text-center">No.</th>
+                            <th class="w-48">Township Code</th>
+                            <th>Administrative Name</th>
+                            <th>State Context</th>
+                            <th class="text-right">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in _model.Data)
                         {
-                            <tr class="ui-table-row group">
-                                <td class="ui-table-cell text-center text-xs text-muted-foreground font-mono">
-                                    @(++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize))
+                            <tr class="hover group">
+                                <td class="text-center opacity-40 font-mono text-xs">
+                                    @((++count + ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize)).ToString("D2"))
                                 </td>
-                                <td class="ui-table-cell">
-                                    <span class="ui-badge ui-badge-secondary font-mono text-[10px] uppercase tracking-wider px-2 py-0.5">
+                                <td>
+                                    <span class="badge badge-secondary/10 text-secondary border-secondary/20 font-mono font-black text-[10px] uppercase tracking-widest px-3 py-3">
                                         @item.TownshipCode
                                     </span>
                                 </td>
-                                <td class="ui-table-cell text-xs font-semibold">@item.TownshipName</td>
-                                <td class="ui-table-cell">
-                                    <span class="text-[10px] font-bold text-muted-foreground uppercase">@item.StateCode</span>
+                                <td>
+                                    <span class="text-sm font-black tracking-tight text-base-content/80">@item.TownshipName</span>
                                 </td>
-                                <td class="ui-table-cell text-right pr-6">
-                                    <div class="flex items-center justify-end gap-1">
-                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
-                                                  OnClick="@(() => NavigationManager.NavigateTo($"/general-setup/township/edit/{item.TownshipCode}"))"
-                                                  Class="h-8 w-8 text-muted-foreground hover:text-foreground">
-                                            <i class="fa-solid fa-pen-to-square text-xs"></i>
-                                        </UiButton>
-                                        <UiButton Variant="UiButtonVariant.Ghost" Size="UiButtonSize.Icon" 
-                                                  OnClick="() => Delete(item.TownshipCode)"
-                                                  Class="h-8 w-8 text-muted-foreground hover:text-destructive">
-                                            <i class="fa-solid fa-trash text-xs"></i>
-                                        </UiButton>
+                                <td>
+                                    <span class="badge badge-outline border-base-300 text-[10px] font-black uppercase tracking-widest opacity-60 px-2">
+                                        @item.StateCode
+                                    </span>
+                                </td>
+                                <td class="text-right">
+                                    <div class="join shadow-sm border border-base-300">
+                                        <button class="btn btn-ghost btn-xs join-item" 
+                                                @onclick="@(() => NavigationManager.NavigateTo($"/general-setup/township/edit/{item.TownshipCode}"))">
+                                            <i class="fa-solid fa-pen-to-square opacity-70"></i>
+                                        </button>
+                                        <button class="btn btn-ghost btn-xs join-item text-error hover:bg-error hover:text-error-content" 
+                                                @onclick="() => Delete(item.TownshipCode)">
+                                            <i class="fa-solid fa-trash opacity-70"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -77,14 +84,17 @@
                 </table>
             </div>
 
-            <div class="p-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 bg-muted/10">
-                <div class="text-[11px] text-muted-foreground font-medium">
-                    Showing page <span class="text-foreground font-bold">@_model.PageSetting.PageNo</span> of <span class="text-foreground font-bold">@_model.PageSetting.PageCount</span>
+            @if (_model.PageSetting is not null)
+            {
+                <div class="p-6 bg-base-200/30 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-40">
+                        Page <span class="text-base-content opacity-100">@_model.PageSetting.PageNo</span> of <span class="text-base-content opacity-100">@_model.PageSetting.PageCount</span>
+                    </div>
+                    <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
+                                  PageCount="@(_model.PageSetting.PageCount)" 
+                                  SelectedChanged="PageChanged" />
                 </div>
-                <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
-                              PageCount="@(_model.PageSetting.PageCount)" 
-                              SelectedChanged="PageChanged" />
-            </div>
+            }
         </UiCard>
     </div>
 }

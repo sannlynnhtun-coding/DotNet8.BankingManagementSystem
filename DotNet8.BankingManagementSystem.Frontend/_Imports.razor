@@ -1,6 +1,5 @@
 @using System.Net.Http
 @using System.Net.Http.Json
-@using DotNet8.BankingManagementSystem.Frontend.Api.Features
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
@@ -9,17 +8,24 @@
 @using Microsoft.JSInterop
 @using DotNet8.BankingManagementSystem.Frontend
 @using DotNet8.BankingManagementSystem.Frontend.Layout
-@using DotNet8.BankingManagementSystem.Frontend.Api
 @using DotNet8.BankingManagementSystem.Frontend.Components.Ui
 @using System.ComponentModel.DataAnnotations
 @using DotNet8.BankingManagementSystem.Frontend.Services
-@using DotNet8.BankingManagementSystem.Frontend.Api.Features.Account
-@using DotNet8.BankingManagementSystem.Frontend.Api.Features.State
-@using DotNet8.BankingManagementSystem.Frontend.Api.Features.AdminUser
-@using DotNet8.BankingManagementSystem.Frontend.Api.Features.Township
-@using DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction
-@using DotNet8.BankingManagementSystem.Frontend.Api.Features.User
+@using DotNet8.BankingManagementSystem.Frontend.Features
 @using DotNet8.BankingManagementSystem.Frontend.Pages.Components
+@using DotNet8.BankingManagementSystem.Models
+@using DotNet8.BankingManagementSystem.Models.Account
+@using DotNet8.BankingManagementSystem.Models.AdminUser
+@using DotNet8.BankingManagementSystem.Models.Bank
+@using DotNet8.BankingManagementSystem.Models.Branch
+@using DotNet8.BankingManagementSystem.Models.State
+@using DotNet8.BankingManagementSystem.Models.TownShip
+@using DotNet8.BankingManagementSystem.Models.TransactionHistory
+@using DotNet8.BankingManagementSystem.Models.Transfer
+@using DotNet8.BankingManagementSystem.Models.Users
+@using DotNet8.BankingManagementSystem.Shared
+@using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels
+@using DotNet8.BankingManagementSystem.Mapper
 
 @inject NavigationManager Nav
 @inject InjectService InjectService

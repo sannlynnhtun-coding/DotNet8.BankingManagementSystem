@@ -17,6 +17,10 @@ public partial class AppDbContext : DbContext
 
     public virtual DbSet<TblAccount> TblAccounts { get; set; }
 
+    public virtual DbSet<TblBank> TblBanks { get; set; }
+
+    public virtual DbSet<TblBranch> TblBranches { get; set; }
+
     public virtual DbSet<TblAdminUser> TblAdminUsers { get; set; }
 
     public virtual DbSet<TblPlaceState> TblPlaceStates { get; set; }
@@ -42,6 +46,26 @@ public partial class AppDbContext : DbContext
                 .HasComputedColumnSql("(right('000000'+CONVERT([varchar](6),[AccountId]),(6)))", false);
             entity.Property(e => e.Balance).HasColumnType("decimal(20, 2)");
             entity.Property(e => e.CustomerCode).HasMaxLength(50);
+            entity.Property(e => e.BranchCode).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<TblBank>(entity =>
+        {
+            entity.HasKey(e => e.BankId);
+            entity.ToTable("Tbl_Bank");
+            entity.Property(e => e.BankCode).HasMaxLength(50);
+            entity.Property(e => e.BankName).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<TblBranch>(entity =>
+        {
+            entity.HasKey(e => e.BranchId);
+            entity.ToTable("Tbl_Branch");
+            entity.Property(e => e.BranchCode).HasMaxLength(50);
+            entity.Property(e => e.BranchName).HasMaxLength(50);
+            entity.Property(e => e.BankCode).HasMaxLength(50);
+            entity.Property(e => e.StateCode).HasMaxLength(50);
+            entity.Property(e => e.TownshipCode).HasMaxLength(50);
         });
 
         modelBuilder.Entity<TblAdminUser>(entity =>
@@ -108,6 +132,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.Nrc).HasMaxLength(50);
             entity.Property(e => e.StateCode).HasMaxLength(50);
             entity.Property(e => e.TownshipCode).HasMaxLength(50);
+            entity.Property(e => e.BranchCode).HasMaxLength(50);
             entity.Property(e => e.UserCode).HasMaxLength(50);
             entity.Property(e => e.UserName).HasMaxLength(50);
         });

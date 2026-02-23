@@ -278,13 +278,33 @@ public class TransactionService
     {
         TransactionHistoryListResponseModel model = new TransactionHistoryListResponseModel();
         var query = await _localStorageService.GetList<TblTransactionHistory>(EnumService.Tbl_TransactionHistory.ToString());
+        var accounts = await _localStorageService.GetList<TblAccount>(EnumService.Tbl_Account.ToString());
         
         var filteredQuery = query.AsQueryable();
-        if (requestModel.FromDate.HasValue && requestModel.ToDate.HasValue)
+
+        // 1. Bank/Branch Filtering
+        if (!string.IsNullOrEmpty(requestModel.BranchCode))
         {
-            filteredQuery = filteredQuery.Where(x => x.TransactionDate >= requestModel.FromDate && x.TransactionDate <= requestModel.ToDate);
+            var branchAccountNos = accounts.Where(x => x.BranchCode == requestModel.BranchCode).Select(x => x.AccountNo).ToList();
+            filteredQuery = filteredQuery.Where(x => branchAccountNos.Contains(x.FromAccountNo) || branchAccountNos.Contains(x.ToAccountNo));
+        }
+        else if (!string.IsNullOrEmpty(requestModel.BankCode))
+        {
+            var branches = await _localStorageService.GetList<TblBranch>(EnumService.Tbl_Branch.GetKeyName());
+            var bankBranchCodes = branches.Where(b => b.BankCode == requestModel.BankCode).Select(b => b.BranchCode).ToList();
+            var bankAccountNos = accounts.Where(x => bankBranchCodes.Contains(x.BranchCode)).Select(x => x.AccountNo).ToList();
+            filteredQuery = filteredQuery.Where(x => bankAccountNos.Contains(x.FromAccountNo) || bankAccountNos.Contains(x.ToAccountNo));
+        }
+
+        // 2. Date Filtering
+        if (!requestModel.IsAll)
+        {
+            var fromDate = requestModel.FromDate ?? DateTime.Today;
+            var toDate = requestModel.ToDate ?? DateTime.Today;
+            filteredQuery = filteredQuery.Where(x => x.TransactionDate.Date >= fromDate.Date && x.TransactionDate.Date <= toDate.Date);
         }
         
+        // 3. Type Filtering
         if (!string.IsNullOrEmpty(requestModel.TransactionType))
         {
             filteredQuery = filteredQuery.Where(x => x.TransactionType == requestModel.TransactionType);

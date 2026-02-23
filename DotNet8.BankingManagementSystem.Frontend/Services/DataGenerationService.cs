@@ -1,7 +1,4 @@
-using DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
-using DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
 using DotNet8.BankingManagementSystem.Shared;
-using DotNet8.BankingManagementSystem.Database.EfAppDbContextModels;
 using System.Text.Json;
 using System.Text;
 
@@ -21,7 +18,7 @@ public class DataGenerationService
     {
         try
         {
-            var tables = new[] { "Tbl_Account", "Tbl_TransactionHistory", "Tbl_PlaceState", "Tbl_PlaceTownship", "Tbl_User", "Tbl_AdminUser" };
+            var tables = EnumServiceExtensions.GetStoreNames();
             await _indexedDbService.InitializeAsync(tables);
             
             foreach (var table in tables)
@@ -39,7 +36,7 @@ public class DataGenerationService
                 new() { StateCode = "NPT", StateName = "Naypyidaw" },
                 new() { StateCode = "SHN", StateName = "Shan" }
             };
-            await _indexedDbService.AddObjectsAsync("Tbl_PlaceState", states);
+            await _indexedDbService.AddObjectsAsync("Tbl_State", states);
 
             // 2. Generate Townships
             var townships = new List<TblPlaceTownship>
@@ -51,9 +48,41 @@ public class DataGenerationService
                 new() { StateCode = "NPT", TownshipCode = "T005", TownshipName = "Zabuthiri" },
                 new() { StateCode = "SHN", TownshipCode = "T006", TownshipName = "Taunggyi" }
             };
-            await _indexedDbService.AddObjectsAsync("Tbl_PlaceTownship", townships);
+            await _indexedDbService.AddObjectsAsync("Tbl_Township", townships);
 
-            // 3. Generate Admin User
+            progress.Report((10, "Generating Banks and Branches..."));
+
+            // 3. Generate Banks
+            var banks = new List<TblBank>
+            {
+                new() { BankCode = "AYA", BankName = "Aya Bank" },
+                new() { BankCode = "KBZ", BankName = "KBZ Bank" },
+                new() { BankCode = "CB", BankName = "CB Bank" },
+                new() { BankCode = "UAB", BankName = "UAB Bank" }
+            };
+            await _indexedDbService.AddObjectsAsync("Tbl_Bank", banks);
+
+            // 4. Generate Branches
+            var branches = new List<TblBranch>();
+            foreach (var bank in banks)
+            {
+                int bCount = _random.Next(1, 3);
+                for (int b = 0; b < bCount; b++)
+                {
+                    var township = townships[_random.Next(townships.Count)];
+                    branches.Add(new TblBranch
+                    {
+                        BankCode = bank.BankCode,
+                        BranchCode = $"{bank.BankCode}-{township.TownshipCode}-{b}",
+                        BranchName = $"{bank.BankName} - {township.TownshipName} Branch",
+                        StateCode = township.StateCode,
+                        TownshipCode = township.TownshipCode
+                    });
+                }
+            }
+            await _indexedDbService.AddObjectsAsync("Tbl_Branch", branches);
+
+            // 5. Generate Admin User
             var adminUsers = new List<TblAdminUser>
             {
                 new() { AdminUserCode = "ADM001", AdminUserName = "System Admin", MobileNo = "09123456789", UserRoleCode = "Admin" }
@@ -69,9 +98,7 @@ public class DataGenerationService
             {
                 var userCode = "U" + (1000 + i);
                 var fullName = GenerateCustomerName();
-                var state = states[_random.Next(states.Count)];
-                var stateTownships = townships.Where(x => x.StateCode == state.StateCode).ToList();
-                var township = stateTownships[_random.Next(stateTownships.Count)];
+                var branch = branches[_random.Next(branches.Count)];
 
                 var user = new TblUser
                 {
@@ -81,9 +108,10 @@ public class DataGenerationService
                     MobileNo = "09" + _random.Next(10000000, 99999999),
                     Email = fullName.Replace(" ", ".").ToLower() + i + "@example.com",
                     Nrc = $"{_random.Next(1, 15)}/ABC(N){_random.Next(100000, 999999)}",
-                    Address = $"Street {_random.Next(1, 100)}, {township.TownshipName}",
-                    StateCode = state.StateCode,
-                    TownshipCode = township.TownshipCode,
+                    Address = $"Street {_random.Next(1, 100)}",
+                    StateCode = branch.StateCode,
+                    TownshipCode = branch.TownshipCode,
+                    BranchCode = branch.BranchCode,
                     CustomerId = "C" + _random.Next(1000000, 9999999)
                 };
                 users.Add(user);
@@ -92,8 +120,9 @@ public class DataGenerationService
                 {
                     CustomerName = user.FullName,
                     CustomerCode = user.CustomerId,
-                    Balance = GenerateRandomAmount(5000, 90000000),
-                    AccountNo = GenerateIBAN()
+                    Balance = GenerateRandomAmount(100000, 1000000), // Initial balance
+                    AccountNo = GenerateIBAN(),
+                    BranchCode = branch.BranchCode
                 };
                 accounts.Add(account);
 
@@ -108,7 +137,7 @@ public class DataGenerationService
             await _indexedDbService.AddObjectsAsync("Tbl_Account", accounts);
             progress.Report((50, "Users and Accounts saved."));
 
-            // 4. Generate Transaction History
+            // 6. Generate Transaction History
             List<TblTransactionHistory> transactions = new();
             progress.Report((55, "Generating transactions..."));
 
@@ -120,18 +149,36 @@ public class DataGenerationService
                 for (int j = 0; j < txCount; j++)
                 {
                     var type = GenerateTransactionType();
-                    var amount = GenerateRandomAmount(5000, 90000000);
+                    var amount = GenerateRandomAmount(1000, 50000);
+                    var txDate = GetRandomDate(fromDate, toDate);
+
+                    var toAccount = accounts[_random.Next(accounts.Count)];
                     
                     var transaction = new TblTransactionHistory
                     {
                         FromAccountNo = account.AccountNo!,
-                        ToAccountNo = accounts[_random.Next(accounts.Count)].AccountNo!,
+                        ToAccountNo = (type == "Transfer" ? toAccount.AccountNo! : account.AccountNo!),
                         Amount = amount,
-                        TransactionDate = GetRandomDate(fromDate, toDate),
+                        TransactionDate = txDate,
                         AdminUserCode = adminUsers[0].AdminUserCode,
                         TransactionType = type
                     };
                     transactions.Add(transaction);
+
+                    // Update balances
+                    if (type == "Deposit")
+                    {
+                        account.Balance += amount;
+                    }
+                    else if (type == "Withdraw")
+                    {
+                        account.Balance -= amount;
+                    }
+                    else if (type == "Transfer")
+                    {
+                        account.Balance -= amount;
+                        toAccount.Balance += amount;
+                    }
                 }
 
                 if (i % 50 == 0)
@@ -140,6 +187,10 @@ public class DataGenerationService
                     progress.Report((p, $"Processing transactions for account {i + 1}/{accounts.Count}..."));
                 }
             }
+
+            // Sync updated account balances back to DB
+            await _indexedDbService.ClearStoreAsync("Tbl_Account");
+            await _indexedDbService.AddObjectsAsync("Tbl_Account", accounts);
 
             await _indexedDbService.AddObjectsAsync("Tbl_TransactionHistory", transactions);
             progress.Report((100, "Data generation complete. All tables initialized."));

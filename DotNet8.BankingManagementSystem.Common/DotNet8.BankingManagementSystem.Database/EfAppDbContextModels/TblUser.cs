@@ -25,5 +25,7 @@ public partial class TblUser
 
     public string TownshipCode { get; set; } = null!;
 
+    public string BranchCode { get; set; } = null!;
+
     public string? CustomerId { get; set; }
 }

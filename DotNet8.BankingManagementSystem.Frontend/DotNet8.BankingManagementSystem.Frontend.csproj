@@ -13,11 +13,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
 		<PackageReference Include="BlazorNotiflix" Version="1.0.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.2" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.2" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
-		<PackageReference Include="Refit.HttpClientFactory" Version="7.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -25,36 +25,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Pages\Transcation\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Remove="Pages\Transcation\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Remove="Pages\Transcation\**" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Account\P_Account.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Account\P_AccountCreate.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Account\P_AccountEdit.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\AdminUser\P_AdminUser.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\AdminUser\P_AdminUserCreate.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\AdminUser\P_AdminUserEdit.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Transaction\P_Deposit.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Transaction\P_Transaction.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Transaction\P_Transfer.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\Transaction\P_Withdraw.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\User\P_User.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\User\P_UserEdit.razor" />
-	  <_ContentIncludedByDefault Remove="Pages\GeneralSetup\User\P_UserRegister.razor" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\DotNet8.BankingManagementSystem.Common\DotNet8.BankingManagementSystem.Frontend.Api\DotNet8.BankingManagementSystem.Frontend.Api.csproj" />
-	  <ProjectReference Include="..\DotNet8.BankingManagementSystem.Common\DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj" />
+		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Common\DotNet8.BankingManagementSystem.Database\DotNet8.BankingManagementSystem.Database.csproj" />
+		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Common\DotNet8.BankingManagementSystem.Mapper\DotNet8.BankingManagementSystem.Mapper.csproj" />
+		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Common\DotNet8.BankingManagementSystem.Models\DotNet8.BankingManagementSystem.Models.csproj" />
+		<ProjectReference Include="..\DotNet8.BankingManagementSystem.Common\DotNet8.BankingManagementSystem.Shared\DotNet8.BankingManagementSystem.Shared.csproj" />
 	</ItemGroup>
 
 	<Target Name="Tailwind" BeforeTargets="Build">

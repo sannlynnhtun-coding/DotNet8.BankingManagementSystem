@@ -10,15 +10,15 @@
     [Parameter] public string? Class { get; set; }
 
     private string ComputedClass => ClassNames.Merge(
-        "ui-badge",
+        "badge",
         Variant switch
         {
-            UiBadgeVariant.Default => "ui-badge-default",
-            UiBadgeVariant.Secondary => "ui-badge-secondary",
-            UiBadgeVariant.Success => "ui-badge-success",
-            UiBadgeVariant.Warning => "ui-badge-warning",
-            UiBadgeVariant.Destructive => "ui-badge-destructive",
-            _ => "ui-badge-default"
+            UiBadgeVariant.Default => "badge-primary",
+            UiBadgeVariant.Secondary => "badge-secondary",
+            UiBadgeVariant.Success => "badge-success",
+            UiBadgeVariant.Warning => "badge-warning",
+            UiBadgeVariant.Destructive => "badge-error",
+            _ => "badge-primary"
         },
         Class
     );

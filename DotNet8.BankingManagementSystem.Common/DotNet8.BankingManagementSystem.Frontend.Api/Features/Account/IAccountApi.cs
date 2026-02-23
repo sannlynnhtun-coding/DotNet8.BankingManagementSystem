@@ -6,7 +6,7 @@ public interface IAccountApi
     Task<AccountListResponseModel> GetAccounts();
 
     [Get("/api/account/{pageNo}/{pageSize}")]
-    Task<AccountListResponseModel> GetAccountList(int pageNo, int pageSize);
+    Task<AccountListResponseModel> GetAccountList(int pageNo, int pageSize, string? bankCode = null, string? branchCode = null);
 
     [Get("/api/account/{accountNo}")]
     Task<AccountResponseModel> GetAccount(string accountNo);

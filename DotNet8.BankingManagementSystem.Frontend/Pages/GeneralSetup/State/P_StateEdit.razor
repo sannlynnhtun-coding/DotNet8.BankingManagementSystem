@@ -3,42 +3,39 @@
 @if (_model is not null)
 {
     <div class="max-w-xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-        <div class="space-y-2">
-            <h1 class="text-2xl font-bold tracking-tight">Edit State</h1>
-            <p class="text-muted-foreground text-sm">Update geographic information for <span class="font-mono font-bold text-foreground">@stateCode</span>.</p>
+        <div class="text-center">
+            <h1 class="text-4xl font-black text-base-content tracking-tight">Edit State</h1>
+            <p class="text-base-content/60 mt-2 font-medium">Update details for <span class="font-mono font-bold text-primary">@stateCode</span>.</p>
         </div>
 
-        <UiCard>
+        <UiCard shadow="sm">
             <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
                 <DataAnnotationsValidator />
                 
-                <div class="p-6 space-y-6">
-                    <!-- Inputs Group -->
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="space-y-2">
-                            <UiLabel>State Code</UiLabel>
-                            <div class="ui-input bg-muted/50 text-muted-foreground cursor-not-allowed select-none flex items-center px-3 h-10 rounded-md border border-input text-sm font-mono">
-                                @_model.StateCode
-                            </div>
+                <div class="p-8 space-y-6">
+                    <div class="form-control w-full">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">State Code</span></label>
+                        <div class="input input-bordered bg-base-200/50 text-base-content/40 cursor-not-allowed flex items-center px-4 font-mono font-bold">
+                            @_model.StateCode
                         </div>
+                    </div>
 
-                        <div class="space-y-2">
-                            <UiLabel>State Name</UiLabel>
-                            <InputText @bind-Value="_model.StateName" 
-                                       class="ui-input" 
-                                       placeholder="e.g. Yangon" />
-                            <ValidationMessage For="@(() => _model.StateName)" class="text-[10px] text-destructive font-medium" />
-                        </div>
+                    <div class="form-control w-full">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">State Name</span></label>
+                        <InputText @bind-Value="_model.StateName" 
+                                   class="input input-bordered focus:input-primary transition-all font-bold" 
+                                   placeholder="e.g. Yangon" />
+                        <ValidationMessage For="@(() => _model.StateName)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end gap-3 p-6 pt-0">
-                    <UiButton Type="button" Variant="UiButtonVariant.Ghost" OnClick="@(() => NavigationManager.NavigateTo("/general-setup/state"))">
+                <div class="p-8 pt-0 flex items-center justify-end gap-4">
+                    <button type="button" class="btn btn-ghost" @onclick="@(() => NavigationManager.NavigateTo("/general-setup/state"))">
                         Cancel
-                    </UiButton>
-                    <UiButton Type="submit" Variant="UiButtonVariant.Default">
+                    </button>
+                    <button type="submit" class="btn btn-primary shadow-lg shadow-primary/20">
                         Save Changes
-                    </UiButton>
+                    </button>
                 </div>
             </EditForm>
         </UiCard>

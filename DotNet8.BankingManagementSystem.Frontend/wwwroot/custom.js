@@ -35,7 +35,7 @@
         return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     };
 
-    const primary = normalizeHex(getCssVar('--color-primary-600', '#7c3aed'), '#7c3aed');
+    const primary = normalizeHex(getCssVar('--color-primary-600', '#9333EA'), '#9333EA');
 
     Notiflix.Loading.init({
         backgroundColor: rgba(primary, 0.15),

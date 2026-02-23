@@ -1,22 +1,24 @@
-﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Services;
+﻿
+
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Services;
 
 public class LocalStorageService
 {
-    private readonly ILocalStorageService _localStorageService;
+    private readonly IndexedDbService _indexedDbService;
 
-    public LocalStorageService(ILocalStorageService localStorageService)
+    public LocalStorageService(IndexedDbService indexedDbService)
     {
-        _localStorageService = localStorageService;
+        _indexedDbService = indexedDbService;
     }
 
     public async Task<List<T>> GetList<T>(string keyName)
     {
-        var result = await _localStorageService.GetItemAsync<List<T>>(keyName);
-        return result ?? [];
+        return await _indexedDbService.GetObjectsAsync<T>(keyName);
     }
 
     public async Task SetList<T>(string keyName, List<T> lst)
     {
-        await _localStorageService.SetItemAsync(keyName, lst);
+        await _indexedDbService.ClearStoreAsync(keyName);
+        await _indexedDbService.AddObjectsAsync(keyName, lst);
     }
 }

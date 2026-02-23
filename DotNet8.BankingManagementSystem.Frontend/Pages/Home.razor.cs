@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Components;
-using DotNet8.BankingManagementSystem.Frontend.Api.Features;
+using DotNet8.BankingManagementSystem.Frontend.Features;
 using DotNet8.BankingManagementSystem.Models.Account;
 using DotNet8.BankingManagementSystem.Models.TransactionHistory;
+using DotNet8.BankingManagementSystem.Models.Bank;
+using DotNet8.BankingManagementSystem.Models.Branch;
 
 namespace DotNet8.BankingManagementSystem.Frontend.Pages;
 
@@ -14,8 +16,45 @@ public partial class Home : ComponentBase
     private List<TransactionHistoryModel> RecentTransactions { get; set; } = new();
     private bool IsLoading { get; set; } = true;
 
+    private List<BankModel> Banks { get; set; } = new();
+    private List<BranchModel> Branches { get; set; } = new();
+    private string? SelectedBankCode { get; set; }
+    private string? SelectedBranchCode { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
+        await LoadInitialData();
+        await LoadDashboardData();
+    }
+
+    private async Task LoadInitialData()
+    {
+        var bankResponse = await ApiService.GetBanks();
+        if (bankResponse.Response.IsSuccess)
+        {
+            Banks = bankResponse.Data;
+        }
+    }
+
+    private async Task OnBankChanged(ChangeEventArgs e)
+    {
+        SelectedBankCode = e.Value?.ToString();
+        SelectedBranchCode = null;
+        Branches.Clear();
+        if (!string.IsNullOrEmpty(SelectedBankCode))
+        {
+            var branchResponse = await ApiService.GetBranchesByBankCode(SelectedBankCode);
+            if (branchResponse.Response.IsSuccess)
+            {
+                Branches = branchResponse.Data;
+            }
+        }
+        await LoadDashboardData();
+    }
+
+    private async Task OnBranchChanged(ChangeEventArgs e)
+    {
+        SelectedBranchCode = e.Value?.ToString();
         await LoadDashboardData();
     }
 
@@ -25,9 +64,7 @@ public partial class Home : ComponentBase
         {
             IsLoading = true;
             
-            // In a real app, we might have a dedicated Dashboard API.
-            // For now, we aggregate from existing endpoints.
-            var accountsResponse = await ApiService.GetAccounts();
+            var accountsResponse = await ApiService.GetAccountList(0, 0, SelectedBankCode, SelectedBranchCode);
             if (accountsResponse?.Data != null)
             {
                 TotalAccounts = accountsResponse.Data.Count;
@@ -35,11 +72,24 @@ public partial class Home : ComponentBase
                 TotalCustomers = accountsResponse.Data.Select(x => x.CustomerCode).Distinct().Count();
             }
 
-            var transactionsResponse = await ApiService.TransactionHistory(1, 5);
+            var requestModel = new TransactionHistorySearchModel
+            {
+                PageNo = 1,
+                PageSize = 5,
+                BankCode = SelectedBankCode,
+                BranchCode = SelectedBranchCode,
+                IsAll = false // Today by default
+            };
+            var transactionsResponse = await ApiService.TransactionHistoryWithDateRange(requestModel);
             if (transactionsResponse?.Data != null)
             {
                 RecentTransactions = transactionsResponse.Data;
                 RecentTransactionsCount = RecentTransactions.Count;
+            }
+            else
+            {
+                RecentTransactions = new();
+                RecentTransactionsCount = 0;
             }
         }
         catch (Exception ex)

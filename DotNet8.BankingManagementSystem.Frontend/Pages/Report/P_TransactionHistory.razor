@@ -6,58 +6,85 @@
 
 @if (_model is not null && _model.Data is not null)
 {
-    <div class="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
-        <UiPageHeader Title="Transaction History" Subtitle="Review all financial movements across accounts within a selected period.">
-            <Actions>
-                <div class="flex items-center gap-2">
-                    <span class="ui-badge ui-badge-secondary text-[10px] font-bold uppercase tracking-tight">
-                        <i class="fa-solid fa-file-invoice mr-1.5 opacity-70"></i>
-                        Report
-                    </span>
-                </div>
-            </Actions>
-        </UiPageHeader>
+    <div class="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <h1 class="text-4xl font-black text-base-content tracking-tight">Transaction History</h1>
+                <p class="text-base-content/60 mt-1 font-medium">Detailed audit log of all financial movements.</p>
+            </div>
+            <div class="badge badge-secondary badge-outline gap-2 p-4 font-black uppercase tracking-widest text-[10px]">
+                <i class="fa-solid fa-file-invoice opacity-70 border rounded-full p-1"></i>
+                Ledger Report
+            </div>
+        </div>
 
         <UiCard>
-            <div class="p-6 border-b border-border bg-muted/5">
-                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 items-end">
-                    <div class="space-y-2">
-                        <UiLabel>Start Date</UiLabel>
+            <div class="p-6 bg-base-200/50">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 items-end">
+                    <div class="form-control">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Bank</span></label>
+                        <select class="select select-bordered select-sm w-full" @onchange="OnBankChanged">
+                            <option value="">All Banks</option>
+                            @foreach (var bank in Banks)
+                            {
+                                <option value="@bank.BankCode">@bank.BankName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Branch</span></label>
+                        <select class="select select-bordered select-sm w-full @(string.IsNullOrEmpty(bankCode) ? "opacity-50" : "")" 
+                                @bind="branchCode" disabled="@(string.IsNullOrEmpty(bankCode))">
+                            <option value="">All Branches</option>
+                            @foreach (var branch in Branches)
+                            {
+                                <option value="@branch.BranchCode">@branch.BranchName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Start Date</span></label>
                         <input type="date" @bind-value="fromDate" 
-                               class="ui-input h-10" />
+                               class="input input-bordered input-sm w-full @(isAll ? "opacity-50" : "")" disabled="@isAll" />
                     </div>
-                    <div class="space-y-2">
-                        <UiLabel>End Date</UiLabel>
+                    <div class="form-control">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">End Date</span></label>
                         <input type="date" @bind-value="toDate" 
-                               class="ui-input h-10" />
+                               class="input input-bordered input-sm w-full @(isAll ? "opacity-50" : "")" disabled="@isAll" />
                     </div>
-                    <div class="space-y-2">
-                        <UiLabel>Transaction Type</UiLabel>
-                        <select class="ui-input h-10" @bind="transactionType">
+                    <div class="form-control">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Type</span></label>
+                        <select class="select select-bordered select-sm w-full" @bind="transactionType">
                             <option value="">All Types</option>
                             <option value="Deposit">Deposit</option>
                             <option value="Withdraw">Withdraw</option>
                             <option value="Transfer">Transfer</option>
                         </select>
                     </div>
-                    <div class="lg:col-span-2 flex items-end">
-                        <UiButton Variant="UiButtonVariant.Default" Size="UiButtonSize.Default" Class="w-full md:w-auto" OnClick="Search">
-                            <i class="fa-solid fa-magnifying-glass mr-2 opacity-70"></i>
-                            Search History
-                        </UiButton>
+                    <div class="flex flex-col gap-2">
+                        <div class="form-control">
+                            <label class="label cursor-pointer justify-start gap-3 p-0 mb-2">
+                                <input type="checkbox" @bind="isAll" class="checkbox checkbox-primary checkbox-xs" />
+                                <span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Show All</span>
+                            </label>
+                        </div>
+                        <button class="btn btn-primary btn-sm w-full shadow-lg shadow-primary/20" @onclick="Search">
+                            <i class="fa-solid fa-magnifying-glass mr-2 text-[10px]"></i>
+                            Find
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="p-0 overflow-auto">
-                <table class="ui-table">
-                    <thead class="ui-table-header">
-                        <tr class="ui-table-row">
-                            <th class="ui-table-head w-16 text-center">#</th>
-                            <th class="ui-table-head">From Account</th>
-                            <th class="ui-table-head">To Account</th>
-                            <th class="ui-table-head">Date & Time</th>
-                            <th class="ui-table-head text-right pr-6">Amount (MMK)</th>
+            <div class="overflow-x-auto">
+                <table class="table table-zebra table-md">
+                    <thead>
+                        <tr class="text-[10px] uppercase tracking-widest font-black opacity-40 bg-base-200/30">
+                            <th class="w-16 text-center">No.</th>
+                            <th>Origin</th>
+                            <th>Destination</th>
+                            <th>Timestamp</th>
+                            <th class="text-right">Settlement (MMK)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,28 +96,28 @@
                             {
                                 rowNo += ((_model.PageSetting.PageNo - 1) * _model.PageSetting.PageSize);
                             }
-                            <tr class="ui-table-row group">
-                                <td class="ui-table-cell text-center text-xs text-muted-foreground font-mono">@rowNo</td>
-                                <td class="ui-table-cell">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-1.5 h-1.5 rounded-full bg-destructive/50"></div>
-                                        <span class="text-xs font-bold font-mono">@item.FromAccountNo</span>
+                            <tr class="hover group">
+                                <td class="text-center opacity-40 font-mono text-xs">@rowNo.ToString("D2")</td>
+                                <td>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-error/40"></div>
+                                        <span class="text-sm font-bold font-mono text-primary tracking-tight">@item.FromAccountNo</span>
                                     </div>
                                 </td>
-                                <td class="ui-table-cell">
-                                    <div class="flex items-center gap-2">
-                                        <div class="w-1.5 h-1.5 rounded-full bg-emerald-500/50"></div>
-                                        <span class="text-xs font-bold font-mono">@item.ToAccountNo</span>
+                                <td>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-success/40"></div>
+                                        <span class="text-sm font-bold font-mono text-secondary tracking-tight">@item.ToAccountNo</span>
                                     </div>
                                 </td>
-                                <td class="ui-table-cell">
+                                <td>
                                     <div class="flex flex-col">
-                                        <span class="text-xs font-medium text-slate-700">@item.TransactionDate.ToString("dd MMM yyyy")</span>
-                                        <span class="text-[10px] text-muted-foreground font-bold tracking-tight">@item.TransactionDate.ToString("hh:mm tt")</span>
+                                        <span class="text-xs font-bold font-mono">@item.TransactionDate.ToString("dd MMM yyyy")</span>
+                                        <span class="text-[10px] opacity-40 font-bold uppercase">@item.TransactionDate.ToString("hh:mm tt")</span>
                                     </div>
                                 </td>
-                                <td class="ui-table-cell text-right pr-6">
-                                    <span class="text-xs font-bold font-mono tabular-nums">@item.Amount.ToString("N0")</span>
+                                <td class="text-right font-mono font-black text-sm">
+                                    @item.Amount.ToString("N0")
                                 </td>
                             </tr>
                         }
@@ -100,20 +127,23 @@
 
             @if (!_model.Data.Any())
             {
-                <div class="p-12 text-center flex flex-col items-center justify-center">
-                    <div class="inline-flex items-center justify-center p-4 bg-muted/50 text-muted-foreground rounded-full mb-4">
-                        <i class="fa-solid fa-receipt text-2xl opacity-20"></i>
+                <div class="py-32 flex flex-col items-center justify-center bg-base-200/10">
+                    <div class="indicator">
+                        <span class="indicator-item badge badge-primary">!</span> 
+                        <div class="grid w-20 h-20 bg-base-300 place-items-center rounded-2xl">
+                            <i class="fa-solid fa-receipt text-3xl opacity-20"></i>
+                        </div>
                     </div>
-                    <h3 class="text-sm font-bold">No transactions found</h3>
-                    <p class="text-[11px] text-muted-foreground max-w-[200px] mx-auto mt-1">Try adjusting your date range or filters to see results.</p>
+                    <h3 class="mt-6 text-xl font-black uppercase tracking-widest opacity-40">Filtered Zero</h3>
+                    <p class="text-xs opacity-60 font-medium mt-2">Adjust your filters to locate transactions.</p>
                 </div>
             }
 
             @if (_model.PageSetting is not null)
             {
-                <div class="p-4 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4 bg-muted/10">
-                    <div class="text-[11px] text-muted-foreground font-medium">
-                        Showing page <span class="text-foreground font-bold">@_model.PageSetting.PageNo</span> of <span class="text-foreground font-bold">@_model.PageSetting.PageCount</span>
+                <div class="p-6 bg-base-200/30 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="text-[10px] font-black uppercase tracking-widest opacity-40">
+                        Page <span class="text-base-content opacity-100">@_model.PageSetting.PageNo</span> of <span class="text-base-content opacity-100">@_model.PageSetting.PageCount</span>
                     </div>
                     <UiPagination PageNo="@(_model.PageSetting.PageNo)" 
                                   PageCount="@(_model.PageSetting.PageCount)" 

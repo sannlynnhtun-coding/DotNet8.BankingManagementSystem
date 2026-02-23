@@ -24,10 +24,22 @@ public class AccountService
 
     #region GetAccountList
 
-    public async Task<AccountListResponseModel> GetAccountList(int pageNo = 1, int pageSize = 5)
+    public async Task<AccountListResponseModel> GetAccountList(int pageNo = 1, int pageSize = 5, string? bankCode = null, string? branchCode = null)
     {
         AccountListResponseModel model = new AccountListResponseModel();
         var query = await _localStorageService.GetList<TblAccount>(EnumService.Tbl_Account.ToString());
+        
+        if (!string.IsNullOrEmpty(branchCode))
+        {
+            query = query.Where(x => x.BranchCode == branchCode).ToList();
+        }
+        else if (!string.IsNullOrEmpty(bankCode))
+        {
+            var branches = await _localStorageService.GetList<TblBranch>(EnumService.Tbl_Branch.GetKeyName());
+            var branchCodes = branches.Where(b => b.BankCode == bankCode).Select(b => b.BranchCode).ToList();
+            query = query.Where(x => branchCodes.Contains(x.BranchCode)).ToList();
+        }
+
         if (pageNo == 0)
         {
             model = new AccountListResponseModel

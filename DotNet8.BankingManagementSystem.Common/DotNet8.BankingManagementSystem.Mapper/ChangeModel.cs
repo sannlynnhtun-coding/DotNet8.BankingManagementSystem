@@ -6,6 +6,8 @@ using DotNet8.BankingManagementSystem.Models.State;
 using DotNet8.BankingManagementSystem.Models.TownShip;
 using DotNet8.BankingManagementSystem.Models.TransactionHistory;
 using DotNet8.BankingManagementSystem.Models.Users;
+using DotNet8.BankingManagementSystem.Models.Bank;
+using DotNet8.BankingManagementSystem.Models.Branch;
 
 namespace DotNet8.BankingManagementSystem.Mapper;
 
@@ -63,7 +65,58 @@ public static class ChangeModel
 
     #endregion
 
-    #region Users
+    #region Bank
+
+    public static BankModel Change(this TblBank item)
+    {
+        return new BankModel()
+        {
+            BankId = item.BankId,
+            BankCode = item.BankCode,
+            BankName = item.BankName,
+        };
+    }
+
+    public static TblBank Change(this BankRequestModel item)
+    {
+        return new TblBank()
+        {
+            BankCode = item.BankCode,
+            BankName = item.BankName,
+        };
+    }
+
+    #endregion
+
+    #region Branch
+
+    public static BranchModel Change(this TblBranch item)
+    {
+        return new BranchModel()
+        {
+            BranchId = item.BranchId,
+            BranchCode = item.BranchCode,
+            BranchName = item.BranchName,
+            BankCode = item.BankCode,
+            StateCode = item.StateCode,
+            TownshipCode = item.TownshipCode,
+        };
+    }
+
+    public static TblBranch Change(this BranchRequestModel item)
+    {
+        return new TblBranch()
+        {
+            BranchId = 0,
+            BranchCode = item.BranchCode,
+            BranchName = item.BranchName,
+            BankCode = item.BankCode,
+            StateCode = item.StateCode,
+            TownshipCode = item.TownshipCode,
+        };
+    }
+
+    #endregion
 
     public static UserModel Change(this TblUser item)
     {
@@ -80,6 +133,7 @@ public static class ChangeModel
             Nrc = item.Nrc,
             StateCode = item.StateCode,
             TownshipCode = item.TownshipCode,
+            BranchCode = item.BranchCode,
         };
         return model;
     }
@@ -108,11 +162,11 @@ public static class ChangeModel
             Address = item.Address,
             MobileNo = item.MobileNo,
             Nrc = item.Nrc,
-            StateCode = item.StateCode,
-            TownshipCode = item.TownshipCode
+            StateCode = item.StateCode!,
+            TownshipCode = item.TownshipCode!,
+            BranchCode = item.BranchCode!
         };
     }
-    #endregion
 
     #region Account
 
@@ -122,6 +176,7 @@ public static class ChangeModel
         {
             CustomerCode = item.CustomerCode,
             CustomerName = item.CustomerName,
+            BranchCode = item.BranchCode,
             Balance = item.Balance
         };
     }
@@ -133,6 +188,7 @@ public static class ChangeModel
             CustomerCode = item.CustomerCode,
             CustomerName = item.CustomerName,
             AccountNo = item.AccountNo,
+            BranchCode = item.BranchCode,
             Balance = item.Balance,
             AccountId = item.AccountId
         };

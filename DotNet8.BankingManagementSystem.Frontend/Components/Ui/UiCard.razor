@@ -7,7 +7,10 @@
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string? Class { get; set; }
+    [Parameter] public string? shadow { get; set; }
 
-    private string ComputedClass => ClassNames.Merge("ui-card", Class);
+    private string ComputedClass => ClassNames.Merge("card card-bordered bg-base-100", 
+        !string.IsNullOrEmpty(shadow) ? $"shadow-{shadow}" : "shadow-sm", 
+        Class);
 }
 

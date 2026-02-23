@@ -1,67 +1,70 @@
 @page "/transaction/deposit"
 
 <div class="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-    <div class="space-y-2">
-        <h1 class="text-2xl font-bold tracking-tight">Deposit Funds</h1>
-        <p class="text-muted-foreground text-sm">Add balance to a customer account securely.</p>
+    <div class="text-center">
+        <h1 class="text-4xl font-black text-base-content tracking-tight text-success">Deposit</h1>
+        <p class="text-base-content/60 mt-2 font-medium">Deposit funds into a verified account.</p>
     </div>
 
     <UiCard>
         <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
             <DataAnnotationsValidator />
             
-            <div class="p-6 space-y-6">
-                <!-- Inputs Group -->
-                <div class="space-y-4">
-                    <div class="space-y-2">
-                        <UiLabel>Account Number</UiLabel>
-                        <InputSelect @bind-Value="_model.AccountNo" class="ui-input">
+            <div class="p-8 space-y-8">
+                <div class="space-y-6">
+                    <div class="form-control w-full">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Account</span></label>
+                        <InputSelect @bind-Value="_model.AccountNo" class="select select-bordered focus:select-success transition-all font-mono font-bold">
                             <option value="">Select account to deposit into</option>
                             @if (_accountListResponseModel is not null && _accountListResponseModel.Data is not null)
                             {
-                                string[] userCodes = _accountListResponseModel!.Data.Select(x => x.CustomerCode).ToArray();
-                                @foreach (var item in _accountListResponseModel.Data
-                                    .Where(x => !userCodes.Contains(x.AccountNo))
-                                    .OrderBy(x => x.AccountId))
+                                @foreach (var item in _accountListResponseModel.Data.OrderBy(x => x.AccountId))
                                 {
-                                    <option value="@item.AccountNo">
-                                        @item.AccountNo (@item.CustomerName)
-                                    </option>
+                                    <option value="@item.AccountNo">@item.AccountNo (@item.CustomerName)</option>
                                 }
                             }
                         </InputSelect>
+                        
                         @if (!string.IsNullOrEmpty(_model.AccountNo))
                         {
-                            <div class="mt-2 flex items-center gap-2 text-[11px] font-semibold text-muted-foreground animate-in fade-in slide-in-from-top-1 duration-300">
-                                <i class="fa-solid fa-wallet opacity-50"></i>
-                                Current Balance: <span class="text-foreground font-mono">@(GetAccountBalance().ToString("N0")) MMK</span>
+                            <div class="mt-2 flex items-center gap-2 p-3 bg-base-200/50 rounded-lg animate-in fade-in slide-in-from-top-1 duration-300">
+                                <div class="w-8 h-8 rounded-lg bg-success/10 text-success flex items-center justify-center">
+                                    <i class="fa-solid fa-wallet text-[10px]"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] font-black uppercase tracking-widest opacity-40">Current Liquidity</p>
+                                    <p class="text-xs font-mono font-black">@(GetAccountBalance().ToString("N0")) <span class="opacity-40">MMK</span></p>
+                                </div>
                             </div>
                         }
-                        <ValidationMessage For="@(() => _model.AccountNo)" class="text-[10px] text-destructive font-medium" />
+                        <ValidationMessage For="@(() => _model.AccountNo)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                     </div>
 
-                    <div class="space-y-2">
-                        <UiLabel>Deposit Amount (MMK)</UiLabel>
+                    <div class="form-control w-full">
+                        <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Amount (MMK)</span></label>
                         <InputNumber @bind-Value="_model.Balance" 
-                                     class="ui-input" 
+                                     class="input input-bordered focus:input-success transition-all font-mono font-bold" 
                                      placeholder="0.00" />
-                        <ValidationMessage For="@(() => _model.Balance)" class="text-[10px] text-destructive font-medium" />
+                        <ValidationMessage For="@(() => _model.Balance)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                     </div>
                 </div>
 
-                <UiAlert Variant="UiAlertVariant.Info" Class="bg-emerald-500/5 border-emerald-500/10">
-                    <i class="fa-solid fa-shield-halved text-emerald-600"></i>
-                    <span class="text-xs font-medium text-emerald-900/80">Funds will be available immediately after processing. Verification may be required for large amounts.</span>
-                </UiAlert>
+                <div class="alert alert-success shadow-sm bg-success/5 border-success/20">
+                    <i class="fa-solid fa-shield-check text-success"></i>
+                    <div>
+                        <h4 class="font-bold text-xs uppercase tracking-wider">Security</h4>
+                        <p class="text-[10px] opacity-70">Funds will be deposited instantly after authorization.</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="flex items-center justify-end gap-3 p-6 pt-0">
-                <UiButton Type="button" Variant="UiButtonVariant.Ghost" OnClick="@(() => NavigationManager.NavigateTo("/report/transaction-history"))">
+            <div class="p-8 pt-0 flex items-center justify-end gap-4">
+                <button type="button" class="btn btn-ghost" @onclick="@(() => NavigationManager.NavigateTo("/report/transaction-history"))">
                     Cancel
-                </UiButton>
-                <UiButton Type="submit" Variant="UiButtonVariant.Default" Class="bg-emerald-600 hover:bg-emerald-700 text-white border-0">
-                    Confirm Deposit
-                </UiButton>
+                </button>
+                <button type="submit" class="btn btn-success text-success-content shadow-lg shadow-success/20">
+                    Submit Deposit
+                </button>
             </div>
         </EditForm>
     </UiCard>

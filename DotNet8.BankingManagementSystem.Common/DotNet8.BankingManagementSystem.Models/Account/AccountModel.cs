@@ -8,6 +8,6 @@ public class AccountModel
 
     public string CustomerCode { get; set; } = null!;
     public string? CustomerName { get; set; }
-
+    public string BranchCode { get; set; } = null!;
     public decimal Balance { get; set; }
 }

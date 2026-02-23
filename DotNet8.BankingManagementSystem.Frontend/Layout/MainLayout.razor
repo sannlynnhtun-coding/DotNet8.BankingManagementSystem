@@ -1,101 +1,92 @@
 @inherits LayoutComponentBase
+@inject IndexedDbService IndexedDbService
 
-<div class="min-h-screen flex bg-slate-50">
-    <!-- Desktop Sidebar -->
-    <aside class="hidden lg:flex flex-col w-72 bg-white border-r border-slate-200">
-        <div class="h-16 flex items-center px-6 border-b border-slate-200 bg-white">
-            <div class="flex items-center gap-3">
-                <div class="bg-primary-600 p-2 rounded-lg">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+<div class="drawer lg:drawer-open">
+    <input id="main-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content flex flex-col min-h-screen bg-base-200">
+        <!-- Navbar -->
+        <header class="navbar bg-base-100 shadow-sm border-b border-base-300 top-0 z-30 sticky">
+            <div class="flex-none lg:hidden">
+                <label for="main-drawer" class="btn btn-square btn-ghost">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
-                </div>
-                <span class="text-xl font-bold text-slate-900 tracking-tight">IBanking</span>
+                </label>
             </div>
-        </div>
-
-        <NavMenu IsSetupOpen="isSetupOpen"
-                 IsUsersOpen="isUsersOpen"
-                 IsSettingOpen="isSettingOpen"
-                 ToggleSetup="ToggleSetup"
-                 ToggleUsers="ToggleUsers"
-                 ToggleSetting="ToggleSetting" />
-
-        <div class="p-4 border-t border-slate-200">
-            <div class="flex items-center gap-3 px-3 py-2 bg-slate-50/50 rounded-lg">
-                <div class="w-9 h-9 rounded-md bg-primary text-white font-bold text-xs flex items-center justify-center border border-primary-700 shadow-sm">
-                    @UserInitials
-                </div>
-                <div class="flex-1 overflow-hidden">
-                    <p class="text-xs font-bold text-slate-900 truncate">@UserDisplayName</p>
-                    <p class="text-[10px] text-slate-500 truncate font-medium">@UserRoleName</p>
-                </div>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
-    <div class="flex-1 flex flex-col min-h-screen">
-        <!-- Header -->
-        <header class="h-14 flex items-center justify-between px-6 bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30">
-            <div class="flex items-center gap-4 lg:hidden">
-                <button @onclick="ToggleMobileMenu" class="p-2 -ml-2 text-slate-500 hover:text-primary focus:outline-none">
-                    <i class="fa-solid fa-bars text-lg"></i>
-                </button>
-                <span class="text-lg font-bold text-slate-900">IBanking</span>
-            </div>
-
-            <!-- Search Area -->
-            <div class="hidden md:flex items-center flex-1 max-w-xl">
-                <div class="relative w-full group">
+            <div class="flex-1 px-4 md:px-6">
+                <div class="hidden md:flex items-center w-full max-w-md relative group">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class="fa-solid fa-magnifying-glass text-slate-400 group-focus-within:text-primary transition-colors text-xs"></i>
+                        <i class="fa-solid fa-magnifying-glass text-base-content/40 group-focus-within:text-primary transition-colors text-xs"></i>
                     </span>
-                    <input type="text" 
-                           class="block w-full pl-9 pr-4 py-1.5 bg-slate-50 border border-slate-200 rounded-md text-sm placeholder-slate-400 focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200" 
-                           placeholder="Search infrastructure..."/>
+                    <input type="text"
+                           class="input input-bordered input-sm w-full pl-9 focus:input-primary transition-all"
+                           placeholder="Search everything..." />
                 </div>
             </div>
-
-            <!-- Right Actions -->
-            <div class="flex items-center gap-3">
-                <button class="p-2 text-slate-500 hover:text-primary hover:bg-slate-50 rounded-md transition-all h-9 w-9 flex items-center justify-center">
-                    <i class="fa-regular fa-bell text-base"></i>
+            <div class="flex-none gap-2">
+                <!-- Notifications -->
+                <button class="btn btn-ghost btn-circle">
+                    <div class="indicator">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <span class="badge badge-xs badge-primary indicator-item"></span>
+                    </div>
                 </button>
-                <div class="h-6 w-px bg-slate-200 mx-1 hidden sm:block"></div>
-                <div class="flex items-center gap-2 group cursor-pointer pl-1">
-                    <div class="hidden sm:block text-right">
-                        <p class="text-[11px] font-bold text-slate-900 group-hover:text-primary transition-colors">@UserDisplayName</p>
-                        <p class="text-[9px] text-slate-500 font-medium">@UserRoleName</p>
+
+                <!-- User Dropdown -->
+                <div class="dropdown dropdown-end">
+                    <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar border border-base-300">
+                        <div class="w-10 rounded-full bg-primary text-primary-content flex items-center justify-center font-bold">
+                            @UserInitials
+                        </div>
                     </div>
-                    <div class="w-8 h-8 rounded-md bg-primary text-white font-bold text-[10px] flex items-center justify-center shadow-sm">
-                        @UserInitials
-                    </div>
+                    <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border border-base-300">
+                        <li>
+                            <div class="flex flex-col items-start px-4 py-2 border-b border-base-200 mb-2">
+                                <p class="text-sm font-bold">@UserDisplayName</p>
+                                <p class="text-xs text-base-content/60">@UserRoleName</p>
+                            </div>
+                        </li>
+                        <li><a class="justify-between">Profile<span class="badge">New</span></a></li>
+                        <li><a>Settings</a></li>
+                        <li><a class="text-error">Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </header>
 
-        <!-- Page Content -->
-        <main class="flex-1 p-6">
+        <!-- Main Page Content -->
+        <main class="flex-1 p-6 md:p-8">
             <div class="max-w-7xl mx-auto">
                 @Body
             </div>
         </main>
-    </div>
-</div>
 
-    <!-- Mobile Menu Overlay -->
-    @if (isMobileMenuOpen)
-    {
-        <div class="fixed inset-0 z-50 lg:hidden">
-            <div class="fixed inset-0 bg-slate-900/20 backdrop-blur-[2px]" @onclick="ToggleMobileMenu"></div>
-            <div class="fixed inset-y-0 left-0 w-72 bg-white shadow-xl flex flex-col animate-in slide-in-from-left duration-300">
-                <div class="h-14 flex items-center px-6 border-b border-slate-200">
-                    <span class="text-lg font-bold text-slate-900">IBanking</span>
-                    <button @onclick="ToggleMobileMenu" class="ml-auto p-2 text-slate-400 hover:text-slate-600">
-                        <i class="fa-solid fa-xmark"></i>
-                    </button>
-                </div>
+        <!-- Footer -->
+        <footer class="footer footer-center p-4 bg-base-100 text-base-content border-t border-base-300">
+            <aside>
+                <p>Copyright © @DateTime.Now.Year - DotNet8 Banking Management System</p>
+            </aside>
+        </footer>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="drawer-side z-40">
+        <label for="main-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+        <div class="flex flex-col w-72 min-h-full bg-base-100 border-r border-base-300 shadow-2xl">
+            <div class="h-16 flex items-center px-4 md:px-6 border-b border-base-300 bg-base-100 sticky top-0 z-10">
+                <a href="/" class="flex items-center gap-3 active:scale-95 transition-transform">
+                    <div class="bg-primary p-2 rounded-lg text-primary-content shadow-lg shadow-primary/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+                        </svg>
+                    </div>
+                    <span class="text-xl font-black text-base-content tracking-tight uppercase">IBanking</span>
+                </a>
+            </div>
+
+            <div class="flex-1 overflow-y-auto slim-scrollbar">
                 <NavMenu IsSetupOpen="isSetupOpen"
                          IsUsersOpen="isUsersOpen"
                          IsSettingOpen="isSettingOpen"
@@ -104,19 +95,37 @@
                          ToggleSetting="ToggleSetting"
                          OnNavigate="CloseMobileMenu" />
             </div>
+
+            <div class="p-4 border-t border-base-300 bg-base-200/50">
+                <div class="flex items-center gap-3 px-3 py-3 rounded-xl">
+                    <div class="avatar placeholder">
+                        <div class="bg-primary text-primary-content rounded-lg w-10">
+                            <span class="text-xs font-bold">@UserInitials</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 overflow-hidden">
+                        <p class="text-xs font-bold truncate">@UserDisplayName</p>
+                        <p class="text-[10px] opacity-70 truncate font-semibold">@UserRoleName</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    }
+    </div>
+</div>
+
 @code {
     private bool isSetupOpen = false;
     private bool isUsersOpen = false;
     private bool isSettingOpen = false;
-    private bool isMobileMenuOpen = false;
 
     private void ToggleSetup() => isSetupOpen = !isSetupOpen;
     private void ToggleUsers() => isUsersOpen = !isUsersOpen;
     private void ToggleSetting() => isSettingOpen = !isSettingOpen;
-    private void ToggleMobileMenu() => isMobileMenuOpen = !isMobileMenuOpen;
-    private void CloseMobileMenu() => isMobileMenuOpen = false;
+    private void CloseMobileMenu()
+    {
+        // This is handled by daisyUI checkbox on mobile usually, 
+        // but we might want to manually close it too.
+    }
 
     private string UserDisplayName { get; set; } = "Sann Lynn Htun";
     private string UserRoleName { get; set; } = "Administrator";
@@ -143,8 +152,7 @@
     {
         if (firstRender)
         {
-            // await InjectService.LoadJavaScript();
+            await IndexedDbService.InitializeAsync(EnumServiceExtensions.GetStoreNames());
         }
     }
 }
-

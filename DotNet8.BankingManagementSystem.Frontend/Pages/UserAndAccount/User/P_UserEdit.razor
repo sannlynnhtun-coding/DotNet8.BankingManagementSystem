@@ -3,77 +3,79 @@
 @if (_model is not null)
 {
     <div class="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-        <div class="space-y-2">
-            <h1 class="text-2xl font-bold tracking-tight">Edit Customer Profile</h1>
-            <p class="text-muted-foreground text-sm">Update personal information and contact details for <span class="font-mono font-bold text-foreground">@userCode</span>.</p>
+        <div class="text-center">
+            <h1 class="text-4xl font-black text-base-content tracking-tight">Modify Profile</h1>
+            <p class="text-base-content/60 mt-2 font-medium">Updating identity and locale for <span class="font-mono font-bold text-primary">@userCode</span>.</p>
         </div>
 
         <UiCard>
             <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
                 <DataAnnotationsValidator />
                 
-                <div class="p-6 space-y-6">
+                <div class="p-8 space-y-10">
                     <!-- Personal Section -->
-                    <div class="space-y-4">
-                        <div class="pb-2 border-b">
-                            <h4 class="text-sm font-semibold flex items-center gap-2">
-                                <i class="fa-solid fa-id-card text-muted-foreground"></i>
-                                Personal Information
-                            </h4>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                <i class="fa-solid fa-id-card text-xs"></i>
+                            </div>
+                            <h4 class="text-xs font-black uppercase tracking-widest opacity-60">Identity Credentials</h4>
+                            <div class="h-px bg-base-300 flex-1"></div>
                         </div>
                         
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-2">
-                                <UiLabel>Full Name</UiLabel>
-                                <InputText @bind-Value="_model.FullName" class="ui-input" placeholder="e.g. John Doe" />
-                                <ValidationMessage For="@(() => _model.FullName)" class="text-[10px] text-destructive font-medium" />
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Legal Name</span></label>
+                                <InputText @bind-Value="_model.FullName" class="input input-bordered focus:input-primary transition-all font-bold" placeholder="e.g. John Doe" />
+                                <ValidationMessage For="@(() => _model.FullName)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                             </div>
 
-                            <div class="space-y-2">
-                                <UiLabel>User Name</UiLabel>
-                                <InputText @bind-Value="_model.UserName" class="ui-input" placeholder="e.g. johndoe_99" />
-                                <ValidationMessage For="@(() => _model.UserName)" class="text-[10px] text-destructive font-medium" />
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">System Handle</span></label>
+                                <InputText @bind-Value="_model.UserName" class="input input-bordered focus:input-primary transition-all font-bold" placeholder="e.g. johndoe_99" />
+                                <ValidationMessage For="@(() => _model.UserName)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                             </div>
 
-                            <div class="space-y-2 md:col-span-2">
-                                <UiLabel>NRC Number</UiLabel>
-                                <InputText @bind-Value="_model.Nrc" class="ui-input" placeholder="e.g. 12/YAKANA(N)123456" />
-                                <ValidationMessage For="@(() => _model.Nrc)" class="text-[10px] text-destructive font-medium" />
+                            <div class="form-control w-full md:col-span-2">
+                                <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">NRC Number</span></label>
+                                <InputText @bind-Value="_model.Nrc" class="input input-bordered focus:input-primary transition-all font-mono font-bold" placeholder="e.g. 12/YAKANA(N)123456" />
+                                <ValidationMessage For="@(() => _model.Nrc)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                             </div>
                         </div>
                     </div>
 
                     <!-- Contact Section -->
-                    <div class="space-y-4 pt-2">
-                        <div class="pb-2 border-b">
-                            <h4 class="text-sm font-semibold flex items-center gap-2">
-                                <i class="fa-solid fa-address-book text-muted-foreground"></i>
-                                Contact & Location
-                            </h4>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center">
+                                <i class="fa-solid fa-address-book text-xs"></i>
+                            </div>
+                            <h4 class="text-xs font-black uppercase tracking-widest opacity-60">Communication Context</h4>
+                            <div class="h-px bg-base-300 flex-1"></div>
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="space-y-2">
-                                <UiLabel>Email Address</UiLabel>
-                                <InputText @bind-Value="_model.Email" type="email" class="ui-input" placeholder="john@example.com" />
-                                <ValidationMessage For="@(() => _model.Email)" class="text-[10px] text-destructive font-medium" />
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Electronic Mail</span></label>
+                                <InputText @bind-Value="_model.Email" type="email" class="input input-bordered focus:input-primary transition-all font-bold" placeholder="john@example.com" />
+                                <ValidationMessage For="@(() => _model.Email)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                             </div>
 
-                            <div class="space-y-2">
-                                <UiLabel>Mobile Number</UiLabel>
-                                <InputText @bind-Value="_model.MobileNo" class="ui-input" placeholder="09xxxxxxxxx" />
-                                <ValidationMessage For="@(() => _model.MobileNo)" class="text-[10px] text-destructive font-medium" />
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Mobile Contact</span></label>
+                                <InputText @bind-Value="_model.MobileNo" class="input input-bordered focus:input-primary transition-all font-bold" placeholder="09xxxxxxxxx" />
+                                <ValidationMessage For="@(() => _model.MobileNo)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                             </div>
 
-                            <div class="space-y-2 md:col-span-2">
-                                <UiLabel>Home Address</UiLabel>
-                                <InputText @bind-Value="_model.Address" class="ui-input" placeholder="Street, Building, Room..." />
-                                <ValidationMessage For="@(() => _model.Address)" class="text-[10px] text-destructive font-medium" />
+                            <div class="form-control w-full md:col-span-2">
+                                <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Physical Location</span></label>
+                                <InputText @bind-Value="_model.Address" class="input input-bordered focus:input-primary transition-all font-bold" placeholder="Street, Building, Room..." />
+                                <ValidationMessage For="@(() => _model.Address)" class="mt-1 text-[10px] text-error font-bold uppercase" />
                             </div>
 
-                            <div class="space-y-2">
-                                <UiLabel>State / Division</UiLabel>
-                                <select class="ui-input" @onchange="(e) => ChangeState(e.Value?.ToString() ?? string.Empty)">
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">State / Division</span></label>
+                                <select class="select select-bordered focus:select-primary transition-all font-bold" @onchange="(e) => ChangeState(e.Value?.ToString() ?? string.Empty)">
                                     <option value="">Select State</option>
                                     @if (_stateListResponseModel is not null && _stateListResponseModel.Data is not null)
                                     {
@@ -85,9 +87,9 @@
                                 </select>
                             </div>
 
-                            <div class="space-y-2">
-                                <UiLabel>Township</UiLabel>
-                                <InputSelect @bind-Value="@_model.TownshipCode" class="ui-input">
+                            <div class="form-control w-full">
+                                <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Township Entity</span></label>
+                                <InputSelect @bind-Value="@_model.TownshipCode" class="select select-bordered focus:select-primary transition-all font-bold">
                                     <option value="">Select Township</option>
                                     @if (_townshipListResponceModel is not null && _townshipListResponceModel.Data is not null)
                                     {
@@ -102,13 +104,13 @@
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end gap-3 p-6 pt-0">
-                    <UiButton Type="button" Variant="UiButtonVariant.Ghost" OnClick="@(() => InjectService.EnableLoading())">
+                <div class="p-8 pt-0 flex items-center justify-end gap-4">
+                    <button type="button" class="btn btn-ghost" @onclick="@(() => NavigationManager.NavigateTo("/user-and-account/user"))">
                         Cancel
-                    </UiButton>
-                    <UiButton Type="submit" Variant="UiButtonVariant.Default">
-                        Update Profile
-                    </UiButton>
+                    </button>
+                    <button type="submit" class="btn btn-primary shadow-lg shadow-primary/20">
+                        Commit Variations
+                    </button>
                 </div>
             </EditForm>
         </UiCard>

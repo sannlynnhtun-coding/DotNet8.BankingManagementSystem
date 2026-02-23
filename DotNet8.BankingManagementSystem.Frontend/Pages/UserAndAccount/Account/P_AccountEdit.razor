@@ -3,41 +3,49 @@
 @if (_model is not null)
 {
     <div class="max-w-2xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
-        <div class="space-y-2">
-            <h1 class="text-2xl font-bold tracking-tight">Edit Account</h1>
-            <p class="text-muted-foreground text-sm">Modify details for account number <span class="font-mono font-bold text-foreground">@AccountNo</span>.</p>
+        <div class="text-center">
+            <h1 class="text-4xl font-black text-base-content tracking-tight">Modify Account</h1>
+            <p class="text-base-content/60 mt-2 font-medium">Updating ledger details for <span class="font-mono font-bold text-primary">@AccountNo</span>.</p>
         </div>
 
         <UiCard>
             <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
                 <DataAnnotationsValidator />
                 
-                <div class="p-6 space-y-6">
-                    <div class="grid grid-cols-1 gap-4">
-                        <div class="space-y-2">
-                            <UiLabel>Customer Code</UiLabel>
-                            <div class="ui-input bg-muted/50 text-muted-foreground cursor-not-allowed select-none flex items-center px-3 h-10 rounded-md border border-input text-sm">
+                <div class="p-8 space-y-8">
+                    <div class="space-y-6">
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Customer Identity</span></label>
+                            <div class="input input-bordered bg-base-200/50 text-base-content/40 cursor-not-allowed flex items-center px-4 font-mono font-bold text-sm">
                                 @_model.CustomerCode
                             </div>
                         </div>
 
-                        <div class="space-y-2">
-                            <UiLabel>Account Balance (MMK)</UiLabel>
+                        <div class="form-control w-full">
+                            <label class="label"><span class="label-text font-bold text-[10px] uppercase tracking-widest opacity-60">Settlement Balance (MMK)</span></label>
                             <InputNumber @bind-Value="_model.Balance" 
-                                         class="ui-input" 
+                                         class="input input-bordered focus:input-primary transition-all font-mono font-bold" 
                                          placeholder="0.00" />
-                            <ValidationMessage For="@(() => _model.Balance)" class="text-[10px] text-destructive font-medium" />
+                            <ValidationMessage For="@(() => _model.Balance)" class="mt-1 text-[10px] text-error font-bold uppercase" />
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning shadow-sm bg-warning/5 border-warning/20">
+                        <i class="fa-solid fa-triangle-exclamation text-warning"></i>
+                        <div>
+                            <h4 class="font-bold text-xs">Direct Mutation</h4>
+                            <p class="text-[10px] opacity-70">Changes here bypass the transaction engine. Use with extreme caution.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="flex items-center justify-end gap-3 p-6 pt-0">
-                    <UiButton Type="button" Variant="UiButtonVariant.Ghost" OnClick="@(() => NavigationManager.NavigateTo("/user-and-account/account"))">
+                <div class="p-8 pt-0 flex items-center justify-end gap-4">
+                    <button type="button" class="btn btn-ghost" @onclick="@(() => NavigationManager.NavigateTo("/user-and-account/account"))">
                         Cancel
-                    </UiButton>
-                    <UiButton Type="submit" Variant="UiButtonVariant.Default">
-                        Save Changes
-                    </UiButton>
+                    </button>
+                    <button type="submit" class="btn btn-primary shadow-lg shadow-primary/20">
+                        Commit Changes
+                    </button>
                 </div>
             </EditForm>
         </UiCard>

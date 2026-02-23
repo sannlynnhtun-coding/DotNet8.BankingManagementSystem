@@ -1,4 +1,22 @@
-﻿namespace DotNet8.BankingManagementSystem.Frontend.Api.Features;
+﻿using DotNet8.BankingManagementSystem.Frontend.Api.Features.Account;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.AdminUser;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.Bank;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.Branch;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.State;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.Township;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.Transaction;
+using DotNet8.BankingManagementSystem.Frontend.Api.Features.User;
+using DotNet8.BankingManagementSystem.Models.Account;
+using DotNet8.BankingManagementSystem.Models.AdminUser;
+using DotNet8.BankingManagementSystem.Models.Bank;
+using DotNet8.BankingManagementSystem.Models.Branch;
+using DotNet8.BankingManagementSystem.Models.State;
+using DotNet8.BankingManagementSystem.Models.TownShip;
+using DotNet8.BankingManagementSystem.Models.TransactionHistory;
+using DotNet8.BankingManagementSystem.Models.Users;
+using DotNet8.BankingManagementSystem.Shared;
+
+namespace DotNet8.BankingManagementSystem.Frontend.Api.Features;
 
 public class ApiService
 {
@@ -15,6 +33,10 @@ public class ApiService
     private readonly UserService _userService;
     private readonly IAdminUser _adminUserApi;
     private readonly AdminUserService _adminUserService;
+    private readonly BankService _bankService;
+    private readonly BranchService _branchService;
+    private readonly IBankApi _bankApi;
+    private readonly IBranchApi _branchApi;
 
     public ApiService(Config config, AccountService accountService,
         IAccountApi accountApi, IStateApi stateApi,
@@ -22,7 +44,8 @@ public class ApiService
         TownshipService townshipService, ITransactionApi transactionApi,
         TransactionService transactionService, IUserApi userApi,
         UserService userService, IAdminUser adminUser,
-        AdminUserService adminUserService)
+        AdminUserService adminUserService, BankService bankService,
+        BranchService branchService, IBankApi bankApi, IBranchApi branchApi)
     {
         _accountService = accountService;
         _accountApi = accountApi;
@@ -37,6 +60,10 @@ public class ApiService
         _userService = userService;
         _adminUserApi = adminUser;
         _adminUserService = adminUserService;
+        _bankService = bankService;
+        _branchService = branchService;
+        _bankApi = bankApi;
+        _branchApi = branchApi;
     }
 
     #region Account
@@ -48,11 +75,11 @@ public class ApiService
             : await _accountService.GetAccounts();
     }
 
-    public async Task<AccountListResponseModel> GetAccountList(int pageNo = 1, int pageSize = 10)
+    public async Task<AccountListResponseModel> GetAccountList(int pageNo = 1, int pageSize = 10, string? bankCode = null, string? branchCode = null)
     {
         return _enumApiType == EnumApiType.Backend
-            ? await _accountApi.GetAccountList(pageNo, pageSize)
-            : await _accountService.GetAccountList(pageNo, pageSize);
+            ? await _accountApi.GetAccountList(pageNo, pageSize, bankCode, branchCode)
+            : await _accountService.GetAccountList(pageNo, pageSize, bankCode, branchCode);
     }
 
     public async Task<AccountResponseModel> GetAccount(string accountNo)
@@ -322,6 +349,42 @@ public class ApiService
         return _enumApiType == EnumApiType.Backend
             ? await _adminUserApi.DeleteAdminUser(adminUserCode)
             : await _adminUserService.DeleteAdminUser(adminUserCode);
+    }
+
+    #endregion
+
+    #region Bank
+
+    public async Task<BankListResponseModel> GetBanks()
+    {
+        return _enumApiType == EnumApiType.Backend
+            ? await _bankApi.GetBanks()
+            : await _bankService.GetBanks();
+    }
+
+    public async Task<BankResponseModel> GetBankByCode(string bankCode)
+    {
+        return _enumApiType == EnumApiType.Backend
+            ? await _bankApi.GetBankByCode(bankCode)
+            : await _bankService.GetBankByCode(bankCode);
+    }
+
+    #endregion
+
+    #region Branch
+
+    public async Task<BranchListResponseModel> GetBranches()
+    {
+        return _enumApiType == EnumApiType.Backend
+            ? await _branchApi.GetBranches()
+            : await _branchService.GetBranches();
+    }
+
+    public async Task<BranchListResponseModel> GetBranchesByBankCode(string bankCode)
+    {
+        return _enumApiType == EnumApiType.Backend
+            ? await _branchApi.GetBranchesByBankCode(bankCode)
+            : await _branchService.GetBranchesByBankCode(bankCode);
     }
 
     #endregion

@@ -26,26 +26,25 @@ else
     [Parameter] public string? Class { get; set; }
 
     private string ComputedClass => ClassNames.Merge(
-        "ui-btn",
+        "btn",
         Variant switch
         {
-            UiButtonVariant.Default => "ui-btn-primary",
-            UiButtonVariant.Secondary => "ui-btn-secondary",
-            UiButtonVariant.Neutral => "ui-btn-neutral",
-            UiButtonVariant.Destructive => "ui-btn-destructive",
-            UiButtonVariant.Outline => "ui-btn-outline",
-            UiButtonVariant.Ghost => "ui-btn-ghost",
-            UiButtonVariant.Link => "ui-btn-link",
-            _ => "ui-btn-primary"
+            UiButtonVariant.Default => "btn-primary",
+            UiButtonVariant.Secondary => "btn-secondary",
+            UiButtonVariant.Neutral => "btn-neutral",
+            UiButtonVariant.Destructive => "btn-error",
+            UiButtonVariant.Outline => "btn-outline",
+            UiButtonVariant.Ghost => "btn-ghost",
+            UiButtonVariant.Link => "btn-link",
+            _ => "btn-primary"
         },
         Size switch
         {
-            UiButtonSize.Sm => "ui-btn-sm",
-            UiButtonSize.Lg => "ui-btn-lg",
-            UiButtonSize.Icon => "ui-btn-icon",
+            UiButtonSize.Sm => "btn-sm",
+            UiButtonSize.Lg => "btn-lg",
+            UiButtonSize.Icon => "btn-square",
             _ => null
         },
-        Disabled ? "ui-disabled" : null,
         Class
     );
 }
